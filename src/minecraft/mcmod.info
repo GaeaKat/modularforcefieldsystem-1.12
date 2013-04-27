@@ -1,0 +1,24 @@
+[
+{
+  "modid": "ModularForceFieldSystem",
+  "name": "Modular ForceField System V2",
+  "description": "This is a maintained version of Thunderdark's MFFS 2 by Minalien and Searge.",
+  "version": "2.3.0.0.4",
+  "mcversion": "1.5.1",
+  "url": "http://forum.industrial-craft.net/index.php?page=Thread&threadID=9187",
+  "updateUrl": "http://forum.industrial-craft.net/index.php?page=Thread&threadID=9187",
+  "authors": [
+    "Thunderdark",
+    "Searge",
+    "Minalien"
+  ],
+  "credits": "By Thunderdark, Matchlighter, Lightone, mistaqur, Searge, Imalune and Minalien",
+  "logoFile": "",
+  "screenshots": [
+  ],
+  "parent":"",
+  "dependencies": [
+   "mod_IC2"
+  ]
+}
+]

@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+<properties version="1.0">
+    <comment>Deutsch (de_DE) Datei zur Lokalisierung</comment>
+    <!-- Blocks: Machines -->
+    <entry key="tile.MFFSForceEnergyConverter.name">MFFS Feld Energie Konverter</entry>
+    <entry key="tile.MFFSExtractor.name">MFFS Extraktor</entry>
+    <entry key="tile.MFFSDefenseStation.name">MFFS Abwehrstation</entry>
+    <entry key="tile.MFFSCapacitor.name">MFFS Kondensator</entry>
+    <entry key="tile.MFFSProjector.name">MFFS Projektor</entry>
+    <entry key="tile.MFFSFieldblock.name">MFFS Feld</entry>
+    <entry key="tile.MFFSSecureStorage.name">MFFS Sichere Verwahrung</entry>
+    <entry key="tile.MFFSSecurityStation.name">MFFS Sicherheitsstation</entry>
+    <entry key="tile.MFFSControlSystem.name">MFFS Steuerungssystem</entry>
+
+    <!-- Blocks: Misc -->
+    <entry key="tile.MFFSMonazitOre.name">Monazit Erz</entry>
+
+    <!-- Items: Cards -->
+    <entry key="item.itemCardEmpty.name">MFFS Karte: Leer</entry>
+    <entry key="item.itemCardPowerLink.name">MFFS Karte: Energieverbindung</entry>
+    <entry key="item.itemCardID.name">MFFS Karte: ID</entry>
+    <entry key="item.itemCardSecurityLink.name">MFFS Karte: Sicherheitsverbindung</entry>
+    <entry key="item.itemCardInfinitePower.name">MFFS Karte: Unendliche Energie</entry>
+    <entry key="item.itemCardAccess.name">MFFS Karte: Zugang</entry>
+    <entry key="item.itemCardDataLink.name">MFFS Karte: Datenverbindung</entry>
+
+    <!-- Items: Projector Modules -->
+    <entry key="item.itemProjectorModuleDiagonalWall.name">Projektormodul: Diagonale Wand</entry>
+    <entry key="item.itemProjectorModuleSphere.name">Projektormodul: Kugel</entry>
+    <entry key="item.itemProjectorModuleCube.name">Projektormodul: Würfel</entry>
+    <entry key="item.itemProjectorModuleWall.name">Projektormodul: Wand</entry>
+    <entry key="item.itemProjectorModuleDeflector.name">Projektormodul: Deflektor</entry>
+    <entry key="item.itemProjectorModuleTube.name">Projektormodul: Röhre</entry>
+    <entry key="item.itemProjectorModuleContainment.name">Projektormodul: Kapselung</entry>
+    <entry key="item.itemProjectorModuleAdvCube.name">Projektormodul: Verbesserter Würfel</entry>
+
+    <!-- Items: Projector Options -->
+    <entry key="item.itemProjectorOptionZapper.name">Projektoroption: Stromschlag</entry>
+    <entry key="item.itemProjectorOptionSponge.name">Projektoroption: Schwamm</entry>
+    <entry key="item.itemProjectorOptionDome.name">Projektoroption: Kuppel</entry>
+    <entry key="item.itemProjectorOptionCutter.name">Projektoroption: Schneider</entry>
+    <entry key="item.itemProjectorOptionDefenseStation.name">Projektoroption: Abwehrstation</entry>
+    <entry key="item.itemProjectorOptionMobKiller.name">Projektoroption: Monsterkiller</entry>
+    <entry key="item.itemProjectorOptionFFJammer.name">Projektoroption: Kraftfeldstörer</entry>
+    <entry key="item.itemProjectorOptionCamouflage.name">Projektoroption: Tarnung</entry>
+    <entry key="item.itemProjectorOptionFieldFusion.name">Projektoroption: Feldfusion</entry>
+
+    <!-- Items: Projector Upgrades -->
+    <entry key="item.itemProjectorFFDistance.name">Projektor Verbesserung: Feld Reichweite</entry>
+    <entry key="item.itemProjectorFFStrength.name">Projektor Verbesserung: Feld Stärke</entry>
+    <entry key="item.itemProjectorFocusMatrix.name">Projektor Verbesserung: Fokus Matrix</entry>
+
+    <!-- Items: Multi-Tool -->
+    <entry key="item.itemMultiToolWrench.name">Multitool: Schraubenschlüssel</entry>
+    <entry key="item.itemMultiToolSwitch.name">Multitool: Schalter</entry>
+    <entry key="item.itemMultiToolFieldTransporter.name">Multitool: Feldtransporter</entry>
+    <entry key="item.itemMultiToolIDWriter.name">Multitool: ID Schreiber</entry>
+    <entry key="item.itemMultiToolDebugger.name">Multitool: Debugger</entry>
+    <entry key="item.itemMultiToolManual.name">Multitool: Manuell</entry>
+
+    <!-- Items: Extractor Upgrades -->
+    <entry key="item.itemExtractorUpgradeBooster.name">Extraktor Verbesserung: Booster</entry>
+
+    <!-- Items: Capacitor Upgrades -->
+    <entry key="item.itemCapacitorUpgradeRange.name">Kondensator Verbesserung: Reichweite</entry>
+    <entry key="item.itemCapacitorUpgradeCapacity.name">Kondensator Verbesserung: Kapazität</entry>
+
+    <!-- Items: Misc -->
+    <entry key="item.itemForcePowerCrystal.name">Kraftfeld Energie Kristall</entry>
+    <entry key="item.itemForcicium.name">Forcicium</entry>
+    <entry key="item.itemForciciumCell.name">Forcicium Zelle</entry>
+
+    <!-- Misc Strings -->
+    <entry key="itemGroup.MFFS">MFFS</entry>
+    <entry key="death.areaDefense">%1$s ignorierte die Warnungen und wurde gegrillt!</entry>
+    <entry key="death.fieldShock">%1$s wurde von einem Kraftfeld gegrillt!</entry>
+    <entry key="death.fieldDefense">%1$s wurde gegrillt!</entry>
+</properties>

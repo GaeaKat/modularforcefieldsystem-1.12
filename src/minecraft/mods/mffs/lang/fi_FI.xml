@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+<properties version="1.0">
+    <comment>Finnish (fi_FI) Localization File</comment>
+    <!-- Blocks: Machines -->
+    <entry key="tile.MFFSForceEnergyConverter.name">MFFS Voiman energia muuntaja</entry>
+    <entry key="tile.MFFSExtractor.name">MFFS Puristin</entry>
+    <entry key="tile.MFFSDefenseStation.name">MFFS Puolustusasema</entry>
+    <entry key="tile.MFFSCapacitor.name">MFFS Kondensaattori</entry>
+    <entry key="tile.MFFSProjector.name">MFFS Projektori</entry>
+    <entry key="tile.MFFSFieldblock.name">MFFS Kenttä</entry>
+    <entry key="tile.MFFSSecureStorage.name">MFFS Turvavarastointi</entry>
+    <entry key="tile.MFFSSecurityStation.name">MFFS Turva-asema</entry>
+    <entry key="tile.MFFSControlSystem.name">MFFS Hallinta-asema</entry>
+
+    <!-- Blocks: Misc -->
+    <entry key="tile.MFFSMonazitOre.name">Monasiittimalmi</entry>
+
+    <!-- Items: Cards -->
+    <entry key="item.itemCardEmpty.name">MFFS Kortti: Tyhjä</entry>
+    <entry key="item.itemCardPowerLink.name">MFFS Kortti: Voimalinkki</entry>
+    <entry key="item.itemCardID.name">MFFS Kortti: ID</entry>
+    <entry key="item.itemCardSecurityLink.name">MFFS Kortti: Turvalinkki</entry>
+    <entry key="item.itemCardInfinitePower.name">MFFS Kortti: Loputon energia</entry>
+    <entry key="item.itemCardAccess.name">MFFS Kortti: Pääsy</entry>
+    <entry key="item.itemCardDataLink.name">MFFS Kortti: Datalinkki</entry>
+
+    <!-- Items: Projector Modules -->
+    <entry key="item.itemProjectorModuleDiagonalWall.name">Projektorimoduuli: Vino seinä</entry>
+    <entry key="item.itemProjectorModuleSphere.name">Projektorimoduuli: Pallo</entry>
+    <entry key="item.itemProjectorModuleCube.name">Projektorimoduuli: Kuutio</entry>
+    <entry key="item.itemProjectorModuleWall.name">Projektorimoduuli: Seinä</entry>
+    <entry key="item.itemProjectorModuleDeflector.name">Projektorimoduuli: Deflektori</entry>
+    <entry key="item.itemProjectorModuleTube.name">Projektorimoduuli: Tuubi</entry>
+    <entry key="item.itemProjectorModuleContainment.name">Projektorimoduuli: Laajenemispyrkimysten estäminen</entry>
+    <entry key="item.itemProjectorModuleAdvCube.name">Projektorimoduuli: Edistinyt kuutio</entry>
+
+    <!-- Items: Projector Options -->
+    <entry key="item.itemProjectorOptionZapper.name">Projektorivaihtoehto: Tsäpperi</entry>
+    <entry key="item.itemProjectorOptionSponge.name">Projektorivaihtoehto: Pesusieni</entry>
+    <entry key="item.itemProjectorOptionDome.name">Projektorivaihtoehto: Kupoli</entry>
+    <entry key="item.itemProjectorOptionCutter.name">Projektorivaihtoehto: Leikkuri</entry>
+    <entry key="item.itemProjectorOptionDefenseStation.name">Projektorivaihtoehto: Puolustusasema</entry>
+    <entry key="item.itemProjectorOptionMobKiller.name">Projektorivaihtoehto: Mobin tappaja</entry>
+    <entry key="item.itemProjectorOptionFFJammer.name">Projektorivaihtoehto: Voimakentän jammeri</entry>
+    <entry key="item.itemProjectorOptionCamouflage.name">Projektorivaihtoehto: Maastokuvio</entry>
+    <entry key="item.itemProjectorOptionFieldFusion.name">Projektorivaihtoehto: Kenttäfuusio</entry>
+
+    <!-- Items: Projector Upgrades -->
+    <entry key="item.itemProjectorFFDistance.name">Projektoripäivitys: Kentän etäisyys</entry>
+    <entry key="item.itemProjectorFFStrength.name">Projektoripäivitys: Kentän vahvuus</entry>
+    <entry key="item.itemProjectorFocusMatrix.name">Projektoripäivitys: Matriisin tarkennus</entry>
+
+    <!-- Items: Multi-Tool -->
+    <entry key="item.itemMultiToolWrench.name">Monikäyttötyökalu: Jakoavain</entry>
+    <entry key="item.itemMultiToolSwitch.name">Monikäyttötyökalu: Vaihto</entry>
+    <entry key="item.itemMultiToolFieldTransporter.name">Monikäyttötyökalu: Kentän kuljetus</entry>
+    <entry key="item.itemMultiToolIDWriter.name">Monikäyttötyökalu: ID:n kirjoittaja</entry>
+    <entry key="item.itemMultiToolDebugger.name">Monikäyttötyökalu: Debuggeri</entry>
+    <entry key="item.itemMultiToolManual.name">Monikäyttötyökalu: Käyttöohje</entry>
+
+    <!-- Items: Extractor Upgrades -->
+    <entry key="item.itemExtractorUpgradeBooster.name">Puristinpäivitys: Tehostus</entry>
+
+    <!-- Items: Capacitor Upgrades -->
+    <entry key="item.itemCapacitorUpgradeRange.name">Kondensaattoripäivitys: Alue</entry>
+    <entry key="item.itemCapacitorUpgradeCapacity.name">Kondensaattoripäivitys: Kapasiteetti</entry>
+
+    <!-- Items: Misc -->
+    <entry key="item.itemForcePowerCrystal.name">Voimakristalli</entry>
+    <entry key="item.itemForcicium.name">Forsisium</entry>
+    <entry key="item.itemForciciumCell.name">Forsisium kenno</entry>
+
+    <!-- Misc Strings -->
+    <entry key="itemGroup.MFFS">MFFS</entry>
+    <entry key="death.areaDefense">%1$s ei huomioinut varoituksia ja paistui!</entry>
+    <entry key="death.fieldShock">%1$s paistui voimakentässä!</entry>
+    <entry key="death.fieldDefense">%1$s paistui!</entry>
+</properties>
