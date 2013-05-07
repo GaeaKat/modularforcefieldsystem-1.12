@@ -181,9 +181,6 @@ public class TileEntityConverter extends TileEntityFEPoweredMachine implements
 				if (getIC_Output() == 1)
 					EmitICpower(getIC_Outputpacketsize(),
 							getIC_Outputpacketamount());
-
-			EmitUEPower(getUE_Outputvoltage(), getUE_Outputamp());
-
 		}
 		super.updateEntity();
 	}
@@ -439,33 +436,6 @@ public class TileEntityConverter extends TileEntityFEPoweredMachine implements
 		}
 
 		super.onNetworkHandlerEvent(key, value);
-	}
-
-	public void EmitUEPower(int volt, int amp) {
-		/*
-		 * if(ModularForceFieldSystem.uefound && hasPowerSource()){
-		 * 
-		 * ForgeDirection outputDirection =
-		 * ForgeDirection.getOrientation(getSide()); TileEntity outputTile =
-		 * Vector3.getTileEntityFromSide(this.worldObj, new Vector3(this),
-		 * outputDirection); ElectricityNetwork outputNetwork =
-		 * ElectricityNetwork.getNetworkFromTileEntity(outputTile,
-		 * outputDirection);
-		 * 
-		 * if (outputNetwork != null){
-		 * 
-		 * double outputWatts = Math.min(outputNetwork.getRequest().getWatts(),
-		 * volt * amp);
-		 * 
-		 * if(consumePower((int)((ModularForceFieldSystem.
-		 * ExtractorPassForceEnergyGenerate/4000) * (outputWatts/50)), true)) {
-		 * if (outputWatts > 0 && isActive() && getUE_Output()==1){
-		 * outputNetwork.startProducing(this, outputWatts / volt, volt);
-		 * consumePower
-		 * ((int)((ModularForceFieldSystem.ExtractorPassForceEnergyGenerate
-		 * /4000) * (outputWatts/50)), false); }else{
-		 * outputNetwork.stopProducing(this); } } } }
-		 */
 	}
 
 	public void EmitICpower(int amount, int packets) {

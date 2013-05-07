@@ -20,6 +20,7 @@
 
 package mods.mffs.common.item;
 
+import cpw.mods.fml.common.registry.LanguageRegistry;
 import mods.mffs.api.PointXYZ;
 import mods.mffs.common.Functions;
 import mods.mffs.common.ModularForceFieldSystem;
@@ -50,7 +51,7 @@ public class ItemCardEmpty extends ItemMFFSBase {
 	}
 
 	@Override
-	public boolean onItemUse(ItemStack itemstack, EntityPlayer entityplayer,
+	public boolean onItemUse(ItemStack itemstack, EntityPlayer player,
 			World world, int i, int j, int k, int l, float par8, float par9,
 			float par10) {
 
@@ -63,7 +64,7 @@ public class ItemCardEmpty extends ItemMFFSBase {
 
 			if (((TileEntityAdvSecurityStation) tileEntity).isActive()) {
 
-				if (SecurityHelper.isAccessGranted(tileEntity, entityplayer,
+				if (SecurityHelper.isAccessGranted(tileEntity, player,
 						world, SecurityRight.CSR)) {
 
 					ItemStack newcard = new ItemStack(
@@ -79,31 +80,29 @@ public class ItemCardEmpty extends ItemMFFSBase {
 									.getDeviceName());
 
 					if (--itemstack.stackSize <= 0) {
-						entityplayer.inventory.setInventorySlotContents(
-								entityplayer.inventory.currentItem, newcard);
-					} else if (!entityplayer.inventory
+						player.inventory.setInventorySlotContents(
+								player.inventory.currentItem, newcard);
+					} else if (!player.inventory
 							.addItemStackToInventory(newcard))
-						entityplayer.dropPlayerItem(newcard);
+						player.dropPlayerItem(newcard);
 
-					entityplayer.inventoryContainer.detectAndSendChanges();
-					Functions
-							.ChattoPlayer(entityplayer,
-									"[Security Station] Success: <Security Station Link>  Card create");
+					player.inventoryContainer.detectAndSendChanges();
+					Functions.ChattoPlayer(player, LanguageRegistry.instance().getStringLocalization
+							("securityStation.cardCreated"));
 
 					return true;
 				}
 			} else {
 
-				Functions
-						.ChattoPlayer(entityplayer,
-								"[Security Station] Fail: Security Station must be Active  for create");
+				Functions.ChattoPlayer(player, LanguageRegistry.instance().getStringLocalization("securityStation" +
+						".mustBeActive"));
 			}
 
 		}
 
 		if (tileEntity instanceof TileEntityCapacitor) {
 
-			if (SecurityHelper.isAccessGranted(tileEntity, entityplayer, world,
+			if (SecurityHelper.isAccessGranted(tileEntity, player, world,
 					SecurityRight.EB)) {
 
 				ItemStack newcard = new ItemStack(
@@ -115,16 +114,15 @@ public class ItemCardEmpty extends ItemMFFSBase {
 						((TileEntityCapacitor) tileEntity).getDeviceName());
 
 				if (--itemstack.stackSize <= 0) {
-					entityplayer.inventory.setInventorySlotContents(
-							entityplayer.inventory.currentItem, newcard);
-				} else if (!entityplayer.inventory
+					player.inventory.setInventorySlotContents(
+							player.inventory.currentItem, newcard);
+				} else if (!player.inventory
 						.addItemStackToInventory(newcard))
-					entityplayer.dropPlayerItem(newcard);
+					player.dropPlayerItem(newcard);
 
-				entityplayer.inventoryContainer.detectAndSendChanges();
+				player.inventoryContainer.detectAndSendChanges();
 
-				entityplayer
-						.addChatMessage("[Capacitor] Success: <Power-Link> Card create");
+				player.addChatMessage(LanguageRegistry.instance().getStringLocalization("capacitor.cardCreated"));
 
 				return true;
 			}

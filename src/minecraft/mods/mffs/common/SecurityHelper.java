@@ -23,6 +23,7 @@
 
 package mods.mffs.common;
 
+import cpw.mods.fml.common.registry.LanguageRegistry;
 import mods.mffs.common.tileentity.TileEntityAdvSecurityStation;
 import mods.mffs.common.tileentity.TileEntityAreaDefenseStation;
 import mods.mffs.common.tileentity.TileEntityCapacitor;
@@ -57,8 +58,8 @@ public class SecurityHelper {
 					return true;
 
 				if (!suppresswarning)
-					entityplayer
-							.sendChatToPlayer("[Field Security] Fail: access denied");
+					entityplayer.sendChatToPlayer(LanguageRegistry.instance().getStringLocalization("fieldSecurity" +
+							".accessDenied"));
 				return false;
 			} else {
 
@@ -79,8 +80,8 @@ public class SecurityHelper {
 					return true;
 
 				if (!suppresswarning)
-					entityplayer
-							.sendChatToPlayer("[Field Security] Fail: access denied");
+					entityplayer.sendChatToPlayer(LanguageRegistry.instance().getStringLocalization("fieldSecurity" +
+							".accessDenied"));
 				return false;
 			} else {
 
@@ -97,8 +98,8 @@ public class SecurityHelper {
 					entityplayer.username, right))) {
 
 				if (!suppresswarning)
-					Functions.ChattoPlayer(entityplayer,
-							"[Field Security] Fail: access denied");
+					Functions.ChattoPlayer(entityplayer, LanguageRegistry.instance().getStringLocalization
+							("fieldSecurity.accessDenied"));
 				return false;
 			}
 		}
@@ -112,8 +113,8 @@ public class SecurityHelper {
 					return true;
 				} else {
 					if (!suppresswarning)
-						Functions.ChattoPlayer(entityplayer,
-								"[Field Security] Fail: access denied");
+						Functions.ChattoPlayer(entityplayer, LanguageRegistry.instance().getStringLocalization
+								("fieldSecurity.accessDenied"));
 					return false;
 				}
 
@@ -130,8 +131,8 @@ public class SecurityHelper {
 					return true;
 				} else {
 					if (!suppresswarning)
-						Functions.ChattoPlayer(entityplayer,
-								"[Field Security] Fail: access denied");
+						Functions.ChattoPlayer(entityplayer, LanguageRegistry.instance().getStringLocalization
+								("fieldSecurity.accessDenied"));
 					return false;
 				}
 
@@ -148,8 +149,8 @@ public class SecurityHelper {
 					return true;
 				} else {
 					if (!suppresswarning)
-						Functions.ChattoPlayer(entityplayer,
-								"[Field Security] Fail: access denied");
+						Functions.ChattoPlayer(entityplayer, LanguageRegistry.instance().getStringLocalization
+								("fieldSecurity.accessDenied"));
 					return false;
 				}
 
@@ -169,8 +170,8 @@ public class SecurityHelper {
 					return true;
 				} else {
 					if (!suppresswarning)
-						Functions.ChattoPlayer(entityplayer,
-								"[Field Security] Fail: access denied");
+						Functions.ChattoPlayer(entityplayer, LanguageRegistry.instance().getStringLocalization
+								("fieldSecurity.accessDenied"));
 					return false;
 				}
 
@@ -197,8 +198,8 @@ public class SecurityHelper {
 							return true;
 						} else {
 							if (!suppresswarning)
-								Functions.ChattoPlayer(entityplayer,
-										"[Field Security] Fail: access denied");
+								Functions.ChattoPlayer(entityplayer, LanguageRegistry.instance()
+										.getStringLocalization("fieldSecurity.accessDenied"));
 							return false;
 						}
 
@@ -215,8 +216,8 @@ public class SecurityHelper {
 						return true;
 					} else {
 						if (!suppresswarning)
-							Functions.ChattoPlayer(entityplayer,
-									"[Field Security] Fail: access denied");
+							Functions.ChattoPlayer(entityplayer, LanguageRegistry.instance().getStringLocalization
+									("fieldSecurity.accessDenied"));
 						return false;
 					}
 				}

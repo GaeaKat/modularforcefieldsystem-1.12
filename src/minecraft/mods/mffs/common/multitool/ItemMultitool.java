@@ -21,9 +21,8 @@
 
 package mods.mffs.common.multitool;
 
-import java.util.ArrayList;
-import java.util.List;
-
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 import mods.mffs.api.IForceEnergyItems;
 import mods.mffs.common.ForceEnergyItems;
 import net.minecraft.client.renderer.texture.IconRegister;
@@ -33,8 +32,9 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.Icon;
 import net.minecraft.world.World;
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public abstract class ItemMultitool extends ForceEnergyItems implements
 		IForceEnergyItems {
@@ -95,9 +95,7 @@ public abstract class ItemMultitool extends ForceEnergyItems implements
 				if (MT.itemID == itemstack.getItem().itemID) {
 					if (i + 1 < MTTypes.size()) {
 						modeNum = i + 1;
-						System.out.println("Mode: " + modeNum);
 					} else {
-						System.out.println("Wrapping mode.");
 						modeNum = 0;
 					}
 				}

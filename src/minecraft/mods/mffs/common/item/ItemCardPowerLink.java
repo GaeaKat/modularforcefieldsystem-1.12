@@ -20,6 +20,7 @@
 
 package mods.mffs.common.item;
 
+import cpw.mods.fml.common.registry.LanguageRegistry;
 import mods.mffs.api.IForceEnergyStorageBlock;
 import mods.mffs.api.IPowerLinkItem;
 import mods.mffs.api.PointXYZ;
@@ -114,8 +115,8 @@ public class ItemCardPowerLink extends ItemCard implements IPowerLinkItem {
 						((TileEntityExtractor) tileEntity)
 								.setInventorySlotContents(1, itemstack);
 						entityplayer.inventory.mainInventory[entityplayer.inventory.currentItem] = null;
-						Functions.ChattoPlayer(entityplayer,
-								"Success: <Power-Link> Card installed");
+						Functions.ChattoPlayer(entityplayer, LanguageRegistry.instance().getStringLocalization
+								("linkCard.installed"));
 						return true;
 					} else {
 						if (((TileEntityExtractor) tileEntity)
@@ -123,12 +124,12 @@ public class ItemCardPowerLink extends ItemCard implements IPowerLinkItem {
 							ItemStack itemstackcopy = itemstack.copy();
 							((TileEntityExtractor) tileEntity)
 									.setInventorySlotContents(1, itemstackcopy);
-							Functions.ChattoPlayer(entityplayer,
-									"Success: <Power-Link> Card data copied ");
+							Functions.ChattoPlayer(entityplayer, LanguageRegistry.instance().getStringLocalization
+									("linkCard.copied"));
 							return true;
 						}
-						Functions.ChattoPlayer(entityplayer,
-								"Fail: Slot is not empty");
+						Functions.ChattoPlayer(entityplayer,LanguageRegistry.instance().getStringLocalization
+								("linkCard.notEmpty"));
 						return false;
 					}
 				}

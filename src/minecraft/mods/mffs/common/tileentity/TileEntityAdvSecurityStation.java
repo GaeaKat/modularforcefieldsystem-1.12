@@ -20,19 +20,13 @@
 
 package mods.mffs.common.tileentity;
 
-import java.util.LinkedList;
-import java.util.List;
-
+import cpw.mods.fml.common.registry.LanguageRegistry;
 import mods.mffs.common.Linkgrid;
 import mods.mffs.common.ModularForceFieldSystem;
 import mods.mffs.common.NBTTagCompoundHelper;
 import mods.mffs.common.SecurityRight;
 import mods.mffs.common.container.ContainerAdvSecurityStation;
-import mods.mffs.common.item.ItemAccessCard;
-import mods.mffs.common.item.ItemCardEmpty;
-import mods.mffs.common.item.ItemCardPersonalID;
-import mods.mffs.common.item.ItemCardPowerLink;
-import mods.mffs.common.item.ItemCardSecurityLink;
+import mods.mffs.common.item.*;
 import mods.mffs.common.multitool.ItemDebugger;
 import mods.mffs.network.server.NetworkHandlerServer;
 import net.minecraft.entity.item.EntityItem;
@@ -44,6 +38,9 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraftforge.common.ForgeDirection;
+
+import java.util.LinkedList;
+import java.util.List;
 
 public class TileEntityAdvSecurityStation extends TileEntityMachines {
 
@@ -301,7 +298,8 @@ public class TileEntityAdvSecurityStation extends TileEntityMachines {
 								}
 							}
 						} else {
-							player.sendChatToPlayer("[Security Station] expired validity <Access license>");
+							player.sendChatToPlayer(LanguageRegistry.instance().getStringLocalization
+									("securityStation.expiredValidity"));
 							ItemStack Card = new ItemStack(
 									ModularForceFieldSystem.MFFSitemcardempty,
 									1);

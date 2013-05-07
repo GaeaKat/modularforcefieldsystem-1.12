@@ -24,7 +24,6 @@
 package mods.mffs.common;
 
 import net.minecraft.item.Item;
-import cpw.mods.fml.common.registry.LanguageRegistry;
 
 public enum ProjectorOptions {
 
@@ -65,9 +64,6 @@ public enum ProjectorOptions {
 	public static void initialize() {
 
 		for (ProjectorOptions mach : ProjectorOptions.values()) {
-
-			LanguageRegistry.instance().addNameForObject(mach.item, "en_US",
-					" MFFS Projector Upgrade " + mach.displayName);
 
 			if (ModularForceFieldSystem.ic2Found)
 				RecipesFactory.addRecipe(mach.recipeic, 1, 1, null, mach.item);

@@ -20,24 +20,19 @@
 
 package mods.mffs.common.modules;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Set;
-
+import cpw.mods.fml.common.registry.LanguageRegistry;
 import mods.mffs.api.PointXYZ;
-import mods.mffs.common.ForceFieldTyps;
-import mods.mffs.common.Functions;
-import mods.mffs.common.IModularProjector;
-import mods.mffs.common.ModularForceFieldSystem;
-import mods.mffs.common.ProjectorTyp;
-import mods.mffs.common.SecurityHelper;
-import mods.mffs.common.SecurityRight;
+import mods.mffs.common.*;
 import mods.mffs.common.tileentity.TileEntityProjector;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Set;
 
 public abstract class ModuleBase extends Item {
 
@@ -92,20 +87,17 @@ public abstract class ModuleBase extends Item {
 				if (((IModularProjector) tileEntity).getStackInSlot(1) == null) {
 					((IModularProjector) tileEntity).setInventorySlotContents(
 							1, itemstack.splitStack(1));
-					Functions
-							.ChattoPlayer(
-									entityplayer,
-									"[Projector] Success: <Projector Module "
-											+ ProjectorTyp
-													.TypfromItem(((IModularProjector) tileEntity)
-															.getStackInSlot(1)
-															.getItem()).displayName
-											+ "> installed");
+					Functions.ChattoPlayer(entityplayer, String.format(LanguageRegistry.instance()
+							.getStringLocalization("projectorModule.installed"), ProjectorTyp
+							.TypfromItem(((IModularProjector) tileEntity)
+									.getStackInSlot(1)
+									.getItem()).displayName));
+
 					((TileEntityProjector) tileEntity).checkslots();
 					return true;
 				} else {
-					Functions.ChattoPlayer(entityplayer,
-							"[Projector] Fail: Slot is not empty");
+					Functions.ChattoPlayer(entityplayer, LanguageRegistry.instance().getStringLocalization
+							("projectorModule.notEmpty"));
 					return false;
 				}
 			}

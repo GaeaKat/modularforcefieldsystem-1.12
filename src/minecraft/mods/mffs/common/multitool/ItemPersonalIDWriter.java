@@ -20,8 +20,7 @@
 
 package mods.mffs.common.multitool;
 
-import java.util.List;
-
+import cpw.mods.fml.common.registry.LanguageRegistry;
 import mods.mffs.api.PointXYZ;
 import mods.mffs.common.Functions;
 import mods.mffs.common.ModularForceFieldSystem;
@@ -37,6 +36,8 @@ import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
+
+import java.util.List;
 
 public class ItemPersonalIDWriter extends ItemMultitool {
 	public ItemPersonalIDWriter(int i) {
@@ -65,21 +66,20 @@ public class ItemPersonalIDWriter extends ItemMultitool {
 									.addItemStackToInventory(IDCard))
 								entityplayer.dropPlayerItem(IDCard);
 
-							Functions.ChattoPlayer(entityplayer,
-									"[MultiTool] Success: ID-Card create");
+							Functions.ChattoPlayer(entityplayer, LanguageRegistry.instance().getStringLocalization
+									("multitool.idCardCreated"));
 							return true;
 						} else {
-							Functions
-									.ChattoPlayer(entityplayer,
-											"[MultiTool] Fail: not enough FP please charge");
+							Functions.ChattoPlayer(entityplayer, LanguageRegistry.instance().getStringLocalization
+									("multitool.notEnoughFE"));
 							return true;
 						}
 					}
 				}
 			}
 
-			Functions.ChattoPlayer(entityplayer,
-					"[MultiTool] Fail: need MFFS Card <blank> in  Inventory");
+			Functions.ChattoPlayer(entityplayer, LanguageRegistry.instance().getStringLocalization("multitool" +
+					".needBlankCard"));
 			return true;
 		}
 		return false;
@@ -110,23 +110,23 @@ public class ItemPersonalIDWriter extends ItemMultitool {
 								.addItemStackToInventory(IDCard))
 							entityplayer.dropPlayerItem(IDCard);
 						if (world.isRemote)
-							Functions.ChattoPlayer(entityplayer,
-									"[MultiTool] Success: ID-Card create");
+							Functions.ChattoPlayer(entityplayer, LanguageRegistry.instance().getStringLocalization
+									("multitool.idCardCreated"));
 
 						return itemstack;
 					} else {
 						if (world.isRemote)
 							Functions
-									.ChattoPlayer(entityplayer,
-											"[MultiTool] Fail: not enough FP please charge");
+									.ChattoPlayer(entityplayer, LanguageRegistry.instance().getStringLocalization
+											("multitool.notEnoughFE"));
 						return itemstack;
 					}
 				}
 			}
 		}
 		if (world.isRemote)
-			Functions.ChattoPlayer(entityplayer,
-					"[MultiTool] Fail: need MFFS Card <blank> in  Inventory");
+			Functions.ChattoPlayer(entityplayer, LanguageRegistry.instance().getStringLocalization("multitool" +
+					".needBlankCard"));
 
 		return itemstack;
 	}
@@ -174,16 +174,14 @@ public class ItemPersonalIDWriter extends ItemMultitool {
 
 								player.inventoryContainer
 										.detectAndSendChanges();
-								Functions
-										.ChattoPlayer(player,
-												"[MultiTool] Success: DataLink-Card create");
+								Functions.ChattoPlayer(player, LanguageRegistry.instance().getStringLocalization
+										("multitool.dataLinkCreated"));
 
 								return true;
 							} else {
 
-								Functions
-										.ChattoPlayer(player,
-												"[MultiTool] Fail: not enough FP please charge");
+								Functions.ChattoPlayer(player, LanguageRegistry.instance().getStringLocalization
+										("multitool.notEnoughFE"));
 								return false;
 							}
 						}

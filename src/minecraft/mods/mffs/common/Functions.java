@@ -20,14 +20,15 @@
 
 package mods.mffs.common;
 
-import java.util.ArrayList;
-
+import cpw.mods.fml.common.registry.LanguageRegistry;
 import net.minecraft.block.Block;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
+
+import java.util.ArrayList;
 
 public class Functions {
 	public static Block getBlock(int x, int y, int z, World world) {
@@ -56,8 +57,8 @@ public class Functions {
 		if (((IInventory) tileEntity).getStackInSlot(Slot) == null) {
 			((IInventory) tileEntity).setInventorySlotContents(Slot, itemstack);
 			entityplayer.inventory.mainInventory[entityplayer.inventory.currentItem] = null;
-			Functions.ChattoPlayer(entityplayer, "Success: " + Cardname
-					+ " Card installed");
+			Functions.ChattoPlayer(entityplayer, String.format(LanguageRegistry.instance().getStringLocalization
+					("generic.card.installed"), Cardname));
 			((IInventory) tileEntity).onInventoryChanged();
 			return true;
 		} else {
@@ -65,12 +66,13 @@ public class Functions {
 				ItemStack itemstackcopy = itemstack.copy();
 				((IInventory) tileEntity).setInventorySlotContents(Slot,
 						itemstackcopy);
-				Functions.ChattoPlayer(entityplayer, "Success: " + Cardname
-						+ " Card data copied ");
+				Functions.ChattoPlayer(entityplayer, String.format(LanguageRegistry.instance().getStringLocalization
+						("generic.card.copied"), Cardname));
 				((IInventory) tileEntity).onInventoryChanged();
 				return true;
 			}
-			Functions.ChattoPlayer(entityplayer, "Fail: Slot is not empty");
+			Functions.ChattoPlayer(entityplayer, LanguageRegistry.instance().getStringLocalization("generic.card" +
+					".fail"));
 			return false;
 		}
 	}

@@ -36,7 +36,7 @@ public class SecurityRight {
 	public final int texIndex;
 
 	public static SecurityRight FFB = new SecurityRight("FFB",
-			"ForceField Bypass", "", 0);
+			"Forcefield Bypass", "", 0);
 	public static SecurityRight EB = new SecurityRight("EB", "Edit MFFS Block",
 			"", 1);
 	public static SecurityRight CSR = new SecurityRight("CSR",

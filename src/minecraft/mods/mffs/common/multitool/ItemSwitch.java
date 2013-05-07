@@ -20,6 +20,7 @@
 
 package mods.mffs.common.multitool;
 
+import cpw.mods.fml.common.registry.LanguageRegistry;
 import mods.mffs.api.ISwitchabel;
 import mods.mffs.common.Functions;
 import mods.mffs.common.SecurityHelper;
@@ -58,16 +59,14 @@ public class ItemSwitch extends ItemMultitool {
 						return true;
 					} else {
 
-						Functions
-								.ChattoPlayer(entityplayer,
-										"[MultiTool] Fail: not enough FP please charge");
+						Functions.ChattoPlayer(entityplayer, LanguageRegistry.instance().getStringLocalization
+								("multitool.notEnoughFE"));
 						return false;
 					}
 				} else {
 
-					Functions
-							.ChattoPlayer(entityplayer,
-									"[MultiTool] Fail: Object not in switch enable mode");
+					Functions.ChattoPlayer(entityplayer, LanguageRegistry.instance().getStringLocalization
+							("multitool.notInSwitchMode"));
 					return false;
 				}
 

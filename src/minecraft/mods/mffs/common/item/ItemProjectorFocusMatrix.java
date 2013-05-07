@@ -20,14 +20,14 @@
 
 package mods.mffs.common.item;
 
-import java.util.List;
-
+import cpw.mods.fml.common.registry.LanguageRegistry;
 import mods.mffs.common.MFFSMaschines;
 import net.minecraft.client.renderer.texture.IconRegister;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
-
 import org.lwjgl.input.Keyboard;
+
+import java.util.List;
 
 
 public class ItemProjectorFocusMatrix extends ItemMFFSBase {
@@ -51,11 +51,11 @@ public class ItemProjectorFocusMatrix extends ItemMFFSBase {
 			List info, boolean b) {
 		if (Keyboard.isKeyDown(Keyboard.KEY_LSHIFT)
 				|| Keyboard.isKeyDown(Keyboard.KEY_RSHIFT)) {
-			info.add("compatible with:");
+			info.add(LanguageRegistry.instance().getStringLocalization("itemInfo.compatibleWith"));
 			info.add("MFFS " + MFFSMaschines.Projector.displayName);
 
 		} else {
-			info.add("compatible with: (Hold Shift)");
+			info.add(LanguageRegistry.instance().getStringLocalization("itemInfo.compatibleWithHoldShift"));
 		}
 	}
 

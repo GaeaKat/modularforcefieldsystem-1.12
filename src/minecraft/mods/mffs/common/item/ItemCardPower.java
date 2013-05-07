@@ -1,7 +1,6 @@
 package mods.mffs.common.item;
 
-import java.util.List;
-
+import cpw.mods.fml.common.registry.LanguageRegistry;
 import mods.mffs.api.IForceEnergyItems;
 import mods.mffs.api.IPowerLinkItem;
 import mods.mffs.common.tileentity.TileEntityMachines;
@@ -9,6 +8,8 @@ import net.minecraft.client.renderer.texture.IconRegister;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
+
+import java.util.List;
 
 public class ItemCardPower extends ItemMFFSBase implements IPowerLinkItem,
 		IForceEnergyItems {
@@ -79,8 +80,8 @@ public class ItemCardPower extends ItemMFFSBase implements IPowerLinkItem,
 	public void addInformation(ItemStack itemStack, EntityPlayer player,
 			List info, boolean b) {
 
-		info.add("Admin Card to Power Maschines");
-		info.add("or use to infinit charge Capactior");
+		info.add(LanguageRegistry.instance().getStringLocalization("itemInfo.infinitePower.lineOne"));
+		info.add(LanguageRegistry.instance().getStringLocalization("itemInfo.infinitePower.lineTwo"));
 	}
 
 	// ForceEnergyItems -> PowerLinkItem compatibility

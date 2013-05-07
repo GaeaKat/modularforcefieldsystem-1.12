@@ -20,17 +20,10 @@
 
 package mods.mffs.common.tileentity;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Random;
-
+import cpw.mods.fml.common.registry.LanguageRegistry;
 import mods.mffs.api.IPowerLinkItem;
 import mods.mffs.api.PointXYZ;
-import mods.mffs.common.InventoryHelper;
-import mods.mffs.common.Linkgrid;
-import mods.mffs.common.MFFSDamageSource;
-import mods.mffs.common.ModularForceFieldSystem;
-import mods.mffs.common.SecurityRight;
+import mods.mffs.common.*;
 import mods.mffs.common.container.ContainerAreaDefenseStation;
 import mods.mffs.common.item.ItemCardSecurityLink;
 import mods.mffs.common.item.ItemProjectorFieldModulatorDistance;
@@ -50,6 +43,10 @@ import net.minecraft.nbt.NBTTagList;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraftforge.common.ForgeDirection;
 import net.minecraftforge.common.ISidedInventory;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Random;
 
 public class TileEntityAreaDefenseStation extends TileEntityFEPoweredMachine
 		implements ISidedInventory {
@@ -243,9 +240,9 @@ public class TileEntityAreaDefenseStation extends TileEntityFEPoweredMachine
 							if (!sec.isAccessGranted(player.username,
 									SecurityRight.SR)) {
 								if (!(ModularForceFieldSystem.DefenceStationNPCScannsuppressnotification && getActionmode() >= 3)) {
-									player.addChatMessage("!!! [Security Station]["
-											+ sec.getDeviceName()
-											+ "] Warning you are now in my Scanning range!");
+									player.addChatMessage(String.format(LanguageRegistry.instance()
+											.getStringLocalization("securityStation.scanningRange"),
+											sec.getDeviceName()));
 									player.attackEntityFrom(
 											MFFSDamageSource.areaDefense, 1);
 								}
@@ -434,7 +431,7 @@ public class TileEntityAreaDefenseStation extends TileEntityFEPoweredMachine
 				switch (getActionmode()) {
 				case 0: // Inform
 					if (!sec.isAccessGranted(player.username, SecurityRight.SR)) {
-						player.addChatMessage("!!! [Area Defence] Get out immediately, you have no right to be here!");
+						player.addChatMessage(LanguageRegistry.instance().getStringLocalization("areaDefense.getOut"));
 					}
 
 					break;
@@ -445,7 +442,8 @@ public class TileEntityAreaDefenseStation extends TileEntityFEPoweredMachine
 							true)) {
 						if (!sec.isAccessGranted(player.username,
 								SecurityRight.SR)) {
-							player.addChatMessage("!!! [Area Defence] You have been warned.");
+							player.addChatMessage(LanguageRegistry.instance().getStringLocalization("areaDefense" +
+									".beenWarned"));
 
 							for (int i = 0; i < 4; i++) {
 								if (player.inventory.armorInventory[i] != null) {
@@ -503,12 +501,10 @@ public class TileEntityAreaDefenseStation extends TileEntityFEPoweredMachine
 										if (!ContraList
 												.contains(player.inventory.armorInventory[i]
 														.getItem())) {
-											player.addChatMessage("!!! [Area Defence] You  have illegal goods <"
-													+ player.inventory.armorInventory[i]
-															.getItem()
-															.getItemDisplayName(
-																	player.inventory.armorInventory[i])
-													+ "> will be confiscated!!!");
+											player.addChatMessage(String.format(LanguageRegistry.instance()
+													.getStringLocalization("areaDefense.illegalItems"),
+													player.inventory.armorInventory[i].getItem().getItemDisplayName
+															(player.inventory.armorInventory[i])));
 											StacksToInventory(
 													this,
 													player.inventory.armorInventory[i],
@@ -528,12 +524,12 @@ public class TileEntityAreaDefenseStation extends TileEntityFEPoweredMachine
 										if (!ContraList
 												.contains(player.inventory.mainInventory[i]
 														.getItem())) {
-											player.addChatMessage("!!! [Area Defence] You  have illegal goods <"
-													+ player.inventory.mainInventory[i]
+											player.addChatMessage(String.format(LanguageRegistry.instance()
+													.getStringLocalization("areaDefense.illegalItems"),
+													player.inventory.mainInventory[i]
 															.getItem()
 															.getItemDisplayName(
-																	player.inventory.mainInventory[i])
-													+ "> will be confiscated!!!");
+																	player.inventory.mainInventory[i])));
 											StacksToInventory(
 													this,
 													player.inventory.mainInventory[i],
@@ -555,12 +551,12 @@ public class TileEntityAreaDefenseStation extends TileEntityFEPoweredMachine
 										if (ContraList
 												.contains(player.inventory.armorInventory[i]
 														.getItem())) {
-											player.addChatMessage("!!! [Area Defence] You  have illegal goods <"
-													+ player.inventory.armorInventory[i]
+											player.addChatMessage(String.format(LanguageRegistry.instance()
+													.getStringLocalization("areaDefense.illegalItems"),
+													player.inventory.armorInventory[i]
 															.getItem()
 															.getItemDisplayName(
-																	player.inventory.armorInventory[i])
-													+ "> will be confiscated!!!");
+																	player.inventory.armorInventory[i])));
 											StacksToInventory(
 													this,
 													player.inventory.armorInventory[i],
@@ -579,12 +575,12 @@ public class TileEntityAreaDefenseStation extends TileEntityFEPoweredMachine
 										if (ContraList
 												.contains(player.inventory.mainInventory[i]
 														.getItem())) {
-											player.addChatMessage("!!! [Area Defence] You  have illegal goods <"
-													+ player.inventory.mainInventory[i]
+											player.addChatMessage(String.format(LanguageRegistry.instance()
+													.getStringLocalization("areaDefense.illegalItems"),
+													player.inventory.mainInventory[i]
 															.getItem()
 															.getItemDisplayName(
-																	player.inventory.mainInventory[i])
-													+ "> will be confiscated!!!");
+																	player.inventory.mainInventory[i])));
 											StacksToInventory(
 													this,
 													player.inventory.mainInventory[i],

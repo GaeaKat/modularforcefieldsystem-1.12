@@ -19,21 +19,13 @@
  */
 package mods.mffs.common.block;
 
-import java.util.List;
-import java.util.Random;
-
+import cpw.mods.fml.common.registry.LanguageRegistry;
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 import mods.mffs.api.IFieldTeleporter;
 import mods.mffs.api.IForceFieldBlock;
 import mods.mffs.api.PointXYZ;
-import mods.mffs.common.ForceFieldBlockStack;
-import mods.mffs.common.ForceFieldTyps;
-import mods.mffs.common.Functions;
-import mods.mffs.common.Linkgrid;
-import mods.mffs.common.MFFSDamageSource;
-import mods.mffs.common.ModularForceFieldSystem;
-import mods.mffs.common.SecurityHelper;
-import mods.mffs.common.SecurityRight;
-import mods.mffs.common.WorldMap;
+import mods.mffs.common.*;
 import mods.mffs.common.WorldMap.ForceFieldWorld;
 import mods.mffs.common.item.ItemCardPowerLink;
 import mods.mffs.common.multitool.ItemDebugger;
@@ -55,8 +47,9 @@ import net.minecraft.util.Icon;
 import net.minecraft.util.MathHelper;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
+
+import java.util.List;
+import java.util.Random;
 
 public class BlockForceField extends BlockContainer implements IForceFieldBlock {
 	public static int renderer;
@@ -299,8 +292,9 @@ public class BlockForceField extends BlockContainer implements IForceFieldBlock 
 
 						if (First_Gen_ID != wff.isExistForceFieldStackMap(x, y,
 								z, counter - 1, typ, world)) {
-							Functions.ChattoPlayer(player,
-									"[Field Security] Fail: access denied");
+
+							Functions.ChattoPlayer(player, LanguageRegistry.instance().getStringLocalization
+									("fieldSecurity.accessDenied"));
 							return false;
 						}
 
@@ -327,8 +321,8 @@ public class BlockForceField extends BlockContainer implements IForceFieldBlock 
 							break;
 						}
 
-						Functions.ChattoPlayer(player,
-								"[Field Security] Success: access granted");
+						Functions.ChattoPlayer(player, LanguageRegistry.instance().getStringLocalization
+								("fieldSecurity.accessGranted"));
 
 						if (counter >= 0 && counter <= 5) {
 
@@ -339,9 +333,8 @@ public class BlockForceField extends BlockContainer implements IForceFieldBlock 
 											y - ymodi, z))) {
 
 								if (y - ymodi <= 0) {
-									Functions
-											.ChattoPlayer(player,
-													"[Field Security] Fail: transmission into Void not allowed ");
+									Functions.ChattoPlayer(player, LanguageRegistry.instance().getStringLocalization
+											("fieldSecurity.voidNotAllowed"));
 								} else {
 									IFieldTeleporter teleporter = (IFieldTeleporter) item;
 									if (teleporter
@@ -366,20 +359,18 @@ public class BlockForceField extends BlockContainer implements IForceFieldBlock 
 								}
 							} else {
 
-								Functions
-										.ChattoPlayer(player,
-												"[Field Security] Fail: detected obstacle ");
+								Functions.ChattoPlayer(player, LanguageRegistry.instance().getStringLocalization
+										("fieldSecurity.detectedObstacle"));
 							}
 						} else {
 
-							Functions
-									.ChattoPlayer(player,
-											"[Field Security] Fail: Field to Strong >= 5 Blocks");
+							Functions.ChattoPlayer(player, LanguageRegistry.instance().getStringLocalization
+									("fieldSecurity.fieldTooStrong"));
 						}
 					} else {
 						{
-							Functions.ChattoPlayer(player,
-									"[Field Security] Fail: access denied");
+							Functions.ChattoPlayer(player, LanguageRegistry.instance().getStringLocalization
+									("fieldSecurity.accessDenied"));
 						}
 					}
 				}
@@ -389,9 +380,8 @@ public class BlockForceField extends BlockContainer implements IForceFieldBlock 
 					if (projector.getStackInSlot(projector.getPowerlinkSlot()) != null)
 						if (!(projector.getStackInSlot(
 								projector.getPowerlinkSlot()).getItem() instanceof ItemCardPowerLink))
-							Functions
-									.ChattoPlayer(player,
-											"[Field Security] Fail: Projector Powersource not Support this activities");
+							Functions.ChattoPlayer(player, LanguageRegistry.instance().getStringLocalization
+									("fieldSecurity.invalidItemInPowerLink"));
 			}
 		}
 
@@ -399,54 +389,54 @@ public class BlockForceField extends BlockContainer implements IForceFieldBlock 
 	}
 
 	@Override
-	public void onBlockClicked(World par1World, int par2, int par3, int par4,
-			EntityPlayer par5EntityPlayer) {
+	public void onBlockClicked(World world, int x, int y, int z,
+			EntityPlayer player) {
 
-		if (par1World.isRemote)
+		if (world.isRemote)
 			return;
 
 		ForceFieldBlockStack ffworldmap = WorldMap
-				.getForceFieldWorld(par1World).getForceFieldStackMap(
-						new PointXYZ(par2, par3, par4, par1World).hashCode());
+				.getForceFieldWorld(world).getForceFieldStackMap(
+						new PointXYZ(x, y, z, world).hashCode());
 
 		if (ffworldmap != null && !ModularForceFieldSystem.adventureMapMode) {
 
-			TileEntityProjector projector = Linkgrid.getWorldMap(par1World)
+			TileEntityProjector projector = Linkgrid.getWorldMap(world)
 					.getProjektor().get(ffworldmap.getProjectorID());
 			if (projector != null) {
 				switch (projector.getaccesstyp()) {
 
 				case 0:
-					par5EntityPlayer.attackEntityFrom(
+					player.attackEntityFrom(
 							MFFSDamageSource.fieldShock, 10);
-					Functions.ChattoPlayer(par5EntityPlayer,
-							"[Force Field] Attention High Energy Field");
+					Functions.ChattoPlayer(player, LanguageRegistry.instance().getStringLocalization("field" +
+							".highEnergyField"));
 					break;
 
 				case 2:
 				case 3:
 					if (!SecurityHelper.isAccessGranted(projector,
-							par5EntityPlayer, par1World, SecurityRight.SR)) {
-						par5EntityPlayer.attackEntityFrom(
+							player, world, SecurityRight.SR)) {
+						player.attackEntityFrom(
 								MFFSDamageSource.fieldShock, 10);
-						Functions.ChattoPlayer(par5EntityPlayer,
-								"[Force Field] Attention High Energy Field");
+						Functions.ChattoPlayer(player, LanguageRegistry.instance().getStringLocalization("field" +
+								".highEnergyField"));
 					}
 					break;
 				}
 			}
 
-			if (!SecurityHelper.isAccessGranted(projector, par5EntityPlayer,
-					par1World, SecurityRight.SR)) {
-				par5EntityPlayer.attackEntityFrom(MFFSDamageSource.fieldShock,
+			if (!SecurityHelper.isAccessGranted(projector, player,
+					world, SecurityRight.SR)) {
+				player.attackEntityFrom(MFFSDamageSource.fieldShock,
 						10);
-				Functions.ChattoPlayer(par5EntityPlayer,
-						"[Force Field] Attention High Energy Field");
+				Functions.ChattoPlayer(player, LanguageRegistry.instance().getStringLocalization("field" +
+						".highEnergyField"));
 			}
 		}
 
 		Random random = null;
-		updateTick(par1World, par2, par3, par4, random);
+		updateTick(world, x, y, z, random);
 	}
 
 	@Override
@@ -523,8 +513,8 @@ public class BlockForceField extends BlockContainer implements IForceFieldBlock 
 							((EntityPlayer) entity).attackEntityFrom(
 									MFFSDamageSource.fieldShock, 1);
 						}
-						Functions.ChattoPlayer((EntityPlayer) entity,
-								"[Force Field] Attention High Energy Field");
+						Functions.ChattoPlayer((EntityPlayer) entity, LanguageRegistry.instance()
+								.getStringLocalization("field.highEnergyField"));
 					}
 				}
 			}

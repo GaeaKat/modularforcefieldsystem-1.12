@@ -21,6 +21,7 @@
 package mods.mffs.common.multitool;
 
 import buildcraft.api.tools.IToolWrench;
+import cpw.mods.fml.common.registry.LanguageRegistry;
 import ic2.api.tile.IWrenchable;
 import mods.mffs.api.IMFFS_Wrench;
 import mods.mffs.common.Functions;
@@ -60,14 +61,13 @@ public class ItemWrench extends ItemMultitool implements IToolWrench,
 				if (this.consumePower(stack, 10000, true)) {
 					this.consumePower(stack, 10000, false);
 					((TileEntityProjector) tileentity).setBurnedOut(false);
-					Functions.ChattoPlayer(player,
-							"[MultiTool] Projector repaired");
+					Functions.ChattoPlayer(player,LanguageRegistry.instance().getStringLocalization("multitool" +
+							".projectorRepaired"));
 					return true;
 				} else {
 
-					Functions
-							.ChattoPlayer(player,
-									"[MultiTool] Fail: not enough FP please charge need min 10000");
+					Functions.ChattoPlayer(player, LanguageRegistry.instance().getStringLocalization("multitool" +
+							".notEnoughFE"));
 					return false;
 				}
 
@@ -88,9 +88,8 @@ public class ItemWrench extends ItemMultitool implements IToolWrench,
 
 			} else {
 
-				Functions
-						.ChattoPlayer(player,
-								"[MultiTool] Fail: not enough FE please charge need min 1000 for change Facing");
+				Functions.ChattoPlayer(player, LanguageRegistry.instance().getStringLocalization("multitool" +
+						".notEnoughFE"));
 			}
 
 			if (this.consumePower(stack, 25000, true)) {
@@ -105,9 +104,8 @@ public class ItemWrench extends ItemMultitool implements IToolWrench,
 
 			} else {
 
-				Functions
-						.ChattoPlayer(player,
-								"[MultiTool] Fail: not enough FE please charge need min 25000 for remove");
+				Functions.ChattoPlayer(player, LanguageRegistry.instance().getStringLocalization("multitool" +
+						".notEnoughFE"));
 			}
 
 		}
@@ -160,9 +158,8 @@ public class ItemWrench extends ItemMultitool implements IToolWrench,
 				}
 			} else {
 
-				Functions
-						.ChattoPlayer(player,
-								"[MultiTool] Fail: not enough FP please charge need min 1000");
+				Functions.ChattoPlayer(player, LanguageRegistry.instance().getStringLocalization("multitool" +
+						".notEnoughFE"));
 			}
 		}
 

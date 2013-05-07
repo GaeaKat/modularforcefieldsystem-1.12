@@ -20,13 +20,12 @@
 
 package mods.mffs.common.options;
 
-import java.util.List;
-
+import cpw.mods.fml.common.registry.LanguageRegistry;
 import mods.mffs.api.PointXYZ;
+import mods.mffs.common.IModularProjector.Slots;
 import mods.mffs.common.Linkgrid;
 import mods.mffs.common.MFFSDamageSource;
 import mods.mffs.common.SecurityRight;
-import mods.mffs.common.IModularProjector.Slots;
 import mods.mffs.common.modules.ItemProjectorModuleSphere;
 import mods.mffs.common.tileentity.TileEntityAdvSecurityStation;
 import mods.mffs.common.tileentity.TileEntityCapacitor;
@@ -36,6 +35,8 @@ import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.world.World;
+
+import java.util.List;
 
 public class ItemProjectorOptionDefenseStation extends ItemProjectorOptionBase {
 
@@ -123,7 +124,8 @@ public class ItemProjectorOptionDefenseStation extends ItemProjectorOptionBase {
 					if (killswitch) {
 						if (projector.consumePower(10000, true)) {
 							((EntityPlayer) entityLiving)
-									.addChatMessage("!!! [Area Defence] leave or die !!!");
+									.addChatMessage(LanguageRegistry.instance().getStringLocalization("warning" +
+											".areaDefense"));
 							((EntityPlayer) entityLiving).attackEntityFrom(
 									MFFSDamageSource.fieldDefense, 10);
 							projector.consumePower(10000, false);

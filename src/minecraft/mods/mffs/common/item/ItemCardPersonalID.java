@@ -20,8 +20,7 @@
 
 package mods.mffs.common.item;
 
-import java.util.List;
-
+import cpw.mods.fml.common.registry.LanguageRegistry;
 import mods.mffs.common.NBTTagCompoundHelper;
 import mods.mffs.common.SecurityRight;
 import net.minecraft.client.renderer.texture.IconRegister;
@@ -29,8 +28,9 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
-
 import org.lwjgl.input.Keyboard;
+
+import java.util.List;
 
 
 public class ItemCardPersonalID extends Item {
@@ -99,7 +99,7 @@ public class ItemCardPersonalID extends Item {
 
 		if (Keyboard.isKeyDown(Keyboard.KEY_LSHIFT)
 				|| Keyboard.isKeyDown(Keyboard.KEY_RSHIFT)) {
-			info.add("Rights:");
+			info.add(LanguageRegistry.instance().getStringLocalization("itemInfo.rights"));
 			for (SecurityRight sr : SecurityRight.rights.values()) {
 
 				if (hasRight(itemStack, sr)) {
@@ -108,7 +108,7 @@ public class ItemCardPersonalID extends Item {
 
 			}
 		} else {
-			info.add("Rights: (Hold Shift)");
+			info.add(LanguageRegistry.instance().getStringLocalization("itemInfo.rightsHoldShift"));
 		}
 	}
 }

@@ -1,22 +1,16 @@
 package mods.mffs.common.options;
 
-import java.util.ArrayList;
-import java.util.List;
-
+import cpw.mods.fml.common.registry.LanguageRegistry;
 import mods.mffs.common.ModularForceFieldSystem;
 import mods.mffs.common.ProjectorTyp;
-import mods.mffs.common.modules.ItemProjectorModuleAdvCube;
-import mods.mffs.common.modules.ItemProjectorModuleContainment;
-import mods.mffs.common.modules.ItemProjectorModuleCube;
-import mods.mffs.common.modules.ItemProjectorModuleDeflector;
-import mods.mffs.common.modules.ItemProjectorModuleSphere;
-import mods.mffs.common.modules.ItemProjectorModuleTube;
-import mods.mffs.common.modules.ItemProjectorModuleWall;
+import mods.mffs.common.modules.*;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-
 import org.lwjgl.input.Keyboard;
+
+import java.util.ArrayList;
+import java.util.List;
 
 
 public abstract class ItemProjectorOptionBase extends Item {
@@ -43,7 +37,7 @@ public abstract class ItemProjectorOptionBase extends Item {
 			List info, boolean b) {
 		if (Keyboard.isKeyDown(Keyboard.KEY_LSHIFT)
 				|| Keyboard.isKeyDown(Keyboard.KEY_RSHIFT)) {
-			info.add("compatible with:");
+			info.add(LanguageRegistry.instance().getStringLocalization("itemInfo.compatibleWith"));
 
 			if (ItemProjectorModuleWall.supportsOption(this))
 				info.add(ProjectorTyp.getDisplayName(ProjectorTyp.wall));
@@ -64,7 +58,7 @@ public abstract class ItemProjectorOptionBase extends Item {
 				info.add(ProjectorTyp.getDisplayName(ProjectorTyp.containment));
 
 		} else {
-			info.add("compatible with: (Hold Shift)");
+			info.add(LanguageRegistry.instance().getStringLocalization("itemInfo.compatibleWithHoldShift"));
 		}
 	}
 

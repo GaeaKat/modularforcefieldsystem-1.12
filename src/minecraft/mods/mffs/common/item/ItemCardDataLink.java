@@ -1,7 +1,6 @@
 package mods.mffs.common.item;
 
-import java.util.List;
-
+import cpw.mods.fml.common.registry.LanguageRegistry;
 import mods.mffs.api.PointXYZ;
 import mods.mffs.common.Linkgrid;
 import mods.mffs.common.MFFSMaschines;
@@ -14,6 +13,8 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
+
+import java.util.List;
 
 public class ItemCardDataLink extends ItemCard {
 
@@ -70,8 +71,8 @@ public class ItemCardDataLink extends ItemCard {
 		NBTTagCompound tag = NBTTagCompoundHelper
 				.getTAGfromItemstack(itemStack);
 
-		info.add("DeviceTyp: " + getDeviceTyp(itemStack));
-		info.add("DeviceName: " + getforAreaname(itemStack));
+		info.add(LanguageRegistry.instance().getStringLocalization("itemInfo.deviceType") + getDeviceTyp(itemStack));
+		info.add(LanguageRegistry.instance().getStringLocalization("itemInfo.deviceName") + getforAreaname(itemStack));
 
 		if (tag.hasKey("worldname"))
 			info.add("World: " + tag.getString("worldname"));

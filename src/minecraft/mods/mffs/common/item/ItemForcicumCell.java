@@ -23,8 +23,9 @@
 
 package mods.mffs.common.item;
 
-import java.util.List;
-
+import cpw.mods.fml.common.registry.LanguageRegistry;
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 import mods.mffs.common.ModularForceFieldSystem;
 import mods.mffs.common.NBTTagCompoundHelper;
 import net.minecraft.client.renderer.texture.IconRegister;
@@ -35,8 +36,8 @@ import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.world.World;
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
+
+import java.util.List;
 
 public class ItemForcicumCell extends ItemMFFSBase {
 
@@ -116,7 +117,7 @@ public class ItemForcicumCell extends ItemMFFSBase {
 	@Override
 	public void addInformation(ItemStack itemStack, EntityPlayer player,
 			List info, boolean b) {
-		String tooltip = String.format("%d / %d  Forcicum  ",
+		String tooltip = String.format("%d / %d  Forcicium",
 				getForceciumlevel(itemStack), getMaxForceciumlevel());
 		info.add(tooltip);
 	}
@@ -161,10 +162,12 @@ public class ItemForcicumCell extends ItemMFFSBase {
 		if (world.isRemote == false) {
 			if (!aktiv) {
 				aktiv = true;
-				entityplayer.addChatMessage("[Forcicum Cell] Active");
+				entityplayer.addChatMessage(LanguageRegistry.instance().getStringLocalization("itemInfo" +
+						".forciciumCellActive"));
 			} else {
 				aktiv = false;
-				entityplayer.addChatMessage("[Forcicum Cell] Inactive");
+				entityplayer.addChatMessage(LanguageRegistry.instance().getStringLocalization("itemInfo" +
+						".forciciumCellInactive"));
 			}
 
 		}

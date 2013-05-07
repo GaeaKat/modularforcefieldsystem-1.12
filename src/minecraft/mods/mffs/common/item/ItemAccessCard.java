@@ -20,8 +20,7 @@
 
 package mods.mffs.common.item;
 
-import java.util.List;
-
+import cpw.mods.fml.common.registry.LanguageRegistry;
 import mods.mffs.common.Linkgrid;
 import mods.mffs.common.NBTTagCompoundHelper;
 import mods.mffs.common.SecurityRight;
@@ -32,8 +31,9 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.world.World;
-
 import org.lwjgl.input.Keyboard;
+
+import java.util.List;
 
 
 public class ItemAccessCard extends ItemCardPersonalID {
@@ -161,11 +161,11 @@ public class ItemAccessCard extends ItemCardPersonalID {
 	@Override
 	public void addInformation(ItemStack itemStack, EntityPlayer player,
 			List info, boolean b) {
-		String SecurityArea = String.format("Security Area: %s ",
+		String SecurityArea = String.format(LanguageRegistry.instance().getStringLocalization("itemInfo.securityArea"),
 				getforAreaname(itemStack));
 		info.add(SecurityArea);
 
-		String validity = String.format("period of validity: %s min",
+		String validity = String.format(LanguageRegistry.instance().getStringLocalization("itemInfo.periodOfValidity"),
 				getvalidity(itemStack));
 		info.add(validity);
 
@@ -173,14 +173,14 @@ public class ItemAccessCard extends ItemCardPersonalID {
 				|| Keyboard.isKeyDown(Keyboard.KEY_RSHIFT)) {
 			NBTTagCompound rightsTag = NBTTagCompoundHelper
 					.getTAGfromItemstack(itemStack).getCompoundTag("rights");
-			info.add("Rights:");
+			info.add(LanguageRegistry.instance().getStringLocalization("itemInfo.rights"));
 			for (SecurityRight sr : SecurityRight.rights.values()) {
 				if (rightsTag.getBoolean(sr.rightKey)) {
 					info.add("-" + sr.name);
 				}
 			}
 		} else {
-			info.add("Rights: (Hold Shift)");
+			info.add(LanguageRegistry.instance().getStringLocalization("itemInfo.rightsHoldShift"));
 		}
 	}
 

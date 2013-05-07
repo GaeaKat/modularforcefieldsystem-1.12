@@ -20,8 +20,6 @@
 
 package mods.mffs.common.item;
 
-import java.util.List;
-
 import mods.mffs.api.PointXYZ;
 import mods.mffs.common.NBTTagCompoundHelper;
 import net.minecraft.entity.player.EntityPlayer;
@@ -29,6 +27,8 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraftforge.common.DimensionManager;
+
+import java.util.List;
 
 public class ItemCard extends Item {
 
@@ -81,7 +81,7 @@ public class ItemCard extends Item {
 			List info, boolean b) {
 		NBTTagCompound tag = NBTTagCompoundHelper
 				.getTAGfromItemstack(itemStack);
-		info.add("Linkto: " + getforAreaname(itemStack));
+		info.add("Links To: " + getforAreaname(itemStack));
 		if (tag.hasKey("worldname"))
 			info.add("World: " + tag.getString("worldname"));
 		if (tag.hasKey("linkTarget"))
