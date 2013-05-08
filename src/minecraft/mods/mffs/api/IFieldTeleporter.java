@@ -7,7 +7,7 @@ import net.minecraft.item.ItemStack;
  * Interface for an item that allows the item to be used to teleport through
  * MFFS Forcefields.
  * 
- * @author Mina
+ * @author Ken "Minalien" Murray
  */
 public interface IFieldTeleporter {
 	/**

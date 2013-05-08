@@ -60,8 +60,8 @@ public class BlockSecurtyStorage extends BlockMFFSBase {
 	}
 
 	@Override
-	public boolean onBlockActivated(World world, int i, int j, int k,
-			EntityPlayer entityplayer, int par6, float par7, float par8,
+	public boolean onBlockActivated(World world, int x, int y, int z,
+			EntityPlayer entityplayer, int side, float par7, float par8,
 			float par9) {
 
 		if (world.isRemote)
@@ -73,14 +73,14 @@ public class BlockSecurtyStorage extends BlockMFFSBase {
 		}
 
 		TileEntitySecStorage tileentity = (TileEntitySecStorage) world
-				.getBlockTileEntity(i, j, k);
+				.getBlockTileEntity(x, y, z);
 		if (tileentity != null) {
 
 			if (SecurityHelper.isAccessGranted(tileentity, entityplayer, world,
 					SecurityRight.OSS)) {
 				if (!world.isRemote)
 					entityplayer.openGui(ModularForceFieldSystem.instance, 0,
-							world, i, j, k);
+							world, x, y, z);
 				return true;
 			} else {
 				return true;

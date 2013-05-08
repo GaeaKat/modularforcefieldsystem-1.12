@@ -20,8 +20,7 @@
 
 package mods.mffs.common.block;
 
-import java.util.Random;
-
+import buildcraft.api.tools.IToolWrench;
 import mods.mffs.common.ModularForceFieldSystem;
 import mods.mffs.common.SecurityHelper;
 import mods.mffs.common.SecurityRight;
@@ -40,6 +39,7 @@ import net.minecraft.block.material.Material;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.Icon;
@@ -47,6 +47,8 @@ import net.minecraft.util.MathHelper;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.common.ForgeDirection;
+
+import java.util.Random;
 
 public abstract class BlockMFFSBase extends BlockContainer {
 	private int blockid;
@@ -66,8 +68,8 @@ public abstract class BlockMFFSBase extends BlockContainer {
 	public abstract TileEntity createNewTileEntity(World world);
 
 	@Override
-	public boolean onBlockActivated(World world, int i, int j, int k,
-			EntityPlayer entityplayer, int par6, float par7, float par8,
+	public boolean onBlockActivated(World world, int x, int y, int z,
+			EntityPlayer entityplayer, int side, float par7, float par8,
 			float par9) {
 
 		if (entityplayer.isSneaking()) {
@@ -78,36 +80,34 @@ public abstract class BlockMFFSBase extends BlockContainer {
 			return true;
 
 		TileEntityMachines tileentity = (TileEntityMachines) world
-				.getBlockTileEntity(i, j, k);
+				.getBlockTileEntity(x, y, z);
 
-		if (entityplayer.getCurrentEquippedItem() != null
-				&& (entityplayer.getCurrentEquippedItem().getItem() instanceof ItemMultitool)) {
-			return false;
-		}
+		Item equipped = (entityplayer.getCurrentEquippedItem() != null ? entityplayer.getCurrentEquippedItem().getItem
+				() : null);
+		if(equipped != null) {
+			// These items will handle their code.
+			if(equipped instanceof ItemMultitool || equipped instanceof ItemCardEmpty || equipped instanceof
+					ModuleBase || equipped instanceof ItemCardPowerLink || equipped instanceof ItemCardSecurityLink)
+				return false;
 
-		if (entityplayer.getCurrentEquippedItem() != null
-				&& (entityplayer.getCurrentEquippedItem().getItem() instanceof ItemCardEmpty)) {
-			return false;
-		}
+			// Levers may be placed on MFFS Machines directly
+			if(equipped.itemID == Block.lever.blockID)
+				return false;
 
-		if (entityplayer.getCurrentEquippedItem() != null
-				&& (entityplayer.getCurrentEquippedItem().getItem() instanceof ModuleBase)) {
-			return false;
-		}
+			// Make sure we actually have a tile entity...
+			if(tileentity == null)
+				return false;
 
-		if (entityplayer.getCurrentEquippedItem() != null
-				&& (entityplayer.getCurrentEquippedItem().getItem() instanceof ItemCardPowerLink)) {
-			return false;
-		}
+			if(equipped instanceof IToolWrench && ((IToolWrench)equipped).canWrench(entityplayer, x, y, z)) {
+				if(!tileentity.wrenchCanManipulate(entityplayer, side))
+					return false;
 
-		if (entityplayer.getCurrentEquippedItem() != null
-				&& (entityplayer.getCurrentEquippedItem().getItem() instanceof ItemCardSecurityLink)) {
-			return false;
-		}
+				tileentity.setSide(side);
 
-		if (entityplayer.getCurrentEquippedItem() != null
-				&& entityplayer.getCurrentEquippedItem().itemID == Block.lever.blockID) {
-			return false;
+				((IToolWrench)equipped).wrenchUsed(entityplayer, x, y, z);
+
+				return true;
+			}
 		}
 
 		if (tileentity instanceof TileEntityAdvSecurityStation) {
@@ -132,9 +132,7 @@ public abstract class BlockMFFSBase extends BlockContainer {
 			return true;
 		}
 
-		if (!world.isRemote)
-			entityplayer.openGui(ModularForceFieldSystem.instance, 0, world, i,
-					j, k);
+		entityplayer.openGui(ModularForceFieldSystem.instance, 0, world, x, y, z);
 
 		return true;
 	}

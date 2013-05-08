@@ -20,8 +20,6 @@
 
 package mods.mffs.common.tileentity;
 
-import java.util.Random;
-
 import mods.mffs.api.PointXYZ;
 import mods.mffs.common.ForceFieldBlockStack;
 import mods.mffs.common.Linkgrid;
@@ -30,6 +28,8 @@ import mods.mffs.network.client.ForceFieldClientUpdatehandler;
 import mods.mffs.network.server.ForceFieldServerUpdatehandler;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
+
+import java.util.Random;
 
 public class TileEntityForceField extends TileEntity {
 	private final Random random = new Random();

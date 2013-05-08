@@ -39,9 +39,6 @@ import net.minecraft.nbt.NBTTagList;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraftforge.common.ForgeDirection;
 import net.minecraftforge.common.MinecraftForge;
-/*import universalelectricity.core.electricity.ElectricityConnections;
- import universalelectricity.core.electricity.ElectricityNetwork;
- import universalelectricity.core.vector.Vector3;*/
 
 public class TileEntityConverter extends TileEntityFEPoweredMachine implements
 		IEnergySource {

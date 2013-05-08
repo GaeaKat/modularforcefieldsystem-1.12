@@ -239,18 +239,18 @@ public class BlockProjector extends BlockMFFSBase {
 	}
 
 	@Override
-	public boolean onBlockActivated(World world, int i, int j, int k,
-			EntityPlayer entityplayer, int par6, float par7, float par8,
+	public boolean onBlockActivated(World world, int x, int y, int z,
+			EntityPlayer entityplayer, int side, float par7, float par8,
 			float par9) {
 
 		TileEntityProjector tileentity = (TileEntityProjector) world
-				.getBlockTileEntity(i, j, k);
+				.getBlockTileEntity(x, y, z);
 
 		if (tileentity.isBurnout()) {
 			return false;
 		}
 
-		return super.onBlockActivated(world, i, j, k, entityplayer, par6, par7,
+		return super.onBlockActivated(world, x, y, z, entityplayer, side, par7,
 				par8, par9);
 
 	}
