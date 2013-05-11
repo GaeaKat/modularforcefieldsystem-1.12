@@ -38,7 +38,6 @@ import net.minecraft.client.renderer.texture.IconRegister;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.inventory.Slot;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
@@ -48,7 +47,6 @@ import net.minecraft.util.MathHelper;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 
-import java.util.List;
 import java.util.Random;
 
 public class BlockForceField extends BlockContainer implements IForceFieldBlock {
@@ -200,8 +198,10 @@ public class BlockForceField extends BlockContainer implements IForceFieldBlock 
 		if (stack == null)
 			return false;
 
+
 		Item item = stack.getItem();
-		if (!(item instanceof IFieldTeleporter))
+		boolean debugger = (item instanceof ItemDebugger);
+		if (!(item instanceof IFieldTeleporter) && !debugger)
 			return false;
 
 		ForceFieldWorld wff = WorldMap.getForceFieldWorld(world);
@@ -219,47 +219,43 @@ public class BlockForceField extends BlockContainer implements IForceFieldBlock 
 					.getProjektor().get(First_Pro_ID);
 
 			if (projector != null && generator != null) {
+				// Debugger can be spawned in and used to kill force fields.
+				if(debugger) {
+					projector.setBurnedOut(true);
+					player.addChatMessage("Forcefield projector burnt out. Projector location: (" + projector.xCoord
+							+ "," + projector.yCoord + "," + projector.zCoord + ")");
+					return true;
+				}
 
 				if (projector.isActive()) {
-					boolean passtrue = false;
+					boolean passThrough = false;
 
 					switch (projector.getaccesstyp()) {
 					case 0:
-						passtrue = false;
+						passThrough = false;
 
 						String[] ops = ModularForceFieldSystem.Admin.split(";");
 						for (int i = 0; i <= ops.length - 1; i++) {
 							if (player.username.equalsIgnoreCase(ops[i]))
-								passtrue = true;
-						}
-
-						List<Slot> slots = player.inventoryContainer.inventorySlots;
-						for (Slot slot : slots) {
-							ItemStack playerstack = slot.getStack();
-							if (playerstack != null) {
-								if (playerstack.getItem() instanceof ItemDebugger) {
-									passtrue = true;
-									break;
-								}
-							}
+								passThrough = true;
 						}
 
 						break;
 					case 1:
-						passtrue = true;
+						passThrough = true;
 						break;
 					case 2:
-						passtrue = SecurityHelper.isAccessGranted(generator,
+						passThrough = SecurityHelper.isAccessGranted(generator,
 								player, world, SecurityRight.FFB);
 						break;
 					case 3:
-						passtrue = SecurityHelper.isAccessGranted(projector,
+						passThrough = SecurityHelper.isAccessGranted(projector,
 								player, world, SecurityRight.FFB);
 						break;
 
 					}
 
-					if (passtrue) {
+					if (passThrough) {
 						int typ = 99;
 						int ymodi = 0;
 
