@@ -34,32 +34,28 @@ public enum MFFSMaschines {
 
 	Projector(1, "MFFSProjector", "Projector", "TileEntityProjector",
 			"GuiProjector", "ContainerProjector",
-			ModularForceFieldSystem.MFFSProjector, 0, "KyKyFyKJK", "ByByKyBaB"), Extractor(
-			2, "MFFSExtractor", "Extractor", "TileEntityExtractor",
+			ModularForceFieldSystem.MFFSProjector, 0, "KyKyFyKJK", " y yFyaIa"),
+	Extractor(2, "MFFSExtractor", "Extractor", "TileEntityExtractor",
 			"GuiExtractor", "ContainerForceEnergyExtractor",
-			ModularForceFieldSystem.MFFSExtractor, 0, " C xFx G ", " E xKx J "), Capacitor(
-			3, "MFFSCapacitor", "Capacitor", "TileEntityCapacitor",
+			ModularForceFieldSystem.MFFSExtractor, 0, " C xFx G ", " a xFxEIE"),
+	Capacitor(3, "MFFSCapacitor", "Capacitor", "TileEntityCapacitor",
 			"GuiCapacitor", "ContainerCapacitor",
-			ModularForceFieldSystem.MFFSCapacitor, 0, "xJxCFCxJx", "xaxEKExax"), Converter(
-			4, "MFFSForceEnergyConverter", "Converter", "TileEntityConverter",
+			ModularForceFieldSystem.MFFSCapacitor, 0, "xJxCFCxJx", " a xGxxIx"),
+	Converter(4, "MFFSForceEnergyConverter", "Converter", "TileEntityConverter",
 			"GuiConverter", "ContainerConverter",
-			ModularForceFieldSystem.MFFSForceEnergyConverter, 0, "ANAJOMAPA",
-			"AKAaJIAMA"), DefenceStation(5, "MFFSDefenceStation",
-			"Defence Station", "TileEntityAreaDefenseStation",
+			ModularForceFieldSystem.MFFSForceEnergyConverter, 0, "ANAJOMAPA", "         "),
+	DefenceStation(5, "MFFSDefenceStation", "Defence Station", "TileEntityAreaDefenseStation",
 			"GuiAreaDefenseStation", "ContainerAreaDefenseStation",
-			ModularForceFieldSystem.MFFSDefenceStation, 0, " J aFa E ",
-			" a EKE C "), SecurityStation(6, "MFFSSecurtyStation",
-			"Security Station", "TileEntityAdvSecurityStation",
+			ModularForceFieldSystem.MFFSDefenceStation, 0, " J aFa E ", " a EFE I "),
+	SecurityStation(6, "MFFSSecurtyStation", "Security Station", "TileEntityAdvSecurityStation",
 			"GuiAdvSecurityStation", "ContainerAdvSecurityStation",
-			ModularForceFieldSystem.MFFSSecurtyStation, 0, "KCKCFCKJK",
-			"CECEKECaC"), SecurityStorage(7, "MFFSSecurtyStorage",
-			"Security Storage", "TileEntitySecStorage", "GuiSecStorage",
-			"ContainerSecStorage", ModularForceFieldSystem.MFFSSecurtyStorage,
-			0, "AAAACAAAA", "AAAAEAAAA"), ControlSystem(8, "MFFSControlSystem",
-			"Control System", "TileEntityControlSystem", "GuiControlSystem",
-			"ContainerControlSystem",
-			ModularForceFieldSystem.MFFSControlSystem, 0, "aCaAFAACA",
-			"aEaAKAAEA");
+			ModularForceFieldSystem.MFFSSecurtyStation, 0, "KCKCFCKJK", " E EFEDaD"),
+	SecurityStorage(7, "MFFSSecurtyStorage", "Security Storage", "TileEntitySecStorage",
+			"GuiSecStorage", "ContainerSecStorage",
+			ModularForceFieldSystem.MFFSSecurtyStorage, 0, "AAAACAAAA", "AAAAEAAAA"),
+	ControlSystem(8, "MFFSControlSystem", "Control System","TileEntityControlSystem",
+			"GuiControlSystem", "ContainerControlSystem",
+			ModularForceFieldSystem.MFFSControlSystem, 0, "aCaAFAACA", " C aFaAIA");
 
 	public int index;
 	public String inCodeName;
@@ -69,12 +65,12 @@ public enum MFFSMaschines {
 	public Class<? extends Container> Container;
 	public Block block;
 	public String recipeic;
-	public String recipeue;
+	public String recipete;
 	public int baseTex;
 
 	private MFFSMaschines(int index, String nm, String dispNm, String cls,
 			String gui, String container, Block block, int baseTex,
-			String recipeic, String recipeue) {
+			String recipeic, String recipete) {
 
 		this.index = index;
 		this.inCodeName = nm;
@@ -93,7 +89,7 @@ public enum MFFSMaschines {
 			this.Container = null;
 		}
 		this.recipeic = recipeic;
-		this.recipeue = recipeue;
+		this.recipete = recipete;
 		this.block = block;
 		this.baseTex = baseTex;
 	}
@@ -125,6 +121,8 @@ public enum MFFSMaschines {
 
 			if (ModularForceFieldSystem.ic2Found)
 				RecipesFactory.addRecipe(mach.recipeic, 1, 1, mach.block, null);
+			if(ModularForceFieldSystem.thermalExpansionFound && mach != MFFSMaschines.Converter)
+				RecipesFactory.addRecipe(mach.recipete, 1, 2, mach.block, null);
 
 			LanguageRegistry.instance().addNameForObject(mach.block, "en_US",
 					"MFFS " + mach.displayName);

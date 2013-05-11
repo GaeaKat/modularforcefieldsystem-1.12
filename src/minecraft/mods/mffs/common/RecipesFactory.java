@@ -28,14 +28,15 @@ import ic2.api.item.Items;
 import net.minecraft.block.Block;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import thermalexpansion.api.item.ItemRegistry;
 
 public final class RecipesFactory {
 
-	// forMod: 0: independent, 1: IC2, 2: BC3, 3: Thermal Expansion
+	// forMod: 0: independent, 1: IC2, 2: Thermal Expansion
 	public static boolean addRecipe(String Recipe, int count, int forMod,
 			Block block, Item item) {
 
-		if ((forMod >= 2 || forMod < 0) || (count < 0)
+		if ((forMod >= 4 || forMod < 0) || (count < 0)
 				|| (block == null && item == null)
 				|| (block != null && item != null) || (Recipe.length() != 9)) {
 			System.out
@@ -168,6 +169,77 @@ public final class RecipesFactory {
 				return true;
 			}
 			break;
+
+			case 2: // Thermal Expansion
+				if (ModularForceFieldSystem.thermalExpansionFound
+						&& ModularForceFieldSystem.enableTERecipes) {
+					GameRegistry
+							.addRecipe(
+									itemstack,
+									recipeSplit,
+
+									'a',
+									Item.enderPearl,
+									'b',
+									Item.pickaxeIron,
+									'c',
+									Item.bucketEmpty,
+									'd',
+									Item.bucketLava,
+									'e',
+									Item.bucketWater,
+									'f',
+									Item.bone, // Vanilla Stuff a++
+									'g',
+									Item.blazeRod,
+									'h',
+									Item.rottenFlesh,
+									'i',
+									Item.diamond,
+									'j',
+									Item.spiderEye,
+									'k',
+									Block.obsidian,
+									'l',
+									Block.glass,
+									'm',
+									Item.redstone,
+									'n',
+									Block.lever,
+									'o',
+									Item.paper,
+
+									'u',
+									ModularForceFieldSystem.MFFSitemForcicium,
+									'v',
+									ModularForceFieldSystem.MFFSitemFocusmatix,
+									'w',
+									ModularForceFieldSystem.MFFSProjectorTypkube,
+									'x',
+									new ItemStack(
+											ModularForceFieldSystem.MFFSitemForcePowerCrystal,
+											1, -1),
+									'y',
+									ModularForceFieldSystem.MFFSitemFocusmatix,
+									'z', ModularForceFieldSystem.MFFSItemIDCard,
+
+									'A', Item.ingotIron,
+									'B', ItemRegistry.getItem("gearTin", 1),
+									'C', ItemRegistry.getItem("powerCoilSilver", 1),
+									'D', ItemRegistry.getItem("powerCoilElectrum", 1),
+									'E', ItemRegistry.getItem("ingotElectrum", 1),
+									'F', ItemRegistry.getItem("machineFrame", 1),
+									'G', ItemRegistry.getItem("energyCellFrameFull", 1),
+									'H', ItemRegistry.getItem("ingotCopper", 1),
+									'I', ItemRegistry.getItem("powerCoilGold", 1),
+									'J', Item.enderPearl,
+									'K', ItemRegistry.getItem("bucketEnder", 1),
+									'S', ItemRegistry.getItem("wrench", 1)
+
+							);
+					return true;
+				}
+				break;
 		}
 
 		return false;

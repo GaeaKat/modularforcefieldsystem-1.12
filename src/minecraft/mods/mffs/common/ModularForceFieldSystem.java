@@ -152,7 +152,6 @@ public class ModularForceFieldSystem {
 	public static Boolean thermalExpansionFound = false;
 
 	public static boolean enableIC2Recipes = true;
-	public static boolean enableBC3Recipes = true;
 	public static boolean enableTERecipes = true;
 
 	public static int graphicsStyle = 1;
@@ -341,11 +340,6 @@ public class ModularForceFieldSystem {
 					Configuration.CATEGORY_GENERAL, "enableIC2Recipes", true);
 			ic2Recipes.comment = "Set to false to disable IndustrialCraft 2 recipes for MFFS machines.";
 			enableIC2Recipes = ic2Recipes.getBoolean(true);
-
-			Property bc3Recipes = MFFSconfig.get(
-					Configuration.CATEGORY_GENERAL, "enableBC3Recipes", true);
-			bc3Recipes.comment = "Set to false to disable BuildCraft 3 recipes for MFFS machines.";
-			enableBC3Recipes = bc3Recipes.getBoolean(true);
 
 			Property teRecipes = MFFSconfig.get(Configuration.CATEGORY_GENERAL,
 					"enableTERecipes", true);

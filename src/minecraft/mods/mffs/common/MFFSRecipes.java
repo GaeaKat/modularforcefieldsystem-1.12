@@ -23,16 +23,22 @@
 
 package mods.mffs.common;
 
+import buildcraft.BuildCraftCore;
 import cpw.mods.fml.common.registry.GameRegistry;
 import ic2.api.item.Items;
 import ic2.api.recipe.Recipes;
+import net.minecraft.block.Block;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.CraftingManager;
+import net.minecraftforge.liquids.LiquidDictionary;
 import thermalexpansion.api.crafting.CraftingManagers;
+import thermalexpansion.api.item.ItemRegistry;
 
 import java.lang.reflect.Method;
 
 public class MFFSRecipes {
+	public static final int MONAZIT_MACERATION_OUTPUT = 8;
 
 	public static void AddIC2Recipes() {
 		Method addMaceratorRecipe = null;
@@ -40,9 +46,71 @@ public class MFFSRecipes {
 
 		Recipes.macerator.addRecipe(new ItemStack(
 				ModularForceFieldSystem.MFFSMonazitOre, 1), new ItemStack(
-				ModularForceFieldSystem.MFFSitemForcicium, 8));
+				ModularForceFieldSystem.MFFSitemForcicium, MONAZIT_MACERATION_OUTPUT));
 		Recipes.matterAmplifier.addRecipe(new ItemStack(
 				ModularForceFieldSystem.MFFSitemForcicium, 1), 5000);
+
+		if (ModularForceFieldSystem.enableUUMatterForcicium)
+			Recipes.advRecipes.addRecipe(
+					new ItemStack(
+							ModularForceFieldSystem.MFFSitemForcicium,
+							8),
+					new Object[] { " RR", "R  ", " R ",
+							Character.valueOf('R'),
+							Items.getItem("matter") });
+
+		RecipesFactory.addRecipe("AAAAxAADA", 1, 1, null,
+				ModularForceFieldSystem.MFFSitemForcicumCell);
+		RecipesFactory.addRecipe(" E EBE E ", 4, 1, null,
+				ModularForceFieldSystem.MFFSitemupgradeexctractorboost);
+		RecipesFactory.addRecipe(" E ExE E ", 1, 1, null,
+				ModularForceFieldSystem.MFFSitemupgradecapcap);
+		RecipesFactory.addRecipe("HHHEIEEDE", 1, 1, null,
+				ModularForceFieldSystem.MFFSitemupgradecaprange);
+		RecipesFactory.addRecipe("AlAlilAlA", 64, 1, null,
+				ModularForceFieldSystem.MFFSitemFocusmatix);
+		RecipesFactory.addRecipe("ooooCoooo", 1, 1, null,
+				ModularForceFieldSystem.MFFSitemcardempty);
+		RecipesFactory.addRecipe("mSnExEEDE", 1, 1, null,
+				ModularForceFieldSystem.MFFSitemWrench);
+	}
+
+	public static void AddTERecipes() {
+		CraftingManagers.pulverizerManager.addRecipe(400, new ItemStack(
+				ModularForceFieldSystem.MFFSMonazitOre, 1), new ItemStack(
+				ModularForceFieldSystem.MFFSitemForcicium, MONAZIT_MACERATION_OUTPUT), false);
+
+		RecipesFactory.addRecipe(" E EBE E ", 4, 2, null,
+				ModularForceFieldSystem.MFFSitemupgradeexctractorboost);
+		RecipesFactory.addRecipe(" E ExE E ", 1, 2, null,
+				ModularForceFieldSystem.MFFSitemupgradecapcap);
+		RecipesFactory.addRecipe("HHHEaEEDE", 1, 2, null,
+				ModularForceFieldSystem.MFFSitemupgradecaprange);
+		RecipesFactory.addRecipe("AlAlilAlA", 64, 2, null,
+				ModularForceFieldSystem.MFFSitemFocusmatix);
+		RecipesFactory.addRecipe("mSnExEEDE", 1, 2, null,
+				ModularForceFieldSystem.MFFSitemWrench);
+
+		CraftingManagers.transposerManager.addFillRecipe(80, ItemRegistry.getItem("schematic", 1),
+				new ItemStack(ModularForceFieldSystem.MFFSitemcardempty, 1),
+				LiquidDictionary.getLiquid("redstone", 100), false);
+
+		if(ModularForceFieldSystem.buildcraftFound)
+			GameRegistry.addRecipe(
+					new ItemStack(ModularForceFieldSystem.MFFSitemWrench, 1),
+					"mSn",
+					"ExE",
+					"EDE",
+					'm', Item.redstone,
+					'S', BuildCraftCore.wrenchItem,
+					'n', Block.lever,
+					'E', ItemRegistry.getItem("ingotElectrum", 1),
+					'x',
+					new ItemStack(
+							ModularForceFieldSystem.MFFSitemForcePowerCrystal,
+							1, -1),
+					'D', ItemRegistry.getItem("powerCoilElectrum", 1)
+			);
 	}
 
 	public static void init() {
@@ -81,39 +149,11 @@ public class MFFSRecipes {
 				ModularForceFieldSystem.MFFSMonazitOre.blockID, new ItemStack(
 						ModularForceFieldSystem.MFFSitemForcicium, 4), 0.5F);
 
-		if (ModularForceFieldSystem.thermalExpansionFound) {
-			CraftingManagers.pulverizerManager.addRecipe(100, new ItemStack(
-					ModularForceFieldSystem.MFFSMonazitOre, 1), new ItemStack(
-					ModularForceFieldSystem.MFFSitemForcicium, 8), false);
-		}
-
-		if (ModularForceFieldSystem.ic2Found) {
+		if (ModularForceFieldSystem.ic2Found && ModularForceFieldSystem.enableIC2Recipes)
 			AddIC2Recipes();
 
-			if (ModularForceFieldSystem.enableUUMatterForcicium)
-				Recipes.advRecipes.addRecipe(
-								new ItemStack(
-										ModularForceFieldSystem.MFFSitemForcicium,
-										8),
-								new Object[] { " RR", "R  ", " R ",
-										Character.valueOf('R'),
-										Items.getItem("matter") });
-
-			RecipesFactory.addRecipe("AAAAxAADA", 1, 1, null,
-					ModularForceFieldSystem.MFFSitemForcicumCell);
-			RecipesFactory.addRecipe(" E EBE E ", 4, 1, null,
-					ModularForceFieldSystem.MFFSitemupgradeexctractorboost);
-			RecipesFactory.addRecipe(" E ExE E ", 1, 1, null,
-					ModularForceFieldSystem.MFFSitemupgradecapcap);
-			RecipesFactory.addRecipe("HHHEIEEDE", 1, 1, null,
-					ModularForceFieldSystem.MFFSitemupgradecaprange);
-			RecipesFactory.addRecipe("AlAlilAlA", 64, 1, null,
-					ModularForceFieldSystem.MFFSitemFocusmatix);
-			RecipesFactory.addRecipe("ooooCoooo", 1, 1, null,
-					ModularForceFieldSystem.MFFSitemcardempty);
-			RecipesFactory.addRecipe("mSnExEEDE", 1, 1, null,
-					ModularForceFieldSystem.MFFSitemWrench);
-		}
+		if (ModularForceFieldSystem.thermalExpansionFound && ModularForceFieldSystem.enableTERecipes)
+			AddTERecipes();
 	}
 
 }
