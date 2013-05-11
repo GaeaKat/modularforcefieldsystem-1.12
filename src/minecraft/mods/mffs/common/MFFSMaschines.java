@@ -49,7 +49,7 @@ public enum MFFSMaschines {
 			ModularForceFieldSystem.MFFSDefenceStation, 0, " J aFa E ", " a EFE I "),
 	SecurityStation(6, "MFFSSecurtyStation", "Security Station", "TileEntityAdvSecurityStation",
 			"GuiAdvSecurityStation", "ContainerAdvSecurityStation",
-			ModularForceFieldSystem.MFFSSecurtyStation, 0, "KCKCFCKJK", " E EFEDaD"),
+			ModularForceFieldSystem.MFFSSecurtyStation, 0, "KCKCFCKJK", " E EFEIaI"),
 	SecurityStorage(7, "MFFSSecurtyStorage", "Security Storage", "TileEntitySecStorage",
 			"GuiSecStorage", "ContainerSecStorage",
 			ModularForceFieldSystem.MFFSSecurtyStorage, 0, "AAAACAAAA", "AAAAEAAAA"),

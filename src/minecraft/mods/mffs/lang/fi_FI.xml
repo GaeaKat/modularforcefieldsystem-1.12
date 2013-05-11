@@ -133,7 +133,7 @@
 
     <!-- Misc Strings -->
     <entry key="itemGroup.MFFS">MFFS</entry>
-    <entry key="death.areaDefense">%1$s ei huomioinut varoituksia ja paistui!</entry>
-    <entry key="death.fieldShock">%1$s paistui voimakentässä!</entry>
-    <entry key="death.fieldDefense">%1$s paistui!</entry>
+    <entry key="death.attack.areaDefense">%1$s ei huomioinut varoituksia ja paistui!</entry>
+    <entry key="death.attack.fieldShock">%1$s paistui voimakentässä!</entry>
+    <entry key="death.attack.fieldDefense">%1$s paistui!</entry>
 </properties>

@@ -326,6 +326,11 @@ public class TileEntityAdvSecurityStation extends TileEntityMachines {
 
 		String[] ops = ModularForceFieldSystem.Admin.split(";");
 
+		EntityPlayer player = worldObj.getPlayerEntityByName(username);
+		if(player != null && player.capabilities.isCreativeMode) {
+			return true;
+		}
+
 		for (int i = 0; i <= ops.length - 1; i++) {
 			if (username.equalsIgnoreCase(ops[i]))
 				return true;

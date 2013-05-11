@@ -31,7 +31,6 @@ import net.minecraft.block.Block;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.CraftingManager;
-import net.minecraftforge.liquids.LiquidDictionary;
 import thermalexpansion.api.crafting.CraftingManagers;
 import thermalexpansion.api.item.ItemRegistry;
 
@@ -80,6 +79,8 @@ public class MFFSRecipes {
 				ModularForceFieldSystem.MFFSMonazitOre, 1), new ItemStack(
 				ModularForceFieldSystem.MFFSitemForcicium, MONAZIT_MACERATION_OUTPUT), false);
 
+		RecipesFactory.addRecipe("AAAAxAADA", 1, 2, null,
+				ModularForceFieldSystem.MFFSitemForcicumCell);
 		RecipesFactory.addRecipe(" E EBE E ", 4, 2, null,
 				ModularForceFieldSystem.MFFSitemupgradeexctractorboost);
 		RecipesFactory.addRecipe(" E ExE E ", 1, 2, null,
@@ -88,12 +89,10 @@ public class MFFSRecipes {
 				ModularForceFieldSystem.MFFSitemupgradecaprange);
 		RecipesFactory.addRecipe("AlAlilAlA", 64, 2, null,
 				ModularForceFieldSystem.MFFSitemFocusmatix);
-		RecipesFactory.addRecipe("mSnExEEDE", 1, 2, null,
+		RecipesFactory.addRecipe("mSnLxLLDL", 1, 2, null,
 				ModularForceFieldSystem.MFFSitemWrench);
-
-		CraftingManagers.transposerManager.addFillRecipe(80, ItemRegistry.getItem("schematic", 1),
-				new ItemStack(ModularForceFieldSystem.MFFSitemcardempty, 1),
-				LiquidDictionary.getLiquid("redstone", 100), false);
+		RecipesFactory.addRecipe("oLomLmoLo", 1, 2, null,
+				ModularForceFieldSystem.MFFSitemcardempty);
 
 		if(ModularForceFieldSystem.buildcraftFound)
 			GameRegistry.addRecipe(

@@ -229,11 +229,13 @@ public final class RecipesFactory {
 									'D', ItemRegistry.getItem("powerCoilElectrum", 1),
 									'E', ItemRegistry.getItem("ingotElectrum", 1),
 									'F', ItemRegistry.getItem("machineFrame", 1),
-									'G', ItemRegistry.getItem("energyCellFrameFull", 1),
+									'G', ItemRegistry.getItem("energyCellFrameEmpty", 1),
 									'H', ItemRegistry.getItem("ingotCopper", 1),
 									'I', ItemRegistry.getItem("powerCoilGold", 1),
 									'J', Item.enderPearl,
 									'K', ItemRegistry.getItem("bucketEnder", 1),
+									'L', ItemRegistry.getItem("hardenedGlass", 1),
+									'M', ItemRegistry.getItem("gearCopper", 1),
 									'S', ItemRegistry.getItem("wrench", 1)
 
 							);

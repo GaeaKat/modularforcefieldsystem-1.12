@@ -133,8 +133,8 @@
 
     <!-- Misc Strings -->
     <entry key="itemGroup.MFFS">MFFS</entry>
-    <entry key="death.areaDefense">%1$s disregarded the warnings and was fried!</entry>
-    <entry key="death.fieldShock">%1$s was fried by a forcefield!</entry>
-    <entry key="death.fieldDefense">%1$s was fried!</entry>
+    <entry key="death.attack.areaDefense">%1$s disregarded the warnings and was fried!</entry>
+    <entry key="death.attack.fieldShock">%1$s was fried by a forcefield!</entry>
+    <entry key="death.attack.fieldDefense">%1$s was fried!</entry>
     <entry key="warning.areaDefense">!!!! [Area Defense] Leave or Die !!!!</entry>
 </properties>

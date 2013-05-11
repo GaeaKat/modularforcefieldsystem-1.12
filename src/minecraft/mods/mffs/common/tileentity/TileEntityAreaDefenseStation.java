@@ -465,9 +465,7 @@ public class TileEntityAreaDefenseStation extends TileEntityFEPoweredMachine
 							}
 
 							actionlist.remove(player);
-							player.setEntityHealth(0);
-							player.attackEntityFrom(
-									MFFSDamageSource.areaDefense, 20);
+							player.attackEntityFrom(MFFSDamageSource.areaDefense, 20);
 							consumePower(
 									ModularForceFieldSystem.DefenceStationKillForceEnergy,
 									false);
