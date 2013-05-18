@@ -215,6 +215,12 @@
 			</filterset>
 		</copy>
 
+		<copy todir="${jar.dir}">
+			<fileset dir="${classes.dir}">
+				<include name="*info" />
+			</fileset>
+		</copy>
+
 		<!-- Reset source directory -->
 		<delete dir="${mcpsrc.dir}/minecraft/mods/mffs" />
 	</target>
