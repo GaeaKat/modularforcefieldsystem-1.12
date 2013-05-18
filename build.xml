@@ -57,7 +57,7 @@
 
 	<!-- Set unknown build number -->
 	<target name="version-not-provided" unless="env.BUILD_NUMBER">
-		<property name="build.number" value="unknown" />
+		<property name="build.number" value="0" />
 	</target>
 
 	<!-- Set build number from environment -->
@@ -98,7 +98,7 @@
 				<filter token="MINOR_VERSION" value="${mffs.versionMinor}" />
 				<filter token="REV_VERSION" value="${mffs.versionRev}" />
 				<filter token="BETA_BUILD" value="${build.number}" />
-				<filter token="MC_VERSION" value="${mc.version}"
+				<filter token="MC_VERSION" value="${mc.version}" />
 				<filter token="VERSION" value="${project.version.full}" />
 			</filterset>
 		</copy>
@@ -205,6 +205,14 @@
 			<fileset dir="${src.dir}">
 				<include name="*info" />
 			</fileset>
+			<filterset>
+				<filter token="MAJOR_VERSION" value="${mffs.versionMajor}" />
+				<filter token="MINOR_VERSION" value="${mffs.versionMinor}" />
+				<filter token="REV_VERSION" value="${mffs.versionRev}" />
+				<filter token="BETA_BUILD" value="${build.number}" />
+				<filter token="MC_VERSION" value="${mc.version}" />
+				<filter token="VERSION" value="${project.version.full}" />
+			</filterset>
 		</copy>
 
 		<!-- Reset source directory -->
