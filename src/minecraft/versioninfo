@@ -1,4 +1,4 @@
-mffs.version.major.number=2.3
-mffs.version.minor.number=0
-mffs.version.revision.number=0
-mffs.version.betabuild.number=8
+mffs.version.major.number=@MAJOR_VERSION@
+mffs.version.minor.number=@MINOR_VERSION@
+mffs.version.revision.number=@REV_VERSION@
+mffs.version.betabuild.number=@BETA_BUILD@

@@ -1,0 +1,156 @@
+<project name="ModularForcefieldSystem" default="main">
+	<!-- Properties -->
+	<property environment="env" />
+
+	<property name="build.dir" value="build" />
+	<property name="source.dir" value="src/minecraft" />
+
+	<property name="download.dir" value="download" />
+	<property name="classes.dir" value="${build.dir}/classes" />
+	<property name="jar.dir" value="bin" />
+
+	<property name="forge.dir" value="${build.dir}/forge" />
+	<property name="mcp.dir" value="${forge.dir}/mcp" />
+
+	<property name="mcpsrc.dir" value="${mcp.dir}/src" />
+
+	<property name="mc.version" value="1.5.2" />
+	<property name="forge.version" value="7.8.0.703" />
+	<property name="mffs.version" value="2.3.0.0" />
+
+	<property name="forge.name" value="minecraftforge-src-${mc.version}-${forge.version}.zip" />
+	<available property="forge-exists" file="${download.dir}/${forge.name}" />
+
+	<condition property="out-of-date">
+		<not>
+			<and>
+				<available file="${download.dir}/${forge.name}" />
+				<available file="${mcpsrc.dir" />
+			</and>
+		</not>
+	</condition>
+
+	<mkdir dir="${download.dir}" />
+
+	<!-- Targets -->
+	<!-- Clear Build Directory -->
+	<target name="clean">
+		<delete dir="${build.dir}" />
+	</target>
+
+	<!-- Set Full Version -->
+	<target name="initialize-ersion" depends="version-provided,version-not-provided">
+		<property name="project.version.full" value="${project.version}.${build.number}" />
+	</target>
+
+	<!-- Set unknown build number -->
+	<target name="version-not-provided" unless="env.BUILD_NUMBER">
+		<property name="build.number" value="unknown" />
+	</target>
+
+	<!-- Set build number from environment -->
+	<target name="version-provided" if="env.BUILD_NUMBER">
+		<property name="build.number" value="${env.BUILD_NUMBER}" />
+	</target>
+
+	<!-- Download forge if it doesn't exist -->
+	<target name="download-forge" unless="forge-exists">
+		<get src="http://files.minecraftforge.net/${forge.name}" dest="${download.dir}" usetimestamp="True" />
+	</target>
+
+	<!-- Setup MCP and Forge -->
+	<target name="setup" depends="download-forge" if="out-of-date">
+		<delete dir="${forge.dir}" failonerror="false" />
+
+		<unzip dest="${forge.dir}/.." src="${download.dir}/${forge.name}" />
+
+		<!-- Fix executable permissions -->
+		<chmod dir="${forge.dir}" perm="ugo+rx" includes="**.sh" />
+
+		<!-- Install Forge -->
+		<exec dir="${forge.dir}" executable="cmd" osfamily="windows">
+			<arg line="/c install.cmd" />
+		</exec>
+
+		<exec dir="${forge.dir}" executable="sh" osfamily="unix">
+			<arg line="install.sh" />
+		</exec>
+	</target>
+
+	<!-- Copy sources -->
+	<target name="copy-src">
+		<copy todir="${mcpsrc.dir}/minecraft">
+			<fileset dir="${src.dir}" />
+			<filterset>
+				<filter token="VERSION" value="${project.version.full}" />
+			</filterset>
+		</copy>
+	</target>
+
+	<target name="compile" depends="initialize-version,setup,copy-src">
+		<delete dir="${classes.dir}" />
+		<mkdir dir="${classes.dir}" />
+
+		<exec dir="${mcp.dir}" executable="cmd" osfamily="windows">
+			<arg line="/c recompile.bat" />
+		</exec>
+
+		<exec dir="${mcp.dir}" executable="sh" osfamily="unix">
+			<arg line="recompile.sh" />
+		</exec>
+
+		<!-- Check for failure -->
+		<fail message="MCP failed to build.">
+			<condition>
+				<resourcecontains resource="${mcp.dir}/logs/client_compile.log" substring="error:" />
+			</condition>
+		</fail>
+	</target>
+
+	<!-- Reobfuscate -->
+	<target name="reobf" depends="compile">
+		<exec dir="${mcp.dir}" executable="cmd" osfamily="windows">
+			<arg line="/c reobfuscate_srg.bat" />
+		</exec>
+
+		<exec dir="${mcp.dir}" executable="sh" osfamily="unix">
+			<arg line="reobfuscate_srg.sh" />
+		</exec>
+
+		<!-- Copy classes -->
+		<copy todir="$[classes.dir}">
+			<fileset dir="${mcp.dir}/reobf/minecraft" />
+		</copy>
+
+		<!-- Copy Resources -->
+		<mkdir dir="${classes.dir}/mods/mffs/textures" />
+		<mkdir dir+"${classes.dir}/mods/mffs/lang" />
+		<copy todir="${classes.dir}/mods/mffs/textures">
+			<fileset dir="${src.dir}/mods/mffs/textures" />
+		</copy>
+		<copy todir="${classes.dir}/mods/mffs/lang">
+			<fileset dir="${src.dir}/mods/mffs/lang" />
+		</copy>
+
+		<!-- Copy mcmod.info and versioninfo -->
+		<copy todir="${classes.dir}">
+			<fileset dir="${src.dir}">
+				<include name="*info" />
+			</fileset>
+		</copy>
+
+		<!-- Reset source directory -->
+		<delete dir="${mcpsrc.dir}/minecraft/mods/mffs" />
+	</target>
+
+	<!-- Package compiled files -->
+	<target name="package" depends="reobf">
+		<delete dir="${jar.dir}" />
+		<mkdir dir="${jar.dir}" />
+
+		<jar destfile="${jar.dir}/[${mc.version}]Modular Forcefield System ${project.version.full}.jar" basedir="${classes.dir}" />
+	</target>
+
+	<!-- Default Target -->
+	<target name="main" depends="package" />
+</project>
