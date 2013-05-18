@@ -196,7 +196,7 @@ public class TileEntityAreaDefenseStation extends TileEntityFEPoweredMachine
 
 			TileEntityAdvSecurityStation sec = getLinkedSecurityStation();
 
-			if (sec != null) {
+			if (sec != null && sec.isSecurityEstablished()) {
 				int xmininfo = xCoord - getInfoDistance();
 				int xmaxinfo = xCoord + getInfoDistance() + 1;
 				int ymininfo = yCoord - getInfoDistance();
@@ -375,7 +375,7 @@ public class TileEntityAreaDefenseStation extends TileEntityFEPoweredMachine
 
 		if (hasPowerSource()) {
 
-			if (sec != null) {
+			if (sec != null && sec.isSecurityEstablished()) {
 				if (this.consumePower(
 						ModularForceFieldSystem.DefenceStationKillForceEnergy,
 						true))
@@ -425,8 +425,7 @@ public class TileEntityAreaDefenseStation extends TileEntityFEPoweredMachine
 		TileEntityAdvSecurityStation sec = getLinkedSecurityStation();
 
 		if (hasPowerSource()) {
-
-			if (sec != null) {
+			if (sec != null && sec.isSecurityEstablished()) {
 
 				switch (getActionmode()) {
 				case 0: // Inform
@@ -466,6 +465,7 @@ public class TileEntityAreaDefenseStation extends TileEntityFEPoweredMachine
 
 							actionlist.remove(player);
 							player.attackEntityFrom(MFFSDamageSource.areaDefense, 20);
+							player.setEntityHealth(0);
 							consumePower(
 									ModularForceFieldSystem.DefenceStationKillForceEnergy,
 									false);

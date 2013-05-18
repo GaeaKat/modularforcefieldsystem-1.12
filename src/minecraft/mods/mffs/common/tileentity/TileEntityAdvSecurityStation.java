@@ -43,9 +43,9 @@ import java.util.LinkedList;
 import java.util.List;
 
 public class TileEntityAdvSecurityStation extends TileEntityMachines {
-
 	private String MainUser;
 	private ItemStack inventory[];
+	private boolean securityEstablished = false;
 
 	public TileEntityAdvSecurityStation() {
 
@@ -140,8 +140,7 @@ public class TileEntityAdvSecurityStation extends TileEntityMachines {
 	@Override
 	public void updateEntity() {
 		if (worldObj.isRemote == false) {
-
-			if (this.getTicker() == 10) {
+			if (this.getTicker() >= 10) {
 
 				if (!getMainUser().equals("")) {
 					if (isActive() != true) {
@@ -154,11 +153,16 @@ public class TileEntityAdvSecurityStation extends TileEntityMachines {
 				}
 				checkSlots();
 				this.setTicker((short) 0);
+				securityEstablished = true;
 			}
 			this.setTicker((short) (this.getTicker() + 1));
 		}
 
 		super.updateEntity();
+	}
+
+	public boolean isSecurityEstablished() {
+		return this.securityEstablished;
 	}
 
 	public void checkSlots() {

@@ -91,7 +91,7 @@ public class MFFSRecipes {
 				ModularForceFieldSystem.MFFSitemFocusmatix);
 		RecipesFactory.addRecipe("mSnLxLLDL", 1, 2, null,
 				ModularForceFieldSystem.MFFSitemWrench);
-		RecipesFactory.addRecipe("oLomLmoLo", 1, 2, null,
+		RecipesFactory.addRecipe("oMomMmoMo", 1, 2, null,
 				ModularForceFieldSystem.MFFSitemcardempty);
 
 		if(ModularForceFieldSystem.buildcraftFound)
