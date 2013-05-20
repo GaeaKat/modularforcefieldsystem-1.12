@@ -16,7 +16,7 @@
 
 	<property name="mc.version" value="1.5.2" />
 	<property name="forge.version" value="7.8.0.703" />
-	<property name="ic2.buildnum" value="312" />
+	<property name="ic2.buildnum" value="319" />
 	<property name="ic2.version" value="1.115.${ic2.buildnum}-lf" />
 	<property name="te.version" value="2.4.0" />
 
@@ -117,7 +117,7 @@
 
 	<target name="download-ic2" unless="ic2-exists">
 		<!-- Download the IC2 API -->
-		<get src="http://ic2api.player.to:8080/job/IC2_lf/${ic2.buildnum}/artifact/packages/industrialcraft-2_${ic2.version}.jar" dest="${download.dir}" usetimestamp="True" />
+		<get src="http://ic2api.player.to:8080/job/IC2_lf/${ic2.buildnum}/artifact/packages/industrialcraft-2-api_${ic2.version}.zip" dest="${download.dir}" usetimestamp="True" />
 	</target>
 
 	<target name="download-te" unless="te-exists">
