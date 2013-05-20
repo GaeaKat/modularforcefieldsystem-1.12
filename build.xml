@@ -148,6 +148,7 @@
 		<unzip dest="${mcpsrc.dir}/minecraft" src="${download.dir}/ccapi.zip" />
 	</target>
 
+	<!-- Compile -->
 	<target name="compile" depends="initialize-version,setup,copy-src,setup-dependencies">
 		<delete dir="${classes.dir}" />
 		<mkdir dir="${classes.dir}" />
