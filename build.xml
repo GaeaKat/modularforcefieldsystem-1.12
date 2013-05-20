@@ -232,7 +232,7 @@
 		<delete dir="${jar.dir}" />
 		<mkdir dir="${jar.dir}" />
 
-		<jar destfile="${jar.dir}/[${mc.version}]Modular Forcefield System ${project.version.full}.jar" basedir="${classes.dir}" />
+		<jar destfile="${jar.dir}/Modular Forcefield System ${project.version.full}.jar" basedir="${classes.dir}" />
 	</target>
 
 	<!-- Default Target -->
