@@ -141,15 +141,15 @@ public class ModularForceFieldSystem {
 	public static int forceFieldTransportCost;
 	public static int forceFieldMaxBlocksPerTick;
 
-	public static Boolean forceFieldRemoveOnlyWaterAndLava;
+	public static boolean forceFieldRemoveOnlyWaterAndLava;
 
-	public static Boolean influencedByOtherMods;
-	public static Boolean adventureMapMode;
+	public static boolean influencedByOtherMods;
+	public static boolean adventureMapMode;
 
-	public static Boolean ic2Found = false;
-	public static Boolean ee3Found = false;
-	public static Boolean buildcraftFound = false;
-	public static Boolean thermalExpansionFound = false;
+	public static boolean ic2Found = false;
+	public static boolean ee3Found = false;
+	public static boolean buildcraftFound = false;
+	public static boolean thermalExpansionFound = false;
 
 	public static boolean enableIC2Recipes = true;
 	public static boolean enableTERecipes = true;
