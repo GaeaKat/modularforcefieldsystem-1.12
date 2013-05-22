@@ -82,14 +82,6 @@ public class TileEntityConverter extends TileEntityFEPoweredMachine implements
 		UE_Outputamp = uE_Outputamp;
 	}
 
-	public int getUE_Output() {
-		return UE_Output;
-	}
-
-	public void setUE_Output(int uE_Output) {
-		UE_Output = uE_Output;
-	}
-
 	public int getIC_Output() {
 		return IC_Output;
 	}
@@ -317,14 +309,6 @@ public class TileEntityConverter extends TileEntityFEPoweredMachine implements
 			}
 		}
 
-		if (key == 101) {
-			if (this.getUE_Output() == 0) {
-				this.setUE_Output(1);
-			} else {
-				this.setUE_Output(0);
-			}
-		}
-
 		if (getIC_Output() == 0) {
 			if (key == 200) {
 				if (value.equalsIgnoreCase("+")) {
@@ -382,54 +366,6 @@ public class TileEntityConverter extends TileEntityFEPoweredMachine implements
 					}
 				}
 			}
-		}
-		if (getUE_Output() == 0) {
-
-			if (key == 202) {
-				if (value.equalsIgnoreCase("+")) {
-					switch (UE_Outputvoltage) {
-					case 60:
-						UE_Outputvoltage = 120;
-						break;
-					case 120:
-						UE_Outputvoltage = 240;
-						break;
-					case 240:
-						UE_Outputvoltage = 60;
-						break;
-					}
-				}
-				if (value.equalsIgnoreCase("-")) {
-					switch (UE_Outputvoltage) {
-					case 60:
-						UE_Outputvoltage = 240;
-						break;
-					case 120:
-						UE_Outputvoltage = 60;
-						break;
-					case 240:
-						UE_Outputvoltage = 120;
-						break;
-					}
-				}
-			}
-			if (key == 203) {
-				if (value.equalsIgnoreCase("+")) {
-					if (UE_Outputamp == 50) {
-						UE_Outputamp = 1;
-					} else {
-						UE_Outputamp++;
-					}
-				}
-				if (value.equalsIgnoreCase("-")) {
-					if (UE_Outputamp == 1) {
-						UE_Outputamp = 50;
-					} else {
-						UE_Outputamp--;
-					}
-				}
-			}
-
 		}
 
 		super.onNetworkHandlerEvent(key, value);

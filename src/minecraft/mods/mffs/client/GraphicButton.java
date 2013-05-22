@@ -20,21 +20,22 @@
 
 package mods.mffs.client;
 
-import mods.mffs.common.tileentity.TileEntityAreaDefenseStation;
-import mods.mffs.common.tileentity.TileEntityCapacitor;
-import mods.mffs.common.tileentity.TileEntityControlSystem;
-import mods.mffs.common.tileentity.TileEntityConverter;
-import mods.mffs.common.tileentity.TileEntityMachines;
-import mods.mffs.common.tileentity.TileEntityProjector;
+import mods.mffs.common.tileentity.*;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiButton;
+import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.tileentity.TileEntity;
-
-import org.lwjgl.opengl.GL11;
 
 public class GraphicButton extends GuiButton {
 	private final TileEntity tileEntity;
 	private final int typ;
+
+	private final int SWITCH_MODE_TEXTURE_SIZE = 96;
+	private final int CONVERTER_OUTPUT_TEXTURE_SIZE = 32;
+	private final int CONTROL_SYSTEM_TEXTURE_SIZE = 32;
+	private final int DEFENSE_STATION_TEXTURE_SIZE = 96;
+	private final int CAPACITOR_TEXTURE_SIZE = 48;
+	private final int PROJECTOR_TEXTURE_SIZE = 64;
 
 	public GraphicButton(int par1, int par2, int par3, TileEntity tileEntity,
 			int typ) {
@@ -43,113 +44,125 @@ public class GraphicButton extends GuiButton {
 		this.typ = typ;
 	}
 
+	private void drawButtonRect(int x, int y, int frameX, int frameY, int width, int height, int textureSize)
+	{
+		double uvMult = 1.0 / (double)textureSize;
+
+		Tessellator tessellator = Tessellator.instance;
+		tessellator.startDrawingQuads();
+
+		tessellator.addVertexWithUV(x, y + height, this.zLevel, frameX * uvMult, (frameY + height) * uvMult);
+		tessellator.addVertexWithUV(x + width, y + height, this.zLevel, (frameX + width) * uvMult,
+				(frameY + height) * uvMult);
+		tessellator.addVertexWithUV(x + width, y, this.zLevel, (frameX + width) * uvMult, frameY * uvMult);
+		tessellator.addVertexWithUV(x, y, this.zLevel, frameX * uvMult, frameY * uvMult);
+
+		tessellator.draw();
+	}
+
 	/**
 	 * Draws this button to the screen.
 	 */
 	@Override
 	public void drawButton(Minecraft par1Minecraft, int par2, int par3) {
 		if (this.drawButton) {
-			GL11.glBindTexture(GL11.GL_TEXTURE_2D, par1Minecraft.renderEngine
-					.getTexture("/mods/mffs/textures/gui/items.png"));
-			GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
-
 			if ((tileEntity instanceof TileEntityMachines) && typ == 0) {
-				this.drawTexturedModalRect(
-						this.xPosition,
-						this.yPosition,
-						80 + (((TileEntityMachines) tileEntity).getSwitchModi() * 16),
-						112, this.width, this.height);
+				par1Minecraft.renderEngine.bindTexture("/mods/mffs/textures/gui/SwitchModes.png");
+
+				drawButtonRect(this.xPosition, this.yPosition, (((TileEntityMachines)tileEntity).getSwitchModi() *
+						16), 0, this.width, this.height, SWITCH_MODE_TEXTURE_SIZE);
 			}
 
 			if (tileEntity instanceof TileEntityConverter) {
 				if (typ == 1) {
-					this.drawTexturedModalRect(this.xPosition, this.yPosition,
-							80 + (((TileEntityConverter) tileEntity)
-									.getIC_Output() * 16), 128, this.width,
-							this.height);
-				}
-				if (typ == 2) {
-					this.drawTexturedModalRect(this.xPosition, this.yPosition,
-							80 + (((TileEntityConverter) tileEntity)
-									.getUE_Output() * 16), 128, this.width,
-							this.height);
+					par1Minecraft.renderEngine.bindTexture("/mods/mffs/textures/gui/ConverterOutput.png");
+
+					drawButtonRect(xPosition, yPosition, (((TileEntityConverter)tileEntity).getIC_Output() * 16), 0,
+							width, height, CONVERTER_OUTPUT_TEXTURE_SIZE);
 				}
 			}
 
 			if (tileEntity instanceof TileEntityControlSystem) {
 				if (((TileEntityControlSystem) tileEntity).getStackInSlot(1) != null) {
 					if (typ == 1) {
-						if (((TileEntityControlSystem) tileEntity)
-								.getRemoteActive())
-							this.drawTexturedModalRect(this.xPosition,
-									this.yPosition, 176, 80, this.width,
-									this.height);
+						boolean active = ((TileEntityControlSystem)tileEntity).getRemoteActive();
 
-						if (!((TileEntityControlSystem) tileEntity)
-								.getRemoteActive())
-							this.drawTexturedModalRect(this.xPosition,
-									this.yPosition, 192, 80, this.width,
-									this.height);
+						par1Minecraft.renderEngine.bindTexture("/mods/mffs/textures/gui/ControlSystemButtons.png");
+
+						drawButtonRect(xPosition, yPosition,
+								(active ? 0 : 16), 0, width, height, CONTROL_SYSTEM_TEXTURE_SIZE);
 					}
+
 					if (typ == 2)
 						if (((TileEntityControlSystem) tileEntity)
-								.getRemoteSwitchModi() > 0)
-							this.drawTexturedModalRect(
-									this.xPosition,
-									this.yPosition,
-									80 + (((TileEntityControlSystem) tileEntity)
-											.getRemoteSwitchModi() * 16), 112,
-									this.width, this.height);
+								.getRemoteSwitchModi() > 0) {
+							par1Minecraft.renderEngine.bindTexture("/mods/mffs/textures/gui/SwitchModes.png");
+
+							drawButtonRect(this.xPosition, this.yPosition, (((TileEntityControlSystem)tileEntity)
+									.getRemoteSwitchModi() *
+									16), 0, this.width, this.height, SWITCH_MODE_TEXTURE_SIZE);
+						}
 
 					if (typ == 3)
 						if (((TileEntityControlSystem) tileEntity)
 								.getRemoteSwitchModi() == 3)
-							if (((TileEntityControlSystem) tileEntity)
-									.getRemoteSwitchValue()) {
-								this.drawTexturedModalRect(this.xPosition,
-										this.yPosition, 208, 80, this.width,
-										this.height);
-							} else {
-								this.drawTexturedModalRect(this.xPosition,
-										this.yPosition, 224, 80, this.width,
-										this.height);
-							}
+						{
+							boolean switchValue = ((TileEntityControlSystem)tileEntity).getRemoteSwitchValue();
 
+							par1Minecraft.renderEngine.bindTexture("/mods/mffs/textures/gui/ControlSystemButtons.png");
+
+							drawButtonRect(xPosition, yPosition,
+									(switchValue ? 0 : 16), 16, width, height, CONTROL_SYSTEM_TEXTURE_SIZE);
+						}
 				}
 			}
 
 			if ((tileEntity instanceof TileEntityAreaDefenseStation)) {
-				if (typ == 1)
-					this.drawTexturedModalRect(this.xPosition, this.yPosition,
-							176 + (((TileEntityAreaDefenseStation) tileEntity)
-									.getcontratyp() * 16), 80, this.width,
-							this.height);
-				if (typ == 2)
-					this.drawTexturedModalRect(this.xPosition, this.yPosition,
-							64 + (((TileEntityAreaDefenseStation) tileEntity)
-									.getActionmode() * 16), 96, this.width,
-							this.height);
-				if (typ == 3)
-					this.drawTexturedModalRect(this.xPosition, this.yPosition,
-							160 + (((TileEntityAreaDefenseStation) tileEntity)
-									.getScanmode() * 16), 96, this.width,
-							this.height);
+				if (typ == 1) {
+					par1Minecraft.renderEngine.bindTexture("/mods/mffs/textures/gui/ControlSystemButtons.png");
+
+					drawButtonRect(xPosition, yPosition, (((TileEntityAreaDefenseStation)tileEntity).getcontratyp()),
+							0, width, height, CONTROL_SYSTEM_TEXTURE_SIZE);
+				}
+				if (typ == 2) {
+					par1Minecraft.renderEngine.bindTexture("/mods/mffs/textures/gui/DefenseStationButtons.png");
+
+					drawButtonRect(xPosition, yPosition, (((TileEntityAreaDefenseStation)tileEntity).getActionmode()
+							* 16), 0, width, height, DEFENSE_STATION_TEXTURE_SIZE);
+				}
+				if (typ == 3) {
+					par1Minecraft.renderEngine.bindTexture("/mods/mffs/textures/gui/DefenseStationButtons.png");
+
+					drawButtonRect(xPosition, yPosition, (((TileEntityAreaDefenseStation)tileEntity).getScanmode() *
+							16), 16, width, height, DEFENSE_STATION_TEXTURE_SIZE);
+				}
 			}
 
 			if (tileEntity instanceof TileEntityCapacitor) {
 				if (typ == 1)
-					this.drawTexturedModalRect(this.xPosition, this.yPosition,
-							96 + (((TileEntityCapacitor) tileEntity)
-									.getPowerlinkmode() * 16), 80, this.width,
-							this.height);
+				{
+					par1Minecraft.renderEngine.bindTexture("/mods/mffs/textures/gui/CapacitorButtons.png");
+
+					int powerLinkMode = ((TileEntityCapacitor)tileEntity).getPowerlinkmode();
+
+					drawButtonRect(xPosition, yPosition,
+							(powerLinkMode < 3 ? powerLinkMode : (powerLinkMode - 3)) * 16,
+							(powerLinkMode < 3 ? 0 : 16), width, height,
+							CAPACITOR_TEXTURE_SIZE);
+				}
 			}
 
 			if (tileEntity instanceof TileEntityProjector) {
 				if (typ == 1)
-					this.drawTexturedModalRect(this.xPosition, this.yPosition,
-							0 + (((TileEntityProjector) tileEntity)
-									.getaccesstyp() * 16), 80, this.width,
-							this.height);
+				{
+					par1Minecraft.renderEngine.bindTexture("/mods/mffs/textures/gui/ProjectorButtons.png");
+
+					drawButtonRect(xPosition, yPosition,
+							((TileEntityProjector)tileEntity).getaccesstyp() * 16,
+							0,
+							width, height,
+							PROJECTOR_TEXTURE_SIZE);
+				}
 			}
 
 		}

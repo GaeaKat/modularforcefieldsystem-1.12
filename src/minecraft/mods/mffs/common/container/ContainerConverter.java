@@ -101,19 +101,6 @@ public class ContainerConverter extends Container {
 			if (IC_Output != Convertor.getIC_Output())
 				icrafting.sendProgressBarUpdate(this, 6,
 						Convertor.getIC_Output());
-
-			if (UE_Output != Convertor.getUE_Output())
-				icrafting.sendProgressBarUpdate(this, 7,
-						Convertor.getUE_Output());
-
-			if (UE_Outputvoltage != Convertor.getUE_Outputvoltage())
-				icrafting.sendProgressBarUpdate(this, 8,
-						Convertor.getUE_Outputvoltage());
-
-			if (UE_Outputamp != Convertor.getUE_Outputamp())
-				icrafting.sendProgressBarUpdate(this, 9,
-						Convertor.getUE_Outputamp());
-
 		}
 
 		linkPower = Convertor.getLinkPower();
@@ -121,9 +108,6 @@ public class ContainerConverter extends Container {
 		IC_Outputpacketamount = Convertor.getIC_Outputpacketamount();
 		IC_Outputpacketsize = Convertor.getIC_Outputpacketsize();
 		IC_Output = Convertor.getIC_Output();
-		UE_Outputvoltage = Convertor.getUE_Outputvoltage();
-		UE_Outputamp = Convertor.getUE_Outputamp();
-		UE_Output = Convertor.getUE_Output();
 	}
 
 	@Override
@@ -150,19 +134,6 @@ public class ContainerConverter extends Container {
 		case 6:
 			Convertor.setIC_Output(j);
 			break;
-
-		case 7:
-			Convertor.setUE_Output(j);
-			break;
-
-		case 8:
-			Convertor.setUE_Outputvoltage(j);
-			break;
-
-		case 9:
-			Convertor.setUE_Outputamp(j);
-			break;
-
 		}
 	}
 
