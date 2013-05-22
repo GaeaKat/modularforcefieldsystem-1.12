@@ -1,8 +1,5 @@
 package mods.mffs.common.tileentity;
 
-import java.util.LinkedList;
-import java.util.List;
-
 import mods.mffs.api.PointXYZ;
 import mods.mffs.common.Linkgrid;
 import mods.mffs.common.MFFSMaschines;
@@ -20,6 +17,9 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraftforge.common.ForgeDirection;
 import net.minecraftforge.common.ISidedInventory;
+
+import java.util.LinkedList;
+import java.util.List;
 
 public class TileEntityControlSystem extends TileEntityMachines implements
 		ISidedInventory {
@@ -439,4 +439,6 @@ public class TileEntityControlSystem extends TileEntityMachines implements
 		return true;
 	}
 
+	@Override
+	public String getType() { return "MFFSControlSystem"; }
 }

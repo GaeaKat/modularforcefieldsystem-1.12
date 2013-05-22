@@ -20,26 +20,9 @@
 
 package mods.mffs.common.tileentity;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Map;
-import java.util.Random;
-import java.util.Set;
-import java.util.Stack;
-
 import mods.mffs.api.IPowerLinkItem;
 import mods.mffs.api.PointXYZ;
-import mods.mffs.common.ForceFieldBlockStack;
-import mods.mffs.common.ForceFieldTyps;
-import mods.mffs.common.Functions;
-import mods.mffs.common.IModularProjector;
-import mods.mffs.common.InventoryHelper;
-import mods.mffs.common.Linkgrid;
-import mods.mffs.common.ModularForceFieldSystem;
-import mods.mffs.common.ProjectorTyp;
-import mods.mffs.common.WorldMap;
+import mods.mffs.common.*;
 import mods.mffs.common.container.ContainerProjector;
 import mods.mffs.common.item.ItemCardSecurityLink;
 import mods.mffs.common.item.ItemProjectorFieldModulatorDistance;
@@ -47,15 +30,7 @@ import mods.mffs.common.item.ItemProjectorFieldModulatorStrength;
 import mods.mffs.common.item.ItemProjectorFocusMatrix;
 import mods.mffs.common.modules.Module3DBase;
 import mods.mffs.common.modules.ModuleBase;
-import mods.mffs.common.options.IChecksOnAll;
-import mods.mffs.common.options.IInteriorCheck;
-import mods.mffs.common.options.ItemProjectorOptionBase;
-import mods.mffs.common.options.ItemProjectorOptionCamoflage;
-import mods.mffs.common.options.ItemProjectorOptionDefenseStation;
-import mods.mffs.common.options.ItemProjectorOptionFieldFusion;
-import mods.mffs.common.options.ItemProjectorOptionForceFieldJammer;
-import mods.mffs.common.options.ItemProjectorOptionMobDefence;
-import mods.mffs.common.options.ItemProjectorOptionTouchDamage;
+import mods.mffs.common.options.*;
 import mods.mffs.network.server.NetworkHandlerServer;
 import net.minecraft.block.Block;
 import net.minecraft.entity.player.InventoryPlayer;
@@ -67,6 +42,8 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraftforge.common.ForgeDirection;
+
+import java.util.*;
 
 public class TileEntityProjector extends TileEntityFEPoweredMachine implements
 		IModularProjector {
@@ -1209,4 +1186,6 @@ public class TileEntityProjector extends TileEntityFEPoweredMachine implements
 		return true;
 	}
 
+	@Override
+	public String getType() { return "MFFSProjector"; }
 }

@@ -20,9 +20,8 @@
 
 package mods.mffs.common.tileentity;
 
-import java.util.LinkedList;
-import java.util.List;
-
+import dan200.computer.api.IComputerAccess;
+import dan200.computer.api.IPeripheral;
 import mods.mffs.api.IForceEnergyItems;
 import mods.mffs.api.IForceEnergyStorageBlock;
 import mods.mffs.api.IPowerLinkItem;
@@ -40,8 +39,9 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraftforge.common.ForgeDirection;
-import dan200.computer.api.IComputerAccess;
-import dan200.computer.api.IPeripheral;
+
+import java.util.LinkedList;
+import java.util.List;
 
 public class TileEntityCapacitor extends TileEntityFEPoweredMachine implements
 		INetworkHandlerEventListener, IForceEnergyStorageBlock, IPeripheral {
@@ -674,57 +674,6 @@ public class TileEntityCapacitor extends TileEntityFEPoweredMachine implements
 		return 2;
 	}
 
-	// Computercraft
-
-	@Override
-	public String getType() {
-		return "MFFSCapacitor";
-	}
-
-	@Override
-	public String[] getMethodNames() {
-		return new String[] { "isActive", "getTransmitRange",
-				"getPercentageStorageCapacity", "getcountlinketdevice",
-				"getforceenergy", "getStorageMaxPower", "getfreeStorageAmount" };
-	}
-
-	@Override
-	public Object[] callMethod(IComputerAccess computer, int method,
-			Object[] arguments) throws Exception {
-		switch (method) {
-		case 0:
-			return new Object[] { this.isActive() };
-		case 1:
-			return new Object[] { this.getTransmitRange() };
-		case 2:
-			return new Object[] { this.getPercentageStorageCapacity() };
-		case 3:
-			return new Object[] { this.getLinketProjektor() };
-		case 4:
-			return new Object[] { this.getStorageAvailablePower() };
-		case 5:
-			return new Object[] { this.getStorageMaxPower() };
-		case 6:
-			return new Object[] { this.getfreeStorageAmount() };
-
-		default:
-			throw new Exception("Function unimplemented");
-		}
-	}
-
-	@Override
-	public boolean canAttachToSide(int side) {
-		return true;
-	}
-
-	@Override
-	public void attach(IComputerAccess computer) {
-	}
-
-	@Override
-	public void detach(IComputerAccess computer) {
-	}
-
 	@Override
 	public boolean isInvNameLocalized() {
 		return false;
@@ -735,4 +684,46 @@ public class TileEntityCapacitor extends TileEntityFEPoweredMachine implements
 		return true;
 	}
 
+	@Override
+	public String getType() { return "MFFSCapacitor"; }
+
+	@Override
+	public String[] getMethodNames() {
+		return new String[] {
+			"isActive", "setActive",
+
+			"getTransmitRange", "getStoredForceEnergy", "chargeFromForceEnergy",
+				"setPowerLinkMode"
+		};
+	}
+
+	@Override
+	public Object[] callMethod(IComputerAccess computer, int method, Object[] arguments) throws Exception {
+		switch(method) {
+			case 2: // getTransmitRange
+				return new Object[] { this.getTransmitRange() };
+
+			case 3: // getStoredForceEnergy
+				return new Object[] { this.getStorageAvailablePower(), this.getfreeStorageAmount() };
+
+			case 4: // chargeFromForceEnergy
+				return new Object[] { false };
+
+			case 5: // setPowerLinkMode
+				if(arguments.length < 1)
+					return new Object[] { false };
+
+				int mode = (Integer)arguments[0];
+
+				if(mode < 0 || mode > 4)
+					return new Object[] { false };
+
+				setPowerlinkmode(mode);
+
+				return new Object[] { true };
+
+			default:
+				return super.callMethod(computer, method, arguments);
+		}
+	}
 }

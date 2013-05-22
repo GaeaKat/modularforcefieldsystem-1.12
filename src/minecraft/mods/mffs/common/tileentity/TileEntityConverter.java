@@ -492,4 +492,6 @@ public class TileEntityConverter extends TileEntityFEPoweredMachine implements
 		return true;
 	}
 
+	@Override
+	public String getType() { return "MFFSConverter"; }
 }

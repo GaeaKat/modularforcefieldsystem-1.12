@@ -23,14 +23,15 @@
 
 package mods.mffs.common.tileentity;
 
+import buildcraft.api.power.IPowerProvider;
+import buildcraft.api.power.IPowerReceptor;
+import buildcraft.api.power.PowerFramework;
+import dan200.computer.api.IComputerAccess;
+import dan200.computer.api.IPeripheral;
 import ic2.api.Direction;
 import ic2.api.energy.event.EnergyTileLoadEvent;
 import ic2.api.energy.event.EnergyTileUnloadEvent;
 import ic2.api.energy.tile.IEnergySink;
-
-import java.util.LinkedList;
-import java.util.List;
-
 import mods.mffs.api.IPowerLinkItem;
 import mods.mffs.common.Linkgrid;
 import mods.mffs.common.ModularForceFieldSystem;
@@ -49,11 +50,9 @@ import net.minecraft.nbt.NBTTagList;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraftforge.common.ForgeDirection;
 import net.minecraftforge.common.MinecraftForge;
-import buildcraft.api.power.IPowerProvider;
-import buildcraft.api.power.IPowerReceptor;
-import buildcraft.api.power.PowerFramework;
-import dan200.computer.api.IComputerAccess;
-import dan200.computer.api.IPeripheral;
+
+import java.util.LinkedList;
+import java.util.List;
 
 public class TileEntityExtractor extends TileEntityFEPoweredMachine implements
 		IPowerReceptor, IEnergySink, IPeripheral {
@@ -688,43 +687,6 @@ public class TileEntityExtractor extends TileEntityFEPoweredMachine implements
 		return null;
 	}
 
-	// Computercraft
-	@Override
-	public String getType() {
-		return "MFFSExtractor";
-	}
-
-	@Override
-	public String[] getMethodNames() {
-		return new String[] { "getCapacity", "getWorkdone",
-				"getForceEnergybuffer", "getWorkCylce", "getworkmode",
-				"isActive", "hasStufftoConvert" };
-	}
-
-	@Override
-	public Object[] callMethod(IComputerAccess computer, int method,
-			Object[] arguments) throws Exception {
-		switch (method) {
-		case 0:
-			return new Object[] { this.getCapacity() };
-		case 1:
-			return new Object[] { this.getWorkdone() };
-		case 2:
-			return new Object[] { this.getForceEnergybuffer() };
-		case 3:
-			return new Object[] { this.getWorkCylce() };
-		case 4:
-			return new Object[] { this.getWorkdone() };
-		case 5:
-			return new Object[] { this.isActive() };
-		case 6:
-			return new Object[] { this.hasStufftoConvert() };
-
-		default:
-			throw new Exception("Function unimplemented");
-		}
-	}
-
 	@Override
 	public boolean canAttachToSide(int side) {
 		return true;
@@ -747,4 +709,7 @@ public class TileEntityExtractor extends TileEntityFEPoweredMachine implements
 	public boolean isStackValidForSlot(int i, ItemStack itemstack) {
 		return true;
 	}
+
+	@Override
+	public String getType() { return "MFFSExtractor"; }
 }

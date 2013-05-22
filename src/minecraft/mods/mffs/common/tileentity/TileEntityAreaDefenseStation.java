@@ -21,6 +21,7 @@
 package mods.mffs.common.tileentity;
 
 import cpw.mods.fml.common.registry.LanguageRegistry;
+import dan200.computer.api.IComputerAccess;
 import mods.mffs.api.IPowerLinkItem;
 import mods.mffs.api.PointXYZ;
 import mods.mffs.common.*;
@@ -818,4 +819,69 @@ public class TileEntityAreaDefenseStation extends TileEntityFEPoweredMachine
 		return true;
 	}
 
+	@Override
+	public String getType() { return "MFFSAreaDefenseStation"; }
+
+	@Override
+	public String[] getMethodNames() {
+		return new String[] {
+				"isActive", "setActive",
+
+				"getWarningPerimeter", "getActionPerimeter", "getScanType", "setScanType", "getActionType",
+				"setActionType", "hasItems", "hasSpace"
+		};
+	}
+
+	@Override
+	public Object[] callMethod(IComputerAccess computer, int method, Object[] arguments) throws Exception {
+		switch(method) {
+
+			case 2: // getWarningPerimeter
+				return new Object[] { this.getInfoDistance() };
+
+			case 3: // getActionPerimeter
+				return new Object[] { this.getActionDistance() };
+
+			case 4: // getScanType
+				return new Object[] { this.getScanmode() };
+
+			case 5: // setScanType
+				if(arguments.length < 1 || isActive())
+					return new Object[] { false };
+
+				int mode = (Integer)arguments[0];
+
+				if(mode < 0 || mode > 1)
+					return new Object[] { false };
+
+				setScanmode(mode);
+
+				return new Object[] { true };
+
+			case 6: // getActionType
+				return new Object[] { this.getActionmode() };
+
+			case 7: // setActionMode
+				if(arguments.length < 1 || isActive())
+					return new Object[] { false };
+
+				int actionMode = (Integer)arguments[0];
+
+				if(actionMode < 0 || actionMode > 6)
+					return new Object[] { false };
+
+				setActionmode(actionMode);
+
+				return new Object[] { true };
+
+			case 8: // hasItems
+				return new Object[] { false };
+
+			case 9: // hasSpace
+				return new Object[] { false };
+
+			default:
+				return super.callMethod(computer, method, arguments);
+		}
+	}
 }

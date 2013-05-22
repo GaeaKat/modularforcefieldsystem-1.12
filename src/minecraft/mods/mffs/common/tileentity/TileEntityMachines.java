@@ -20,6 +20,8 @@
 
 package mods.mffs.common.tileentity;
 
+import dan200.computer.api.IComputerAccess;
+import dan200.computer.api.IPeripheral;
 import ic2.api.tile.IWrenchable;
 import mods.mffs.api.IMFFS_Wrench;
 import mods.mffs.api.ISwitchabel;
@@ -58,7 +60,7 @@ import java.util.Random;
 
 public abstract class TileEntityMachines extends TileEntity implements
 		INetworkHandlerListener, INetworkHandlerEventListener, ISidedInventory,
-		IMFFS_Wrench, IWrenchable, ISwitchabel {
+		IMFFS_Wrench, IWrenchable, ISwitchabel, IPeripheral {
 
 	private boolean Active;
 	private int Side;
@@ -444,4 +446,35 @@ public abstract class TileEntityMachines extends TileEntity implements
 		return 0;
 	}
 
+	@Override
+	public String[] getMethodNames() {
+		return new String[] {
+			"isActive", "setActive"
+		};
+	}
+
+	@Override
+	public Object[] callMethod(IComputerAccess computer, int method, Object[] arguments) throws Exception {
+		switch(method) {
+			case 0: // isActive()
+				return new Object[] { this.isActive() };
+
+			case 1: // setActive(value)
+				return new Object[] { false };
+
+			default:
+				throw new Exception("Function unimplemented.");
+		}
+	}
+
+	@Override
+	public boolean canAttachToSide(int side) {
+		return true;
+	}
+
+	@Override
+	public void attach(IComputerAccess computer) {}
+
+	@Override
+	public void detach(IComputerAccess computer) {}
 }

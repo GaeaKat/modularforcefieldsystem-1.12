@@ -481,4 +481,7 @@ public class TileEntityAdvSecurityStation extends TileEntityMachines {
 	public boolean isStackValidForSlot(int i, ItemStack itemstack) {
 		return true;
 	}
+
+	@Override
+	public String getType() { return "MFFSAdvSecStation"; }
 }

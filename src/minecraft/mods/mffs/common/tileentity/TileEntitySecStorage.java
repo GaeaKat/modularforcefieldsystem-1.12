@@ -229,4 +229,6 @@ public class TileEntitySecStorage extends TileEntityMachines implements
 		return true;
 	}
 
+	@Override
+	public String getType() { return "MFFSSecuredStorage"; }
 }

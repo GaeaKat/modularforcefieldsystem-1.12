@@ -150,6 +150,7 @@ public class ModularForceFieldSystem {
 	public static boolean ee3Found = false;
 	public static boolean buildcraftFound = false;
 	public static boolean thermalExpansionFound = false;
+	public static boolean computercraftFound = false;
 
 	public static boolean enableIC2Recipes = true;
 	public static boolean enableTERecipes = true;
@@ -187,9 +188,10 @@ public class ModularForceFieldSystem {
 	public void preInit(FMLPreInitializationEvent event) {
 
 		initIC2Plugin();
-		initbuildcraftPlugin();
+		initBuildcraftPlugin();
 		initEE3Plugin();
-		ThermalExpansionPlugin();
+		initThermalExpansionPlugin();
+		initComputerCraftPlugin();
 
 		MinecraftForge.EVENT_BUS.register(this);
 		MinecraftForge.EVENT_BUS.register(proxy);
@@ -703,7 +705,18 @@ public class ModularForceFieldSystem {
 
 	}
 
-	public void initbuildcraftPlugin() {
+	public void initComputerCraftPlugin() {
+		System.out.println("[ModularForcefieldSystem] Loading module for ComputerCraft");
+
+		try {
+			Class.forName("dan200.ComputerCraft");
+			computercraftFound = true;
+		} catch(Throwable t) {
+			System.out.println("[ModularForceFieldSystem] Module not loaded: ComputerCraft not found");
+		}
+	}
+
+	public void initBuildcraftPlugin() {
 
 		System.out
 				.println("[ModularForceFieldSystem] Loading module for Buildcraft");
@@ -720,7 +733,7 @@ public class ModularForceFieldSystem {
 		}
 	}
 
-	public void ThermalExpansionPlugin() {
+	public void initThermalExpansionPlugin() {
 
 		System.out
 				.println("[ModularForceFieldSystem] Loading module for ThermalExpansion");
