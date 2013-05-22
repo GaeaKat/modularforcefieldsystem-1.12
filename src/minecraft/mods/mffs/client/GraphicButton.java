@@ -121,7 +121,8 @@ public class GraphicButton extends GuiButton {
 				if (typ == 1) {
 					par1Minecraft.renderEngine.bindTexture("/mods/mffs/textures/gui/ControlSystemButtons.png");
 
-					drawButtonRect(xPosition, yPosition, (((TileEntityAreaDefenseStation)tileEntity).getcontratyp()),
+					drawButtonRect(xPosition, yPosition, (((TileEntityAreaDefenseStation)tileEntity).getcontratyp())
+							* 16,
 							0, width, height, CONTROL_SYSTEM_TEXTURE_SIZE);
 				}
 				if (typ == 2) {
