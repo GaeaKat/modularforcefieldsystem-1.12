@@ -14,9 +14,11 @@
 
 	<property name="mcpsrc.dir" value="${mcp.dir}/src" />
 
+	<property name="skip-buildcraft" value="true" />
+
 	<property name="mc.version" value="1.5.2" />
-	<property name="forge.version" value="7.8.0.703" />
-	<property name="ic2.buildnum" value="319" />
+	<property name="forge.version" value="7.8.0.713" />
+	<property name="ic2.buildnum" value="338" />
 	<property name="ic2.version" value="1.115.${ic2.buildnum}-lf" />
 	<property name="te.version" value="2.4.0" />
 
@@ -105,7 +107,7 @@
 		</copy>
 	</target>
 
-	<target name="clone-buildcraft">
+	<target name="clone-buildcraft" unless="skip-buildcraft">
 		<delete dir="${download.dir}/buildcraft-src" failonerror="false" />
 
 		<exec executable="git" dir="${download.dir}">

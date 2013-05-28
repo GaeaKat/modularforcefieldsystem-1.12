@@ -17,8 +17,22 @@
   "screenshots": [
   ],
   "parent":"",
+  "requiredMods": [
+  ],
   "dependencies": [
-   "mod_IC2"
+   "MinecraftForge",
+   "BuildCraft|Core",
+   "BuildCraft|Builders",
+   "BuildCraft|Energy",
+   "BuildCraft|Factory",
+   "BuildCraft|Silicon",
+   "BuildCraft|Transport",
+   "ComputerCraft",
+   "CCTurtle",
+   "EE3",
+   "IC2",
+   "Railcraft",
+   "ThermalExpansion"
   ]
 }
 ]
