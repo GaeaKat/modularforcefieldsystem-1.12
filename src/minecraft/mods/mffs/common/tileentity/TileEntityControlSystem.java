@@ -227,7 +227,6 @@ public class TileEntityControlSystem extends TileEntityMachines implements
 				if (getRemoteGUIinRange()) {
 					EntityPlayer player = worldObj.getPlayerEntityByName(value);
 					if (player != null) {
-
 						player.openGui(ModularForceFieldSystem.instance, 0,
 								worldObj, remote.xCoord, remote.yCoord,
 								remote.zCoord);

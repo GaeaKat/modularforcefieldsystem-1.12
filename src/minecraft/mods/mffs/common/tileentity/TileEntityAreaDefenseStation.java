@@ -240,12 +240,14 @@ public class TileEntityAreaDefenseStation extends TileEntityFEPoweredMachine
 							warnlist.add(player);
 							if (!sec.isAccessGranted(player.username,
 									SecurityRight.SR)) {
-								if (!(ModularForceFieldSystem.DefenceStationNPCScannsuppressnotification && getActionmode() >= 3)) {
+								if (!(ModularForceFieldSystem.DefenceStationNPCScannsuppressnotification &&
+										getActionmode() < 3)) {
 									player.addChatMessage(String.format(LanguageRegistry.instance()
 											.getStringLocalization("securityStation.scanningRange"),
 											sec.getDeviceName()));
-									player.attackEntityFrom(
-											MFFSDamageSource.areaDefense, 1);
+
+									if(getActionmode() == 1)
+										player.attackEntityFrom(MFFSDamageSource.areaDefense, 1);
 								}
 							}
 						}
