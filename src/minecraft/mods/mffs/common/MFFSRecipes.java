@@ -114,6 +114,12 @@ public class MFFSRecipes {
 	}
 
 	public static void AddAERecipes() {
+		if(Util.getGrinderRecipeManage() == null)
+		{
+			System.out.println("[ModularForceFieldSystem] Error: AE Grind Stone Recipe Manager is null!");
+			return;
+		}
+
 		Util.getGrinderRecipeManage().addRecipe(new ItemStack(ModularForceFieldSystem.MFFSMonazitOre, 1),
 				new ItemStack(ModularForceFieldSystem.MFFSitemForcicium, ModularForceFieldSystem.grindRecipeOutput),
 				ModularForceFieldSystem.grindRecipeCost);
