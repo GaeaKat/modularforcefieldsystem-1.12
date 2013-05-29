@@ -23,6 +23,7 @@
 
 package mods.mffs.common;
 
+import appeng.api.Util;
 import buildcraft.BuildCraftCore;
 import cpw.mods.fml.common.registry.GameRegistry;
 import ic2.api.item.Items;
@@ -112,6 +113,12 @@ public class MFFSRecipes {
 			);
 	}
 
+	public static void AddAERecipes() {
+		Util.getGrinderRecipeManage().addRecipe(new ItemStack(ModularForceFieldSystem.MFFSMonazitOre, 1),
+				new ItemStack(ModularForceFieldSystem.MFFSitemForcicium, ModularForceFieldSystem.grindRecipeOutput),
+				ModularForceFieldSystem.grindRecipeCost);
+	}
+
 	public static void init() {
 
 		RecipesFactory.addRecipe("uuuuiuuuu", 1, 0, null,
@@ -153,6 +160,9 @@ public class MFFSRecipes {
 
 		if (ModularForceFieldSystem.thermalExpansionFound && ModularForceFieldSystem.enableTERecipes)
 			AddTERecipes();
+
+		if(ModularForceFieldSystem.appliedEnergisticsFound && ModularForceFieldSystem.enableAEGrindStoneRecipe)
+			AddAERecipes();
 	}
 
 }

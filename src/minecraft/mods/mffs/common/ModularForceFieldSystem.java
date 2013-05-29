@@ -151,9 +151,14 @@ public class ModularForceFieldSystem {
 	public static boolean buildcraftFound = false;
 	public static boolean thermalExpansionFound = false;
 	public static boolean computercraftFound = false;
+	public static boolean appliedEnergisticsFound = false;
 
 	public static boolean enableIC2Recipes = true;
 	public static boolean enableTERecipes = true;
+	public static boolean enableAEGrindStoneRecipe = true;
+
+	public static int grindRecipeOutput = 8;
+	public static int grindRecipeCost = 16;
 
 	public static int graphicsStyle = 1;
 
@@ -192,6 +197,7 @@ public class ModularForceFieldSystem {
 		initEE3Plugin();
 		initThermalExpansionPlugin();
 		initComputerCraftPlugin();
+		initAEPlugin();
 
 		MinecraftForge.EVENT_BUS.register(this);
 		MinecraftForge.EVENT_BUS.register(proxy);
@@ -347,6 +353,23 @@ public class ModularForceFieldSystem {
 					"enableTERecipes", true);
 			teRecipes.comment = "Set to false to disable Thermal Expansion recipes for MFFS machines.";
 			enableTERecipes = teRecipes.getBoolean(true);
+
+			Property grindRecipe = MFFSconfig.get(Configuration.CATEGORY_GENERAL,
+					"enableAEGrindStoneRecipe", true);
+			grindRecipe.comment = "Set to false to disable the Applied Energistics Grind Stone recipe for MFFS " +
+					"machines.";
+			enableAEGrindStoneRecipe = grindRecipe.getBoolean(true);
+
+			Property grindOutput = MFFSconfig.get(Configuration.CATEGORY_GENERAL,
+					"grindRecipeOutput", 8);
+			grindOutput.comment = "Amount of Forcicium to generate per Monazit ore in the AE Grind Stone.";
+			grindRecipeOutput = grindOutput.getInt(8);
+
+			Property grindCost = MFFSconfig.get(Configuration.CATEGORY_GENERAL,
+					"grindRecipeCost", 12);
+			grindCost.comment = "Number of clicks on the Applied Energistics Grind Stone Crank that must be " +
+					"registered to turn Monazit into Forcicium.";
+			grindRecipeCost = grindCost.getInt(12);
 
 			// Machines + Blocks
 
@@ -727,8 +750,7 @@ public class ModularForceFieldSystem {
 			buildcraftFound = true;
 
 		} catch (Throwable t) {
-			System.out
-					.println("[ModularForceFieldSystem] Module not loaded: Buildcraft not found");
+			System.out.println("[ModularForceFieldSystem] Module not loaded: Buildcraft not found");
 
 		}
 	}
@@ -744,8 +766,7 @@ public class ModularForceFieldSystem {
 			thermalExpansionFound = true;
 
 		} catch (Throwable t) {
-			System.out
-					.println("[ModularForceFieldSystem] Module not loaded: ThermalExpansion not found");
+			System.out.println("[ModularForceFieldSystem] Module not loaded: ThermalExpansion not found");
 
 		}
 	}
@@ -760,8 +781,7 @@ public class ModularForceFieldSystem {
 			ee3Found = true;
 
 		} catch (Throwable t) {
-			System.out
-					.println("[ModularForceFieldSystem] Module not loaded: EE3 not found");
+			System.out.println("[ModularForceFieldSystem] Module not loaded: EE3 not found");
 
 		}
 	}
@@ -776,9 +796,19 @@ public class ModularForceFieldSystem {
 			ic2Found = true;
 
 		} catch (Throwable t) {
-			System.out
-					.println("[ModularForceFieldSystem] Module not loaded: IC2 not found");
+			System.out.println("[ModularForceFieldSystem] Module not loaded: IC2 not found");
 
+		}
+	}
+
+	public void initAEPlugin() {
+		System.out.println("[ModularForceFieldSystem] Loading module for Applied Energistics");
+
+		try {
+			Class.forName("appeng.common.AppEng");
+			appliedEnergisticsFound = true;
+		} catch (Throwable t) {
+			System.out.println("[ModularForceFieldSystem] Module not loaded: Applied Energistics not found");
 		}
 	}
 
