@@ -184,6 +184,7 @@
 		<!-- Copy classes -->
 		<copy todir="${classes.dir}">
 			<fileset dir="${mcp.dir}/reobf/minecraft">
+				<exclude name="appeng/" />
 				<exclude name="buildcraft/builders/" />
 				<exclude name="buildcraft/core/" />
 				<exclude name="buildcraft/energy/" />

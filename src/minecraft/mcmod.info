@@ -21,6 +21,7 @@
   ],
   "dependencies": [
    "MinecraftForge",
+   "AppliedEnergistics",
    "BuildCraft|Core",
    "BuildCraft|Builders",
    "BuildCraft|Energy",
