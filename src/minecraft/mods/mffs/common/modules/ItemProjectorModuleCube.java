@@ -83,7 +83,7 @@ public class ItemProjectorModuleCube extends Module3DBase {
 							|| y1 == yTop || z1 == -radius || z1 == radius) {
 						ffLocs.add(new PointXYZ(x1, y1, z1, 0));
 					} else {
-						ffInterior.add(new PointXYZ(x1, y1, z1, 0));
+						//ffInterior.add(new PointXYZ(x1, y1, z1, 0));
 					}
 				}
 			}

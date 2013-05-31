@@ -581,6 +581,9 @@ public class TileEntityProjector extends TileEntityFEPoweredMachine implements
 														// when being turned on
 														// after setting changes
 														// or on first on.
+		System.out.println("Calculating Field...");
+		long time = System.currentTimeMillis();
+
 		field_def.clear();
 		field_interior.clear();
 		if (hasValidTypeMod()) {
@@ -607,7 +610,7 @@ public class TileEntityProjector extends TileEntityFEPoweredMachine implements
 					}
 				}
 			}
-			for (PointXYZ pnt : tFieldInt) {
+			/*for (PointXYZ pnt : tFieldInt) {
 
 				if (pnt.Y + this.yCoord < 255) {
 					PointXYZ tp = new PointXYZ(pnt.X + this.xCoord, pnt.Y
@@ -619,7 +622,10 @@ public class TileEntityProjector extends TileEntityFEPoweredMachine implements
 						return false;
 					}
 				}
-			}
+			}*/
+
+			System.out.println(String.format("Completed in %f seconds.", (System.currentTimeMillis() - time) /
+					1000.0f));
 
 			return true;
 		}

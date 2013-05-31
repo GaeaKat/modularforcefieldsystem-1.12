@@ -453,7 +453,7 @@ public class ModularForceFieldSystem {
 					.setUnlocalizedName("itemForciciumCell");
 
 			// Modules
-			MFFSProjectorTypdiagowall = new ItemProjectorModulediagonallyWall(
+			MFFSProjectorTypdiagowall = new ItemProjectorModuleDiagonalWall(
 					MFFSconfig.getItem(Configuration.CATEGORY_ITEM,
 							"itemProjectorModulediagonallyWall",
 							DefaultProps.item_ModDiag_ID).getInt(

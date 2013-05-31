@@ -27,8 +27,8 @@ import mods.mffs.common.IModularProjector;
 import mods.mffs.common.IModularProjector.Slots;
 import net.minecraft.client.renderer.texture.IconRegister;
 
-public class ItemProjectorModulediagonallyWall extends ItemProjectorModuleWall {
-	public ItemProjectorModulediagonallyWall(int i) {
+public class ItemProjectorModuleDiagonalWall extends ItemProjectorModuleWall {
+	public ItemProjectorModuleDiagonalWall(int i) {
 		super(i);
 	}
 

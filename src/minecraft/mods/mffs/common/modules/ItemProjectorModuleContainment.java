@@ -20,22 +20,15 @@
 
 package mods.mffs.common.modules;
 
-import java.util.Set;
-
 import mods.mffs.api.PointXYZ;
 import mods.mffs.common.IModularProjector;
 import mods.mffs.common.IModularProjector.Slots;
-import mods.mffs.common.options.ItemProjectorOptionBase;
-import mods.mffs.common.options.ItemProjectorOptionBlockBreaker;
-import mods.mffs.common.options.ItemProjectorOptionCamoflage;
-import mods.mffs.common.options.ItemProjectorOptionDefenseStation;
-import mods.mffs.common.options.ItemProjectorOptionFieldFusion;
-import mods.mffs.common.options.ItemProjectorOptionForceFieldJammer;
-import mods.mffs.common.options.ItemProjectorOptionMobDefence;
-import mods.mffs.common.options.ItemProjectorOptionSponge;
+import mods.mffs.common.options.*;
 import mods.mffs.common.tileentity.TileEntityProjector;
 import net.minecraft.client.renderer.texture.IconRegister;
 import net.minecraft.item.Item;
+
+import java.util.Set;
 
 public class ItemProjectorModuleContainment extends Module3DBase {
 	public ItemProjectorModuleContainment(int i) {
@@ -127,7 +120,7 @@ public class ItemProjectorModuleContainment extends Module3DBase {
 
 					} else {
 
-						ffInterior.add(new PointXYZ(tpx, tpy, tpz, 0));
+						//ffInterior.add(new PointXYZ(tpx, tpy, tpz, 0));
 					}
 				}
 			}
