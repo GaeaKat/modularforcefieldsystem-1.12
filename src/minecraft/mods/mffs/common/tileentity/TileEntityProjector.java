@@ -581,7 +581,6 @@ public class TileEntityProjector extends TileEntityFEPoweredMachine implements
 														// when being turned on
 														// after setting changes
 														// or on first on.
-		System.out.println("Calculating Field...");
 		long time = System.currentTimeMillis();
 
 		field_def.clear();
@@ -623,9 +622,6 @@ public class TileEntityProjector extends TileEntityFEPoweredMachine implements
 					}
 				}
 			}*/
-
-			System.out.println(String.format("Completed in %f seconds.", (System.currentTimeMillis() - time) /
-					1000.0f));
 
 			return true;
 		}
