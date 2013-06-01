@@ -22,7 +22,7 @@ package mods.mffs.common;
 
 import java.lang.reflect.Constructor;
 
-import mods.mffs.client.gui.GuiManuelScreen;
+import mods.mffs.client.gui.GuiManualScreen;
 import mods.mffs.common.container.ContainerDummy;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.tileentity.TileEntity;
@@ -38,7 +38,7 @@ public class CommonProxy implements IGuiHandler {
 			int x, int y, int z) {
 
 		if (ID != 0) {
-			return new GuiManuelScreen(new ContainerDummy());
+			return new GuiManualScreen(new ContainerDummy());
 		}
 
 		TileEntity te = world.getBlockTileEntity(x, y, z);

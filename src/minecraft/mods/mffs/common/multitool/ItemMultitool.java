@@ -61,7 +61,7 @@ public abstract class ItemMultitool extends ForceEnergyItems implements
 				iconRegister.registerIcon("mffs:multitool/wrench"),
 				iconRegister.registerIcon("mffs:multitool/switch"),
 				iconRegister.registerIcon("mffs:multitool/encoder"),
-				iconRegister.registerIcon("mffs:multitool/unknown"),
+				iconRegister.registerIcon("mffs:multitool/debugger"),
 				iconRegister.registerIcon("mffs:multitool/fieldteleporter"),
 				iconRegister.registerIcon("mffs:multitool/manual") };
 

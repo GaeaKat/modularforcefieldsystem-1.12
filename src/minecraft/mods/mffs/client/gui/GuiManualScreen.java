@@ -1,8 +1,5 @@
 package mods.mffs.client.gui;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import mods.mffs.common.ModularForceFieldSystem;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.inventory.GuiContainer;
@@ -10,17 +7,19 @@ import net.minecraft.client.renderer.RenderHelper;
 import net.minecraft.client.renderer.entity.RenderItem;
 import net.minecraft.inventory.Container;
 import net.minecraft.item.ItemStack;
-
 import org.lwjgl.opengl.GL11;
 
+import java.util.ArrayList;
+import java.util.List;
 
-public class GuiManuelScreen extends GuiContainer {
+
+public class GuiManualScreen extends GuiContainer {
 	private int page = 0;
 	private int maxpage;
 
 	private List<String> pages = new ArrayList<String>();
 
-	public GuiManuelScreen(Container par1Container) {
+	public GuiManualScreen(Container par1Container) {
 		super(par1Container);
 		generateIndex();
 		maxpage = pages.size() - 1;
@@ -60,7 +59,7 @@ public class GuiManuelScreen extends GuiContainer {
 	protected void drawGuiContainerBackgroundLayer(float f, int i, int j) {
 
 		GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
-		mc.renderEngine.bindTexture("/mods/mffs/textures/gui/GuiManuel.png");
+		mc.renderEngine.bindTexture("/mods/mffs/textures/gui/GuiManual.png");
 		int w = (width - 256) / 2;
 		int k = (height - 216) / 2;
 		drawTexturedModalRect(w, k, 0, 0, 256, 216);
