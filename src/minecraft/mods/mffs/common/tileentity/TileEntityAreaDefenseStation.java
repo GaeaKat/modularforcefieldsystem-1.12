@@ -29,10 +29,8 @@ import mods.mffs.common.container.ContainerAreaDefenseStation;
 import mods.mffs.common.item.ItemCardSecurityLink;
 import mods.mffs.common.item.ItemProjectorFieldModulatorDistance;
 import net.minecraft.entity.EntityLiving;
-import net.minecraft.entity.monster.EntityGhast;
-import net.minecraft.entity.monster.EntityMob;
-import net.minecraft.entity.monster.EntitySlime;
-import net.minecraft.entity.passive.EntityAmbientCreature;
+import net.minecraft.entity.monster.IMob;
+import net.minecraft.entity.passive.IAnimals;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.Container;
@@ -379,10 +377,7 @@ public class TileEntityAreaDefenseStation extends TileEntityFEPoweredMachine
 		if (hasPowerSource()) {
 
 			if (sec != null && sec.isSecurityEstablished()) {
-				if (this.consumePower(
-						ModularForceFieldSystem.DefenceStationKillForceEnergy,
-						true))
-					;
+				if(this.consumePower(ModularForceFieldSystem.DefenceStationKillForceEnergy, true))
 				{
 					switch (getActionmode()) {
 					case 3: // all
@@ -392,11 +387,10 @@ public class TileEntityAreaDefenseStation extends TileEntityFEPoweredMachine
 						Living.setEntityHealth(0);
 						NPClist.remove(Living);
 						break;
+
 					case 4: // Hostile
-						if (Living instanceof EntityMob
-								|| Living instanceof EntityAmbientCreature
-								|| Living instanceof EntitySlime
-								|| Living instanceof EntityGhast) {
+						if (Living instanceof IMob ||
+								Living instanceof IAnimals) {
 							Living.setEntityHealth(0);
 							NPClist.remove(Living);
 							consumePower(
@@ -407,9 +401,7 @@ public class TileEntityAreaDefenseStation extends TileEntityFEPoweredMachine
 						break;
 					case 5:// no Hostie
 
-						if (!(Living instanceof EntityMob)
-								&& !(Living instanceof EntitySlime)
-								&& !(Living instanceof EntityGhast)) {
+						if (!(Living instanceof IMob)) {
 							Living.setEntityHealth(0);
 							NPClist.remove(Living);
 							consumePower(

@@ -104,7 +104,7 @@ public class MFFSRecipes {
 					'm', Item.redstone,
 					'S', BuildCraftCore.wrenchItem,
 					'n', Block.lever,
-					'E', ItemRegistry.getItem("ingotElectrum", 1),
+					'E', ItemRegistry.getItem("hardenedGlass", 1),
 					'x',
 					new ItemStack(
 							ModularForceFieldSystem.MFFSitemForcePowerCrystal,
