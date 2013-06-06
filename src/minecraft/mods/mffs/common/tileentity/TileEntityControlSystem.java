@@ -24,6 +24,8 @@ import java.util.List;
 public class TileEntityControlSystem extends TileEntityMachines implements
 		ISidedInventory {
 
+	public static int MACHINE_RANGE = 192;
+
 	// Var. for RemoteInfo <Maschine>
 
 	private TileEntityMachines remote = null;
@@ -289,13 +291,13 @@ public class TileEntityControlSystem extends TileEntityMachines implements
 				setRemoteDeviceTyp(MFFSMaschines.fromTE(remote).displayName);
 
 			if (PointXYZ
-					.distance(getMaschinePoint(), remote.getMaschinePoint()) > 61
+					.distance(getMaschinePoint(), remote.getMaschinePoint()) > MACHINE_RANGE
 					&& this.getRemoteGUIinRange()) {
 				this.setRemoteGUIinRange(false);
 			}
 
 			if (PointXYZ
-					.distance(getMaschinePoint(), remote.getMaschinePoint()) <= 61
+					.distance(getMaschinePoint(), remote.getMaschinePoint()) <= MACHINE_RANGE
 					&& !this.getRemoteGUIinRange()) {
 				this.setRemoteGUIinRange(true);
 			}

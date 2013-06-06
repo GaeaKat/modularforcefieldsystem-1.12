@@ -43,6 +43,7 @@ import mods.mffs.common.localization.LocalizationManager;
 import mods.mffs.common.modules.*;
 import mods.mffs.common.multitool.*;
 import mods.mffs.common.options.*;
+import mods.mffs.common.tileentity.TileEntityControlSystem;
 import mods.mffs.common.tileentity.TileEntityForceField;
 import mods.mffs.common.tileentity.TileEntityMachines;
 import mods.mffs.network.client.ForceFieldClientUpdatehandler;
@@ -370,6 +371,12 @@ public class ModularForceFieldSystem {
 			grindCost.comment = "Number of clicks on the Applied Energistics Grind Stone Crank that must be " +
 					"registered to turn Monazit into Forcicium.";
 			grindRecipeCost = grindCost.getInt(12);
+
+			Property controlSystemRange = MFFSconfig.get(Configuration.CATEGORY_GENERAL, "controlSystemRange",
+					TileEntityControlSystem.MACHINE_RANGE);
+			controlSystemRange.comment = "Range (in meters) a block must be within for the control system to be able " +
+					"to access its GUI.";
+			TileEntityControlSystem.MACHINE_RANGE = controlSystemRange.getInt(TileEntityControlSystem.MACHINE_RANGE);
 
 			// Machines + Blocks
 
