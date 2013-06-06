@@ -380,7 +380,7 @@ public class TileEntityAreaDefenseStation extends TileEntityFEPoweredMachine
 				if(this.consumePower(ModularForceFieldSystem.DefenceStationKillForceEnergy, true))
 				{
 					switch (getActionmode()) {
-					case 3: // all
+					case 3: // NPC Kill - All
 						consumePower(
 								ModularForceFieldSystem.DefenceStationKillForceEnergy,
 								false);
@@ -388,9 +388,8 @@ public class TileEntityAreaDefenseStation extends TileEntityFEPoweredMachine
 						NPClist.remove(Living);
 						break;
 
-					case 4: // Hostile
-						if (Living instanceof IMob ||
-								Living instanceof IAnimals) {
+					case 4: // NPC Kill - Hostile
+						if (Living instanceof IMob) {
 							Living.setEntityHealth(0);
 							NPClist.remove(Living);
 							consumePower(
@@ -399,9 +398,9 @@ public class TileEntityAreaDefenseStation extends TileEntityFEPoweredMachine
 						}
 
 						break;
-					case 5:// no Hostie
+					case 5: // NPC Kill - Friendly
 
-						if (!(Living instanceof IMob)) {
+						if (!(Living instanceof IAnimals)) {
 							Living.setEntityHealth(0);
 							NPClist.remove(Living);
 							consumePower(
