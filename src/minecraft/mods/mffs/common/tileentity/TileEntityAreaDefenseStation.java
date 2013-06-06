@@ -400,7 +400,7 @@ public class TileEntityAreaDefenseStation extends TileEntityFEPoweredMachine
 						break;
 					case 5: // NPC Kill - Friendly
 
-						if (!(Living instanceof IAnimals)) {
+						if (Living instanceof IAnimals) {
 							Living.setEntityHealth(0);
 							NPClist.remove(Living);
 							consumePower(
