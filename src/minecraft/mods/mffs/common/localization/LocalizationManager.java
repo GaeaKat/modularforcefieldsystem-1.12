@@ -20,7 +20,8 @@ public class LocalizationManager {
 	private static String[] localeFiles = new String[] {
 			LANG_RESOURCE_LOCATION + "en_US.xml",
 			LANG_RESOURCE_LOCATION + "de_DE.xml",
-			LANG_RESOURCE_LOCATION + "fi_FI.xml"
+			LANG_RESOURCE_LOCATION + "fi_FI.xml",
+			LANG_RESOURCE_LOCATION + "sr_RS.xml"
 	};
 
 	/***

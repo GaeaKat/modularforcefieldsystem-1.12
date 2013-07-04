@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+<properties version="1.0">
+    <comment>Serbian (sr_RS) Localization File</comment>
+    <!-- Blocks: Machines -->
+    <entry key="tile.MFFSForceEnergyConverter.name">MFFS Prevodilac Energije Sile</entry>
+    <entry key="tile.MFFSExtractor.name">MFFS Ekstraktor</entry>
+    <entry key="tile.MFFSDefenseStation.name">MFFS Odbrambena Stanica</entry>
+    <entry key="tile.MFFSCapacitor.name">MFFS Kondenzator</entry>
+    <entry key="tile.MFFSProjector.name">MFFS Projektor</entry>
+    <entry key="tile.MFFSFieldblock.name">MFFS Polje</entry>
+    <entry key="tile.MFFSSecureStorage.name">MFFS Bezbedno Skladište</entry>
+    <entry key="tile.MFFSSecurityStation.name">MFFS Sigurnosna Stanica</entry>
+    <entry key="tile.MFFSControlSystem.name">MFFS Kontrolni Sistem</entry>
+
+    <!-- Blocks: Misc -->
+    <entry key="tile.MFFSMonazitOre.name">Monazit Ruda</entry>
+
+    <!-- Items: Cards -->
+    <entry key="item.itemCardEmpty.name">Prazna MFFS Kartica</entry>
+    <entry key="item.itemCardPowerLink.name">MFFS Kartica: Energijska Veza</entry>
+    <entry key="item.itemCardID.name">MFFS Identifikaciona Kartica</entry>
+    <entry key="item.itemCardSecurityLink.name">MFFS Kartica: Sigurnosna Veza</entry>
+    <entry key="item.itemCardInfinitePower.name">MFFS Kartica: Beskrajna Energija</entry>
+    <entry key="item.itemCardAccess.name">MFFS Pristupna Kartica</entry>
+    <entry key="item.itemCardDataLink.name">MFFS Kartica: Informaciona Veza</entry>
+
+    <!-- Items: Projector Modules -->
+    <entry key="item.itemProjectorModuleDiagonalWall.name">Projektorski Modul: Dijagonalni Zid</entry>
+    <entry key="item.itemProjectorModuleSphere.name">Projektorski Modul: Sfera</entry>
+    <entry key="item.itemProjectorModuleCube.name">Projektorski Modul: Kocka</entry>
+    <entry key="item.itemProjectorModuleWall.name">Projektorski Modul: Zid</entry>
+    <entry key="item.itemProjectorModuleDeflector.name">Projektorski Modul: Deflektor</entry>
+    <entry key="item.itemProjectorModuleTube.name">Projektorski Modul: Cev</entry>
+    <entry key="item.itemProjectorModuleContainment.name">Projektorski Modul: Obuzdavač</entry>
+    <entry key="item.itemProjectorModuleAdvCube.name">Projektorski Modul: Napredna Kocka</entry>
+
+    <!-- Items: Projector Options -->
+    <entry key="item.itemProjectorOptionZapper.name">Projektorska Opcija: Električni Šok</entry>
+    <entry key="item.itemProjectorOptionSponge.name">Projektorska Opcija: Sunđer</entry>
+    <entry key="item.itemProjectorOptionDome.name">Projektorska Opcija: Kupola</entry>
+    <entry key="item.itemProjectorOptionCutter.name">Projektorska Opcija: Sekač</entry>
+    <entry key="item.itemProjectorOptionDefenseStation.name">Projektorska Opcija: Odbrambena Stanica</entry>
+    <entry key="item.itemProjectorOptionMobKiller.name">Projektorska Opcija: Ubijač Čudovišta</entry>
+    <entry key="item.itemProjectorOptionFFJammer.name">Projektorska Opcija: Ometač Polja Sile</entry>
+    <entry key="item.itemProjectorOptionCamouflage.name">Projektorska Opcija: Kamuflaža</entry>
+    <entry key="item.itemProjectorOptionFieldFusion.name">Projektorska Opcija: Spajanje Polja</entry>
+
+    <!-- Items: Projector Upgrades -->
+    <entry key="item.itemProjectorFFDistance.name">Projektorski Dodatak: Daljuna Polja</entry>
+    <entry key="item.itemProjectorFFStrength.name">Projektorski Dodatak: Snaga Polja</entry>
+    <entry key="item.itemProjectorFocusMatrix.name">Projektorski Dodatak: Fokusni Matriks</entry>
+
+    <!-- Items: Multi-Tool -->
+    <entry key="item.itemMultiToolWrench.name">Multi-Alatka: Ključ</entry>
+    <entry key="item.itemMultiToolSwitch.name">Multi-Alatka: Prekidač</entry>
+    <entry key="item.itemMultiToolFieldTransporter.name">Multi-Alatka: Prolaz Kroz Polja</entry>
+    <entry key="item.itemMultiToolIDWriter.name">Multi-Alatka: Zapisivač Identifikacije</entry>
+    <entry key="item.itemMultiToolDebugger.name">Multi-Alatka: Ispravljač Grešaka</entry>
+    <entry key="item.itemMultiToolManual.name">Multi-Alatka: Uputstvo za Upotrebu</entry>
+
+    <!-- Items: Extractor Upgrades -->
+    <entry key="item.itemExtractorUpgradeBooster.name">Ekstraktorski Dodatak: Ubrzavač</entry>
+
+    <!-- Items: Capacitor Upgrades -->
+    <entry key="item.itemCapacitorUpgradeRange.name">Kondenzatorki Dodatak: Domet</entry>
+    <entry key="item.itemCapacitorUpgradeCapacity.name">Kondenzatorski Dodatak: Kapacitet</entry>
+
+    <!-- Items: Misc -->
+    <entry key="item.itemForcePowerCrystal.name">Energijski Kristal Sile</entry>
+    <entry key="item.itemForcicium.name">Forcicium</entry>
+    <entry key="item.itemForciciumCell.name">Forciciumska Ćelija</entry>
+
+    <!-- Field Messages -->
+    <entry key="field.highEnergyField">[Polje Sile] Pažnja: Visoko-energijsko polje.</entry>
+
+    <!-- Field Security Messages -->
+    <entry key="fieldSecurity.accessDenied">[Sigurnosni Sistem] Neuspeh: Pristup Odbijen.</entry>
+    <entry key="fieldSecurity.accessGranted">[Sigurnosni Sistem] Uspeh: Pristup Dozvoljen.</entry>
+    <entry key="fieldSecurity.voidNotAllowed">[Sigurnosni Sistem] Neuspeh: Prolazak u Prazninu nije dozvoljen.</entry>
+    <entry key="fieldSecurity.detectedObstacle">[Sigurnosni Sistem] Neuspeh: Detektovana prepreka.</entry>
+    <entry key="fieldSecurity.fieldTooString">[Sigurnosni Sistem] Neuspeh: Energijsko polje prejako</entry>
+    <entry key="fieldSecurity.invalidItemInPowerLink">[Sigurnosni Sistem] Neuspeh: Nevažeći predmet u energijskoj vezi.</entry>
+    <entry key="fieldSecurity.failedTransmutation">[Sigurnosni Sistem] Neuspeh: Transmutacija kocke zahteva [Promeniti Zaštićenu Kocku] sigunosno pravo.</entry>
+    <entry key="fieldSecurity.transmissionComplete">[Sigurnosni Sistem] Uspeh: Transmutacija uspešna.</entry>
+    <entry key="fieldSecurity.notEnoughFE">[Sigurnosni Sistem] Neuspeh: Nesovoljno energije sile, molim vas dopunite.</entry>
+
+    <!-- Multi-Tool Messages -->
+    <entry key="multitool.idCardCreated">[Multi-Alatka] Uspeh: Identifikaciona kartica stvorena.</entry>
+    <entry key="multitool.notEnoughFE">[Multi-Alatka] Neuspeh: Nesovoljno energije sile, molim vas dopunite.</entry>
+    <entry key="multitool.needBlankCard">[Multi-Alatka] Neuspeh: Fali vam prazna MFFS kartica u inventaru.</entry>
+    <entry key="multitool.dataLinkCreated">[Multi-Alatka] Uspeh: Kartica za informacionu vezu stvorena.</entry>
+    <entry key="multitool.notInSwitchMode">[Multi-Alatka] Neuspeh: Objekat nije u modu paljenja na prekidač.</entry>
+    <entry key="multitool.projectorRepaired">[Multi-Alatka] Projektor popravljen.</entry>
+
+    <!-- Link Card Messages -->
+    <entry key="securityStation.cardCreated">[Sigurnosna Stanica] Uspeh: Vezivačka kartica za Sigurnosnu Stanicu stvorena.</entry>
+    <entry key="securityStation.mustBeActive">[Sigurnosna Stanica] Neuspeh: Sigurnosna stanica mora biti aktivna da se napravi vezivačka kartica.</entry>
+    <entry key="capacitor.cardCreated">[Kondenzator] Uspeh: Kartica za energijsku vezu stvorena.</entry>
+    <entry key="linkCard.installed">Uspeh: Kartica za energijsku vezu ubačena.</entry>
+    <entry key="linkCard.copied">SUspeh: Kartica za energijsku vezu kopirana.</entry>
+    <entry key="linkCard.notEmpty">Neuspeh: Slot nije prazan.</entry>
+
+    <!-- Projector Module Messages -->
+    <entry key="projectorModule.installed">[Projektor] Uspeh: Projektorski modul '%s' ubačen.</entry>
+    <entry key="projectorModule.notEmpty">[Projektor] Neuspeh: Slot nije prazan.</entry>
+
+    <!-- Item Info -->
+    <entry key="itemInfo.securityArea">Sigurnosna oblast: %s</entry>
+    <entry key="itemInfo.periodOfValidity">Period koristi: %s min.</entry>
+    <entry key="itemInfo.rightsHoldShift">Prava: (Drži Šift)</entry>
+    <entry key="itemInfo.rights">Prava:</entry>
+    <entry key="itemInfo.compatibleWith">Kompatibilan sa:</entry>
+    <entry key="itemInfo.compatibleWithHoldShift">Kompatibilan sa: (Drži Šift)</entry>
+    <entry key="itemInfo.deviceType">Vrsta uređaja: </entry>
+    <entry key="itemInfo.deviceName">Ime uređaja: </entry>
+    <entry key="itemInfo.infinitePower.lineOne">Adminska kartica za MFFS mašine</entry>
+    <entry key="itemInfo.infinitePower.lineTwo">ili za beskrajno punjenje Kondenzatora.</entry>
+    <entry key="itemInfo.forciciumCellActive">[Forciciumska Ćelija] Aktivna.</entry>
+    <entry key="itemInfo.forciciumCellInactive">[Forciciumska Ćelija] Neaktivna.</entry>
+
+    <!-- Misc Warning Messages -->
+    <entry key="securityStation.expiredValidity">[Sigurnosna Stanica] Pristupna dozvola je istekla.</entry>
+    <entry key="securityStation.scanningRange">!!!! [Sigurnosna Stanica][%s] Upozorenje: Sada ste u dometu skeniranja !!!!</entry>
+    <entry key="areaDefense.getOut">!!!! [Odbrana Oblasti] Izlazite odmah, nemate pravo da budete ovde !!!!</entry>
+    <entry key="areaDefense.beenWarned">!!!! [Odbrana Oblasti] Upozorili smo vas. !!!!</entry>
+    <entry key="areaDefense.illegalItems">!!!! [Odbrana Oblasti] Imate ilegalne predmete. %s vam je oduzeto !!!!</entry>
+
+    <!-- Generic Card Messages -->
+    <entry key="generic.card.installed">Uspeh: %s Kartica ubačena.</entry>
+    <entry key="generic.card.copied">Uspeh: %s Podaci kopirani.</entry>
+    <entry key="generic.card.fail">Neuspeh: Slot nije prazan.</entry>
+
+    <!-- Misc Strings -->
+    <entry key="itemGroup.MFFS">MFFS</entry>
+    <entry key="death.attack.areaDefense">%1$s je ignorisao/la upozorenja i bio/la spržen/a.</entry>
+    <entry key="death.attack.fieldShock">%1$s je spržen/a od strane polja sile!</entry>
+    <entry key="death.attack.fieldDefense">%1$s je spržen/a!</entry>
+    <entry key="warning.areaDefense">!!!! [Odbrana Oblasti] Odlazite ili umrite !!!!</entry>
+</properties>
