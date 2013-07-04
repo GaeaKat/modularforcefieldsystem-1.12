@@ -28,6 +28,7 @@ import mods.mffs.common.tileentity.TileEntityProjector;
 import mods.mffs.network.client.NetworkHandlerClient;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.inventory.GuiContainer;
+import net.minecraft.client.resources.ResourceLocation;
 import net.minecraft.entity.player.EntityPlayer;
 
 import org.lwjgl.opengl.GL11;
@@ -86,7 +87,8 @@ public class GuiProjector extends GuiContainer {
 	@Override
 	protected void drawGuiContainerBackgroundLayer(float f, int i, int j) {
 		GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
-		mc.renderEngine.bindTexture("/mods/mffs/textures/gui/GuiProjector.png");
+		//mc.renderEngine.bindTexture("/mods/mffs/textures/gui/GuiProjector.png");
+		mc.renderEngine.func_110577_a(new ResourceLocation("mffs:textures/gui/GuiProjector.png"));
 
 		int w = (width - xSize) / 2;
 		int k = (height - ySize) / 2;

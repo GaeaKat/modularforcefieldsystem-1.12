@@ -20,7 +20,7 @@
 
 package mods.mffs.common.multitool;
 
-import buildcraft.api.tools.IToolWrench;
+//import buildcraft.api.tools.IToolWrench;
 import cpw.mods.fml.common.registry.LanguageRegistry;
 import ic2.api.tile.IWrenchable;
 import mods.mffs.api.IMFFS_Wrench;
@@ -38,7 +38,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
 
-public class ItemWrench extends ItemMultitool implements IToolWrench,
+public class ItemWrench extends ItemMultitool implements /*IToolWrench,*/
 		IToolCrowbar {
 
 	public ItemWrench(int id) {
@@ -173,7 +173,7 @@ public class ItemWrench extends ItemMultitool implements IToolWrench,
 		return super.onItemRightClick(itemstack, world, entityplayer);
 	}
 
-	@Override
+	/*@Override
 	public boolean canWrench(EntityPlayer player, int x, int y, int z) {
 		if (this.consumePower(player.inventory.getCurrentItem(), 1000, true)) {
 			return true;
@@ -184,7 +184,7 @@ public class ItemWrench extends ItemMultitool implements IToolWrench,
 	@Override
 	public void wrenchUsed(EntityPlayer player, int x, int y, int z) {
 		this.consumePower(player.inventory.getCurrentItem(), 1000, false);
-	}
+	}*/
 
 	@Override
 	public boolean canWhack(EntityPlayer player, ItemStack crowbar, int x,

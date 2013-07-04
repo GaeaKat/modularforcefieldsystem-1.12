@@ -20,7 +20,6 @@
 
 package mods.mffs.common.tileentity;
 
-import cpw.mods.fml.common.registry.LanguageRegistry;
 import mods.mffs.common.Linkgrid;
 import mods.mffs.common.ModularForceFieldSystem;
 import mods.mffs.common.NBTTagCompoundHelper;
@@ -302,8 +301,8 @@ public class TileEntityAdvSecurityStation extends TileEntityMachines {
 								}
 							}
 						} else {
-							player.sendChatToPlayer(LanguageRegistry.instance().getStringLocalization
-									("securityStation.expiredValidity"));
+							/*player.sendChatToPlayer(LanguageRegistry.instance().getStringLocalization
+									("securityStation.expiredValidity"));*/
 							ItemStack Card = new ItemStack(
 									ModularForceFieldSystem.MFFSitemcardempty,
 									1);

@@ -23,9 +23,9 @@
 
 package mods.mffs.common.tileentity;
 
-import buildcraft.api.power.IPowerProvider;
+/*import buildcraft.api.power.IPowerProvider;
 import buildcraft.api.power.IPowerReceptor;
-import buildcraft.api.power.PowerFramework;
+import buildcraft.api.power.PowerFramework;*/
 import dan200.computer.api.IComputerAccess;
 import dan200.computer.api.IPeripheral;
 import ic2.api.Direction;
@@ -55,7 +55,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 public class TileEntityExtractor extends TileEntityFEPoweredMachine implements
-		IPowerReceptor, IEnergySink, IPeripheral {
+		/*IPowerReceptor,*/ IEnergySink, IPeripheral {
 	private ItemStack inventory[];
 
 	private int workmode = 0;
@@ -69,7 +69,7 @@ public class TileEntityExtractor extends TileEntityFEPoweredMachine implements
 	private int workdone;
 	private int maxworkcylce;
 	private int capacity;
-	private IPowerProvider powerProvider;
+	//private IPowerProvider powerProvider;
 	private boolean addedToEnergyNet;
 
 	public TileEntityExtractor() {
@@ -84,13 +84,13 @@ public class TileEntityExtractor extends TileEntityFEPoweredMachine implements
 		capacity = 0;
 		addedToEnergyNet = false;
 
-		if (ModularForceFieldSystem.buildcraftFound) {
+		/*if (ModularForceFieldSystem.buildcraftFound) {
 			powerProvider = PowerFramework.currentFramework
 					.createPowerProvider();
 			powerProvider.configure(10, 2, (int) (getMaxWorkEnergy() / 2.5),
 					(int) (getMaxWorkEnergy() / 2.5),
 					(int) (getMaxWorkEnergy() / 2.5));
-		}
+		}*/
 
 	}
 
@@ -622,7 +622,7 @@ public class TileEntityExtractor extends TileEntityFEPoweredMachine implements
 	}
 
 	public void converMJtoWorkEnergy() {
-		if (this.getWorkEnergy() < this.getMaxWorkEnergy()) {
+		/*if (this.getWorkEnergy() < this.getMaxWorkEnergy()) {
 			float use = powerProvider
 					.useEnergy(1, (float) (this.getMaxWorkEnergy() - this
 							.getWorkEnergy() / 2.5), true);
@@ -632,10 +632,10 @@ public class TileEntityExtractor extends TileEntityFEPoweredMachine implements
 			} else {
 				setWorkEnergy((int) (getWorkEnergy() + (use * 2.5)));
 			}
-		}
+		}*/
 	}
 
-	@Override
+	/*@Override
 	public void setPowerProvider(IPowerProvider provider) {
 		this.powerProvider = provider;
 	}
@@ -655,7 +655,7 @@ public class TileEntityExtractor extends TileEntityFEPoweredMachine implements
 		double MaxWorkEnergyinMj = getMaxWorkEnergy() / 2.5;
 
 		return (int) Math.round(MaxWorkEnergyinMj - workEnergyinMJ);
-	}
+	}*/
 
 	@Override
 	public ItemStack getPowerLinkStack() {

@@ -24,18 +24,16 @@
 package mods.mffs.common;
 
 import appeng.api.Util;
-import buildcraft.BuildCraftCore;
 import cpw.mods.fml.common.registry.GameRegistry;
 import ic2.api.item.Items;
 import ic2.api.recipe.Recipes;
-import net.minecraft.block.Block;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.CraftingManager;
 import thermalexpansion.api.crafting.CraftingManagers;
-import thermalexpansion.api.item.ItemRegistry;
 
 import java.lang.reflect.Method;
+
+//import buildcraft.BuildCraftCore;
 
 public class MFFSRecipes {
 	public static final int MONAZIT_MACERATION_OUTPUT = 8;
@@ -95,7 +93,7 @@ public class MFFSRecipes {
 		RecipesFactory.addRecipe("oMomMmoMo", 1, 2, null,
 				ModularForceFieldSystem.MFFSitemcardempty);
 
-		if(ModularForceFieldSystem.buildcraftFound)
+		/*if(ModularForceFieldSystem.buildcraftFound)
 			GameRegistry.addRecipe(
 					new ItemStack(ModularForceFieldSystem.MFFSitemWrench, 1),
 					"mSn",
@@ -110,7 +108,7 @@ public class MFFSRecipes {
 							ModularForceFieldSystem.MFFSitemForcePowerCrystal,
 							1, -1),
 					'D', ItemRegistry.getItem("powerCoilElectrum", 1)
-			);
+			);*/
 	}
 
 	public static void AddAERecipes() {

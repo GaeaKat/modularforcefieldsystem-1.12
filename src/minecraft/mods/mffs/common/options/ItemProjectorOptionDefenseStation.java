@@ -31,7 +31,7 @@ import mods.mffs.common.tileentity.TileEntityAdvSecurityStation;
 import mods.mffs.common.tileentity.TileEntityCapacitor;
 import mods.mffs.common.tileentity.TileEntityProjector;
 import net.minecraft.client.renderer.texture.IconRegister;
-import net.minecraft.entity.EntityLiving;
+import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.world.World;
@@ -69,21 +69,21 @@ public class ItemProjectorOptionDefenseStation extends ItemProjectorOptionBase {
 				fieldzmin = Math.min(fieldzmin, png.Z);
 			}
 
-			List<EntityLiving> LivingEntitylist = world.getEntitiesWithinAABB(
-					EntityLiving.class, AxisAlignedBB.getBoundingBox(fieldxmin,
+			List<EntityLivingBase> LivingEntitylist = world.getEntitiesWithinAABB(
+					EntityLivingBase.class, AxisAlignedBB.getBoundingBox(fieldxmin,
 							fieldymin, fieldzmin, fieldxmax, fieldymax,
 							fieldzmax));
 
 			for (int i = 0; i < LivingEntitylist.size(); i++) {
-				EntityLiving entityLiving = LivingEntitylist.get(i);
+				EntityLivingBase EntityLivingBase = LivingEntitylist.get(i);
 
-				if (!(entityLiving instanceof EntityPlayer)) {
+				if (!(EntityLivingBase instanceof EntityPlayer)) {
 					continue;
 				}
 
 				if (projector.get_type() instanceof ItemProjectorModuleSphere)
-					if (PointXYZ.distance(new PointXYZ((int) entityLiving.posX,
-							(int) entityLiving.posY, (int) entityLiving.posZ,
+					if (PointXYZ.distance(new PointXYZ((int) EntityLivingBase.posX,
+							(int) EntityLivingBase.posY, (int) EntityLivingBase.posZ,
 							world), projector.getMaschinePoint()) > projector
 							.countItemsInSlot(Slots.Distance) + 4)
 						continue;
@@ -106,7 +106,7 @@ public class ItemProjectorOptionDefenseStation extends ItemProjectorOptionBase {
 
 							if (SecurityStation != null) {
 								killswitch = !SecurityStation.isAccessGranted(
-										((EntityPlayer) entityLiving).username,
+										((EntityPlayer) EntityLivingBase).username,
 										SecurityRight.SR);
 							}
 						}
@@ -116,17 +116,17 @@ public class ItemProjectorOptionDefenseStation extends ItemProjectorOptionBase {
 								.getLinkedSecurityStation();
 						if (SecurityStation != null) {
 							killswitch = !SecurityStation.isAccessGranted(
-									((EntityPlayer) entityLiving).username,
+									((EntityPlayer) EntityLivingBase).username,
 									SecurityRight.SR);
 						}
 					}
 
 					if (killswitch) {
 						if (projector.consumePower(10000, true)) {
-							((EntityPlayer) entityLiving)
+							((EntityPlayer) EntityLivingBase)
 									.addChatMessage(LanguageRegistry.instance().getStringLocalization("warning" +
 											".areaDefense"));
-							((EntityPlayer) entityLiving).attackEntityFrom(
+							((EntityPlayer) EntityLivingBase).attackEntityFrom(
 									MFFSDamageSource.fieldDefense, 10);
 							projector.consumePower(10000, false);
 

@@ -32,7 +32,7 @@ public class SecurityRight {
 	public final String rightKey;
 	public final String name;
 	public final String description;
-	public String texture = "/mods/mffs/textures/gui/AdvSecStationButtons.png";
+	public String texture = "mffs:textures/gui/AdvSecStationButtons.png";
 	public final int texIndex;
 
 	public static SecurityRight FFB = new SecurityRight("FFB",

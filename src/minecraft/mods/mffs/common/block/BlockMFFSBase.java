@@ -20,7 +20,8 @@
 
 package mods.mffs.common.block;
 
-import buildcraft.api.tools.IToolWrench;
+//import buildcraft.api.tools.IToolWrench;
+
 import mods.mffs.common.ModularForceFieldSystem;
 import mods.mffs.common.SecurityHelper;
 import mods.mffs.common.SecurityRight;
@@ -37,7 +38,7 @@ import net.minecraft.block.Block;
 import net.minecraft.block.BlockContainer;
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityLiving;
+import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -98,7 +99,7 @@ public abstract class BlockMFFSBase extends BlockContainer {
 			if(tileentity == null)
 				return false;
 
-			if(equipped instanceof IToolWrench && ((IToolWrench)equipped).canWrench(entityplayer, x, y, z)) {
+			/*if(equipped instanceof IToolWrench && ((IToolWrench)equipped).canWrench(entityplayer, x, y, z)) {
 				if(!tileentity.wrenchCanManipulate(entityplayer, side))
 					return false;
 
@@ -107,7 +108,7 @@ public abstract class BlockMFFSBase extends BlockContainer {
 				((IToolWrench)equipped).wrenchUsed(entityplayer, x, y, z);
 
 				return true;
-			}
+			}*/
 		}
 
 		if (tileentity instanceof TileEntityAdvSecurityStation) {
@@ -161,7 +162,7 @@ public abstract class BlockMFFSBase extends BlockContainer {
 
 	@Override
 	public void onBlockPlacedBy(World world, int i, int j, int k,
-			EntityLiving entityliving, ItemStack itemStack) {
+			EntityLivingBase entityliving, ItemStack itemStack) {
 
 		TileEntity tileEntity = world.getBlockTileEntity(i, j, k);
 		if (tileEntity instanceof TileEntityMachines) {

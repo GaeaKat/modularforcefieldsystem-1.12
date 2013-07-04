@@ -27,6 +27,7 @@ import mods.mffs.common.tileentity.TileEntityExtractor;
 import mods.mffs.network.client.NetworkHandlerClient;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.inventory.GuiContainer;
+import net.minecraft.client.resources.ResourceLocation;
 import net.minecraft.entity.player.EntityPlayer;
 
 import org.lwjgl.opengl.GL11;
@@ -97,7 +98,8 @@ public class GuiExtractor extends GuiContainer {
 	@Override
 	protected void drawGuiContainerBackgroundLayer(float f, int i, int j) {
 		GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
-		mc.renderEngine.bindTexture("/mods/mffs/textures/gui/GuiExtractor.png");
+		//mc.renderEngine.bindTexture("/mods/mffs/textures/gui/GuiExtractor.png");
+		mc.renderEngine.func_110577_a(new ResourceLocation("mffs:textures/gui/GuiExtracotr.png"));
 		int w = (width - xSize) / 2;
 		int k = (height - ySize) / 2;
 		drawTexturedModalRect(w, k, 0, 0, xSize, ySize);

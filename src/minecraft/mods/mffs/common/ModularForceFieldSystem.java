@@ -23,10 +23,7 @@ package mods.mffs.common;
 import com.google.common.collect.Lists;
 import cpw.mods.fml.common.FMLLog;
 import cpw.mods.fml.common.Mod;
-import cpw.mods.fml.common.Mod.Init;
 import cpw.mods.fml.common.Mod.Instance;
-import cpw.mods.fml.common.Mod.PostInit;
-import cpw.mods.fml.common.Mod.PreInit;
 import cpw.mods.fml.common.SidedProxy;
 import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.event.FMLPostInitializationEvent;
@@ -190,7 +187,7 @@ public class ModularForceFieldSystem {
 	@Instance("ModularForceFieldSystem")
 	public static ModularForceFieldSystem instance;
 
-	@PreInit
+	@Mod.EventHandler
 	public void preInit(FMLPreInitializationEvent event) {
 
 		initIC2Plugin();
@@ -663,10 +660,6 @@ public class ModularForceFieldSystem {
 
 		VersionLocal = Versioninfo.curentversion();
 		VersionRemote = Versioninfo.newestversion();
-	}
-
-	@Init
-	public void load(FMLInitializationEvent evt) {
 
 		GameRegistry.registerBlock(MFFSMonazitOre, "MFFSMonazitOre");
 		GameRegistry.registerBlock(MFFSFieldblock, "MFFSFieldblock");
@@ -677,13 +670,17 @@ public class ModularForceFieldSystem {
 		ProjectorTyp.initialize();
 		ProjectorOptions.initialize();
 
-		NetworkRegistry.instance().registerGuiHandler(instance, proxy);
-
 		proxy.registerTileEntitySpecialRenderer();
 
-		GameRegistry.registerWorldGenerator(new MFFSWorldGenerator());
-
 		LocalizationManager.loadLanguages();
+	}
+
+	@Mod.EventHandler
+	public void load(FMLInitializationEvent evt) {
+
+		NetworkRegistry.instance().registerGuiHandler(instance, proxy);
+
+		GameRegistry.registerWorldGenerator(new MFFSWorldGenerator());
 
 		OreDictionary.registerOre("ForciciumItem",
 				MFFSitemForcicium);
@@ -691,7 +688,7 @@ public class ModularForceFieldSystem {
 				MFFSMonazitOre);
 	}
 
-	@PostInit
+	@Mod.EventHandler
 	public void postInit(FMLPostInitializationEvent evt) {
 
 		MFFSRecipes.init();

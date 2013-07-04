@@ -28,7 +28,7 @@ import mods.mffs.common.*;
 import mods.mffs.common.container.ContainerAreaDefenseStation;
 import mods.mffs.common.item.ItemCardSecurityLink;
 import mods.mffs.common.item.ItemProjectorFieldModulatorDistance;
-import net.minecraft.entity.EntityLiving;
+import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.monster.IMob;
 import net.minecraft.entity.passive.IAnimals;
 import net.minecraft.entity.player.EntityPlayer;
@@ -58,7 +58,7 @@ public class TileEntityAreaDefenseStation extends TileEntityFEPoweredMachine
 
 	protected List<EntityPlayer> warnlist = new ArrayList<EntityPlayer>();
 	protected List<EntityPlayer> actionlist = new ArrayList<EntityPlayer>();
-	protected List<EntityLiving> NPClist = new ArrayList<EntityLiving>();
+	protected List<EntityLivingBase> NPClist = new ArrayList<EntityLivingBase>();
 	private final ArrayList<Item> ContraList = new ArrayList();
 
 	public TileEntityAreaDefenseStation() {
@@ -210,18 +210,18 @@ public class TileEntityAreaDefenseStation extends TileEntityFEPoweredMachine
 				int zminaction = zCoord - getActionDistance();
 				int zmaxaction = zCoord + getActionDistance() + 1;
 
-				List<EntityLiving> infoLivinglist = worldObj
-						.getEntitiesWithinAABB(EntityLiving.class,
+				List<EntityLivingBase> infoLivinglist = worldObj
+						.getEntitiesWithinAABB(EntityLivingBase.class,
 								AxisAlignedBB.getBoundingBox(xmininfo,
 										ymininfo, zmininfo, xmaxinfo, ymaxinfo,
 										zmaxinfo));
-				List<EntityLiving> actionLivinglist = worldObj
-						.getEntitiesWithinAABB(EntityLiving.class,
+				List<EntityLivingBase> actionLivinglist = worldObj
+						.getEntitiesWithinAABB(EntityLivingBase.class,
 								AxisAlignedBB.getBoundingBox(xminaction,
 										yminaction, zminaction, xmaxaction,
 										ymaxaction, zmaxaction));
 
-				for (EntityLiving Living : infoLivinglist) {
+				for (EntityLivingBase Living : infoLivinglist) {
 					if (Living instanceof EntityPlayer) {
 						EntityPlayer player = (EntityPlayer) Living;
 						int distance = (int) PointXYZ.distance(
@@ -252,7 +252,7 @@ public class TileEntityAreaDefenseStation extends TileEntityFEPoweredMachine
 					}
 				}
 
-				for (EntityLiving Living : actionLivinglist) {
+				for (EntityLivingBase Living : actionLivinglist) {
 					if (Living instanceof EntityPlayer) {
 						EntityPlayer player = (EntityPlayer) Living;
 
@@ -368,7 +368,7 @@ public class TileEntityAreaDefenseStation extends TileEntityFEPoweredMachine
 		}
 	}
 
-	public void DefenceAction(EntityLiving Living) {
+	public void DefenceAction(EntityLivingBase Living) {
 		if (Living instanceof EntityPlayer)
 			return;
 

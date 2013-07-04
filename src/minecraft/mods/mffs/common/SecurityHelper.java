@@ -57,9 +57,9 @@ public class SecurityHelper {
 				if (sec.isAccessGranted(entityplayer.username, right))
 					return true;
 
-				if (!suppresswarning)
+				/*if (!suppresswarning)
 					entityplayer.sendChatToPlayer(LanguageRegistry.instance().getStringLocalization("fieldSecurity" +
-							".accessDenied"));
+							".accessDenied"));*/
 				return false;
 			} else {
 
@@ -79,9 +79,9 @@ public class SecurityHelper {
 				if (sec.isAccessGranted(entityplayer.username, right))
 					return true;
 
-				if (!suppresswarning)
+				/*if (!suppresswarning)
 					entityplayer.sendChatToPlayer(LanguageRegistry.instance().getStringLocalization("fieldSecurity" +
-							".accessDenied"));
+							".accessDenied"));*/
 				return false;
 			} else {
 
