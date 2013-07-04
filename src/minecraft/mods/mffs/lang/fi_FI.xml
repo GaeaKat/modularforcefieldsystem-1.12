@@ -41,7 +41,7 @@
     <entry key="item.itemProjectorOptionDome.name">Projektorivaihtoehto: Kupoli</entry>
     <entry key="item.itemProjectorOptionCutter.name">Projektorivaihtoehto: Leikkuri</entry>
     <entry key="item.itemProjectorOptionDefenseStation.name">Projektorivaihtoehto: Puolustusasema</entry>
-    <entry key="item.itemProjectorOptionMobKiller.name">Projektorivaihtoehto: Mobin tappaja</entry>
+    <entry key="item.itemProjectorOptionMobKiller.name">Projektorivaihtoehto: Mobien tappaja</entry>
     <entry key="item.itemProjectorOptionFFJammer.name">Projektorivaihtoehto: Voimakentän jammeri</entry>
     <entry key="item.itemProjectorOptionCamouflage.name">Projektorivaihtoehto: Maastokuvio</entry>
     <entry key="item.itemProjectorOptionFieldFusion.name">Projektorivaihtoehto: Kenttäfuusio</entry>
@@ -72,64 +72,64 @@
     <entry key="item.itemForciciumCell.name">Forsisium kenno</entry>
 
     <!-- Field Messages -->
-    <entry key="field.highEnergyField">[Forcefield] Attention: High-Energy Field.</entry>
+    <entry key="field.highEnergyField">[Voimakenttä] Huomio: Korkean energian kenttä.</entry>
 
     <!-- Field Security Messages -->
-    <entry key="fieldSecurity.accessDenied">[Field Security] Fail: Access Denied.</entry>
-    <entry key="fieldSecurity.accessGranted">[Field Security] Success: Access Granted.</entry>
-    <entry key="fieldSecurity.voidNotAllowed">[Field Security] Fail: Transmission into Void not allowed.</entry>
-    <entry key="fieldSecurity.detectedObstacle">[Field Security] Fail: Detected Obstacle.</entry>
-    <entry key="fieldSecurity.fieldTooString">[Field Security] Fail: Field too Strong.</entry>
-    <entry key="fieldSecurity.invalidItemInPowerLink">[Field Security] Fail: Invalid item in Power Link Slot.</entry>
-    <entry key="fieldSecurity.failedTransmutation">[Field Security] Fail: Block Transmute needs [Change Protected Block] Security Right.</entry>
-    <entry key="fieldSecurity.transmissionComplete">[Field Security] Success: Transmission Complete</entry>
-    <entry key="fieldSecurity.notEnoughFE">[Field Security] Fail: Not enough Force Energy, please charge.</entry>
+    <entry key="fieldSecurity.accessDenied">[Kentän turvallisuus] Epäonnistuminen: Pääsy estetty.</entry>
+    <entry key="fieldSecurity.accessGranted">[Kentän turvallisuus] Onnistuminen: Pääsy sallittu.</entry>
+    <entry key="fieldSecurity.voidNotAllowed">[Kentän turvallisuus] Epäonnistuminen: Siirto tyhjiöön ei ole sallittu.</entry>
+    <entry key="fieldSecurity.detectedObstacle">[Kentän turvallisuus] Epäonnistuminen: Este havaittu.</entry>
+    <entry key="fieldSecurity.fieldTooString">[Kentän turvallisuus] Epäonnistuminen: Kenttä on liian voimakas.</entry>
+    <entry key="fieldSecurity.invalidItemInPowerLink">[Kentän turvallisuus] Epäonnistuminen: Sopimaton esine Voimalinkki -paikassa.</entry>
+    <entry key="fieldSecurity.failedTransmutation">[Kentän turvallisuus] Epäonnistuminen: Kuution transmutatoimiseen tarvitsee [Vaihda suojattu kuutio] oikeudet.</entry>
+    <entry key="fieldSecurity.transmissionComplete">[Kentän turvallisuus] Onnistuminen: Siirto valmis</entry>
+    <entry key="fieldSecurity.notEnoughFE">[Kentän turvallisuus] Epäonnistuminen: Ei tarpeeksi voimaenergiaa. Lataa, ole hyvä.</entry>
 
     <!-- Multi-Tool Messages -->
-    <entry key="multitool.idCardCreated">[MultiTool] Success: ID Card Created.</entry>
-    <entry key="multitool.notEnoughFE">[MultiTool] Fail: Not enough Force Energy, please charge.</entry>
-    <entry key="multitool.needBlankCard">[MultiTool] Fail: Needs a Blank MFFS Card in Inventory.</entry>
-    <entry key="multitool.dataLinkCreated">[MultiTool] Success: Data Link Card created.</entry>
-    <entry key="multitool.notInSwitchMode">[MultiTool] Fail: Object not in Switch-enabled mode.</entry>
-    <entry key="multitool.projectorRepaired">[MultiTool] Projector repaired.</entry>
+    <entry key="multitool.idCardCreated">[Monikäyttötyökalu] Onnistuminen: ID -kortti luotu.</entry>
+    <entry key="multitool.notEnoughFE">[Monikäyttötyökalu] Epäonnistuminen: Ei tarpeeksi voimaenergiaa. Lataa, ole hyvä.</entry>
+    <entry key="multitool.needBlankCard">[Monikäyttötyökalu] Epäonnistuminen: Tarvitset tyhjän MFFS kortin tavaraluetteloosi.</entry>
+    <entry key="multitool.dataLinkCreated">[Monikäyttötyökalu] Onnistuminen: Datalinkkikortti luotu.</entry>
+    <entry key="multitool.notInSwitchMode">[Monikäyttötyökalu] Epäonnistuminen: Kohde ei ole Vaihto sallittu -tilassa.</entry>
+    <entry key="multitool.projectorRepaired">[Monikäyttötyökalu] Projektori korjattu.</entry>
 
     <!-- Link Card Messages -->
-    <entry key="securityStation.cardCreated">[Security Station] Success: Security Station Link Card Created.</entry>
-    <entry key="securityStation.mustBeActive">[Security Station] Fail: Security Station must be active to create a Security Station Link Card card.</entry>
-    <entry key="capacitor.cardCreated">[Capacitor] Success: Power Link Card Created.</entry>
-    <entry key="linkCard.installed">Success: Power Link Card Installed.</entry>
-    <entry key="linkCard.copied">Success: Power Link Card Data Copied.</entry>
-    <entry key="linkCard.notEmpty">Fail: Slot is not empty.</entry>
+    <entry key="securityStation.cardCreated">[Turva-asema] Onnistuminen: Turva-aseman linkkikortti luotu.</entry>
+    <entry key="securityStation.mustBeActive">[Turva-asema] Epäonnistuminen: Turva-aseman täytyy olla aktiivinen, jotta voisit luoda turva-aseman linkkikortin.</entry>
+    <entry key="capacitor.cardCreated">[Kondensaattori] Onnistuminen: Voimalinkkikortti luotu.</entry>
+    <entry key="linkCard.installed">Onnistuminen: Voimalinkkikortti asennettu.</entry>
+    <entry key="linkCard.copied">Onnistuminen: Voimalinkkikortti kopioitu.</entry>
+    <entry key="linkCard.notEmpty">Epäonnistuminen: Paikka ei ole tyhjä.</entry>
 
     <!-- Projector Module Messages -->
-    <entry key="projectorModule.installed">[Projector] Success: Projector Module '%s' installed.</entry>
-    <entry key="projectorModule.notEmpty">[Projector] Fail: Slot is not empty.</entry>
+    <entry key="projectorModule.installed">[Projektori] Onnistuminen: Projektorimoduuli '%s' asennettu.</entry>
+    <entry key="projectorModule.notEmpty">[Projektori] Epäonnistuminen: Paikka ei ole tyhjä.</entry>
 
     <!-- Item Info -->
-    <entry key="itemInfo.securityArea">Security Area: %s</entry>
-    <entry key="itemInfo.periodOfValidity">Period of Validity: %s min.</entry>
-    <entry key="itemInfo.rightsHoldShift">Rights: (Hold Shift)</entry>
+    <entry key="itemInfo.securityArea">Turva-alue: %s</entry>
+    <entry key="itemInfo.periodOfValidity">Voimassaolon jakso: %s min.</entry>
+    <entry key="itemInfo.rightsHoldShift">Oikeudet: (Paina ja pidä alhaalla vaihtonäppäintä)</entry>
     <entry key="itemInfo.rights">Rights:</entry>
-    <entry key="itemInfo.compatibleWith">Compatible With:</entry>
-    <entry key="itemInfo.compatibleWithHoldShift">Compatible With: (Hold Shift)</entry>
-    <entry key="itemInfo.deviceType">Device Type: </entry>
-    <entry key="itemInfo.deviceName">Device Name: </entry>
-    <entry key="itemInfo.infinitePower.lineOne">Admin Card to power MFFS machines</entry>
-    <entry key="itemInfo.infinitePower.lineTwo">or infinitely charge a Capacitor.</entry>
-    <entry key="itemInfo.forciciumCellActive">[Forcicium Cell] Active.</entry>
-    <entry key="itemInfo.forciciumCellInactive">[Forcicium Cell] Inactive.</entry>
+    <entry key="itemInfo.compatibleWith">Yhteensopiva seuraavien kanssa:</entry>
+    <entry key="itemInfo.compatibleWithHoldShift">Yhteensopiva seuraavien kanssa: (Paina ja pidä alhaalla vaihtonäppäintä)</entry>
+    <entry key="itemInfo.deviceType">Laitteen tyyppi: </entry>
+    <entry key="itemInfo.deviceName">Laiteen nimi: </entry>
+    <entry key="itemInfo.infinitePower.lineOne">Ylläpitäjän kortti antamaan virtaa MFFS koneille</entry>
+    <entry key="itemInfo.infinitePower.lineTwo">tai lataamaan kondensaattoria äärettömästi.</entry>
+    <entry key="itemInfo.forciciumCellActive">[Forsisium kenno] Aktiivinen.</entry>
+    <entry key="itemInfo.forciciumCellInactive">[Forsisium kenno] Passiivinen.</entry>
 
     <!-- Misc Warning Messages -->
-    <entry key="securityStation.expiredValidity">[Security Station] Access License has expired.</entry>
-    <entry key="securityStation.scanningRange">!!!! [Security Station][%s] Warning: You are now in Scanning range !!!!</entry>
-    <entry key="areaDefense.getOut">!!!! [Area Defense] Get out immediately, you have no right to be here !!!!</entry>
-    <entry key="areaDefense.beenWarned">!!!! [Area Defense] You have been warned. !!!!</entry>
-    <entry key="areaDefense.illegalItems">!!!! [Area Defense] You have illegal goods. %s will be confiscated !!!!</entry>
+    <entry key="securityStation.expiredValidity">[Turva-asema] Pääsyn lupa on päättynyt.</entry>
+    <entry key="securityStation.scanningRange">!!!! [Turva-asema][%s] Varoitus: Olet nyt skannausalueella !!!!</entry>
+    <entry key="areaDefense.getOut">!!!! [Alueen puolustus] Lähde pois välittömästi, sinulla ei ole lupaa olla täällä !!!!</entry>
+    <entry key="areaDefense.beenWarned">!!!! [Alueen puolustus] Sinua on varoitettu. !!!!</entry>
+    <entry key="areaDefense.illegalItems">!!!! [Alueen puolustus] Sinulla on laitonta omaisuutta. %s takavarikoidaan !!!!</entry>
 
     <!-- Generic Card Messages -->
-    <entry key="generic.card.installed">Success: %s Card installed.</entry>
-    <entry key="generic.card.copied">Success: %s Card data copied.</entry>
-    <entry key="generic.card.fail">Fail: Slot is not empty.</entry>
+    <entry key="generic.card.installed">Onnistuminen: %s kortti asennettu.</entry>
+    <entry key="generic.card.copied">Onnistuminen: %s kortin tiedot kopioitu.</entry>
+    <entry key="generic.card.fail">Epäonnistuminen: Paikka ei ole tyhjä.</entry>
 
     <!-- Misc Strings -->
     <entry key="itemGroup.MFFS">MFFS</entry>
