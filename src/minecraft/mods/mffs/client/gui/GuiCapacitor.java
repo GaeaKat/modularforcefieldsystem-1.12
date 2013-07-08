@@ -84,7 +84,6 @@ public class GuiCapacitor extends GuiContainer {
 	@Override
 	protected void drawGuiContainerBackgroundLayer(float f, int i, int j) {
 		GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
-		//mc.renderEngine.bindTexture("/mods/mffs/textures/gui/GuiCapacitor.png");
 		mc.renderEngine.func_110577_a(new ResourceLocation("mffs:textures/gui/GuiCapacitor.png"));
 		int w = (width - xSize) / 2;
 		int k = (height - ySize) / 2;

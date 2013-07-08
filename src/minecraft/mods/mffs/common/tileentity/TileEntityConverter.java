@@ -488,7 +488,7 @@ public class TileEntityConverter extends TileEntityFEPoweredMachine implements
 	}
 
 	@Override
-	public boolean isStackValidForSlot(int i, ItemStack itemstack) {
+	public boolean isItemValidForSlot(int i, ItemStack itemstack) {
 		return true;
 	}
 

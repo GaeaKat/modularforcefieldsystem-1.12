@@ -16,15 +16,15 @@
 
 	<property name="skip-buildcraft" value="true" />
 
-	<property name="mc.version" value="1.5.2" />
+	<property name="mc.version" value="1.6.1" />
 	<property name="forge.version" value="7.8.0.713" />
-	<property name="ic2.buildnum" value="338" />
-	<property name="ic2.version" value="1.115.${ic2.buildnum}-lf" />
+	<property name="ic2.buildnum" value="389" />
+	<property name="ic2.version" value="1.118.${ic2.buildnum}-lf" />
 	<property name="te.version" value="2.4.0" />
 
 	<property name="mffs.versionMajor" value="2.3" />
 	<property name="mffs.versionMinor" value="0" />
-	<property name="mffs.versionRev" value="1" />
+	<property name="mffs.versionRev" value="2" />
 	<property name="project.version" value="${mffs.versionMajor}.${mffs.versionMinor}.${mffs.versionRev}" />
 
 	<property name="ccapi.url" value="https://dl.dropboxusercontent.com/u/29967996/ccapi.zip" />
