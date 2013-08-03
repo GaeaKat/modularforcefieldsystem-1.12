@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
 <properties version="1.0">
-    <comment>English (en_US) Localization File</comment>
+    <comment>Polish (pl_PL) Localization File</comment>
     <!-- Blocks: Machines -->
     <entry key="tile.MFFSForceEnergyConverter.name">Konwerter Energii Siłowej MFFS</entry>
     <entry key="tile.MFFSExtractor.name">Ekstractor MFFS</entry>
@@ -120,21 +120,21 @@
     <entry key="itemInfo.forciciumCellInactive">[Kapsuła siłonium] Nieaktywna.</entry>
 
     <!-- Misc Warning Messages -->
-    <entry key="securityStation.expiredValidity">[Stacja Bezpieczeństwa] Access License has expired.</entry>
-    <entry key="securityStation.scanningRange">!!!! [Stacja Bezpieczeństwa][%s] Warning: You are now in Scanning range !!!!</entry>
-    <entry key="areaDefense.getOut">!!!! [Area Defense] Get out immediately, you have no right to be here !!!!</entry>
-    <entry key="areaDefense.beenWarned">!!!! [Area Defense] You have been warned. !!!!</entry>
-    <entry key="areaDefense.illegalItems">!!!! [Area Defense] You have illegal goods. %s will be confiscated !!!!</entry>
+    <entry key="securityStation.expiredValidity">[Stacja Bezpieczeństwa] Licencja dostępu wygasła.</entry>
+    <entry key="securityStation.scanningRange">!!!! [Stacja Bezpieczeństwa][%s] Uwaga: Jesteś w obszarze skanowania !!!!</entry>
+    <entry key="areaDefense.getOut">!!!! [Ochrona Obszaru] Wynoś się stąd, nie masz prawa tutaj być !!!!</entry>
+    <entry key="areaDefense.beenWarned">!!!! [Ochrona Obszaru] Zostałeś ostrzeżony. !!!!</entry>
+    <entry key="areaDefense.illegalItems">!!!! [Ochrona Obszaru] Masz nielegalne przedmioty. %s zostanie skonfiskowane !!!!</entry>
 
     <!-- Generic Card Messages -->
-    <entry key="generic.card.installed">Sukces: %s Card installed.</entry>
-    <entry key="generic.card.copied">Sukces: %s Card data copied.</entry>
-    <entry key="generic.card.fail">Błąd: Slot is not empty.</entry>
+    <entry key="generic.card.installed">Sukces: %s Karta zainstalowana.</entry>
+    <entry key="generic.card.copied">Sukces: %s Karta skopiowana.</entry>
+    <entry key="generic.card.fail">Błąd: Slot nie jest pusty.</entry>
 
     <!-- Misc Strings -->
     <entry key="itemGroup.MFFS">MFFS</entry>
-    <entry key="death.attack.areaDefense">%1$s disregarded the warnings and was fried!</entry>
-    <entry key="death.attack.fieldShock">%1$s was fried by a forcefield!</entry>
-    <entry key="death.attack.fieldDefense">%1$s was fried!</entry>
-    <entry key="warning.areaDefense">!!!! [Area Defense] Leave or Die !!!!</entry>
+    <entry key="death.attack.areaDefense">%1$s zlekceważył ostrzeżenia i został usmażony!</entry>
+    <entry key="death.attack.fieldShock">%1$s został usmażony przez pole siłowe!</entry>
+    <entry key="death.attack.fieldDefense">%1$s został usmażony!</entry>
+    <entry key="warning.areaDefense">!!!! [Ochrona Obszaru] Odejdź lub giń !!!!</entry>
 </properties>
