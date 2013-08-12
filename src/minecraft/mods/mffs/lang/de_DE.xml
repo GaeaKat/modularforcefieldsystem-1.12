@@ -3,27 +3,27 @@
 <properties version="1.0">
     <comment>Deutsch (de_DE) Datei zur Lokalisierung</comment>
     <!-- Blocks: Machines -->
-    <entry key="tile.MFFSForceEnergyConverter.name">MFFS Feld Energie Konverter</entry>
-    <entry key="tile.MFFSExtractor.name">MFFS Extraktor</entry>
-    <entry key="tile.MFFSDefenseStation.name">MFFS Abwehrstation</entry>
-    <entry key="tile.MFFSCapacitor.name">MFFS Kondensator</entry>
-    <entry key="tile.MFFSProjector.name">MFFS Projektor</entry>
-    <entry key="tile.MFFSFieldblock.name">MFFS Feld</entry>
+    <entry key="tile.MFFSForceEnergyConverter.name">MFFS-Feld-Energiekonverter</entry>
+    <entry key="tile.MFFSExtractor.name">MFFS-Extraktor</entry>
+    <entry key="tile.MFFSDefenseStation.name">MFFS-Abwehrstation</entry>
+    <entry key="tile.MFFSCapacitor.name">MFFS-Kondensator</entry>
+    <entry key="tile.MFFSProjector.name">MFFS-Projektor</entry>
+    <entry key="tile.MFFSFieldblock.name">MFFS-Kraftfeld</entry>
     <entry key="tile.MFFSSecureStorage.name">MFFS Sichere Verwahrung</entry>
-    <entry key="tile.MFFSSecurityStation.name">MFFS Sicherheitsstation</entry>
-    <entry key="tile.MFFSControlSystem.name">MFFS Steuerungssystem</entry>
+    <entry key="tile.MFFSSecurityStation.name">MFFS-Sicherheitsstation</entry>
+    <entry key="tile.MFFSControlSystem.name">MFFS-Steuerungssystem</entry>
 
     <!-- Blocks: Misc -->
-    <entry key="tile.MFFSMonazitOre.name">Monazit Erz</entry>
+    <entry key="tile.MFFSMonazitOre.name">Monaziterz</entry>
 
     <!-- Items: Cards -->
-    <entry key="item.itemCardEmpty.name">MFFS Karte: Leer</entry>
-    <entry key="item.itemCardPowerLink.name">MFFS Karte: Energieverbindung</entry>
-    <entry key="item.itemCardID.name">MFFS Karte: ID</entry>
-    <entry key="item.itemCardSecurityLink.name">MFFS Karte: Sicherheitsverbindung</entry>
-    <entry key="item.itemCardInfinitePower.name">MFFS Karte: Unendliche Energie</entry>
-    <entry key="item.itemCardAccess.name">MFFS Karte: Zugang</entry>
-    <entry key="item.itemCardDataLink.name">MFFS Karte: Datenverbindung</entry>
+    <entry key="item.itemCardEmpty.name">MFFS-Karte: Leer</entry>
+    <entry key="item.itemCardPowerLink.name">MFFS-Karte: Energieverbindung</entry>
+    <entry key="item.itemCardID.name">MFFS-Karte: ID</entry>
+    <entry key="item.itemCardSecurityLink.name">MFFS-Karte: Sicherheitsverbindung</entry>
+    <entry key="item.itemCardInfinitePower.name">MFFS-Karte: Unendliche Energie</entry>
+    <entry key="item.itemCardAccess.name">MFFS-Karte: Zugang</entry>
+    <entry key="item.itemCardDataLink.name">MFFS-Karte: Datenverbindung</entry>
 
     <!-- Items: Projector Modules -->
     <entry key="item.itemProjectorModuleDiagonalWall.name">Projektormodul: Diagonale Wand</entry>
@@ -47,93 +47,94 @@
     <entry key="item.itemProjectorOptionFieldFusion.name">Projektoroption: Feldfusion</entry>
 
     <!-- Items: Projector Upgrades -->
-    <entry key="item.itemProjectorFFDistance.name">Projektor Verbesserung: Feld Reichweite</entry>
-    <entry key="item.itemProjectorFFStrength.name">Projektor Verbesserung: Feld Stärke</entry>
-    <entry key="item.itemProjectorFocusMatrix.name">Projektor Verbesserung: Fokus Matrix</entry>
+    <entry key="item.itemProjectorFFDistance.name">Projektorverbesserung: Feldreichweite</entry>
+    <entry key="item.itemProjectorFFStrength.name">Projektorverbesserung: Feldstärke</entry>
+    <entry key="item.itemProjectorFocusMatrix.name">Projektorverbesserung: Fokus-Matrix</entry>
 
     <!-- Items: Multi-Tool -->
     <entry key="item.itemMultiToolWrench.name">Multitool: Schraubenschlüssel</entry>
     <entry key="item.itemMultiToolSwitch.name">Multitool: Schalter</entry>
     <entry key="item.itemMultiToolFieldTransporter.name">Multitool: Feldtransporter</entry>
-    <entry key="item.itemMultiToolIDWriter.name">Multitool: ID Schreiber</entry>
+    <entry key="item.itemMultiToolIDWriter.name">Multitool: ID-Schreiber</entry>
     <entry key="item.itemMultiToolDebugger.name">Multitool: Debugger</entry>
     <entry key="item.itemMultiToolManual.name">Multitool: Manuell</entry>
 
     <!-- Items: Extractor Upgrades -->
-    <entry key="item.itemExtractorUpgradeBooster.name">Extraktor Verbesserung: Booster</entry>
+    <entry key="item.itemExtractorUpgradeBooster.name">Extraktor-Verbesserung: Booster</entry>
 
     <!-- Items: Capacitor Upgrades -->
-    <entry key="item.itemCapacitorUpgradeRange.name">Kondensator Verbesserung: Reichweite</entry>
-    <entry key="item.itemCapacitorUpgradeCapacity.name">Kondensator Verbesserung: Kapazität</entry>
+    <entry key="item.itemCapacitorUpgradeRange.name">Kondensator-Verbesserung: Reichweite</entry>
+    <entry key="item.itemCapacitorUpgradeCapacity.name">Kondensator-Verbesserung: Kapazität</entry>
 
     <!-- Items: Misc -->
-    <entry key="item.itemForcePowerCrystal.name">Kraftfeld Energie Kristall</entry>
+    <entry key="item.itemForcePowerCrystal.name">Kraftfeld-Energiekristall</entry>
     <entry key="item.itemForcicium.name">Forcicium</entry>
-    <entry key="item.itemForciciumCell.name">Forcicium Zelle</entry>
+    <entry key="item.itemForciciumCell.name">Forciciumzelle</entry>
 
     <!-- Field Messages -->
-    <entry key="field.highEnergyField">[Forcefield] Attention: High-Energy Field.</entry>
+    <entry key="field.highEnergyField">[Forcefield] Warnung: Hochenergetisches Kraftfeld.</entry>
 
     <!-- Field Security Messages -->
-    <entry key="fieldSecurity.accessDenied">[Field Security] Fail: Access Denied.</entry>
-    <entry key="fieldSecurity.accessGranted">[Field Security] Success: Access Granted.</entry>
-    <entry key="fieldSecurity.voidNotAllowed">[Field Security] Fail: Transmission into Void not allowed.</entry>
-    <entry key="fieldSecurity.detectedObstacle">[Field Security] Fail: Detected Obstacle.</entry>
-    <entry key="fieldSecurity.fieldTooString">[Field Security] Fail: Field too Strong.</entry>
-    <entry key="fieldSecurity.invalidItemInPowerLink">[Field Security] Fail: Invalid item in Power Link Slot.</entry>
-    <entry key="fieldSecurity.failedTransmutation">[Field Security] Fail: Block Transmute needs [Change Protected Block] Security Right.</entry>
-    <entry key="fieldSecurity.transmissionComplete">[Field Security] Success: Transmission Complete</entry>
-    <entry key="fieldSecurity.notEnoughFE">[Field Security] Fail: Not enough Force Energy, please charge.</entry>
+    <entry key="fieldSecurity.accessDenied">[Kraftfeldsicherheit] Fehlschlag: Zugriff verweigert.</entry>
+    <entry key="fieldSecurity.accessGranted">[Kraftfeldsicherheit] Erfolg: Zugriff gewährt.</entry>
+    <entry key="fieldSecurity.voidNotAllowed">[Kraftfeldsicherheit] Fehlschlag: Übertragung in Leere nicht erlaubt.</entry>
+    <entry key="fieldSecurity.detectedObstacle">[Kraftfeldsicherheit] Fehlschlag: Erkanntes Hindernis.</entry>
+    <entry key="fieldSecurity.fieldTooString">[Kraftfeldsicherheit] Fehlschlag: Feld zu stark.</entry>
+    <entry key="fieldSecurity.invalidItemInPowerLink">[Kraftfeldsicherheit] Fehlschlag:Ungültiger Gegenstand im Energieverbindungsslot.</entry>
+    <entry key="fieldSecurity.failedTransmutation">[Kraftfeldsicherheit Fehlschlag: Block-Veränderung benötigt das Sicherheitsrecht [Change Protected Block].</entry>
+    <entry key="fieldSecurity.transmissionComplete">[Kraftfeldsicherheit] Erfolg: Übertragung Komplett</entry>
+    <entry key="fieldSecurity.notEnoughFE">[Kraftfeldsicherheit] Fehlschlag: Nicht genug Kraftfeldenergie, bitte aufladen.</entry>
 
     <!-- Multi-Tool Messages -->
-    <entry key="multitool.idCardCreated">[MultiTool] Success: ID Card Created.</entry>
-    <entry key="multitool.notEnoughFE">[MultiTool] Fail: Not enough Force Energy, please charge.</entry>
-    <entry key="multitool.needBlankCard">[MultiTool] Fail: Needs a Blank MFFS Card in Inventory.</entry>
-    <entry key="multitool.dataLinkCreated">[MultiTool] Success: Data Link Card created.</entry>
-    <entry key="multitool.notInSwitchMode">[MultiTool] Fail: Object not in Switch-enabled mode.</entry>
-    <entry key="multitool.projectorRepaired">[MultiTool] Projector repaired.</entry>
+    <entry key="multitool.idCardCreated">[MultiTool] Erfolg: ID-Karte kreiert.</entry>
+    <entry key="multitool.notEnoughFE">[MultiTool] Fehlschlag: Nicht genug Kraftfeldenergie, bitte aufladen.</entry>
+    <entry key="multitool.needBlankCard">[MultiTool] Fehlschlag: Benötigt einer Leere MFFS-Karte im Inventar.</entry>
+    <entry key="multitool.dataLinkCreated">[MultiTool] Erfolg: Datenverbindungskarte kreiert.</entry>
+    <entry key="multitool.notInSwitchMode">[MultiTool] Fehlschlag: Objekt nich in Switch-enabled Modus.</entry>
+    <entry key="multitool.projectorRepaired">[MultiTool] Projektor repariert.</entry>
 
     <!-- Link Card Messages -->
-    <entry key="securityStation.cardCreated">[Security Station] Success: Security Station Link Card Created.</entry>
-    <entry key="securityStation.mustBeActive">[Security Station] Fail: Security Station must be active to create a Security Station Link Card card.</entry>
-    <entry key="capacitor.cardCreated">[Capacitor] Success: Power Link Card Created.</entry>
-    <entry key="linkCard.installed">Success: Power Link Card Installed.</entry>
-    <entry key="linkCard.copied">Success: Power Link Card Data Copied.</entry>
-    <entry key="linkCard.notEmpty">Fail: Slot is not empty.</entry>
+    <entry key="securityStation.cardCreated">[Sicherheitsstation] Erfolg: Sicherheitsverbindungskarte kreiert.</entry>
+    <entry key="securityStation.mustBeActive">[Sicherheitsstation] Fehlschlag: Sicherheitsstation muss aktiv sein, um eine Sicherheitsverbindungskarte zu kreieren.</entry>
+    <entry key="capacitor.cardCreated">[Kondensator] Erfolg: Energieverbindungskarte kreiert.</entry>
+    <entry key="linkCard.installed">Erfolg: Energieverbindungskarte installiert.</entry>
+    <entry key="linkCard.copied">Erfolg: Energieverbindungskarte kopiert.</entry>
+    <entry key="linkCard.notEmpty">Fehlschlag: Slot ist nicht leer.</entry>
 
     <!-- Projector Module Messages -->
-    <entry key="projectorModule.installed">[Projector] Success: Projector Module '%s' installed.</entry>
-    <entry key="projectorModule.notEmpty">[Projector] Fail: Slot is not empty.</entry>
+    <entry key="projectorModule.installed">[Projektor] Erfolg: Projektormodul '%s' installiert.</entry>
+    <entry key="projectorModule.notEmpty">[Projektor] Fehlschlag: Slot ist nicht leer.</entry>
 
     <!-- Item Info -->
-    <entry key="itemInfo.securityArea">Security Area: %s</entry>
-    <entry key="itemInfo.periodOfValidity">Period of Validity: %s min.</entry>
-    <entry key="itemInfo.rightsHoldShift">Rights: (Hold Shift)</entry>
-    <entry key="itemInfo.rights">Rights:</entry>
-    <entry key="itemInfo.compatibleWith">Compatible With:</entry>
-    <entry key="itemInfo.compatibleWithHoldShift">Compatible With: (Hold Shift)</entry>
-    <entry key="itemInfo.deviceType">Device Type: </entry>
-    <entry key="itemInfo.deviceName">Device Name: </entry>
-    <entry key="itemInfo.infinitePower.lineOne">Admin Card to power MFFS machines</entry>
-    <entry key="itemInfo.infinitePower.lineTwo">or infinitely charge a Capacitor.</entry>
-    <entry key="itemInfo.forciciumCellActive">[Forcicium Cell] Active.</entry>
-    <entry key="itemInfo.forciciumCellInactive">[Forcicium Cell] Inactive.</entry>
+    <entry key="itemInfo.securityArea">Sicherheitsbereich: %s</entry>
+    <entry key="itemInfo.periodOfValidity">Zeitraum der Gültigkeit: %s min.</entry>
+    <entry key="itemInfo.rightsHoldShift">Rechte: (Halte Shift)</entry>
+    <entry key="itemInfo.rights">Rechte:</entry>
+    <entry key="itemInfo.compatibleWith">Kompatibel mit:</entry>
+    <entry key="itemInfo.compatibleWithHoldShift">Kompatibel mit: (Halte Shift)</entry>
+    <entry key="itemInfo.deviceType">Gerätetyp: </entry>
+    <entry key="itemInfo.deviceName">Gerätename: </entry>
+    <entry key="itemInfo.infinitePower.lineOne">Admin-Karte um MFFS-Maschinen zu betreiben</entry>
+    <entry key="itemInfo.infinitePower.lineTwo">oder einen Kondensator unendlich aufzuladen.</entry>
+    <entry key="itemInfo.forciciumCellActive">[Forciciumzelle] Aktiv.</entry>
+    <entry key="itemInfo.forciciumCellInactive">[Forciciumzelle] Inaktiv.</entry>
 
     <!-- Misc Warning Messages -->
-    <entry key="securityStation.expiredValidity">[Security Station] Access License has expired.</entry>
-    <entry key="securityStation.scanningRange">!!!! [Security Station][%s] Warning: You are now in Scanning range !!!!</entry>
-    <entry key="areaDefense.getOut">!!!! [Area Defense] Get out immediately, you have no right to be here !!!!</entry>
-    <entry key="areaDefense.beenWarned">!!!! [Area Defense] You have been warned. !!!!</entry>
-    <entry key="areaDefense.illegalItems">!!!! [Area Defense] You have illegal goods. %s will be confiscated !!!!</entry>
+    <entry key="securityStation.expiredValidity">[Sicherheitsstation] Zugriffslizenz ist abgelaufen.</entry>
+    <entry key="securityStation.scanningRange">!!!! [Sicherheitsstation][%s] Warnung: Du bist nun in Scan-Reichweite !!!!</entry>
+    <entry key="areaDefense.getOut">!!!! [Arealverteidigung] Geh sofort weg, du hast kein Recht hier zu sein !!!!</entry>
+    <entry key="areaDefense.beenWarned">!!!! [Arealverteidigung] Du wurdest gewarnt. !!!!</entry>
+    <entry key="areaDefense.illegalItems">!!!! [Arealverteidigung] Du hast illegale Güter. %s wird konfisziert !!!!</entry>
 
     <!-- Generic Card Messages -->
-    <entry key="generic.card.installed">Success: %s Card installed.</entry>
-    <entry key="generic.card.copied">Success: %s Card data copied.</entry>
-    <entry key="generic.card.fail">Fail: Slot is not empty.</entry>
+    <entry key="generic.card.installed">Erfolg: %s Karte installiert.</entry>
+    <entry key="generic.card.copied">Erfolg: %s Kartendaten kopiert.</entry>
+    <entry key="generic.card.fail">Fehlschlag: Slot ist nicht leer.</entry>
 
     <!-- Misc Strings -->
     <entry key="itemGroup.MFFS">MFFS</entry>
     <entry key="death.attack.areaDefense">%1$s ignorierte die Warnungen und wurde gegrillt!</entry>
     <entry key="death.attack.fieldShock">%1$s wurde von einem Kraftfeld gegrillt!</entry>
     <entry key="death.attack.fieldDefense">%1$s wurde gegrillt!</entry>
+    <entry key="warning.areaDefense">!!!! [Arealverteidigung] Geh weg oder Stirb !!!!</entry>
 </properties>
