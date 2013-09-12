@@ -11,6 +11,7 @@ logs/*
 out/*
 reobf/*
 runtime/*
+src/minecraft/assets/*
 temp/*
 
 src/minecraft/buildcraft
@@ -27,6 +28,7 @@ src/minecraft/*.properties
 src/minecraft/*.png
 src/minecraft/mcpmod.info
 src/minecraft/Start.java
+src/minecraft/deobfuscation_data-1.6.2.lzma
 
 *.bat
 *.sh
