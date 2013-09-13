@@ -356,16 +356,6 @@ public class TileEntityAdvSecurityStation extends TileEntityMachines {
 	}
 
 	@Override
-	public int getStartInventorySide(ForgeDirection side) {
-		return 0;
-	}
-
-	@Override
-	public int getSizeInventorySide(ForgeDirection side) {
-		return 0;
-	}
-
-	@Override
 	public List<String> getFieldsforUpdate() {
 
 		List<String> NetworkedFields = new LinkedList<String>();
@@ -483,4 +473,19 @@ public class TileEntityAdvSecurityStation extends TileEntityMachines {
 
 	@Override
 	public String getType() { return "MFFSAdvSecStation"; }
+
+	@Override
+	public int[] getAccessibleSlotsFromSide(int var1) {
+		return new int[0];
+	}
+
+	@Override
+	public boolean canInsertItem(int i, ItemStack itemstack, int j) {
+		return false;
+	}
+
+	@Override
+	public boolean canExtractItem(int i, ItemStack itemstack, int j) {
+		return false;
+	}
 }

@@ -22,6 +22,7 @@ package mods.mffs.common.tileentity;
 
 import cpw.mods.fml.common.registry.LanguageRegistry;
 import dan200.computer.api.IComputerAccess;
+import dan200.computer.api.ILuaContext;
 import mods.mffs.api.IPowerLinkItem;
 import mods.mffs.api.PointXYZ;
 import mods.mffs.common.*;
@@ -35,13 +36,13 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.Container;
 import net.minecraft.inventory.IInventory;
+import net.minecraft.inventory.ISidedInventory;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraftforge.common.ForgeDirection;
-import net.minecraftforge.common.ISidedInventory;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -384,13 +385,13 @@ public class TileEntityAreaDefenseStation extends TileEntityFEPoweredMachine
 						consumePower(
 								ModularForceFieldSystem.DefenceStationKillForceEnergy,
 								false);
-						Living.setEntityHealth(0);
+						Living.setHealth(0);
 						NPClist.remove(Living);
 						break;
 
 					case 4: // NPC Kill - Hostile
 						if (Living instanceof IMob) {
-							Living.setEntityHealth(0);
+							Living.setHealth(0);
 							NPClist.remove(Living);
 							consumePower(
 									ModularForceFieldSystem.DefenceStationKillForceEnergy,
@@ -400,7 +401,7 @@ public class TileEntityAreaDefenseStation extends TileEntityFEPoweredMachine
 						break;
 					case 5: // NPC Kill - Friendly
 						if (Living instanceof IAnimals) {
-							Living.setEntityHealth(0);
+							Living.setHealth(0);
 							NPClist.remove(Living);
 							consumePower(
 									ModularForceFieldSystem.DefenceStationKillForceEnergy,
@@ -458,7 +459,7 @@ public class TileEntityAreaDefenseStation extends TileEntityFEPoweredMachine
 
 							actionlist.remove(player);
 							player.attackEntityFrom(MFFSDamageSource.areaDefense, 20);
-							player.setEntityHealth(0);
+							player.setHealth(0);
 							consumePower(
 									ModularForceFieldSystem.DefenceStationKillForceEnergy,
 									false);
@@ -689,16 +690,6 @@ public class TileEntityAreaDefenseStation extends TileEntityFEPoweredMachine
 	}
 
 	@Override
-	public int getStartInventorySide(ForgeDirection side) {
-		return 15;
-	}
-
-	@Override
-	public int getSizeInventorySide(ForgeDirection side) {
-		return 20;
-	}
-
-	@Override
 	public void onNetworkHandlerEvent(int key, String value) {
 
 		if (!this.isActive()) {
@@ -825,7 +816,7 @@ public class TileEntityAreaDefenseStation extends TileEntityFEPoweredMachine
 	}
 
 	@Override
-	public Object[] callMethod(IComputerAccess computer, int method, Object[] arguments) throws Exception {
+	public Object[] callMethod(IComputerAccess computer, ILuaContext context, int method, Object[] arguments) throws Exception {
 		switch(method) {
 
 			case 2: // getWarningPerimeter
@@ -873,7 +864,22 @@ public class TileEntityAreaDefenseStation extends TileEntityFEPoweredMachine
 				return new Object[] { false };
 
 			default:
-				return super.callMethod(computer, method, arguments);
+				return super.callMethod(computer, context, method, arguments);
 		}
+	}
+
+	@Override
+	public int[] getAccessibleSlotsFromSide(int var1) {
+		return new int[0];
+	}
+
+	@Override
+	public boolean canInsertItem(int i, ItemStack itemstack, int j) {
+		return false;
+	}
+
+	@Override
+	public boolean canExtractItem(int i, ItemStack itemstack, int j) {
+		return false;
 	}
 }

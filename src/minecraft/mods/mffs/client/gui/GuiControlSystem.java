@@ -29,10 +29,10 @@ import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.client.renderer.RenderHelper;
 import net.minecraft.client.renderer.entity.RenderItem;
-import net.minecraft.client.resources.ResourceLocation;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 
+import net.minecraft.util.ResourceLocation;
 import org.lwjgl.opengl.GL11;
 
 
@@ -94,8 +94,7 @@ public class GuiControlSystem extends GuiContainer {
 	@Override
 	protected void drawGuiContainerBackgroundLayer(float f, int i, int j) {
 		GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
-		//mc.renderEngine.bindTexture("/mods/mffs/textures/gui/GuiControlSystem.png");
-		mc.renderEngine.func_110577_a(new ResourceLocation("mffs:textures/gui/GuiControlSystem.png"));
+		mc.renderEngine.bindTexture(new ResourceLocation("mffs:textures/gui/GuiControlSystem.png"));
 		int w = (width - xSize) / 2;
 		int k = (height - ySize) / 2;
 		drawTexturedModalRect(w, k, 0, 0, xSize, ySize);

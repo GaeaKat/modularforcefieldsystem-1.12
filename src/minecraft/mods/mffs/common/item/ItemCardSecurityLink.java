@@ -35,10 +35,10 @@ import mods.mffs.common.tileentity.TileEntitySecStorage;
 import net.minecraft.client.renderer.texture.IconRegister;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.inventory.ISidedInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
-import net.minecraftforge.common.ISidedInventory;
 
 public class ItemCardSecurityLink extends ItemCard {
 

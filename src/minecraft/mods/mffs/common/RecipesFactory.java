@@ -23,12 +23,12 @@
 
 package mods.mffs.common;
 
+import cpw.mods.fml.common.FMLLog;
 import cpw.mods.fml.common.registry.GameRegistry;
 import ic2.api.item.Items;
 import net.minecraft.block.Block;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import thermalexpansion.api.item.ItemRegistry;
 
 public final class RecipesFactory {
 
@@ -142,35 +142,31 @@ public final class RecipesFactory {
 								ModularForceFieldSystem.MFFSitemFocusmatix,
 								'z', ModularForceFieldSystem.MFFSItemIDCard,
 
-								'A', Items.getItem("refinedIronIngot"), 'B',
-								Items.getItem("overclockerUpgrade"), 'C', Items
-										.getItem("electronicCircuit"), 'D',
-								Items.getItem("advancedCircuit"), 'E', Items
-										.getItem("carbonPlate"),
-								'F',
-								Items.getItem("advancedMachine"),
-								'G',
-								Items.getItem("extractor"),
-								'H',
-								Items.getItem("copperCableItem"), // Ic2 Stuff
-																	// A++
+								'A', Items.getItem("refinedIronIngot"),
+								'B', Items.getItem("overclockerUpgrade"),
+								'C', Items.getItem("electronicCircuit"),
+								'D', Items.getItem("advancedCircuit"),
+								'E', Items.getItem("carbonPlate"),
+								'F', Items.getItem("advancedMachine"),
+								'G', Items.getItem("extractor"),
+								'H', Items.getItem("copperCableItem"),
 								'I', Items.getItem("insulatedCopperCableItem"),
 								'J', Items.getItem("frequencyTransmitter"),
-								'K', Items.getItem("advancedAlloy"), 'M', Items
-										.getItem("glassFiberCableItem"), 'N',
-								Items.getItem("lvTransformer"), 'O', Items
-										.getItem("mvTransformer"), 'P', Items
-										.getItem("hvTransformer"), 'Q', Items
-										.getItem("teslaCoil"), 'R', Items
-										.getItem("matter"), 'S', Items
-										.getItem("wrench")
+								'K', Items.getItem("advancedAlloy"),
+								'M', Items.getItem("glassFiberCableItem"),
+								'N', Items.getItem("lvTransformer"),
+								'O', Items.getItem("mvTransformer"),
+								'P', Items.getItem("hvTransformer"),
+								'Q', Items.getItem("teslaCoil"),
+								'R', Items.getItem("matter"),
+								'S', Items.getItem("wrench")
 
 						);
 				return true;
 			}
 			break;
 
-			case 2: // Thermal Expansion
+			/*case 2: // Thermal Expansion
 				if (ModularForceFieldSystem.thermalExpansionFound
 						&& ModularForceFieldSystem.enableTERecipes) {
 					GameRegistry
@@ -241,7 +237,7 @@ public final class RecipesFactory {
 							);
 					return true;
 				}
-				break;
+				break;*/
 		}
 
 		return false;

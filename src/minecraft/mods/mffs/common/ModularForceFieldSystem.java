@@ -62,8 +62,8 @@ import net.minecraftforge.oredict.OreDictionary;
 import java.util.List;
 import java.util.logging.Level;
 
-@Mod(modid = "ModularForceFieldSystem", name = "Modular ForceField System", version = "@VERSION@", dependencies = "after:ThermalExpansion")
-@NetworkMod(versionBounds = "[@VERSION@]", clientSideRequired = true, serverSideRequired = false, clientPacketHandlerSpec = @NetworkMod.SidedPacketHandler(channels = { "MFFS" }, packetHandler = NetworkHandlerClient.class), serverPacketHandlerSpec = @NetworkMod.SidedPacketHandler(channels = { "MFFS" }, packetHandler = NetworkHandlerServer.class))
+@Mod(modid = "ModularForceFieldSystem", name = "Modular ForceField System", version = "2.5.0", dependencies = "after:ThermalExpansion")
+@NetworkMod(versionBounds = "[2.5.0]", clientSideRequired = true, serverSideRequired = false, clientPacketHandlerSpec = @NetworkMod.SidedPacketHandler(channels = { "MFFS" }, packetHandler = NetworkHandlerClient.class), serverPacketHandlerSpec = @NetworkMod.SidedPacketHandler(channels = { "MFFS" }, packetHandler = NetworkHandlerServer.class))
 public class ModularForceFieldSystem {
 
 	public static CreativeTabs MFFSTab;

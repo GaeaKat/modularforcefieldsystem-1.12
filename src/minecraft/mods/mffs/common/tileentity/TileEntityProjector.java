@@ -911,16 +911,6 @@ public class TileEntityProjector extends TileEntityFEPoweredMachine implements
 	}
 
 	@Override
-	public int getStartInventorySide(ForgeDirection side) {
-		return 11;
-	}
-
-	@Override
-	public int getSizeInventorySide(ForgeDirection side) {
-		return 1;
-	}
-
-	@Override
 	public void onNetworkHandlerEvent(int key, String value) {
 
 		if (!this.isActive()) {
@@ -1190,4 +1180,19 @@ public class TileEntityProjector extends TileEntityFEPoweredMachine implements
 
 	@Override
 	public String getType() { return "MFFSProjector"; }
+
+	@Override
+	public int[] getAccessibleSlotsFromSide(int var1) {
+		return new int[0];
+	}
+
+	@Override
+	public boolean canInsertItem(int i, ItemStack itemstack, int j) {
+		return false;
+	}
+
+	@Override
+	public boolean canExtractItem(int i, ItemStack itemstack, int j) {
+		return false;
+	}
 }

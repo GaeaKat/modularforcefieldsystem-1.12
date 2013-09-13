@@ -29,11 +29,11 @@ import mods.mffs.common.item.ItemCardSecurityLink;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.Container;
 import net.minecraft.inventory.IInventory;
+import net.minecraft.inventory.ISidedInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraftforge.common.ForgeDirection;
-import net.minecraftforge.common.ISidedInventory;
 
 public class TileEntitySecStorage extends TileEntityMachines implements
 		ISidedInventory, IInventory {
@@ -182,20 +182,6 @@ public class TileEntitySecStorage extends TileEntityMachines implements
 	}
 
 	@Override
-	public int getStartInventorySide(ForgeDirection side) {
-		if (isActive())
-			return 0;
-		return 1;
-	}
-
-	@Override
-	public int getSizeInventorySide(ForgeDirection side) {
-		if (isActive())
-			return 0;
-		return 54;
-	}
-
-	@Override
 	public Container getContainer(InventoryPlayer inventoryplayer) {
 		return new ContainerSecStorage(inventoryplayer.player, this);
 	}
@@ -231,4 +217,19 @@ public class TileEntitySecStorage extends TileEntityMachines implements
 
 	@Override
 	public String getType() { return "MFFSSecuredStorage"; }
+
+	@Override
+	public int[] getAccessibleSlotsFromSide(int var1) {
+		return new int[0];
+	}
+
+	@Override
+	public boolean canInsertItem(int i, ItemStack itemstack, int j) {
+		return false;
+	}
+
+	@Override
+	public boolean canExtractItem(int i, ItemStack itemstack, int j) {
+		return false;
+	}
 }

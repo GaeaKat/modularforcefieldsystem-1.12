@@ -21,6 +21,7 @@
 package mods.mffs.common.tileentity;
 
 import dan200.computer.api.IComputerAccess;
+import dan200.computer.api.ILuaContext;
 import dan200.computer.api.IPeripheral;
 import mods.mffs.api.IForceEnergyItems;
 import mods.mffs.api.IForceEnergyStorageBlock;
@@ -518,16 +519,6 @@ public class TileEntityCapacitor extends TileEntityFEPoweredMachine implements
 	}
 
 	@Override
-	public int getStartInventorySide(ForgeDirection side) {
-		return 0;
-	}
-
-	@Override
-	public int getSizeInventorySide(ForgeDirection side) {
-		return 0;
-	}
-
-	@Override
 	public void onNetworkHandlerEvent(int key, String value) {
 
 		switch (key) {
@@ -698,7 +689,7 @@ public class TileEntityCapacitor extends TileEntityFEPoweredMachine implements
 	}
 
 	@Override
-	public Object[] callMethod(IComputerAccess computer, int method, Object[] arguments) throws Exception {
+	public Object[] callMethod(IComputerAccess computer, ILuaContext context, int method, Object[] arguments) throws Exception {
 		switch(method) {
 			case 2: // getTransmitRange
 				return new Object[] { this.getTransmitRange() };
@@ -723,7 +714,22 @@ public class TileEntityCapacitor extends TileEntityFEPoweredMachine implements
 				return new Object[] { true };
 
 			default:
-				return super.callMethod(computer, method, arguments);
+				return super.callMethod(computer, context, method, arguments);
 		}
+	}
+
+	@Override
+	public int[] getAccessibleSlotsFromSide(int var1) {
+		return new int[0];
+	}
+
+	@Override
+	public boolean canInsertItem(int i, ItemStack itemstack, int j) {
+		return false;
+	}
+
+	@Override
+	public boolean canExtractItem(int i, ItemStack itemstack, int j) {
+		return false;
 	}
 }

@@ -29,9 +29,9 @@ import mods.mffs.network.client.NetworkHandlerClient;
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.client.renderer.RenderHelper;
 import net.minecraft.client.renderer.Tessellator;
-import net.minecraft.client.resources.ResourceLocation;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.ResourceLocation;
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL12;
 
@@ -78,7 +78,7 @@ public class GuiAdvSecurityStation extends GuiContainer {
 	protected void drawGuiContainerBackgroundLayer(float f, int mouseX,
 			int mouseY) {
 		GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
-		mc.renderEngine.func_110577_a(new ResourceLocation("mffs:textures/gui/GuiAdvSecstation.png"));
+		mc.renderEngine.bindTexture(new ResourceLocation("mffs:textures/gui/GuiAdvSecstation.png"));
 		int w = (width - xSize) / 2;
 		int k = (height - ySize) / 2;
 		drawTexturedModalRect(w, k, 0, 0, xSize, ySize);
@@ -120,8 +120,7 @@ public class GuiAdvSecurityStation extends GuiContainer {
 	private void drawSprite(int par1, int par2, int par3, int par4,
 			SecurityRight sr) {
 		GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
-		//this.mc.renderEngine.bindTexture(sr.texture);
-		mc.renderEngine.func_110577_a(new ResourceLocation(sr.texture));
+		mc.renderEngine.bindTexture(new ResourceLocation(sr.texture));
 
 		if (sr.texIndex <= 6) {
 			par3 += sr.texIndex * 18;

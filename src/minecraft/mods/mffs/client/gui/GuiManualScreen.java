@@ -5,9 +5,9 @@ import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.client.renderer.RenderHelper;
 import net.minecraft.client.renderer.entity.RenderItem;
-import net.minecraft.client.resources.ResourceLocation;
 import net.minecraft.inventory.Container;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.ResourceLocation;
 import org.lwjgl.opengl.GL11;
 
 import java.util.ArrayList;
@@ -60,8 +60,8 @@ public class GuiManualScreen extends GuiContainer {
 	protected void drawGuiContainerBackgroundLayer(float f, int i, int j) {
 
 		GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
-		//mc.renderEngine.bindTexture("/mods/mffs/textures/gui/GuiManual.png");
-		mc.renderEngine.func_110577_a(new ResourceLocation("mffs:textures/gui/GuiManual.png"));
+
+		mc.renderEngine.bindTexture(new ResourceLocation("mffs:textures/gui/GuiManual.png"));
 		int w = (width - 256) / 2;
 		int k = (height - 216) / 2;
 		drawTexturedModalRect(w, k, 0, 0, 256, 216);

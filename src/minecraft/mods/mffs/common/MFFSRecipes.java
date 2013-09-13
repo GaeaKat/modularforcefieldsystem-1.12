@@ -29,11 +29,7 @@ import ic2.api.item.Items;
 import ic2.api.recipe.Recipes;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.CraftingManager;
-import thermalexpansion.api.crafting.CraftingManagers;
-
 import java.lang.reflect.Method;
-
-//import buildcraft.BuildCraftCore;
 
 public class MFFSRecipes {
 	public static final int MONAZIT_MACERATION_OUTPUT = 8;
@@ -42,11 +38,11 @@ public class MFFSRecipes {
 		Method addMaceratorRecipe = null;
 		Method addMatterAmplifier = null;
 
-		Recipes.macerator.addRecipe(new ItemStack(
+		/*Recipes.macerator.addRecipe(new ItemStack(
 				ModularForceFieldSystem.MFFSMonazitOre, 1), new ItemStack(
 				ModularForceFieldSystem.MFFSitemForcicium, MONAZIT_MACERATION_OUTPUT));
 		Recipes.matterAmplifier.addRecipe(new ItemStack(
-				ModularForceFieldSystem.MFFSitemForcicium, 1), 5000);
+				ModularForceFieldSystem.MFFSitemForcicium, 1), 5000);*/
 
 		if (ModularForceFieldSystem.enableUUMatterForcicium)
 			Recipes.advRecipes.addRecipe(
@@ -74,7 +70,7 @@ public class MFFSRecipes {
 	}
 
 	public static void AddTERecipes() {
-		CraftingManagers.pulverizerManager.addRecipe(400, new ItemStack(
+		/*CraftingManagers.pulverizerManager.addRecipe(400, new ItemStack(
 				ModularForceFieldSystem.MFFSMonazitOre, 1), new ItemStack(
 				ModularForceFieldSystem.MFFSitemForcicium, MONAZIT_MACERATION_OUTPUT), false);
 
@@ -93,7 +89,7 @@ public class MFFSRecipes {
 		RecipesFactory.addRecipe("oMomMmoMo", 1, 2, null,
 				ModularForceFieldSystem.MFFSitemcardempty);
 
-		/*if(ModularForceFieldSystem.buildcraftFound)
+		if(ModularForceFieldSystem.buildcraftFound)
 			GameRegistry.addRecipe(
 					new ItemStack(ModularForceFieldSystem.MFFSitemWrench, 1),
 					"mSn",

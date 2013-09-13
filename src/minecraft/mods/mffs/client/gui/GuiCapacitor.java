@@ -26,8 +26,8 @@ import mods.mffs.common.tileentity.TileEntityCapacitor;
 import mods.mffs.network.client.NetworkHandlerClient;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.inventory.GuiContainer;
-import net.minecraft.client.resources.ResourceLocation;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.util.ResourceLocation;
 import org.lwjgl.opengl.GL11;
 
 
@@ -84,7 +84,7 @@ public class GuiCapacitor extends GuiContainer {
 	@Override
 	protected void drawGuiContainerBackgroundLayer(float f, int i, int j) {
 		GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
-		mc.renderEngine.func_110577_a(new ResourceLocation("mffs:textures/gui/GuiCapacitor.png"));
+		mc.renderEngine.bindTexture(new ResourceLocation("mffs:textures/gui/GuiCapacitor.png"));
 		int w = (width - xSize) / 2;
 		int k = (height - ySize) / 2;
 		drawTexturedModalRect(w, k, 0, 0, xSize, ySize);

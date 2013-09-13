@@ -12,11 +12,11 @@ import mods.mffs.network.server.NetworkHandlerServer;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.Container;
+import net.minecraft.inventory.ISidedInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraftforge.common.ForgeDirection;
-import net.minecraftforge.common.ISidedInventory;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -188,16 +188,6 @@ public class TileEntityControlSystem extends TileEntityMachines implements
 	@Override
 	public String getInvName() {
 		return "ControlSystem";
-	}
-
-	@Override
-	public int getStartInventorySide(ForgeDirection side) {
-		return 0;
-	}
-
-	@Override
-	public int getSizeInventorySide(ForgeDirection side) {
-		return 0;
 	}
 
 	@Override
@@ -442,4 +432,19 @@ public class TileEntityControlSystem extends TileEntityMachines implements
 
 	@Override
 	public String getType() { return "MFFSControlSystem"; }
+
+	@Override
+	public int[] getAccessibleSlotsFromSide(int var1) {
+		return new int[0];
+	}
+
+	@Override
+	public boolean canInsertItem(int i, ItemStack itemstack, int j) {
+		return false;
+	}
+
+	@Override
+	public boolean canExtractItem(int i, ItemStack itemstack, int j) {
+		return false;
+	}
 }

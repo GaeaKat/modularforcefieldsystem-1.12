@@ -20,9 +20,10 @@
 
 package mods.mffs.common.tileentity;
 
+import cpw.mods.fml.common.FMLLog;
 import ic2.api.Direction;
+import ic2.api.energy.event.EnergyTileEvent;
 import ic2.api.energy.event.EnergyTileLoadEvent;
-import ic2.api.energy.event.EnergyTileSourceEvent;
 import ic2.api.energy.event.EnergyTileUnloadEvent;
 import ic2.api.energy.tile.IEnergyAcceptor;
 import ic2.api.energy.tile.IEnergySource;
@@ -166,10 +167,10 @@ public class TileEntityConverter extends TileEntityFEPoweredMachine implements
 			if ((!getSwitchValue() || !hasPowerSource()) && isActive())
 				setActive(false);
 
-			if (isActive())
+			/*if (isActive())
 				if (getIC_Output() == 1)
 					EmitICpower(getIC_Outputpacketsize(),
-							getIC_Outputpacketamount());
+							getIC_Outputpacketamount());*/
 		}
 		super.updateEntity();
 	}
@@ -284,16 +285,6 @@ public class TileEntityConverter extends TileEntityFEPoweredMachine implements
 	}
 
 	@Override
-	public int getStartInventorySide(ForgeDirection side) {
-		return 1;
-	}
-
-	@Override
-	public int getSizeInventorySide(ForgeDirection side) {
-		return 1;
-	}
-
-	@Override
 	public void onNetworkHandlerUpdate(String field) {
 		worldObj.markBlockForRenderUpdate(xCoord, yCoord, zCoord);
 	}
@@ -371,25 +362,6 @@ public class TileEntityConverter extends TileEntityFEPoweredMachine implements
 		super.onNetworkHandlerEvent(key, value);
 	}
 
-	public void EmitICpower(int amount, int packets) {
-		if (Industriecraftfound && hasPowerSource()) {
-
-			while (packets > 0) {
-				if (consumePower(
-						(ModularForceFieldSystem.ExtractorPassForceEnergyGenerate / 4000)
-								* amount, true)) {
-					EnergyTileSourceEvent event = new EnergyTileSourceEvent(
-							this, amount);
-					MinecraftForge.EVENT_BUS.post(event);
-					consumePower(
-							(ModularForceFieldSystem.ExtractorPassForceEnergyGenerate / 4000)
-									* (amount - event.amount), false);
-				}
-				packets--;
-			}
-		}
-	}
-
 	@Override
 	public void invalidate() {
 		if (addedToEnergyNet) {
@@ -401,19 +373,26 @@ public class TileEntityConverter extends TileEntityFEPoweredMachine implements
 	}
 
 	@Override
-	public boolean isAddedToEnergyNet() {
-		return addedToEnergyNet;
+	public double getOfferedEnergy() {
+		if(!this.isActive() || !(getIC_Output() == 1))
+			return 0;
+
+		int amount = getIC_Outputpacketsize();
+
+		if(!consumePower((ModularForceFieldSystem.ExtractorPassForceEnergyGenerate / 4000) * amount, true))
+			return 0;
+
+		return amount;
 	}
 
 	@Override
-	public int getMaxEnergyOutput() {
-		return Integer.MAX_VALUE;
+	public void drawEnergy(double amount) {
+		consumePower((ModularForceFieldSystem.ExtractorPassForceEnergyGenerate / 4000) * (int)amount, false);
 	}
 
 	@Override
-	public boolean emitsEnergyTo(TileEntity receiver, Direction direction) {
-
-		return receiver instanceof IEnergyAcceptor;
+	public boolean emitsEnergyTo(TileEntity receiver, ForgeDirection direction) {
+		return (receiver instanceof IEnergyAcceptor);
 	}
 
 	@Override
@@ -459,13 +438,6 @@ public class TileEntityConverter extends TileEntityFEPoweredMachine implements
 	}
 
 	public void setUEwireConnection() {
-		/*
-		 * if(ModularForceFieldSystem.uefound) {
-		 * ElectricityConnections.registerConnector(this,
-		 * EnumSet.of(ForgeDirection.getOrientation(this.getFacing())));
-		 * worldObj.notifyBlocksOfNeighborChange(xCoord, yCoord,
-		 * zCoord,worldObj.getBlockId(xCoord, yCoord, zCoord) ); }
-		 */
 	}
 
 	@Override
@@ -494,4 +466,19 @@ public class TileEntityConverter extends TileEntityFEPoweredMachine implements
 
 	@Override
 	public String getType() { return "MFFSConverter"; }
+
+	@Override
+	public int[] getAccessibleSlotsFromSide(int var1) {
+		return new int[0];
+	}
+
+	@Override
+	public boolean canInsertItem(int i, ItemStack itemstack, int j) {
+		return false;
+	}
+
+	@Override
+	public boolean canExtractItem(int i, ItemStack itemstack, int j) {
+		return false;
+	}
 }

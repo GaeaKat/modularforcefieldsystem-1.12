@@ -23,12 +23,11 @@
 
 package mods.mffs.common.tileentity;
 
-/*import buildcraft.api.power.IPowerProvider;
+import buildcraft.api.power.IPowerEmitter;
 import buildcraft.api.power.IPowerReceptor;
-import buildcraft.api.power.PowerFramework;*/
+import buildcraft.api.power.PowerHandler;
 import dan200.computer.api.IComputerAccess;
 import dan200.computer.api.IPeripheral;
-import ic2.api.Direction;
 import ic2.api.energy.event.EnergyTileLoadEvent;
 import ic2.api.energy.event.EnergyTileUnloadEvent;
 import ic2.api.energy.tile.IEnergySink;
@@ -69,7 +68,7 @@ public class TileEntityExtractor extends TileEntityFEPoweredMachine implements
 	private int workdone;
 	private int maxworkcylce;
 	private int capacity;
-	//private IPowerProvider powerProvider;
+	//private IPowerEmitter powerEmitter;
 	private boolean addedToEnergyNet;
 
 	public TileEntityExtractor() {
@@ -91,7 +90,6 @@ public class TileEntityExtractor extends TileEntityFEPoweredMachine implements
 					(int) (getMaxWorkEnergy() / 2.5),
 					(int) (getMaxWorkEnergy() / 2.5));
 		}*/
-
 	}
 
 	@Override
@@ -502,16 +500,6 @@ public class TileEntityExtractor extends TileEntityFEPoweredMachine implements
 	}
 
 	@Override
-	public int getStartInventorySide(ForgeDirection side) {
-		return 0;
-	}
-
-	@Override
-	public int getSizeInventorySide(ForgeDirection side) {
-		return 1;
-	}
-
-	@Override
 	public List<String> getFieldsforUpdate() {
 		List<String> NetworkedFields = new LinkedList<String>();
 		NetworkedFields.clear();
@@ -577,25 +565,35 @@ public class TileEntityExtractor extends TileEntityFEPoweredMachine implements
 	}
 
 	@Override
-	public int demandsEnergy() {
-		if (!this.isActive())
+	public double injectEnergyUnits(ForgeDirection directionFrom, double amount) {
+		double freeSpace = (double)(getMaxWorkEnergy() - getWorkEnergy());
+
+		if(freeSpace >= amount) {
+			setWorkEnergy(getWorkEnergy() + (int)amount);
 			return 0;
+		}
+		else {
+			setWorkEnergy(getMaxWorkEnergy());
+			return (amount - freeSpace);
+		}
+	}
+
+	@Override
+	public double demandedEnergyUnits() {
+		if(!this.isActive())
+			return 0;
+
 		return getMaxWorkEnergy() - getWorkEnergy();
 	}
 
 	@Override
-	public int injectEnergy(Direction directionFrom, int amount) {
+	public boolean acceptsEnergyFrom(TileEntity emitter, ForgeDirection direction) {
+		return true;
+	}
 
-		int freespace = getMaxWorkEnergy() - getWorkEnergy();
-
-		if (freespace >= amount) {
-			setWorkEnergy(getWorkEnergy() + amount);
-			return 0;
-		} else {
-
-			setWorkEnergy(getMaxWorkEnergy());
-			return amount - freespace;
-		}
+	@Override
+	public int getMaxSafeInput() {
+		return 2048;
 	}
 
 	@Override
@@ -609,16 +607,6 @@ public class TileEntityExtractor extends TileEntityFEPoweredMachine implements
 		Linkgrid.getWorldMap(worldObj).getExtractor().remove(getDeviceID());
 
 		super.invalidate();
-	}
-
-	@Override
-	public boolean isAddedToEnergyNet() {
-		return addedToEnergyNet;
-	}
-
-	@Override
-	public boolean acceptsEnergyFrom(TileEntity tileentity, Direction direction) {
-		return true;
 	}
 
 	public void converMJtoWorkEnergy() {
@@ -668,11 +656,6 @@ public class TileEntityExtractor extends TileEntityFEPoweredMachine implements
 	}
 
 	@Override
-	public int getMaxSafeInput() {
-		return 2048;
-	}
-
-	@Override
 	public TileEntityAdvSecurityStation getLinkedSecurityStation() {
 
 		TileEntityCapacitor cap = Linkgrid.getWorldMap(worldObj).getCapacitor()
@@ -712,4 +695,19 @@ public class TileEntityExtractor extends TileEntityFEPoweredMachine implements
 
 	@Override
 	public String getType() { return "MFFSExtractor"; }
+
+	@Override
+	public int[] getAccessibleSlotsFromSide(int var1) {
+		return new int[0];
+	}
+
+	@Override
+	public boolean canInsertItem(int i, ItemStack itemstack, int j) {
+		return false;
+	}
+
+	@Override
+	public boolean canExtractItem(int i, ItemStack itemstack, int j) {
+		return false;
+	}
 }

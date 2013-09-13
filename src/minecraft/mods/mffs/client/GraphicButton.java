@@ -24,8 +24,8 @@ import mods.mffs.common.tileentity.*;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.renderer.Tessellator;
-import net.minecraft.client.resources.ResourceLocation;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.ResourceLocation;
 
 public class GraphicButton extends GuiButton {
 	private final TileEntity tileEntity;
@@ -68,8 +68,7 @@ public class GraphicButton extends GuiButton {
 	public void drawButton(Minecraft par1Minecraft, int par2, int par3) {
 		if (this.drawButton) {
 			if ((tileEntity instanceof TileEntityMachines) && typ == 0) {
-				//par1Minecraft.renderEngine.bindTexture("/mods/mffs/textures/gui/SwitchModes.png");
-				par1Minecraft.renderEngine.func_110577_a(new ResourceLocation("mffs:textures/gui/SwitchModes.png"));
+				par1Minecraft.renderEngine.bindTexture(new ResourceLocation("mffs:textures/gui/SwitchModes.png"));
 
 				drawButtonRect(this.xPosition, this.yPosition, (((TileEntityMachines) tileEntity).getSwitchModi() *
 						16), 0, this.width, this.height, SWITCH_MODE_TEXTURE_SIZE);
@@ -77,8 +76,7 @@ public class GraphicButton extends GuiButton {
 
 			if (tileEntity instanceof TileEntityConverter) {
 				if (typ == 1) {
-					//par1Minecraft.renderEngine.bindTexture("/mods/mffs/textures/gui/ConverterOutput.png");
-					par1Minecraft.renderEngine.func_110577_a(new ResourceLocation("mffs:textures/gui/ConverterOutput.png"));
+					par1Minecraft.renderEngine.bindTexture(new ResourceLocation("mffs:textures/gui/ConverterOutput.png"));
 
 					drawButtonRect(xPosition, yPosition, (((TileEntityConverter) tileEntity).getIC_Output() * 16), 0,
 							width, height, CONVERTER_OUTPUT_TEXTURE_SIZE);
@@ -90,8 +88,7 @@ public class GraphicButton extends GuiButton {
 					if (typ == 1) {
 						boolean active = ((TileEntityControlSystem)tileEntity).getRemoteActive();
 
-						//par1Minecraft.renderEngine.bindTexture("/mods/mffs/textures/gui/ControlSystemButtons.png");
-						par1Minecraft.renderEngine.func_110577_a(new ResourceLocation
+						par1Minecraft.renderEngine.bindTexture(new ResourceLocation
 								("mffs:textures/gui/ControlSystemButtons.png"));
 
 						drawButtonRect(xPosition, yPosition,
@@ -102,7 +99,7 @@ public class GraphicButton extends GuiButton {
 						if (((TileEntityControlSystem) tileEntity)
 								.getRemoteSwitchModi() > 0) {
 							//par1Minecraft.renderEngine.bindTexture("/mods/mffs/textures/gui/SwitchModes.png");
-							par1Minecraft.renderEngine.func_110577_a(new ResourceLocation
+							par1Minecraft.renderEngine.bindTexture(new ResourceLocation
 									("mffs:textures/gui/Switchmodes.png"));
 
 							drawButtonRect(this.xPosition, this.yPosition, (((TileEntityControlSystem)tileEntity)
@@ -118,7 +115,7 @@ public class GraphicButton extends GuiButton {
 
 							//par1Minecraft.renderEngine.bindTexture("/mods/mffs/textures/gui/ControlSystemButtons" +
 							// ".png");
-							par1Minecraft.renderEngine.func_110577_a(new ResourceLocation
+							par1Minecraft.renderEngine.bindTexture(new ResourceLocation
 									("mffs:textures/gui/ControlSystemButtons.png"));
 
 							drawButtonRect(xPosition, yPosition,
@@ -130,7 +127,7 @@ public class GraphicButton extends GuiButton {
 			if ((tileEntity instanceof TileEntityAreaDefenseStation)) {
 				if (typ == 1) {
 					//par1Minecraft.renderEngine.bindTexture("/mods/mffs/textures/gui/ControlSystemButtons.png");
-					par1Minecraft.renderEngine.func_110577_a(new ResourceLocation
+					par1Minecraft.renderEngine.bindTexture(new ResourceLocation
 							("mffs:textures/gui/ControlSystemButtons.png"));
 
 					drawButtonRect(xPosition, yPosition, (((TileEntityAreaDefenseStation)tileEntity).getcontratyp())
@@ -139,7 +136,7 @@ public class GraphicButton extends GuiButton {
 				}
 				if (typ == 2) {
 					//par1Minecraft.renderEngine.bindTexture("/mods/mffs/textures/gui/DefenseStationButtons.png");
-					par1Minecraft.renderEngine.func_110577_a(new ResourceLocation
+					par1Minecraft.renderEngine.bindTexture(new ResourceLocation
 							("mffs:textures/gui/DefenseStationButtons.png"));
 
 					drawButtonRect(xPosition, yPosition, (((TileEntityAreaDefenseStation)tileEntity).getActionmode()
@@ -147,7 +144,7 @@ public class GraphicButton extends GuiButton {
 				}
 				if (typ == 3) {
 					//par1Minecraft.renderEngine.bindTexture("/mods/mffs/textures/gui/DefenseStationButtons.png");
-					par1Minecraft.renderEngine.func_110577_a(new ResourceLocation
+					par1Minecraft.renderEngine.bindTexture(new ResourceLocation
 							("mffs:textures/gui/DefenseStationButtons.png"));
 
 					drawButtonRect(xPosition, yPosition, (((TileEntityAreaDefenseStation)tileEntity).getScanmode() *
@@ -159,7 +156,7 @@ public class GraphicButton extends GuiButton {
 				if (typ == 1)
 				{
 					//par1Minecraft.renderEngine.bindTexture("/mods/mffs/textures/gui/CapacitorButtons.png");
-					par1Minecraft.renderEngine.func_110577_a(new ResourceLocation
+					par1Minecraft.renderEngine.bindTexture(new ResourceLocation
 							("mffs:textures/gui/CapacitorButtons.png"));
 
 					int powerLinkMode = ((TileEntityCapacitor)tileEntity).getPowerlinkmode();
@@ -175,7 +172,7 @@ public class GraphicButton extends GuiButton {
 				if (typ == 1)
 				{
 					//par1Minecraft.renderEngine.bindTexture("/mods/mffs/textures/gui/ProjectorButtons.png");
-					par1Minecraft.renderEngine.func_110577_a(new ResourceLocation
+					par1Minecraft.renderEngine.bindTexture(new ResourceLocation
 							("mffs:textures/gui/ProjectorButtons.png"));
 
 					drawButtonRect(xPosition, yPosition,
