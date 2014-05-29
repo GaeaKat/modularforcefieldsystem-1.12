@@ -1,0 +1,16 @@
+[
+{
+  "modid": "ModularForcefieldSystem",
+  "name": "Modular Forcefield System",
+  "description": "Mod implementing various base-defense systems.",
+  "version": "${version}",
+  "mcversion": "${mcversion}",
+  "url": "http://minalien.com",
+  "updateUrl": "",
+  "authorList": [ "Minalien", "Imalune" ],
+  "credits": "Thunderdark",
+  "logoFile": "",
+  "screenshots": [],
+  "dependencies": []
+}
+]

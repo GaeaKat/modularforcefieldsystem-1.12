@@ -1,0 +1,13 @@
+{
+        "pack":{
+                "pack_format": 1,
+                "description": "Mod: Modular Forcefield System"
+        },
+        "language":{
+                "en_US": {
+                        "name": "English",
+                        "region": "US",
+                        "bidirectional": false
+                }
+        }
+}
