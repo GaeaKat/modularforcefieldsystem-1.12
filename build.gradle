@@ -23,11 +23,13 @@ group= "com.minalien.mffs"
 archivesBaseName = "ModularForcefieldSystem-1.7.2"
 
 minecraft {
-    version = "1.7.2-10.12.1.1100"
+    version = "1.7.2-10.12.1.1112"
     assetDir = "eclipse/assets"
 }
 
 dependencies {
+    compile 'org.mozilla:rhino:1.7R4'
+    compile 'com.google.code.gson:gson:2.2.4'
 }
 
 processResources
