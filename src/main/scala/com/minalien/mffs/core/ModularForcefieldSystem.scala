@@ -5,11 +5,12 @@ import cpw.mods.fml.common.Mod.EventHandler
 import cpw.mods.fml.common.event.{FMLInitializationEvent, FMLPreInitializationEvent}
 import net.minecraft.item.Item
 import cpw.mods.fml.common.registry.GameRegistry
-import com.minalien.mffs.items.ItemForcicium
+import com.minalien.mffs.items.{ItemCard, ItemForcicium}
 import net.minecraft.block.Block
 import com.minalien.mffs.blocks.{BlockForciciumStorage, BlockMonazitOre}
 import com.minalien.mffs.world.MonazitOreWorldGenerator
 import com.minalien.mffs.recipes.MFFSRecipes
+import com.minalien.mffs.blocks.machines.{BlockProjector, MachineBlock}
 
 /**
  * Modular Forcefield System 3.0 - Minecraft Mod
@@ -56,6 +57,7 @@ object ModularForcefieldSystem {
 
 		// Basic Items
 		registerItem(ItemForcicium)
+		registerItem(ItemCard)
 	}
 
 	/**
@@ -64,10 +66,18 @@ object ModularForcefieldSystem {
 	def registerBlocks() {
 		def registerBlock(block: Block) {
 			GameRegistry.registerBlock(block, block.getUnlocalizedName)
+
+			block match {
+				case machineBlock: MachineBlock =>
+					GameRegistry.registerTileEntity(machineBlock.getTileEntityClass, block.getUnlocalizedName)
+
+				case _ =>
+			}
 		}
 
 		// Basic Blocks
 		registerBlock(BlockMonazitOre)
 		registerBlock(BlockForciciumStorage)
+		registerBlock(BlockProjector)
 	}
 }
