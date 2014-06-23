@@ -2,6 +2,7 @@ package com.minalien.mffs.core
 
 import com.minalien.mffs.blocks.machines.{BlockProjector, MachineBlock}
 import com.minalien.mffs.blocks.{BlockForcefield, BlockForciciumStorage, BlockMonazitOre}
+import com.minalien.mffs.items.fieldshapes.ItemFieldShapeCube
 import com.minalien.mffs.items.upgrades.{ItemSpongeUpgrade, ItemBlockBreakerUpgrade}
 import com.minalien.mffs.items.{ItemCard, ItemForcicium}
 import com.minalien.mffs.recipes.MFFSRecipes
@@ -59,6 +60,11 @@ object ModularForcefieldSystem {
 		// Basic Items
 		registerItem(ItemForcicium)
 		registerItem(ItemCard)
+
+		// Field Shapes
+		registerItem(ItemFieldShapeCube)
+
+		// Upgrades
 		registerItem(ItemBlockBreakerUpgrade)
 		registerItem(ItemSpongeUpgrade)
 	}

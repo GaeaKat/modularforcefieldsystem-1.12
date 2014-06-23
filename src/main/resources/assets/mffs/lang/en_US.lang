@@ -7,5 +7,6 @@ tile.forcefield.name=Forcefield
 
 item.forcicium.name=Forcicium
 item.card.name=Card
+item.fieldShapeCube.name=Shape: Cube
 item.upgradeBlockBreaker.name=Upgrade: Block Breaker
 item.upgradeSponge.name=Upgrade: Sponge

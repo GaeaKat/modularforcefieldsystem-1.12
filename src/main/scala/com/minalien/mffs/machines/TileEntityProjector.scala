@@ -2,7 +2,9 @@ package com.minalien.mffs.machines
 
 import com.minalien.core.nbt.NBTUtility
 import com.minalien.mffs.blocks.BlockForcefield
+import com.minalien.mffs.items.fieldshapes.{ForcefieldShape, ItemFieldShapeCube}
 import net.minecraft.init.Blocks
+import net.minecraft.item.ItemStack
 import net.minecraft.nbt.NBTTagCompound
 import net.minecraftforge.fluids.IFluidBlock
 
@@ -16,6 +18,11 @@ class TileEntityProjector extends MFFSMachine {
 	val fieldBlockCoords = new collection.mutable.ArrayBuffer[(Int, Int, Int)]
 
 	/**
+	 * ItemStack providing the Field Shape.
+	 */
+	val fieldShapeStack: ItemStack = new ItemStack(ItemFieldShapeCube)
+
+	/**
 	 * A Tuple representing the offset of the field on each axis.
 	 */
 	var fieldOffset = (0, 0, 0)
@@ -23,7 +30,7 @@ class TileEntityProjector extends MFFSMachine {
 	/**
 	 * A Tuple representing the radius of the field on each axis.
 	 */
-	var fieldRadius = (24, 24, 24)
+	var fieldRadius = (5, 5, 5)
 
 	/**
 	 * Whether or not the projector is operating in "Break" mode, in which case it will all blocks instead of only replacing air blocks
@@ -50,10 +57,6 @@ class TileEntityProjector extends MFFSMachine {
 		val offsetY = fieldOffset._2
 		val offsetZ = fieldOffset._3
 
-		val radiusX = fieldRadius._1
-		val radiusY = fieldRadius._2
-		val radiusZ = fieldRadius._3
-
 		def setFieldBlock(x: Int, y: Int, z: Int) {
 			val blockX = offsetX + x
 			val blockY = offsetY + y
@@ -70,42 +73,15 @@ class TileEntityProjector extends MFFSMachine {
 			}
 		}
 
-		for(y <- -radiusY to radiusY) {
-			for(z <- -radiusZ to radiusZ) {
-				def makeXWall(blockX: Int) {
-					val blockY = yCoord + y
-					val blockZ = zCoord + z
-					setFieldBlock(blockX, blockY, blockZ)
-				}
+		val shape = fieldShapeStack.getItem.asInstanceOf[ForcefieldShape]
+		if(shape != null) {
+			for(coord <- shape.getRelativeCoords(fieldRadius)) {
+				val x = xCoord + offsetX + coord._1
+				val y = yCoord + offsetY + coord._2
+				val z = zCoord + offsetZ + coord._3
 
-				makeXWall(xCoord + radiusX)
-				makeXWall(xCoord - radiusX)
-			}
-		}
-
-		for(x <- -radiusX to radiusX) {
-			for(z <- -radiusZ to radiusZ) {
-				def makeYWall(blockY: Int) {
-					val blockX = xCoord + x
-					val blockZ = zCoord + z
-					setFieldBlock(blockX, blockY, blockZ)
-				}
-
-				makeYWall(yCoord + radiusY)
-				makeYWall(yCoord - radiusY)
-			}
-		}
-
-		for(x <- -radiusX to radiusX) {
-			for(y <- -radiusY to radiusY) {
-				def makeZWall(blockZ: Int) {
-					val blockX = xCoord + x
-					val blockY = yCoord + y
-					setFieldBlock(blockX, blockY, blockZ)
-				}
-
-				makeZWall(zCoord + radiusZ)
-				makeZWall(zCoord - radiusZ)
+				if(y >= 0)
+					setFieldBlock(x, y, z)
 			}
 		}
 	}
