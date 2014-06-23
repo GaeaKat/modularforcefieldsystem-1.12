@@ -14,13 +14,5 @@ object BlockMonazitOre extends Block(Material.rock) {
 	setResistance(5f)
 	setBlockName("monazitOre")
 	setHarvestLevel("pickaxe", 2)
-
-	/**
-	 * Loads icons related to the block.
-	 *
-	 * @param iconRegister Icon Register used to load textures for stitching.
-	 */
-	override def registerBlockIcons(iconRegister: IIconRegister) {
-		blockIcon = iconRegister.registerIcon("mffs:monazitOre")
-	}
+	setBlockTextureName("mffs:monazitOre")
 }

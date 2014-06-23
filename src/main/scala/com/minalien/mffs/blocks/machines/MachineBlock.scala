@@ -3,6 +3,7 @@ package com.minalien.mffs.blocks.machines
 import net.minecraft.block.material.Material
 import net.minecraft.block.Block
 import com.minalien.mffs.core.MFFSCreativeTab
+import net.minecraft.item.ItemStack
 import net.minecraft.tileentity.TileEntity
 import net.minecraft.world.World
 import net.minecraft.client.renderer.texture.IIconRegister
@@ -16,15 +17,7 @@ abstract class MachineBlock(blockName: String) extends Block(Material.iron) {
 	setResistance(15f)
 	setBlockName(blockName)
 	setHarvestLevel("pickaxe", 2)
-
-	/**
-	 * Loads icons related to the block.
-	 *
-	 * @param iconRegister Icon Register used to load textures for stitching.
-	 */
-	override def registerBlockIcons(iconRegister: IIconRegister) {
-		blockIcon = iconRegister.registerIcon(s"mffs:$blockName")
-	}
+	setBlockTextureName(s"mffs:$blockName")
 
 	/**
 	 * @return True. All Machines are backed by a TileEntity.

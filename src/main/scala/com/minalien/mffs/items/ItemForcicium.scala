@@ -10,13 +10,5 @@ import net.minecraft.client.renderer.texture.IIconRegister
 object ItemForcicium extends Item {
 	setCreativeTab(MFFSCreativeTab)
 	setUnlocalizedName("forcicium")
-
-	/**
-	 * Loads icons related to the item.
-	 *
-	 * @param iconRegister Icon Register used to load textures for stitching.
-	 */
-	override def registerIcons(iconRegister: IIconRegister) {
-		itemIcon = iconRegister.registerIcon("mffs:forcicium")
-	}
+	setTextureName("mffs:forcicium")
 }

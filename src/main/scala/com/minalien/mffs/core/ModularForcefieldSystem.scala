@@ -1,16 +1,17 @@
 package com.minalien.mffs.core
 
+import com.minalien.mffs.blocks.machines.{BlockProjector, MachineBlock}
+import com.minalien.mffs.blocks.{BlockForcefield, BlockForciciumStorage, BlockMonazitOre}
+import com.minalien.mffs.items.upgrades.{ItemSpongeUpgrade, ItemBlockBreakerUpgrade}
+import com.minalien.mffs.items.{ItemCard, ItemForcicium}
+import com.minalien.mffs.recipes.MFFSRecipes
+import com.minalien.mffs.world.MonazitOreWorldGenerator
 import cpw.mods.fml.common.Mod
 import cpw.mods.fml.common.Mod.EventHandler
 import cpw.mods.fml.common.event.{FMLInitializationEvent, FMLPreInitializationEvent}
-import net.minecraft.item.Item
 import cpw.mods.fml.common.registry.GameRegistry
-import com.minalien.mffs.items.{ItemCard, ItemForcicium}
 import net.minecraft.block.Block
-import com.minalien.mffs.blocks.{BlockForciciumStorage, BlockMonazitOre}
-import com.minalien.mffs.world.MonazitOreWorldGenerator
-import com.minalien.mffs.recipes.MFFSRecipes
-import com.minalien.mffs.blocks.machines.{BlockProjector, MachineBlock}
+import net.minecraft.item.Item
 
 /**
  * Modular Forcefield System 3.0 - Minecraft Mod
@@ -58,6 +59,8 @@ object ModularForcefieldSystem {
 		// Basic Items
 		registerItem(ItemForcicium)
 		registerItem(ItemCard)
+		registerItem(ItemBlockBreakerUpgrade)
+		registerItem(ItemSpongeUpgrade)
 	}
 
 	/**
@@ -79,5 +82,6 @@ object ModularForcefieldSystem {
 		registerBlock(BlockMonazitOre)
 		registerBlock(BlockForciciumStorage)
 		registerBlock(BlockProjector)
+		registerBlock(BlockForcefield)
 	}
 }
