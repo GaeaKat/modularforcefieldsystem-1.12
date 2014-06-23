@@ -1,12 +1,9 @@
 package com.minalien.mffs.machines
 
+import com.minalien.core.nbt.NBTUtility
 import com.minalien.mffs.blocks.BlockForcefield
-import com.minalien.mffs.items.upgrades.MachineUpgrade
-import com.minalien.mffs.machines.MachineState.MachineState
 import net.minecraft.init.Blocks
-import net.minecraft.item.ItemStack
 import net.minecraft.nbt.NBTTagCompound
-import net.minecraft.tileentity.TileEntity
 import net.minecraftforge.fluids.IFluidBlock
 
 /**
@@ -19,14 +16,14 @@ class TileEntityProjector extends MFFSMachine {
 	val fieldBlockCoords = new collection.mutable.ArrayBuffer[(Int, Int, Int)]
 
 	/**
-	 * @return A Tuple representing the offset of the field on each axis.
+	 * A Tuple representing the offset of the field on each axis.
 	 */
-	def getOffset: (Int, Int, Int) = (0, 0, 0)
+	var fieldOffset = (0, 0, 0)
 
 	/**
-	 * @return A Tuple representing the radius of the field on each axis.
+	 * A Tuple representing the radius of the field on each axis.
 	 */
-	def getRadius: (Int, Int, Int) = (5, 5, 5)
+	var fieldRadius = (24, 24, 24)
 
 	/**
 	 * Whether or not the projector is operating in "Break" mode, in which case it will all blocks instead of only replacing air blocks
@@ -49,13 +46,13 @@ class TileEntityProjector extends MFFSMachine {
 
 		state = MachineState.Active
 
-		val offsetX = getOffset._1
-		val offsetY = getOffset._2
-		val offsetZ = getOffset._3
+		val offsetX = fieldOffset._1
+		val offsetY = fieldOffset._2
+		val offsetZ = fieldOffset._3
 
-		val radiusX = getRadius._1
-		val radiusY = getRadius._2
-		val radiusZ = getRadius._3
+		val radiusX = fieldRadius._1
+		val radiusY = fieldRadius._2
+		val radiusZ = fieldRadius._3
 
 		def setFieldBlock(x: Int, y: Int, z: Int) {
 			val blockX = offsetX + x
@@ -137,23 +134,26 @@ class TileEntityProjector extends MFFSMachine {
 	override def writeToNBT(tagCompound: NBTTagCompound) {
 		super.writeToNBT(tagCompound)
 
+		// Write the Offset to the Tag Compound
+		val offsetTag = new NBTTagCompound
+		NBTUtility.write3IntTupleToNBT(fieldOffset, offsetTag)
+		tagCompound.setTag("fieldOffset", offsetTag)
+
+		// Write the Radius to the Tag Compound
+		val radiusTag = new NBTTagCompound
+		NBTUtility.write3IntTupleToNBT(fieldRadius, radiusTag)
+		tagCompound.setTag("fieldRadius", radiusTag)
+
 		if(isActive) {
-			def buildCoordTag(coord: (Int, Int, Int)): NBTTagCompound = {
-				val tagCompound = new NBTTagCompound
-
-				tagCompound.setInteger("x", coord._1)
-				tagCompound.setInteger("y", coord._2)
-				tagCompound.setInteger("z", coord._3)
-
-				tagCompound
-			}
-
 			val coordListTag = new NBTTagCompound
+
 			coordListTag.setInteger("size", fieldBlockCoords.size)
 			var idx = 0
 
 			for(coord <- fieldBlockCoords) {
-				coordListTag.setTag(s"tile$idx", buildCoordTag(coord))
+				val coordTag = new NBTTagCompound
+				NBTUtility.write3IntTupleToNBT(coord, coordTag)
+				coordListTag.setTag(s"tile$idx", coordTag)
 				idx += 1
 			}
 
@@ -169,22 +169,16 @@ class TileEntityProjector extends MFFSMachine {
 	override def readFromNBT(tagCompound: NBTTagCompound) {
 		super.readFromNBT(tagCompound)
 
+		fieldOffset = NBTUtility.read3IntTupleFromNBT(tagCompound.getCompoundTag("fieldOffset"))
+		fieldRadius = NBTUtility.read3IntTupleFromNBT(tagCompound.getCompoundTag("fieldRadius"))
+
 		val coordListTag: NBTTagCompound = if(isActive) tagCompound.getCompoundTag("tileCoordList") else null
 
 		if(coordListTag != null) {
 			val size = coordListTag.getInteger("size")
 
-			for(idx <- 0 until size) {
-				def getCoordFromTag(tagCompound: NBTTagCompound): (Int, Int, Int) = {
-					val x = tagCompound.getInteger("x")
-					val y = tagCompound.getInteger("y")
-					val z = tagCompound.getInteger("z")
-
-					(x, y, z)
-				}
-
-				fieldBlockCoords.append(getCoordFromTag(coordListTag.getCompoundTag(s"tile$idx")))
-			}
+			for(idx <- 0 until size)
+				fieldBlockCoords.append(NBTUtility.read3IntTupleFromNBT(coordListTag.getCompoundTag(s"tile$idx")))
 		}
 	}
 }

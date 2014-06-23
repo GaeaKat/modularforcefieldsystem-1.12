@@ -18,4 +18,29 @@ object NBTUtility {
 
 		itemStack.getTagCompound
 	}
+
+	/**
+	 * Writes the specified 3-integer tuple into the NBTTagCompound.
+	 *
+	 * @param tuple         Tuple to be written.
+	 * @param tagCompound   Target to be written
+	 */
+	def write3IntTupleToNBT(tuple: (Int, Int, Int), tagCompound: NBTTagCompound) {
+		tagCompound.setInteger("x", tuple._1)
+		tagCompound.setInteger("y", tuple._2)
+		tagCompound.setInteger("z", tuple._3)
+	}
+
+	/**
+	 * Reads a 3-integer tuple from an NBTTagCompound.
+	 *
+	 * @param tagCompound   Tag compound to be read from.
+	 */
+	def read3IntTupleFromNBT(tagCompound: NBTTagCompound): (Int, Int, Int) = {
+		val x = tagCompound.getInteger("x")
+		val y = tagCompound.getInteger("y")
+		val z = tagCompound.getInteger("z")
+
+		(x, y, z)
+	}
 }
