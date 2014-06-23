@@ -2,14 +2,20 @@ package com.minalien.mffs.machines
 
 import com.minalien.mffs.items.upgrades.MachineUpgrade
 import com.minalien.mffs.machines.MachineState._
+import net.minecraft.entity.item.EntityItem
 import net.minecraft.item.ItemStack
 import net.minecraft.nbt.NBTTagCompound
 import net.minecraft.tileentity.TileEntity
+import net.minecraft.world.World
+
+import scala.util.Random
 
 /**
  * Base Tile Entity class for any MFFS Machines.
+ *
+ * @param maxUpgrades Maximum number of upgrades the machine can hold.
  */
-abstract class MFFSMachine extends TileEntity {
+abstract class MFFSMachine(val maxUpgrades: Int) extends TileEntity {
 	/**
 	 * Stores a list of Upgrades equipped to the machine.
 	 */
@@ -34,6 +40,66 @@ abstract class MFFSMachine extends TileEntity {
 	 * Deactivates the machine.
 	 */
 	def deactivate()
+
+	/**
+	 * Attempts to insert the specified ItemStack as an Upgrade.
+	 *
+	 * @param itemStack ItemStack the player is attempting to insert.
+	 *
+	 * @return Whether or not the item was successfully inserted.
+	 */
+	def attemptInsertItemStack(itemStack: ItemStack): Boolean = {
+		itemStack.getItem match {
+			case upgrade: MachineUpgrade =>
+				if(upgrades.size >= maxUpgrades)
+					false
+
+				// Make sure the upgrade hasn't already been inserted
+				for(upgradeStack <- upgrades)
+					if(upgradeStack.isItemEqual(itemStack))
+						return false
+
+				// Insert the item!
+				upgrades.append(new ItemStack(upgrade))
+				upgrade.applyUpgrade(this)
+				true
+
+			case _ =>
+				false
+		}
+	}
+
+	/**
+	 * @return Array of Upgrade ItemStack instances to drop when the block is broken.
+	 */
+	def getUpgradesToDrop: Array[ItemStack] = upgrades.toArray
+
+	/**
+	 * Forces the tile entity to drop all of its upgrades into the world.
+	 */
+	def dropUpgrades() {
+		val prng = new Random()
+
+		// Drop all items in upgrade slots
+		for(upgrade <- getUpgradesToDrop) {
+			if(upgrade != null && upgrade.stackSize > 0) {
+				val rX = prng.nextDouble() * 0.8 + 0.1
+				val rY = prng.nextDouble() * 0.8 + 0.1
+				val rZ = prng.nextDouble() * 0.8 + 0.1
+
+				val itemEntity = new EntityItem(worldObj, xCoord + rX, yCoord + rY, zCoord + rZ, upgrade.copy())
+
+				val jumpFactor = 0.05f
+				itemEntity.motionX = prng.nextGaussian() * jumpFactor
+				itemEntity.motionY = prng.nextGaussian() * jumpFactor + 0.2f
+				itemEntity.motionZ = prng.nextGaussian() * jumpFactor
+
+				worldObj.spawnEntityInWorld(itemEntity)
+
+				upgrade.stackSize = 0
+			}
+		}
+	}
 
 	/**
 	 * Ensures that the machine's deactivation is executed before it is broken.

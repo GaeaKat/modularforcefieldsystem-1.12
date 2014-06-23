@@ -2,16 +2,18 @@ package com.minalien.mffs.machines
 
 import com.minalien.core.nbt.NBTUtility
 import com.minalien.mffs.blocks.BlockForcefield
-import com.minalien.mffs.items.fieldshapes.{ForcefieldShape, ItemFieldShapeCube}
+import com.minalien.mffs.items.fieldshapes.ForcefieldShape
 import net.minecraft.init.Blocks
 import net.minecraft.item.ItemStack
 import net.minecraft.nbt.NBTTagCompound
 import net.minecraftforge.fluids.IFluidBlock
 
+import scala.collection.mutable.ArrayBuffer
+
 /**
  * Forcefield Projector.
  */
-class TileEntityProjector extends MFFSMachine {
+class TileEntityProjector extends MFFSMachine(4) {
 	/**
 	 * ArrayBuffer containing a list of tuples representing the tile coordinates for each forcefield block owned by the Projector.
 	 */
@@ -43,6 +45,43 @@ class TileEntityProjector extends MFFSMachine {
 	 * any possible new Field blocks.
 	 */
 	var isInSpongeMode = false
+
+	/**
+	 * Adds the Field Shape stack
+	 *
+	 * @return Array of Upgrade ItemStack instances to drop when the block is broken.
+	 */
+	override def getUpgradesToDrop: Array[ItemStack] = {
+		val upgrades = new ArrayBuffer[ItemStack]
+		upgrades.appendAll(super.getUpgradesToDrop)
+
+		if(fieldShapeStack != null)
+			upgrades.append(fieldShapeStack)
+
+		upgrades.toArray
+	}
+
+	/**
+	 * Attempts to insert the specified ItemStack as an Upgrade.
+	 *
+	 * @param itemStack ItemStack the player is attempting to insert.
+	 *
+	 * @return Whether or not the item was successfully inserted.
+	 */
+	override def attemptInsertItemStack(itemStack: ItemStack): Boolean = {
+		itemStack.getItem match {
+			case fieldShape: ForcefieldShape =>
+				if(this.fieldShapeStack == null) {
+					this.fieldShapeStack = new ItemStack(fieldShape)
+					true
+				}
+				else
+					false
+
+			case _ =>
+				super.attemptInsertItemStack(itemStack)
+		}
+	}
 
 	/**
 	 * Creates the forcefield cube, adding the coordinates of any placed BlockForcefield instances to fieldBlockCoords.
@@ -116,6 +155,13 @@ class TileEntityProjector extends MFFSMachine {
 		NBTUtility.write3IntTupleToNBT(fieldRadius, radiusTag)
 		tagCompound.setTag("fieldRadius", radiusTag)
 
+		// Write the Field Shape ItemStack.
+		if(fieldShapeStack != null) {
+			val fieldShapeTag = new NBTTagCompound
+			fieldShapeStack.writeToNBT(fieldShapeTag)
+			tagCompound.setTag("fieldShapeStack", fieldShapeTag)
+		}
+
 		if(isActive) {
 			val coordListTag = new NBTTagCompound
 
@@ -143,6 +189,10 @@ class TileEntityProjector extends MFFSMachine {
 
 		fieldOffset = NBTUtility.read3IntTupleFromNBT(tagCompound.getCompoundTag("fieldOffset"))
 		fieldRadius = NBTUtility.read3IntTupleFromNBT(tagCompound.getCompoundTag("fieldRadius"))
+
+		// Load the field shape tag
+		if(tagCompound.hasKey("fieldShapeStack"))
+			fieldShapeStack = ItemStack.loadItemStackFromNBT(tagCompound.getCompoundTag("fieldShapeStack"))
 
 		val coordListTag: NBTTagCompound = if(isActive) tagCompound.getCompoundTag("tileCoordList") else null
 

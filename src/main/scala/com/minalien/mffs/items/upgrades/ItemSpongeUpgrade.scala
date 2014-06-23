@@ -2,13 +2,12 @@ package com.minalien.mffs.items.upgrades
 
 import com.minalien.mffs.core.MFFSCreativeTab
 import com.minalien.mffs.machines.TileEntityProjector
-import net.minecraft.item.Item
 import net.minecraft.tileentity.TileEntity
 
 /**
  * Provides Projectors the ability to break only fluid blocks when generating a forcefield.
  */
-object ItemSpongeUpgrade extends Item with MachineUpgrade {
+object ItemSpongeUpgrade extends ItemUpgrade with MachineUpgrade {
 	setCreativeTab(MFFSCreativeTab)
 	setUnlocalizedName("upgradeSponge")
 	setTextureName("mffs:upgrades/sponge")

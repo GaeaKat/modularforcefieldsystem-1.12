@@ -1,38 +1,15 @@
 package com.minalien.mffs.items.fieldshapes
 
-import com.minalien.mffs.blocks.machines.BlockProjector
 import com.minalien.mffs.core.MFFSCreativeTab
-import com.minalien.mffs.machines.TileEntityProjector
-import net.minecraft.entity.player.EntityPlayer
-import net.minecraft.item.{ItemStack, Item}
-import net.minecraft.world.World
+import com.minalien.mffs.items.upgrades.ItemUpgrade
 
 /**
  * Field Shape module providing a Cube forcefield.
  */
-object ItemFieldShapeCube extends Item with ForcefieldShape {
+object ItemFieldShapeCube extends ItemUpgrade with ForcefieldShape {
 	setCreativeTab(MFFSCreativeTab)
 	setUnlocalizedName("fieldShapeCube")
 	setTextureName("mffs:fieldshapes/cube")
-
-	override def onItemUse(itemStack: ItemStack, player: EntityPlayer, world: World, x: Int, y: Int, z: Int, side: Int, nX: Float, nY: Float, nZ: Float): Boolean = {
-		if(world.isRemote)
-			return true
-
-		val block = world.getBlock(x, y, z)
-
-		if(block == BlockProjector) {
-			val tile = world.getTileEntity(x, y, z).asInstanceOf[TileEntityProjector]
-
-			if(tile.fieldShapeStack == null) {
-				tile.fieldShapeStack = new ItemStack(ItemFieldShapeCube)
-
-				itemStack.stackSize -= 1
-			}
-		}
-
-		world.isRemote
-	}
 
 	/**
 	 * @param radius Distance from (not including) the center block for the field on each axis.

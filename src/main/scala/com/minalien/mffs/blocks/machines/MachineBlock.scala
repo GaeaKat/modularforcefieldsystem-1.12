@@ -1,12 +1,10 @@
 package com.minalien.mffs.blocks.machines
 
-import net.minecraft.block.material.Material
-import net.minecraft.block.Block
 import com.minalien.mffs.core.MFFSCreativeTab
-import net.minecraft.item.ItemStack
-import net.minecraft.tileentity.TileEntity
+import com.minalien.mffs.machines.MFFSMachine
+import net.minecraft.block.Block
+import net.minecraft.block.material.Material
 import net.minecraft.world.World
-import net.minecraft.client.renderer.texture.IIconRegister
 
 /**
  * Base class containing functionality common to all machines in MFFS.
@@ -32,5 +30,26 @@ abstract class MachineBlock(blockName: String) extends Block(Material.iron) {
 	/**
 	 * @return TileEntity class associated with this Machine.
 	 */
-	def getTileEntityClass: Class[_ <: TileEntity] = null
+	def getTileEntityClass: Class[_ <: MFFSMachine] = null
+
+	/**
+	 * Ensures that all upgrades are dropped from the machine.
+	 *
+	 * @param world     World the block was placed in.
+	 * @param x         X Coordinate of the block.
+	 * @param y         Y Coordinate of the block.
+	 * @param z         Z Coordinate of the block.
+	 * @param block     Block that was broken.
+	 * @param unknown   Unknown.
+	 */
+	override def breakBlock(world: World, x: Int, y: Int, z: Int, block: Block, unknown: Int) {
+		world.getTileEntity(x, y, z) match {
+			case machine: MFFSMachine =>
+				machine.dropUpgrades()
+
+			case _ =>
+		}
+
+		super.breakBlock(world, x, y, z, block, unknown)
+	}
 }

@@ -1,9 +1,7 @@
 package com.minalien.mffs.blocks.machines
 
-import com.minalien.mffs.items.upgrades.{ItemSpongeUpgrade, ItemBlockBreakerUpgrade}
-import net.minecraft.block.Block
-import net.minecraft.tileentity.TileEntity
 import com.minalien.mffs.machines.TileEntityProjector
+import net.minecraft.block.Block
 import net.minecraft.world.World
 
 /**
@@ -13,7 +11,7 @@ object BlockProjector extends MachineBlock("projector") {
 	/**
 	 * @return TileEntity class associated with this Machine.
 	 */
-	override def getTileEntityClass: Class[_ <: TileEntity] = classOf[TileEntityProjector]
+	override def getTileEntityClass = classOf[TileEntityProjector]
 
 	/**
 	 * Listens for a neighbor block to change to notify TileEntity of possible redstone state change.
