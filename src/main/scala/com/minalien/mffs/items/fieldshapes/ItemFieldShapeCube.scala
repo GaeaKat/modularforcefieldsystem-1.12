@@ -1,7 +1,11 @@
 package com.minalien.mffs.items.fieldshapes
 
+import com.minalien.mffs.blocks.machines.BlockProjector
 import com.minalien.mffs.core.MFFSCreativeTab
-import net.minecraft.item.Item
+import com.minalien.mffs.machines.TileEntityProjector
+import net.minecraft.entity.player.EntityPlayer
+import net.minecraft.item.{ItemStack, Item}
+import net.minecraft.world.World
 
 /**
  * Field Shape module providing a Cube forcefield.
@@ -10,6 +14,25 @@ object ItemFieldShapeCube extends Item with ForcefieldShape {
 	setCreativeTab(MFFSCreativeTab)
 	setUnlocalizedName("fieldShapeCube")
 	setTextureName("mffs:fieldshapes/cube")
+
+	override def onItemUse(itemStack: ItemStack, player: EntityPlayer, world: World, x: Int, y: Int, z: Int, side: Int, nX: Float, nY: Float, nZ: Float): Boolean = {
+		if(world.isRemote)
+			return true
+
+		val block = world.getBlock(x, y, z)
+
+		if(block == BlockProjector) {
+			val tile = world.getTileEntity(x, y, z).asInstanceOf[TileEntityProjector]
+
+			if(tile.fieldShapeStack == null) {
+				tile.fieldShapeStack = new ItemStack(ItemFieldShapeCube)
+
+				itemStack.stackSize -= 1
+			}
+		}
+
+		world.isRemote
+	}
 
 	/**
 	 * @param radius Distance from (not including) the center block for the field on each axis.
@@ -23,11 +46,6 @@ object ItemFieldShapeCube extends Item with ForcefieldShape {
 		val radiusZ = radius._3
 
 		// Calculate the size of the array needed for the coords.
-		/*val outArr = new Array[(Int, Int, Int)](
-			((((radiusX * 2) + 1) * (radiusX * 2) + 1) +
-			(((radiusX * 2) + 1) * (radiusX * 2) + 1) +
-			(((radiusX * 2) + 1) * (radiusX * 2) + 1)) * 2
-		)*/
 		val coordList = new collection.mutable.ListBuffer[(Int, Int, Int)]
 
 		for(y <- -radiusY to radiusY) {

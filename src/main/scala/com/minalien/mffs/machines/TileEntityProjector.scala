@@ -20,7 +20,7 @@ class TileEntityProjector extends MFFSMachine {
 	/**
 	 * ItemStack providing the Field Shape.
 	 */
-	val fieldShapeStack: ItemStack = new ItemStack(ItemFieldShapeCube)
+	var fieldShapeStack: ItemStack = null
 
 	/**
 	 * A Tuple representing the offset of the field on each axis.
@@ -30,7 +30,7 @@ class TileEntityProjector extends MFFSMachine {
 	/**
 	 * A Tuple representing the radius of the field on each axis.
 	 */
-	var fieldRadius = (5, 5, 5)
+	var fieldRadius = (3, 3, 3)
 
 	/**
 	 * Whether or not the projector is operating in "Break" mode, in which case it will all blocks instead of only replacing air blocks
@@ -48,7 +48,7 @@ class TileEntityProjector extends MFFSMachine {
 	 * Creates the forcefield cube, adding the coordinates of any placed BlockForcefield instances to fieldBlockCoords.
 	 */
 	def activate() {
-		if(isActive)
+		if(isActive || fieldShapeStack == null)
 			return
 
 		state = MachineState.Active
@@ -58,18 +58,14 @@ class TileEntityProjector extends MFFSMachine {
 		val offsetZ = fieldOffset._3
 
 		def setFieldBlock(x: Int, y: Int, z: Int) {
-			val blockX = offsetX + x
-			val blockY = offsetY + y
-			val blockZ = offsetZ + z
-
-			val block = worldObj.getBlock(blockX, blockY, blockZ)
+			val block = worldObj.getBlock(x, y, z)
 			val isFluid = block.isInstanceOf[IFluidBlock] || block == Blocks.water || block == Blocks.lava || block == Blocks.flowing_water || block == Blocks.flowing_lava
 
-			if(block.isAir(worldObj, blockX, blockY, blockZ) ||
-					(isInBreakMode && block.getBlockHardness(worldObj, blockX, blockY, blockZ) != -1) ||
+			if(block.isAir(worldObj, x, y, z) ||
+					(isInBreakMode && block.getBlockHardness(worldObj, x, y, z) != -1) ||
 					(isInSpongeMode && isFluid)) {
-				worldObj.setBlock(blockX, blockY, blockZ, BlockForcefield, 0, 2)
-				fieldBlockCoords.append((blockX, blockY, blockZ))
+				worldObj.setBlock(x, y, z, BlockForcefield, 0, 2)
+				fieldBlockCoords.append((x, y, z))
 			}
 		}
 
