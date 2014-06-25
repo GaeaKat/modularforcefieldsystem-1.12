@@ -18,21 +18,19 @@ buildscript {
 apply plugin: 'scala'
 apply plugin: 'forge'
 
-version = "3.0"
+version = "3.0-ALPHA"
 group= "com.minalien.mffs"
-archivesBaseName = "ModularForcefieldSystem-1.7.2"
+archivesBaseName = "ModularForcefieldSystem-1.7.10"
 
 repositories {
 }
 
 minecraft {
-    version = "1.7.2-10.12.1.1112"
+    version = "1.7.10_pre4-10.12.2.1138-prerelease"
     assetDir = "eclipse/assets"
 }
 
 dependencies {
-    compile 'org.mozilla:rhino:1.7R4'
-    compile 'com.google.code.gson:gson:2.2.4'
 }
 
 processResources

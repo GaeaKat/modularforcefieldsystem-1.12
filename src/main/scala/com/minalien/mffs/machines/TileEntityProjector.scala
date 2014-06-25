@@ -2,6 +2,7 @@ package com.minalien.mffs.machines
 
 import com.minalien.core.nbt.NBTUtility
 import com.minalien.mffs.blocks.BlockForcefield
+import com.minalien.mffs.core.MFFSConfig
 import com.minalien.mffs.items.fieldshapes.ForcefieldShape
 import net.minecraft.init.Blocks
 import net.minecraft.item.ItemStack
@@ -15,9 +16,14 @@ import scala.collection.mutable.ArrayBuffer
  */
 class TileEntityProjector extends MFFSMachine(4) {
 	/**
-	 * ArrayBuffer containing a list of tuples representing the tile coordinates for each forcefield block owned by the Projector.
+	 * Contains a list of tuples representing the tile coordinates for each forcefield block owned by the Projector.
 	 */
 	val fieldBlockCoords = new collection.mutable.ArrayBuffer[(Int, Int, Int)]
+
+	/**
+	 * Contains a list of tuples representing the tile coordsinates for each forcefield block the Projector still needs to spawn.
+	 */
+	val fieldBlockGenCoords = new collection.mutable.ArrayBuffer[(Int, Int, Int)]
 
 	/**
 	 * ItemStack providing the Field Shape.
@@ -32,7 +38,7 @@ class TileEntityProjector extends MFFSMachine(4) {
 	/**
 	 * A Tuple representing the radius of the field on each axis.
 	 */
-	var fieldRadius = (3, 3, 3)
+	var fieldRadius = (128, 128, 128)
 
 	/**
 	 * Whether or not the projector is operating in "Break" mode, in which case it will all blocks instead of only replacing air blocks
@@ -45,6 +51,40 @@ class TileEntityProjector extends MFFSMachine(4) {
 	 * any possible new Field blocks.
 	 */
 	var isInSpongeMode = false
+
+	/**
+	 * Every tick, begins spawning in an appropriate number of blocks from the fieldBlockGenCoords list.
+	 */
+	override def updateEntity() {
+		if(worldObj.isRemote)
+			return
+
+		def setFieldBlock(coord: (Int, Int, Int)) {
+			val x = coord._1
+			val y = coord._2
+			val z = coord._3
+
+			val block = worldObj.getBlock(x, y, z)
+			val isFluid = block.isInstanceOf[IFluidBlock] || block == Blocks.water || block == Blocks.lava || block == Blocks.flowing_water || block == Blocks.flowing_lava
+
+			if(block.isAir(worldObj, x, y, z) ||
+					(isInBreakMode && block.getBlockHardness(worldObj, x, y, z) != -1) ||
+					(isInSpongeMode && isFluid)) {
+				worldObj.setBlock(x, y, z, BlockForcefield, 0, 2)
+				fieldBlockCoords.append((x, y, z))
+			}
+		}
+
+		val blocksToGen = math.min(MFFSConfig.maxFieldBlocksGeneratedPerTick, fieldBlockGenCoords.size)
+
+		if(blocksToGen <= 0)
+			return
+
+		val endIdx = fieldBlockGenCoords.size - blocksToGen
+
+		for(idx <- (fieldBlockGenCoords.size - 1) to endIdx by -1)
+			setFieldBlock(fieldBlockGenCoords.remove(idx))
+	}
 
 	/**
 	 * Adds the Field Shape stack
@@ -96,18 +136,6 @@ class TileEntityProjector extends MFFSMachine(4) {
 		val offsetY = fieldOffset._2
 		val offsetZ = fieldOffset._3
 
-		def setFieldBlock(x: Int, y: Int, z: Int) {
-			val block = worldObj.getBlock(x, y, z)
-			val isFluid = block.isInstanceOf[IFluidBlock] || block == Blocks.water || block == Blocks.lava || block == Blocks.flowing_water || block == Blocks.flowing_lava
-
-			if(block.isAir(worldObj, x, y, z) ||
-					(isInBreakMode && block.getBlockHardness(worldObj, x, y, z) != -1) ||
-					(isInSpongeMode && isFluid)) {
-				worldObj.setBlock(x, y, z, BlockForcefield, 0, 2)
-				fieldBlockCoords.append((x, y, z))
-			}
-		}
-
 		val shape = fieldShapeStack.getItem.asInstanceOf[ForcefieldShape]
 		if(shape != null) {
 			for(coord <- shape.getRelativeCoords(fieldRadius)) {
@@ -116,7 +144,7 @@ class TileEntityProjector extends MFFSMachine(4) {
 				val z = zCoord + offsetZ + coord._3
 
 				if(y >= 0)
-					setFieldBlock(x, y, z)
+					fieldBlockGenCoords.append((x, y, z))
 			}
 		}
 	}
