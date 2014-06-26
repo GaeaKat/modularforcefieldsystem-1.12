@@ -75,7 +75,7 @@ class TileEntityProjector extends MFFSMachine(4) {
 			}
 		}
 
-		val blocksToGen = math.min(MFFSConfig.maxFieldBlocksGeneratedPerTick, fieldBlockGenCoords.size)
+		val blocksToGen = math.min(MFFSConfig.machines.maxFieldBlocksGeneratedPerTick, fieldBlockGenCoords.size)
 
 		if(blocksToGen <= 0)
 			return

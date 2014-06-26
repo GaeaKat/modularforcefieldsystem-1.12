@@ -1,5 +1,8 @@
 itemGroup.MFFS=Modular Forcefield System
 
+mffs.gui.config.title=Modular Forcefield System
+mffs.gui.config.category.machines=Machines
+
 tile.monazitOre.name=Monazit Ore
 tile.forciciumBlock.name=Forcicium Block
 tile.projector.name=Field Projector

@@ -19,7 +19,7 @@ import net.minecraft.item.Item
  *
  * @author Cassy 'Minalien' Murray
  */
-@Mod(modid = ModularForcefieldSystem.MOD_ID, name = "Modular Forcefield System", modLanguage = "scala")
+@Mod(modid = ModularForcefieldSystem.MOD_ID, name = "Modular Forcefield System", modLanguage = "scala", guiFactory = "com.minalien.mffs.client.gui.MFFSGuiFactory")
 object ModularForcefieldSystem {
 	/**
 	 * MFFS Mod ID.
@@ -33,6 +33,8 @@ object ModularForcefieldSystem {
 	 */
 	@EventHandler
 	def preInit(eventArgs: FMLPreInitializationEvent) {
+		MFFSConfig.initialize(eventArgs.getSuggestedConfigurationFile)
+
 		registerItems()
 		registerBlocks()
 	}
