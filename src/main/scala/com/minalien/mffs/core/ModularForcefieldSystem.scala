@@ -7,9 +7,11 @@ import com.minalien.mffs.items.upgrades.{ItemSpongeUpgrade, ItemBlockBreakerUpgr
 import com.minalien.mffs.items.{ItemCard, ItemForcicium}
 import com.minalien.mffs.recipes.MFFSRecipes
 import com.minalien.mffs.world.MonazitOreWorldGenerator
-import cpw.mods.fml.common.Mod
+import cpw.mods.fml.client.event.ConfigChangedEvent.OnConfigChangedEvent
+import cpw.mods.fml.common.{FMLCommonHandler, Mod}
 import cpw.mods.fml.common.Mod.EventHandler
 import cpw.mods.fml.common.event.{FMLInitializationEvent, FMLPreInitializationEvent}
+import cpw.mods.fml.common.eventhandler.SubscribeEvent
 import cpw.mods.fml.common.registry.GameRegistry
 import net.minecraft.block.Block
 import net.minecraft.item.Item
@@ -49,6 +51,16 @@ object ModularForcefieldSystem {
 		GameRegistry.registerWorldGenerator(MonazitOreWorldGenerator, 0)
 
 		MFFSRecipes.registerRecipes()
+
+		FMLCommonHandler.instance().bus().register(this)
+	}
+
+	@SubscribeEvent
+	def onConfigChanged(eventArgs: OnConfigChangedEvent) {
+		if(eventArgs.modID == ModularForcefieldSystem.MOD_ID) {
+			MFFSConfig.configFile.save()
+			MFFSConfig.sync()
+		}
 	}
 
 	/**
