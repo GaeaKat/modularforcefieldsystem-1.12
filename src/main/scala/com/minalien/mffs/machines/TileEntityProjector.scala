@@ -2,11 +2,12 @@ package com.minalien.mffs.machines
 
 import com.minalien.core.nbt.NBTUtility
 import com.minalien.mffs.blocks.BlockForcefield
-import com.minalien.mffs.core.MFFSConfig
+import com.minalien.mffs.core.{ModularForcefieldSystem, MFFSConfig}
 import com.minalien.mffs.items.fieldshapes.ForcefieldShape
 import net.minecraft.init.Blocks
 import net.minecraft.item.ItemStack
 import net.minecraft.nbt.NBTTagCompound
+import net.minecraftforge.common.ForgeChunkManager
 import net.minecraftforge.fluids.IFluidBlock
 
 import scala.collection.mutable.ArrayBuffer
@@ -58,6 +59,11 @@ class TileEntityProjector extends MFFSMachine(4) {
 	var isInSpongeMode = false
 
 	/**
+	 * Chunk Ticket used for the projector's chunkloading capabilities.
+	 */
+	var chunkTicket: ForgeChunkManager.Ticket = null
+
+	/**
 	 * Every tick, begins spawning in an appropriate number of blocks from the fieldBlockGenCoords list.
 	 */
 	override def updateEntity() {
@@ -65,9 +71,9 @@ class TileEntityProjector extends MFFSMachine(4) {
 			return
 
 		def setFieldBlock(coord: (Int, Int, Int)) {
-			val x = coord._1
-			val y = coord._2
-			val z = coord._3
+			val x = xCoord + fieldOffset._1 + coord._1
+			val y = yCoord + fieldOffset._2 + coord._2
+			val z = zCoord + fieldOffset._3 + coord._3
 
 			val block = worldObj.getBlock(x, y, z)
 			val isFluid = block.isInstanceOf[IFluidBlock] || block == Blocks.water || block == Blocks.lava || block == Blocks.flowing_water || block == Blocks.flowing_lava
@@ -159,40 +165,26 @@ class TileEntityProjector extends MFFSMachine(4) {
 		if(isActive || fieldShapeStack == null || worldObj.isRemote)
 			return
 
-		state = MachineState.Active
+		if(chunkTicket == null)
+			chunkTicket = ForgeChunkManager.requestTicket(ModularForcefieldSystem, worldObj, ForgeChunkManager.Type.NORMAL)
 
-		val offsetX = fieldOffset._1
-		val offsetY = fieldOffset._2
-		val offsetZ = fieldOffset._3
+		if(chunkTicket == null)
+			return
+
+
+
+		state = MachineState.Active
 
 		val shape = fieldShapeStack.getItem.asInstanceOf[ForcefieldShape]
 		if(shape != null) {
 			fieldBlockGenCoords.clear()
 			fieldBlockCoords.clear()
 
-			for(coord <- shape.getRelativeCoords(fieldRadius)) {
-				val x = xCoord + offsetX + coord._1
-				val y = yCoord + offsetY + coord._2
-				val z = zCoord + offsetZ + coord._3
-
-				if(y >= 0)
-					fieldBlockGenCoords.append((x, y, z))
-			}
+			fieldBlockGenCoords.appendAll(shape.getRelativeCoords(fieldRadiuss))
 
 			fieldBlockInternalCoords.clear()
 			if(isInSpongeMode)
 				fieldBlockInternalCoords.appendAll(shape.getRelativeInternalCoords(fieldRadius))
-			/*{
-
-				for(coord <- shape.getRelativeInternalCoords(fieldRadius)) {
-					val x = xCoord + offsetX + coord._1
-					val y = yCoord + offsetY + coord._2
-					val z = zCoord + offsetZ + coord._3
-
-					if(y >= 0)
-						fieldBlockInternalCoords.append((x, y, z))
-				}
-			}*/
 		}
 	}
 
@@ -202,6 +194,11 @@ class TileEntityProjector extends MFFSMachine(4) {
 	def deactivate() {
 		if(!isActive || worldObj.isRemote)
 			return
+
+		if(chunkTicket != null) {
+			ForgeChunkManager.releaseTicket(chunkTicket)
+			chunkTicket = null
+		}
 
 		state = MachineState.Inactive
 
