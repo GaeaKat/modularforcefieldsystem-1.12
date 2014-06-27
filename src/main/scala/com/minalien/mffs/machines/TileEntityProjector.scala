@@ -171,8 +171,6 @@ class TileEntityProjector extends MFFSMachine(4) {
 		if(chunkTicket == null)
 			return
 
-
-
 		state = MachineState.Active
 
 		val shape = fieldShapeStack.getItem.asInstanceOf[ForcefieldShape]
@@ -180,7 +178,7 @@ class TileEntityProjector extends MFFSMachine(4) {
 			fieldBlockGenCoords.clear()
 			fieldBlockCoords.clear()
 
-			fieldBlockGenCoords.appendAll(shape.getRelativeCoords(fieldRadiuss))
+			fieldBlockGenCoords.appendAll(shape.getRelativeCoords(fieldRadius))
 
 			fieldBlockInternalCoords.clear()
 			if(isInSpongeMode)
