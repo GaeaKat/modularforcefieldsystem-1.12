@@ -1,1 +1,2 @@
+language: scala
 before_install: gradle setupCIWorkspace
