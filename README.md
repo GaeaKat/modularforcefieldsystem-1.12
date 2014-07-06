@@ -2,6 +2,10 @@ Modular Forcefield System
 =========================
 Modular Forcefield System is a tech mod for Minecraft adding forcefields and several other modular base defense systems.
 
+Latest Build: [![Build Status](https://drone.io/github.com/Minalien/ModularForceFieldSystem/status.png)](https://drone.io/github.com/Minalien/ModularForceFieldSystem/latest)
+Latest Download: [https://drone.io/github.com/Minalien/ModularForceFieldSystem/files](http://www.curse.com/mc-mods/minecraft/modular-forcefield-system)
+Recommended Downloads: [http://www.curse.com/mc-mods/minecraft/modular-forcefield-system](http://www.curse.com/mc-mods/minecraft/modular-forcefield-system)
+
 Credits
 -------
 Originally developed by Thunderdark & Matchlighter.
