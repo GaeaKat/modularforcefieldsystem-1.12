@@ -1,12 +1,9 @@
 .gradle/
 build/
 eclipse/
-gradle/
 out/
 src/api/
 
 *.iml
 *.ipr
 *.iws
-gradlew
-gradlew.bat
