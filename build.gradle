@@ -18,7 +18,14 @@ buildscript {
 apply plugin: 'scala'
 apply plugin: 'forge'
 
-version = "3.0-ALPHA"
+project.ext.buildnumber = "CUSTOM_BUILD"
+
+if(System.getenv().DRONE_BUILD_NUMBER)
+{
+	project.buildnumber = System.getenv().DRONE_BUILD_NUMBER
+}
+
+version = "3.0-ALPHA-$project.buildnumber"
 group= "com.minalien.mffs"
 archivesBaseName = "ModularForcefieldSystem-1.7.10"
 
