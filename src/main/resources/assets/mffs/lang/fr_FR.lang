@@ -1,0 +1,12 @@
+itemGroup.MFFS=Modular Forcefield System
+
+tile.monazitOre.name=Minerai de Monazit
+tile.forciciumBlock.name=Bloc de Forcicium
+tile.projector.name=Projecteur de champ
+tile.forcefield.name=Champ de force
+
+item.forcicium.name=Forcicium
+item.card.name=Carte
+item.fieldShapeCube.name=Forme: Cube
+item.upgradeBlockBreaker.name=Amélioration: Casseur de Bloc
+item.upgradeSponge.name=Amélioration: Eponge
