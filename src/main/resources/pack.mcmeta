@@ -8,6 +8,11 @@
 			"name": "English",
 			"region": "US",
 			"bidirectional": false
+		},
+		"fr_FR": {
+			"name": "Français",
+			"region": "FR",
+			"bidirectional": false
 		}
 	}
 }
