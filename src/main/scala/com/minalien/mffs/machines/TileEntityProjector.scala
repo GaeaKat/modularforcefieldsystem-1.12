@@ -7,15 +7,17 @@ import com.minalien.mffs.items.fieldshapes.ForcefieldShape
 import net.minecraft.init.Blocks
 import net.minecraft.item.ItemStack
 import net.minecraft.nbt.NBTTagCompound
+import net.minecraft.world.World
 import net.minecraftforge.common.ForgeChunkManager
+import net.minecraftforge.common.ForgeChunkManager.LoadingCallback
+import net.minecraftforge.common.ForgeChunkManager.Ticket
 import net.minecraftforge.fluids.IFluidBlock
-
 import scala.collection.mutable.ArrayBuffer
 
 /**
  * Forcefield Projector.
  */
-class TileEntityProjector extends MFFSMachine(4) {
+class TileEntityProjector extends MFFSMachine(4) with LoadingCallback {
 	/**
 	 * Contains a list of tuples representing the tile coordinates for each forcefield block owned by the Projector.
 	 */
@@ -166,7 +168,11 @@ class TileEntityProjector extends MFFSMachine(4) {
 			return
 
 		if(chunkTicket == null)
+		{
+			ForgeChunkManager.setForcedChunkLoadingCallback(ModularForcefieldSystem, this)
 			chunkTicket = ForgeChunkManager.requestTicket(ModularForcefieldSystem, worldObj, ForgeChunkManager.Type.NORMAL)
+		}
+
 
 		if(chunkTicket == null)
 			return
@@ -273,4 +279,5 @@ class TileEntityProjector extends MFFSMachine(4) {
 				fieldBlockCoords.append(NBTUtility.read3IntTupleFromNBT(coordListTag.getCompoundTag(s"tile$idx")))
 		}
 	}
+  override def ticketsLoaded(tickets: java.util.List[Ticket], world:World) = {}
 }
