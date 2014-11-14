@@ -24,22 +24,17 @@ object ItemFieldShapeCube extends ItemUpgrade with ForcefieldShape {
 
 		val coordList = new collection.mutable.ListBuffer[(Int, Int, Int)]
 
-		for(y <- -radiusY to radiusY) {
-			for(z <- -radiusZ to radiusZ) {
+		for(y <- -radiusY to radiusY ; z <- -radiusZ to radiusZ) {
 				coordList.append((radiusX, y, z))
 				coordList.append((-radiusX, y, z))
-			}
 		}
 
-		for(x <- -radiusX to radiusX) {
-			for(z <- -radiusZ to radiusZ) {
+		for(x <- -radiusX to radiusX ; z <- -radiusZ to radiusZ) {
 				coordList.append((x, radiusY, z))
 				coordList.append((x, -radiusY, z))
-			}
 		}
 
-		for(x <- -radiusX to radiusX) {
-			for(y <- -radiusY to radiusY) {
+		for(x <- -radiusX to radiusX ; y <- -radiusY to radiusY) {
 				coordList.append((x, y, radiusZ))
 				coordList.append((x, y, -radiusZ))
 			}
@@ -61,9 +56,7 @@ object ItemFieldShapeCube extends ItemUpgrade with ForcefieldShape {
 
 		val coordList = new collection.mutable.ListBuffer[(Int, Int, Int)]
 
-		for(x <- -radiusX to radiusX)
-			for(y <- -radiusY to radiusY)
-				for(z <- -radiusZ to radiusZ)
+		for(x <- -radiusX to radiusX ; y <- -radiusY to radiusY ; z <- -radiusZ to radiusZ)
 					coordList.append((x, y, z))
 
 		coordList.toArray
