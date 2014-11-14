@@ -37,7 +37,6 @@ object ItemFieldShapeCube extends ItemUpgrade with ForcefieldShape {
 		for(x <- -radiusX to radiusX ; y <- -radiusY to radiusY) {
 				coordList.append((x, y, radiusZ))
 				coordList.append((x, y, -radiusZ))
-			}
 		}
 
 		coordList.toArray
