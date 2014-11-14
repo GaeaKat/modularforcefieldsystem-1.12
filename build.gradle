@@ -20,9 +20,9 @@ apply plugin: 'forge'
 
 project.ext.buildnumber = "CUSTOM_BUILD"
 
-if(System.getenv().DRONE_BUILD_NUMBER)
+if(System.getenv("BUILD_NUMBER"))
 {
-	project.buildnumber = System.getenv().DRONE_BUILD_NUMBER
+	project.buildnumber = System.getenv("BUILD_NUMBER")
 }
 
 version = "3.0-ALPHA-$project.buildnumber"
@@ -34,7 +34,7 @@ repositories {
 
 minecraft {
     version = "1.7.10-10.13.0.1162"
-    assetDir = "eclipse/assets"
+    runDir = "eclipse"
 }
 
 dependencies {
