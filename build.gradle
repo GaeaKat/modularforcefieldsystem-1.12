@@ -32,6 +32,8 @@ task copyApi(type: Copy, dependsOn: "cloneGitRepo") {
             from "temp/src/main"
             into "src/api"
             includeEmptyDirs=true
+    mustRunAfter "deobfBinJar"
+    mustRunAfter "repackMinecraft"
 }
 tasks.setupDevWorkspace.dependsOn copyApi
 tasks.setupDecompWorkspace.dependsOn copyApi
