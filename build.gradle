@@ -35,6 +35,7 @@ task copyApi(type: Copy, dependsOn: "cloneGitRepo") {
 }
 tasks.setupDevWorkspace.dependsOn copyApi
 tasks.setupDecompWorkspace.dependsOn copyApi
+tasks.setupCIWorkspace.dependsOn copyApi
 project.ext.buildnumber = "CUSTOM_BUILD"
 
 if(System.getenv("BUILD_NUMBER"))
