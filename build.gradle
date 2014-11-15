@@ -12,11 +12,27 @@ buildscript {
     }
     dependencies {
         classpath 'net.minecraftforge.gradle:ForgeGradle:1.2-SNAPSHOT'
+        classpath 'org.ajoberstar:gradle-git:0.2.3'
     }
 }
 
 apply plugin: 'scala'
 apply plugin: 'forge'
+import org.ajoberstar.gradle.git.tasks.*
+
+task cloneGitRepo(type: GitClone, dependsOn: "extractUserDev") {
+    def destination = file("temp")
+    uri = "https://github.com/CoFH/RedstoneFlux-API.git"
+    destinationPath = destination
+    bare = false
+    enabled = !destination.exists() //to clone only once
+}
+
+task copyApi(type: Copy, dependsOn: "cloneGitRepo") {
+            from "temp/src/main"
+            into "src/api"
+            includeEmptyDirs=true
+}
 
 project.ext.buildnumber = "CUSTOM_BUILD"
 
