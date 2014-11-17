@@ -3,7 +3,7 @@ package com.minalien.mffs.core
 import com.minalien.mffs.blocks.machines.{BlockProjector, MachineBlock}
 import com.minalien.mffs.blocks.{BlockForcefield, BlockForciciumStorage, BlockMonazitOre}
 import com.minalien.mffs.items.fieldshapes.{ItemFieldShapeSphere, ItemFieldShapeCube}
-import com.minalien.mffs.items.upgrades.{ItemSpongeUpgrade, ItemBlockBreakerUpgrade}
+import com.minalien.mffs.items.upgrades.{MachineUpgrade, ItemSpongeUpgrade, ItemBlockBreakerUpgrade}
 import com.minalien.mffs.items.{ItemCard, ItemForcicium}
 import com.minalien.mffs.recipes.MFFSRecipes
 import com.minalien.mffs.world.MonazitOreWorldGenerator
@@ -70,6 +70,7 @@ object ModularForcefieldSystem {
 		def registerItem(item: Item) {
 			GameRegistry.registerItem(item, item.getUnlocalizedName, MOD_ID)
 		}
+
 
 		// Basic Items
 		registerItem(ItemForcicium)

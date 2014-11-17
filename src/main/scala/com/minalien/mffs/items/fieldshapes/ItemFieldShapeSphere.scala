@@ -20,12 +20,14 @@ object ItemFieldShapeSphere extends ItemUpgrade with ForcefieldShape
    *         should attempt to place forcefield blocks.
    */
   override def getRelativeCoords(radius: (Int, Int, Int)): Array[(Int, Int, Int)] = {
-    val MList=radius._1+radius._1
-    val NList=radius._2+radius._2
+    val (xRadius,yRadius,zRadius)=radius
+    val MList=xRadius*2*2*2
+    val NList=yRadius*2*2*2
+
     val coordList = new collection.mutable.ListBuffer[(Int, Int, Int)]
     for (m  <- 0 to MList;n<-0 to NList)
     {
-        coordList.append(((sin(Math.PI*m/MList)*cos(2*Math.PI*n/NList)*radius._1).toInt,(sin(Math.PI*m/MList)*sin(2*Math.PI*n/NList)*radius._2).toInt,(cos(Math.PI*m/MList)*radius._3).toInt))
+        coordList.append(((sin(Math.PI*m/MList)*cos(2*Math.PI*n/NList)*xRadius).toInt,(sin(Math.PI*m/MList)*sin(2*Math.PI*n/NList)*yRadius).toInt,(cos(Math.PI*m/MList)*zRadius).toInt))
     }
     coordList.toArray
   }

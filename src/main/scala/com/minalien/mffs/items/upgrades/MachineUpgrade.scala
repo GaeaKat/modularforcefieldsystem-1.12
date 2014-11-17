@@ -24,4 +24,7 @@ trait MachineUpgrade {
 	 * @param tileEntity Tile entity being downgraded.
 	 */
 	def removeUpgrade(tileEntity: TileEntity)
+
+	def canStack: Boolean
+	def stackSize: Int
 }

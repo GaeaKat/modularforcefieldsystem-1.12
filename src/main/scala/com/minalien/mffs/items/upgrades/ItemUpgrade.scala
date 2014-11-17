@@ -11,7 +11,7 @@ import net.minecraft.world.World
  * Base class for items that implement Forcefield Shape modules.
  */
 abstract class ItemUpgrade extends Item {
-	setMaxStackSize(1)
+	//setMaxStackSize(1)
 
 	/**
 	 * Allows the Upgrade item to be inserted into a Projector via right-click.

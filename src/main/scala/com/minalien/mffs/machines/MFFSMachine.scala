@@ -1,5 +1,6 @@
 package com.minalien.mffs.machines
 
+import cofh.api.energy.{EnergyStorage, IEnergyHandler}
 import com.minalien.mffs.items.upgrades.MachineUpgrade
 import com.minalien.mffs.machines.MachineState._
 import net.minecraft.entity.item.EntityItem
@@ -7,6 +8,7 @@ import net.minecraft.item.ItemStack
 import net.minecraft.nbt.NBTTagCompound
 import net.minecraft.tileentity.TileEntity
 import net.minecraft.world.World
+import net.minecraftforge.common.util.ForgeDirection
 
 import scala.util.Random
 
@@ -15,7 +17,7 @@ import scala.util.Random
  *
  * @param maxUpgrades Maximum number of upgrades the machine can hold.
  */
-abstract class MFFSMachine(val maxUpgrades: Int) extends TileEntity {
+abstract class MFFSMachine(val maxUpgrades: Int) extends TileEntity  with IEnergyHandler{
 	/**
 	 * Stores a list of Upgrades equipped to the machine.
 	 */
@@ -25,7 +27,7 @@ abstract class MFFSMachine(val maxUpgrades: Int) extends TileEntity {
 	 * Tracks the current state of the machine.
 	 */
 	var state: MachineState = MachineState.Inactive
-
+	val storage: EnergyStorage = new EnergyStorage(32000)
 	/**
 	 * @return Whether or not the machine is currently active, based on its state.
 	 */
@@ -55,10 +57,22 @@ abstract class MFFSMachine(val maxUpgrades: Int) extends TileEntity {
 					false
 
 				// Make sure the upgrade hasn't already been inserted
-				for(upgradeStack <- upgrades)
-					if(upgradeStack.isItemEqual(itemStack))
-						return false
+				for(upgradeStack <- upgrades) {
+					if (upgradeStack.isItemEqual(itemStack))
+					{
+						if (upgrade.canStack)
+						{
+							if(upgradeStack.stackSize>=upgrade.stackSize)
+								return false
+							upgradeStack.stackSize+=1
+							upgrade.applyUpgrade(this)
+							return true
 
+						}
+						return false
+					}
+
+				}
 				// Insert the item!
 				upgrades.append(new ItemStack(upgrade))
 				upgrade.applyUpgrade(this)
@@ -131,6 +145,7 @@ abstract class MFFSMachine(val maxUpgrades: Int) extends TileEntity {
 		}
 
 		tagCompound.setTag("upgrades", upgradesTag)
+		storage.writeToNBT(tagCompound)
 	}
 
 	/**
@@ -156,6 +171,27 @@ abstract class MFFSMachine(val maxUpgrades: Int) extends TileEntity {
 			}
 
 			upgrades.append(itemStack)
+			storage.readFromNBT(tagCompound)
 		}
 	}
+
+	override def receiveEnergy(from: ForgeDirection, maxReceive: Int, simulate: Boolean): Int ={
+		storage.receiveEnergy(maxReceive,simulate)
+	}
+
+	override def extractEnergy(from: ForgeDirection, maxExtract: Int, simulate: Boolean): Int = {
+		storage.extractEnergy(maxExtract,simulate)
+	}
+
+	override def getEnergyStored(from: ForgeDirection): Int =
+	{
+		storage.getEnergyStored
+	}
+
+	override def getMaxEnergyStored(from: ForgeDirection): Int =
+	{
+		storage.getMaxEnergyStored
+	}
+
+	override def canConnectEnergy(from: ForgeDirection): Boolean =	true
 }

@@ -11,6 +11,7 @@ import net.minecraft.world.World
 import net.minecraftforge.common.ForgeChunkManager
 import net.minecraftforge.common.ForgeChunkManager.LoadingCallback
 import net.minecraftforge.common.ForgeChunkManager.Ticket
+import net.minecraftforge.common.util.ForgeDirection
 import net.minecraftforge.fluids.IFluidBlock
 import scala.collection.mutable.ArrayBuffer
 

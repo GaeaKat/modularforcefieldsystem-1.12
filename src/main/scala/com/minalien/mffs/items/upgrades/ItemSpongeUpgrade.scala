@@ -11,7 +11,7 @@ object ItemSpongeUpgrade extends ItemUpgrade with MachineUpgrade {
 	setCreativeTab(MFFSCreativeTab)
 	setUnlocalizedName("upgradeSponge")
 	setTextureName("mffs:upgrades/sponge")
-
+	setMaxStackSize(this.stackSize)
 	/**
 	 * @return A list of valid TileEntity classes the Upgrade can apply to.
 	 */
@@ -40,4 +40,8 @@ object ItemSpongeUpgrade extends ItemUpgrade with MachineUpgrade {
 				projector.isInSpongeMode = false
 		}
 	}
+
+	override def canStack: Boolean = false
+
+	override def stackSize: Int = 1
 }

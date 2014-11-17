@@ -53,7 +53,7 @@ repositories {
 }
 
 minecraft {
-    version = "1.7.10-10.13.0.1162"
+    version = "1.7.10-10.13.2.1236"
     runDir = "eclipse"
 }
 
