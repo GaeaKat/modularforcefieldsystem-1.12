@@ -10,6 +10,7 @@ object ItemFieldShapeCube extends ItemUpgrade with ForcefieldShape {
 	setCreativeTab(MFFSCreativeTab)
 	setUnlocalizedName("fieldShapeCube")
 	setTextureName("mffs:fieldshapes/cube")
+	setMaxStackSize(1)
 
 	/**
 	 * @param radius Distance from (not including) the center block for the field on each axis.

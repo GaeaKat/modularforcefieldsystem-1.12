@@ -12,6 +12,7 @@ object ItemFieldShapeSphere extends ItemUpgrade with ForcefieldShape
   setCreativeTab(MFFSCreativeTab)
   setUnlocalizedName("fieldShapeSphere")
   setTextureName("mffs:fieldshapes/sphere")
+  setMaxStackSize(1)
 
   /**
    * @param radius Distance from (not including) the center block for the field on each axis.
