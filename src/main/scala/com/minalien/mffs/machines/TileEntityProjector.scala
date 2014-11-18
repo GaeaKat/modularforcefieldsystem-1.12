@@ -2,17 +2,16 @@ package com.minalien.mffs.machines
 
 import com.minalien.core.nbt.NBTUtility
 import com.minalien.mffs.blocks.BlockForcefield
-import com.minalien.mffs.core.{ModularForcefieldSystem, MFFSConfig}
+import com.minalien.mffs.core.{MFFSConfig, ModularForcefieldSystem}
 import com.minalien.mffs.items.fieldshapes.ForcefieldShape
 import net.minecraft.init.Blocks
 import net.minecraft.item.ItemStack
 import net.minecraft.nbt.NBTTagCompound
 import net.minecraft.world.World
 import net.minecraftforge.common.ForgeChunkManager
-import net.minecraftforge.common.ForgeChunkManager.LoadingCallback
-import net.minecraftforge.common.ForgeChunkManager.Ticket
-import net.minecraftforge.common.util.ForgeDirection
+import net.minecraftforge.common.ForgeChunkManager.{LoadingCallback, Ticket}
 import net.minecraftforge.fluids.IFluidBlock
+
 import scala.collection.mutable.ArrayBuffer
 
 /**
@@ -164,7 +163,7 @@ class TileEntityProjector extends MFFSMachine(4) with LoadingCallback {
 	/**
 	 * Creates the forcefield cube, adding the coordinates of any placed BlockForcefield instances to fieldBlockCoords.
 	 */
-	def activate() {
+	override def activate() {
 		if(isActive || fieldShapeStack == null || worldObj.isRemote)
 			return
 
@@ -191,12 +190,14 @@ class TileEntityProjector extends MFFSMachine(4) with LoadingCallback {
 			if(isInSpongeMode)
 				fieldBlockInternalCoords.appendAll(shape.getRelativeInternalCoords(fieldRadius))
 		}
+		super.activate()
 	}
 
 	/**
 	 * Iterates over stored block coords and destroys the block if it is a BlockForcefield.
 	 */
-	def deactivate() {
+	override def deactivate() {
+
 		if(!isActive || worldObj.isRemote)
 			return
 
@@ -212,16 +213,15 @@ class TileEntityProjector extends MFFSMachine(4) with LoadingCallback {
 				worldObj.setBlockToAir(coord._1, coord._2, coord._3)
 
 		fieldBlockCoords.clear()
+		super.deactivate()
 	}
-
 	/**
 	 * Saves the positions of all owned forcefield blocks.
 	 *
 	 * @param tagCompound   NBTTagCompound that tile data is being written to.
 	 */
-	override def writeToNBT(tagCompound: NBTTagCompound) {
-		super.writeToNBT(tagCompound)
-
+	override def writeToCustomNBT(tagCompound: NBTTagCompound): Unit = {
+		super.writeToCustomNBT(tagCompound)
 		// Write the Offset to the Tag Compound
 		val offsetTag = new NBTTagCompound
 		NBTUtility.write3IntTupleToNBT(fieldOffset, offsetTag)
@@ -245,7 +245,7 @@ class TileEntityProjector extends MFFSMachine(4) with LoadingCallback {
 			coordListTag.setInteger("size", fieldBlockCoords.size)
 			var idx = 0
 
-			for(coord <- fieldBlockCoords) {
+			for (coord <- fieldBlockCoords) {
 				val coordTag = new NBTTagCompound
 				NBTUtility.write3IntTupleToNBT(coord, coordTag)
 				coordListTag.setTag(s"tile$idx", coordTag)
@@ -256,14 +256,9 @@ class TileEntityProjector extends MFFSMachine(4) with LoadingCallback {
 		}
 	}
 
-	/**
-	 * Loads the activity state and (if active) positions of all owned forcefield blocks.
-	 *
-	 * @param tagCompound NBTTagCompound that tile data is being read from.
-	 */
-	override def readFromNBT(tagCompound: NBTTagCompound) {
-		super.readFromNBT(tagCompound)
 
+	override def readFromCustomNBT(tagCompound: NBTTagCompound): Unit = {
+		super.readFromCustomNBT(tagCompound)
 		fieldOffset = NBTUtility.read3IntTupleFromNBT(tagCompound.getCompoundTag("fieldOffset"))
 		fieldRadius = NBTUtility.read3IntTupleFromNBT(tagCompound.getCompoundTag("fieldRadius"))
 
@@ -280,5 +275,6 @@ class TileEntityProjector extends MFFSMachine(4) with LoadingCallback {
 				fieldBlockCoords.append(NBTUtility.read3IntTupleFromNBT(coordListTag.getCompoundTag(s"tile$idx")))
 		}
 	}
-  override def ticketsLoaded(tickets: java.util.List[Ticket], world:World) = {}
+
+	override def ticketsLoaded(tickets: java.util.List[Ticket], world: World) = {}
 }

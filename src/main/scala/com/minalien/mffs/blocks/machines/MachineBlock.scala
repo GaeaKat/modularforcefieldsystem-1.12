@@ -2,9 +2,12 @@ package com.minalien.mffs.blocks.machines
 
 import com.minalien.mffs.core.MFFSCreativeTab
 import com.minalien.mffs.machines.MFFSMachine
+import cpw.mods.fml.relauncher.{Side, SideOnly}
 import net.minecraft.block.Block
 import net.minecraft.block.material.Material
-import net.minecraft.world.World
+import net.minecraft.client.renderer.texture.IIconRegister
+import net.minecraft.util.IIcon
+import net.minecraft.world.{IBlockAccess, World}
 
 /**
  * Base class containing functionality common to all machines in MFFS.
@@ -15,8 +18,8 @@ abstract class MachineBlock(blockName: String) extends Block(Material.iron) {
 	setResistance(15f)
 	setBlockName(blockName)
 	setHarvestLevel("pickaxe", 2)
-	setBlockTextureName(s"mffs:$blockName")
-
+	setBlockTextureName(s"mffs:$blockName" + "Inactive")
+	val blockIcons: Array[IIcon] = new Array[IIcon](2)
 	/**
 	 * @return True. All Machines are backed by a TileEntity.
 	 */
@@ -51,5 +54,26 @@ abstract class MachineBlock(blockName: String) extends Block(Material.iron) {
 		}
 
 		super.breakBlock(world, x, y, z, block, unknown)
+	}
+
+	@SideOnly(Side.CLIENT)
+	override def getIcon(world: IBlockAccess, x: Int, y: Int, z: Int, side: Int): IIcon = {
+		val tileEntity = world.getTileEntity(x, y, z).asInstanceOf[MFFSMachine]
+		if (tileEntity.isActive)
+			blockIcons(1)
+		else
+			blockIcons(0)
+
+	}
+
+	@SideOnly(Side.CLIENT)
+	override def getIcon(p_149691_1_ : Int, p_149691_2_ : Int): IIcon = blockIcons(1)
+
+
+	@SideOnly(Side.CLIENT)
+	override def registerBlockIcons(register: IIconRegister): Unit = {
+
+		blockIcons(0) = register.registerIcon(s"mffs:$blockName" + "Inactive")
+		blockIcons(1) = register.registerIcon(s"mffs:$blockName" + "Active")
 	}
 }

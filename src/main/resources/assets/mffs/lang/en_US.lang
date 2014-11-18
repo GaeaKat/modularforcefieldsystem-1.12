@@ -3,6 +3,7 @@ itemGroup.MFFS=Modular Forcefield System
 tile.monazitOre.name=Monazit Ore
 tile.forciciumBlock.name=Forcicium Block
 tile.projector.name=Field Projector
+tile.extractor.name=MFFS Extractor
 tile.forcefield.name=Forcefield
 
 item.forcicium.name=Forcicium
