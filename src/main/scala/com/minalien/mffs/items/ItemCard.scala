@@ -1,14 +1,15 @@
 package com.minalien.mffs.items
 
-import net.minecraft.item.{ItemStack, Item}
 import com.minalien.mffs.core.MFFSCreativeTab
-import net.minecraft.client.renderer.texture.IIconRegister
-import net.minecraft.util.IIcon
-import net.minecraft.creativetab.CreativeTabs
-import com.minalien.mffs.items.cards.CardType.CardType
 import com.minalien.mffs.items.cards.CardType
+import com.minalien.mffs.items.cards.CardType.CardType
+import com.mojang.authlib.GameProfile
+import net.minecraft.client.renderer.texture.IIconRegister
+import net.minecraft.creativetab.CreativeTabs
 import net.minecraft.entity.player.EntityPlayer
-import com.minalien.core.nbt.NBTUtility
+import net.minecraft.item.{Item, ItemStack}
+import net.minecraft.nbt.NBTUtil
+import net.minecraft.util.IIcon
 
 /**
  * Cards are used for various purposes in MFFS - primarily, linking machines.
@@ -18,7 +19,8 @@ object ItemCard extends Item {
 	setUnlocalizedName("card")
 	setMaxStackSize(16)
 	setHasSubtypes(true)
-
+	val NBT_LOCATIONDATA = "location"
+	val NBT_PLAYERDATA = "player"
 	/**
 	 * List of icons for the various cards.
 	 */
@@ -48,6 +50,8 @@ object ItemCard extends Item {
 
 		// Blank MFFS Card
 		subItemList.add(new ItemStack(ItemCard, 1, CardType.Blank.id))
+		// Power MFFS Card
+		subItemList.add(new ItemStack(ItemCard, 1, CardType.Power.id))
 	}
 
 	/**
@@ -76,6 +80,14 @@ object ItemCard extends Item {
 		val cardType = getCardType(itemStack)
 
 		infoListAsString.add(s"Type: §2$cardType§r")
+		if (containsLocationData(itemStack)) {
+			val (x, y, z, dim) = getLocationData(itemStack)
+			infoListAsString.add(s"X: §2$x§r Y: §2$y§r Z: §2$z§r")
+		}
+		if (containsPlayerData(itemStack)) {
+			val name: String = getPlayerData(itemStack).getName
+			infoListAsString.add(s"Player Name: §2$name§r")
+		}
 	}
 
 	/**
@@ -84,4 +96,40 @@ object ItemCard extends Item {
 	 * @return Card type based on the item stack's damage value.
 	 */
 	def getCardType(itemStack: ItemStack): CardType = CardType(itemStack.getItemDamage)
+
+	/**
+	 * Does the card contain location data?
+	 * @param itemstack card to check
+	 * @return whether the card has location data
+	 */
+	def containsLocationData(itemstack: ItemStack): Boolean = {
+		if (itemstack.getTagCompound != null) itemstack.getTagCompound.hasKey(NBT_LOCATIONDATA) else false
+	}
+
+
+	/**
+	 * Does the card contain player data?
+	 * @param itemstack card to check
+	 * @return whether the card has player data
+	 */
+	def containsPlayerData(itemstack: ItemStack): Boolean = {
+		if (itemstack.getTagCompound != null) itemstack.getTagCompound.hasKey(NBT_PLAYERDATA) else false
+	}
+
+	/**
+	 * gets the location data on the card
+	 * @param itemstack card to check
+	 * @return Tuple of X,Y,Z,Dim
+	 */
+	def getLocationData(itemstack: ItemStack): Tuple4[Int, Int, Int, Int] = {
+		var loc = itemstack.getTagCompound.getIntArray(NBT_LOCATIONDATA)
+		new Tuple4(loc(0), loc(1), loc(2), loc(3))
+	}
+
+	/**
+	 * Gets the player data off the card
+	 * @param itemstack card to check
+	 * @return Game profile
+	 */
+	def getPlayerData(itemstack: ItemStack): GameProfile = NBTUtil.func_152459_a(itemstack.getTagCompound.getCompoundTag(NBT_LOCATIONDATA))
 }

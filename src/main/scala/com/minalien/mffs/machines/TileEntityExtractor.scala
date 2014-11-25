@@ -1,6 +1,7 @@
 package com.minalien.mffs.machines
 
 /**
+ * Tile Entity for the extractor
  * Created by Katrina on 17/11/2014.
  */
 class TileEntityExtractor extends MFFSMachine(2){
@@ -18,5 +19,14 @@ class TileEntityExtractor extends MFFSMachine(2){
   override def deactivate(): Unit = {
     state = MachineState.Inactive
     super.deactivate()
+  }
+
+  /**
+   * Finds all machines in the range of this extractor
+   * @return List containing all machines that can be powered
+   */
+  def findMachinesInRange(): List[MFFSMachine] = {
+
+    List()
   }
 }

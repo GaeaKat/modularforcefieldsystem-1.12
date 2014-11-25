@@ -7,6 +7,7 @@ object CardType extends Enumeration {
 	type CardType = Value
 
 	val
-		Blank       // Blank MFFS Card
+	Blank, // Blank MFFS Card
+	Power
 		= Value
 }
