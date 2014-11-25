@@ -3,13 +3,15 @@ package com.minalien.mffs.items
 import com.minalien.mffs.core.MFFSCreativeTab
 import com.minalien.mffs.items.cards.CardType
 import com.minalien.mffs.items.cards.CardType.CardType
+import com.minalien.mffs.machines.TileEntityExtractor
 import com.mojang.authlib.GameProfile
 import net.minecraft.client.renderer.texture.IIconRegister
 import net.minecraft.creativetab.CreativeTabs
 import net.minecraft.entity.player.EntityPlayer
 import net.minecraft.item.{Item, ItemStack}
-import net.minecraft.nbt.NBTUtil
+import net.minecraft.nbt.{NBTTagCompound, NBTUtil}
 import net.minecraft.util.IIcon
+import net.minecraft.world.World
 
 /**
  * Cards are used for various purposes in MFFS - primarily, linking machines.
@@ -91,13 +93,6 @@ object ItemCard extends Item {
 	}
 
 	/**
-	 * @param itemStack ItemStack to check the type of.
-	 *
-	 * @return Card type based on the item stack's damage value.
-	 */
-	def getCardType(itemStack: ItemStack): CardType = CardType(itemStack.getItemDamage)
-
-	/**
 	 * Does the card contain location data?
 	 * @param itemstack card to check
 	 * @return whether the card has location data
@@ -105,7 +100,6 @@ object ItemCard extends Item {
 	def containsLocationData(itemstack: ItemStack): Boolean = {
 		if (itemstack.getTagCompound != null) itemstack.getTagCompound.hasKey(NBT_LOCATIONDATA) else false
 	}
-
 
 	/**
 	 * Does the card contain player data?
@@ -122,7 +116,7 @@ object ItemCard extends Item {
 	 * @return Tuple of X,Y,Z,Dim
 	 */
 	def getLocationData(itemstack: ItemStack): Tuple4[Int, Int, Int, Int] = {
-		var loc = itemstack.getTagCompound.getIntArray(NBT_LOCATIONDATA)
+		val loc = itemstack.getTagCompound.getIntArray(NBT_LOCATIONDATA)
 		new Tuple4(loc(0), loc(1), loc(2), loc(3))
 	}
 
@@ -132,4 +126,30 @@ object ItemCard extends Item {
 	 * @return Game profile
 	 */
 	def getPlayerData(itemstack: ItemStack): GameProfile = NBTUtil.func_152459_a(itemstack.getTagCompound.getCompoundTag(NBT_LOCATIONDATA))
+
+	override def onItemUse(p_77648_1_ : ItemStack, p_77648_2_ : EntityPlayer, p_77648_3_ : World, p_77648_4_ : Int, p_77648_5_ : Int, p_77648_6_ : Int, p_77648_7_ : Int, p_77648_8_ : Float, p_77648_9_ : Float, p_77648_10_ : Float): Boolean = getCardType(p_77648_1_) match {
+		case CardType.Power =>
+			p_77648_3_.getTileEntity(p_77648_4_, p_77648_5_, p_77648_6_) match {
+				case s: TileEntityExtractor => {
+					setLocationData(p_77648_1_, p_77648_4_, p_77648_5_, p_77648_6_, p_77648_3_.provider.dimensionId)
+					true
+				}
+				case _ => false
+			}
+		case _ =>
+			false
+	}
+
+	/**
+	 * @param itemStack ItemStack to check the type of.
+	 *
+	 * @return Card type based on the item stack's damage value.
+	 */
+	def getCardType(itemStack: ItemStack): CardType = CardType(itemStack.getItemDamage)
+
+	def setLocationData(itemstack: ItemStack, x: Int, y: Int, z: Int, dim: Int): Unit = {
+		if (itemstack.getTagCompound == null)
+			itemstack.setTagCompound(new NBTTagCompound)
+		itemstack.getTagCompound.setIntArray(NBT_LOCATIONDATA, Array(x, y, z, dim))
+	}
 }
