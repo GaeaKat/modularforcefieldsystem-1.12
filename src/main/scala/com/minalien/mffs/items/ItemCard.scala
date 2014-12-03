@@ -84,7 +84,14 @@ object ItemCard extends Item {
 		infoListAsString.add(s"Type: §2$cardType§r")
 		if (containsLocationData(itemStack)) {
 			val (x, y, z, dim) = getLocationData(itemStack)
-			infoListAsString.add(s"X: §2$x§r Y: §2$y§r Z: §2$z§r")
+			if (dim == player.worldObj.provider.dimensionId) {
+				if (isValidPowerLocation(player.worldObj, x, y, z))
+					infoListAsString.add(s"§2[VALID]§r X: §2$x§r Y: §2$y§r Z: §2$z§r")
+				else
+					infoListAsString.add(s"§4[INVALID]§r X: §2$x§r Y: §2$y§r Z: §2$z§r")
+			}
+			else
+				infoListAsString.add(s"§9[UNKNOWN]§r X: §2$x§r Y: §2$y§r Z: §2$z§r")
 		}
 		if (containsPlayerData(itemStack)) {
 			val name: String = getPlayerData(itemStack).getName
@@ -127,25 +134,50 @@ object ItemCard extends Item {
 	 */
 	def getPlayerData(itemstack: ItemStack): GameProfile = NBTUtil.func_152459_a(itemstack.getTagCompound.getCompoundTag(NBT_LOCATIONDATA))
 
-	override def onItemUse(p_77648_1_ : ItemStack, p_77648_2_ : EntityPlayer, p_77648_3_ : World, p_77648_4_ : Int, p_77648_5_ : Int, p_77648_6_ : Int, p_77648_7_ : Int, p_77648_8_ : Float, p_77648_9_ : Float, p_77648_10_ : Float): Boolean = getCardType(p_77648_1_) match {
-		case CardType.Power =>
-			p_77648_3_.getTileEntity(p_77648_4_, p_77648_5_, p_77648_6_) match {
-				case s: TileEntityExtractor => {
-					setLocationData(p_77648_1_, p_77648_4_, p_77648_5_, p_77648_6_, p_77648_3_.provider.dimensionId)
-					true
-				}
-				case _ => false
-			}
-		case _ =>
-			false
-	}
-
 	/**
 	 * @param itemStack ItemStack to check the type of.
 	 *
 	 * @return Card type based on the item stack's damage value.
 	 */
 	def getCardType(itemStack: ItemStack): CardType = CardType(itemStack.getItemDamage)
+
+	/**
+	 * Returns true if the location given is an active Extractor
+	 * @param world Dimension to check in
+	 * @param x X coord
+	 * @param y Y coord
+	 * @param z Z coord
+	 * @return True if valid. False if Invalid (different machine or nonexistant)
+	 */
+	def isValidPowerLocation(world: World, x: Int, y: Int, z: Int): Boolean =
+		world.getTileEntity(x, y, z) match {
+			case m: TileEntityExtractor => true
+			case _ => false
+		}
+
+	/**
+	 * On the use of the card
+	 * @param p_77648_1_ Itemstack being used
+	 * @param p_77648_2_ Player using the item
+	 * @param p_77648_3_ World item being used in
+	 * @param p_77648_4_ x xCoord for block
+	 * @param p_77648_5_ y yCoord for block
+	 * @param p_77648_6_ z xCoord for block
+	 * @param p_77648_7_
+	 * @param p_77648_8_
+	 * @param p_77648_9_
+	 * @param p_77648_10_
+	 * @return
+	 */
+	override def onItemUse(p_77648_1_ : ItemStack, p_77648_2_ : EntityPlayer, p_77648_3_ : World, p_77648_4_ : Int, p_77648_5_ : Int, p_77648_6_ : Int, p_77648_7_ : Int, p_77648_8_ : Float, p_77648_9_ : Float, p_77648_10_ : Float): Boolean = getCardType(p_77648_1_) match {
+		case CardType.Power =>
+			if (isValidPowerLocation(p_77648_3_, p_77648_4_, p_77648_5_, p_77648_6_)) {
+				setLocationData(p_77648_1_, p_77648_4_, p_77648_5_, p_77648_6_, p_77648_3_.provider.dimensionId)
+				true
+			}
+			else
+				false
+	}
 
 	def setLocationData(itemstack: ItemStack, x: Int, y: Int, z: Int, dim: Int): Unit = {
 		if (itemstack.getTagCompound == null)

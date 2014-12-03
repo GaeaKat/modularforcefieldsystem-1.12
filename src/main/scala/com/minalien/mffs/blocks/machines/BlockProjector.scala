@@ -1,7 +1,9 @@
 package com.minalien.mffs.blocks.machines
 
+import com.minalien.mffs.core.{GuiHandler, ModularForcefieldSystem}
 import com.minalien.mffs.machines.TileEntityProjector
 import net.minecraft.block.Block
+import net.minecraft.entity.player.EntityPlayer
 import net.minecraft.world.World
 
 /**
@@ -30,5 +32,10 @@ object BlockProjector extends MachineBlock("projector") {
 			tileEntity.deactivate()
 		else if(!tileEntity.isActive && inputPower > 0)
 			tileEntity.activate()
+	}
+
+	override def onBlockActivated(p_149727_1_ : World, p_149727_2_ : Int, p_149727_3_ : Int, p_149727_4_ : Int, p_149727_5_ : EntityPlayer, p_149727_6_ : Int, p_149727_7_ : Float, p_149727_8_ : Float, p_149727_9_ : Float): Boolean = {
+		p_149727_5_.openGui(ModularForcefieldSystem, GuiHandler.PROJECTOR_GUI, p_149727_1_, p_149727_2_, p_149727_3_, p_149727_4_)
+		true
 	}
 }

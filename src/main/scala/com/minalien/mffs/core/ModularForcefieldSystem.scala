@@ -11,6 +11,7 @@ import cpw.mods.fml.client.event.ConfigChangedEvent.OnConfigChangedEvent
 import cpw.mods.fml.common.Mod.EventHandler
 import cpw.mods.fml.common.event.{FMLInitializationEvent, FMLPreInitializationEvent}
 import cpw.mods.fml.common.eventhandler.SubscribeEvent
+import cpw.mods.fml.common.network.NetworkRegistry
 import cpw.mods.fml.common.registry.GameRegistry
 import cpw.mods.fml.common.{FMLCommonHandler, Mod}
 import net.minecraft.block.Block
@@ -36,7 +37,7 @@ object ModularForcefieldSystem {
 	@EventHandler
 	def preInit(eventArgs: FMLPreInitializationEvent) {
 		MFFSConfig.initialize(eventArgs.getSuggestedConfigurationFile)
-
+		NetworkRegistry.INSTANCE.registerGuiHandler(this, GuiHandler)
 		registerItems()
 		registerBlocks()
 	}
