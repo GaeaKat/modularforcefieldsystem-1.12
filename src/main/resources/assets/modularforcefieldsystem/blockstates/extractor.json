@@ -1,0 +1,8 @@
+  {
+    "variants":
+    {
+      "active=inactive":{"model":"modularforcefieldsystem:extractor_off"},
+      "active=active":{"model":"modularforcefieldsystem:extractor_on"},
+      "active=disabled":{"model":"modularforcefieldsystem:extractor_off"}
+    }
+  }
