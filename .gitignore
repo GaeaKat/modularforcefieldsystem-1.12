@@ -1,0 +1,9 @@
+.gradle/
+build/
+eclipse/
+out/
+src/api/
+temp/
+*.iml
+*.ipr
+*.iws
