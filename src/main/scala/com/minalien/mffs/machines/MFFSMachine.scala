@@ -169,7 +169,7 @@ abstract class MFFSMachine(val maxUpgrades: Int) extends TileEntity with IEnergy
 		val upgradesTag = new NBTTagList
 
 		for (i <- 0 until upgrades.length) {
-			var stack = upgrades(i)
+			val stack = upgrades(i)
 			if (stack != null) {
 				val cmp = new NBTTagCompound()
 				cmp.setByte("Slot", i.toByte)

@@ -48,6 +48,11 @@ class TileEntityProjector extends MFFSMachine(4) with LoadingCallback {
 	 * any possible new Field blocks.
 	 */
 	var isInSpongeMode = false
+
+	/**
+	 * Whether or not the projector is generating new blocks, or maintaining old ones
+	 */
+	var generation=false
 	/**
 	 * Chunk Ticket used for the projector's chunkloading capabilities.
 	 */
@@ -73,6 +78,10 @@ class TileEntityProjector extends MFFSMachine(4) with LoadingCallback {
 			if (block.isAir(worldObj, x, y, z) ||
 				(isInBreakMode && block.getBlockHardness(worldObj, x, y, z) != -1) ||
 				(isInSpongeMode && isFluid)) {
+				if(generation)
+					storage.modifyEnergyStored(-MFFSConfig.Machines.baseCostFieldGeneration)
+				else
+					storage.modifyEnergyStored(-MFFSConfig.Machines.baseCostFieldMaintain)
 				worldObj.setBlock(x, y, z, BlockForcefield, 0, 2)
 				fieldBlockCoords.append((x, y, z))
 			}
@@ -94,6 +103,7 @@ class TileEntityProjector extends MFFSMachine(4) with LoadingCallback {
 
 		// If we've run out of blocks to generate, start doing internal calculations!
 		if (blocksToGen <= 0) {
+			generation=false
 			if (!isInSpongeMode || fieldBlockInternalCoords.size == 0)
 				return
 
@@ -142,6 +152,7 @@ class TileEntityProjector extends MFFSMachine(4) with LoadingCallback {
 			fieldBlockInternalCoords.clear()
 			if(isInSpongeMode)
 				fieldBlockInternalCoords.appendAll(shape.getRelativeInternalCoords(fieldRadius))
+			generation=true
 		}
 		super.activate()
 	}
@@ -204,6 +215,7 @@ class TileEntityProjector extends MFFSMachine(4) with LoadingCallback {
 
 			tagCompound.setTag("tileCoordList", coordListTag)
 		}
+		tagCompound.setBoolean("generating",generation)
 	}
 
 
@@ -221,6 +233,7 @@ class TileEntityProjector extends MFFSMachine(4) with LoadingCallback {
 			for(idx <- 0 until size)
 				fieldBlockCoords.append(NBTUtility.read3IntTupleFromNBT(coordListTag.getCompoundTag(s"tile$idx")))
 		}
+		generation=tagCompound.getBoolean("generating")
 	}
 
 	override def ticketsLoaded(tickets: java.util.List[Ticket], world: World) = {}
