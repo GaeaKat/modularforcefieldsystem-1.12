@@ -1,19 +1,22 @@
 package com.minalien.mffs.client.gui
 
-import com.minalien.mffs.client.gui.config.MFFSConfigGUI
-import cpw.mods.fml.client.IModGuiFactory
-import cpw.mods.fml.client.IModGuiFactory.RuntimeOptionCategoryElement
+import java.util
+
+import com.minalien.mffs.client.gui.config.MFFSBaseConfigGUI
 import net.minecraft.client.Minecraft
+import net.minecraft.client.gui.GuiScreen
+import net.minecraftforge.fml.client.IModGuiFactory
+import net.minecraftforge.fml.client.IModGuiFactory.{RuntimeOptionGuiHandler, RuntimeOptionCategoryElement}
 
 /**
- * Handles MFFS Config GUIs.
+ * Created by Katrina on 14/01/2015.
  */
-class MFFSGuiFactory extends IModGuiFactory {
-	override def initialize(minecraft: Minecraft) {}
+class MFFSGuiFactory extends IModGuiFactory{
+  override def initialize(minecraftInstance: Minecraft): Unit = {}
 
-	override def mainConfigGuiClass() = classOf[MFFSConfigGUI]
+  override def runtimeGuiCategories(): util.Set[RuntimeOptionCategoryElement] = null
 
-	override def runtimeGuiCategories() = null
+  override def getHandlerFor(element: RuntimeOptionCategoryElement): RuntimeOptionGuiHandler = null
 
-	override def getHandlerFor(element: RuntimeOptionCategoryElement) = null
+  override def mainConfigGuiClass(): Class[_ <: GuiScreen] = classOf[MFFSBaseConfigGUI]
 }

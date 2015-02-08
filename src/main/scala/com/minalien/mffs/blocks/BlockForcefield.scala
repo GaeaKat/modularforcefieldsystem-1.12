@@ -1,64 +1,61 @@
 package com.minalien.mffs.blocks
 
+import java.util
 import java.util.Random
 
 import com.minalien.mffs.core.MFFSCreativeTab
 import net.minecraft.block.Block
 import net.minecraft.block.material.Material
+import net.minecraft.block.state.IBlockState
 import net.minecraft.entity.Entity
-import net.minecraft.util.Facing
+import net.minecraft.item.ItemStack
+import net.minecraft.util.{EnumWorldBlockLayer, EnumFacing, BlockPos}
 import net.minecraft.world.IBlockAccess
+import net.minecraftforge.fml.relauncher.{SideOnly, Side}
 
 /**
- * Forcefield Block
+ * Created by Katrina on 27/12/2014.
  */
-object BlockForcefield extends Block(Material.glass) {
-	setCreativeTab(MFFSCreativeTab)
-	setBlockName("forcefield")
-	setResistance(10000)
-	setBlockUnbreakable()
-	setBlockTextureName("mffs:fieldArea")
+object BlockForcefield extends Block(Material.glass){
 
-	/**
-	 * @return Forcefields are not opaque.
-	 */
-	override def isOpaqueCube = false
+  setCreativeTab(MFFSCreativeTab)
+  setUnlocalizedName("forcefield")
+  setResistance(10000)
+  setBlockUnbreakable()
+  /**
+   * @return Forcefields are not opaque.
+   */
+  override def isOpaqueCube = false
 
-	/**
-	 * @return False, so that light will correctly pass through this block.
-	 */
-	override def renderAsNormalBlock = false
+  /**
+   * @return False, so that light will correctly pass through this block.
+   */
+  override def quantityDropped(random: Random): Int = {
+    return 0
+  }
 
-	/**
-	 * @return Forcefield blocks can never be destroyed, by anything.
-	 */
-	override def canEntityDestroy(world: IBlockAccess, x: Int, y: Int, z: Int, entity: Entity) = false
+  override def shouldSideBeRendered(world: IBlockAccess, pos: BlockPos, side: EnumFacing): Boolean =
+  {
+    val iblockstate: IBlockState = world.getBlockState(pos)
+    val block: Block = iblockstate.getBlock
+    if (world.getBlockState(pos.offset(side.getOpposite)) ne iblockstate) {
+      return true
+    }
 
-	/**
-	 * @return  Forcefield blocks never drop anything.
-	 */
-	override def getItemDropped(a: Int, b: Random, c: Int) = null
+    if (block eq this) {
+      return false
+    }
 
-	/**
-	 * Prevents Forcefield blocks from rendering sides that are right next to each other.
-	 *
-	 * @param world World in which the blocks are placed.
-	 * @param x     Block X Coordinate.
-	 * @param y     Block Y Coordinate.
-	 * @param z     Block Z Coordinate.
-	 * @param side  Side of the block being checked.
-	 *
-	 * @return  Whether or not the individual side should be rendered.
-	 */
-	override def shouldSideBeRendered(world: IBlockAccess, x: Int, y: Int, z: Int, side: Int): Boolean = {
-		val block = world.getBlock(x, y, z)
+    super.shouldSideBeRendered(world, pos, side)
+  }
 
-		if(world.getBlockMetadata(x, y, z) != world.getBlockMetadata(x - Facing.offsetsXForSide(side), y - Facing.offsetsYForSide(side), z - Facing.offsetsZForSide(side)))
-			return true
+  @SideOnly(Side.CLIENT)
+  override def getBlockLayer: EnumWorldBlockLayer = {
+    return EnumWorldBlockLayer.CUTOUT
+  }
 
-		if(block == this)
-			return false
+  override def isFullCube: Boolean = {
+    return false
+  }
 
-		super.shouldSideBeRendered(world, x, y, z, side)
-	}
 }

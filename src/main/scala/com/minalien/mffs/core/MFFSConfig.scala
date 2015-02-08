@@ -5,57 +5,43 @@ import java.io.File
 import net.minecraftforge.common.config.Configuration
 
 /**
- * Contains a list of various configuration options for MFFS.
+ * Created by Katrina on 14/01/2015.
  */
 object MFFSConfig {
-	final val CATEGORY_MACHINES = "machines"
 
-	/**
-	 * Forge Configuration file.
-	 */
-	var configFile: Configuration = null
+  final val CATEGORY_MACHINES = "machines"
+  final val CATEGORY_WORLDGEN = "worldgen"
 
-	/**
-	 * Stores all configuration options related to Machines added by the mod.
-	 */
-	object Machines {
-		/**
-		 * Maximum number of Forcefield blocks generated every tick.
-		 */
-		var maxFieldBlocksGeneratedPerTick = 200
-		/**
-		 * Base cost in RF per block generated
-		 */
-		var baseCostFieldGeneration=200
+  var configFile:Configuration=null
+  object General
+  {
+    var adventureMode=false
+  }
+  object Machines
+  {
+    var chunkLoad=true
+    var ForciciumCellWorkCycle=230
+    var ForciciumWorkCycle=250
+    var ExtractorPassForceEnergyGenerate=12000
+    //def getExtractorPassForeEnergyGenerate=(ExtractorPassForceEnergyGenerate / 4000) * 4000;
+  }
 
-		/**
-		 * base cost per tick to maintain Force Field Blocks
-		 */
-		var baseCostFieldMaintain=20
-	}
+  def init(file:File): Unit =
+  {
+    configFile=new Configuration(file)
+    sync()
+  }
 
-	/**
-	 * Loads the MFFS Configuration files.
-	 *
-	 * @param file Configuration file recommended by FML.
-	 */
-	def initialize(file: File) {
-		configFile = new Configuration(file)
+  def sync() =
+  {
+    configFile.setCategoryComment(Configuration.CATEGORY_GENERAL, "ATTENTION: Editing this file manually is no longer necessary.\n" +
+      "On the Mods list screen, select the entry for Modular Forcefield System, then click the Config button to modify these settings.")
+    Machines.chunkLoad=configFile.getBoolean("Chunk Loading",CATEGORY_MACHINES,Machines.chunkLoad,"Set this to false to turn off the MFFS Chuncloader ability")
+    Machines.ForciciumCellWorkCycle=configFile.getInt("Forcium Cell Work Cycle",CATEGORY_MACHINES,Machines.ForciciumCellWorkCycle,0,500,"WorkCycle amount of Forcecium Cell inside a Extractor")
+    Machines.ForciciumWorkCycle=configFile.getInt("Forcium  Work Cycle",CATEGORY_MACHINES,Machines.ForciciumWorkCycle,0,500,"WorkCycle amount of Forcecium inside a Extractor")
+    Machines.ExtractorPassForceEnergyGenerate=configFile.getInt("Extractor Pass ForceEnergy Generate",CATEGORY_MACHINES,Machines.ExtractorPassForceEnergyGenerate,0,Int.MaxValue,"How many ForceEnergy generate per WorkCycle")
 
-		sync()
-	}
+    General.adventureMode=configFile.getBoolean("Adventure Mode",Configuration.CATEGORY_GENERAL,General.adventureMode,"Set MFFS to AdventureMap Mode Extractor need no Forcecium and ForceField have no click damage")
 
-	/**
-	 * Synchronizes the mod's properties with the Config file data.
-	 */
-	def sync() {
-		configFile.setCategoryComment(Configuration.CATEGORY_GENERAL, "ATTENTION: Editing this file manually is no longer necessary.\n" +
-			"On the Mods list screen, select the entry for Modular Forcefield System, then click the Config button to modify these settings.")
-
-		Machines.maxFieldBlocksGeneratedPerTick = configFile.getInt("Max Field Blocks Generated Per Tick", CATEGORY_MACHINES, Machines.maxFieldBlocksGeneratedPerTick, 0, Int.MaxValue, "Maximum number of Forcefield blocks generated or destroyed every tick, per-Projector.")
-		Machines.baseCostFieldGeneration=configFile.getInt("Base Cost Per Field Block Generation",CATEGORY_MACHINES,Machines.baseCostFieldGeneration,0,Int.MaxValue,"Base cost in RF to generate a Forcefield block")
-		Machines.baseCostFieldMaintain=configFile.getInt("Base Maintainence Cost Per Field Block",CATEGORY_MACHINES,Machines.baseCostFieldMaintain,0,Int.MaxValue,"Base cost in RF per tick to maintain a Forcefield block")
-		if(configFile.hasChanged)
-			configFile.save()
-	}
+  }
 }

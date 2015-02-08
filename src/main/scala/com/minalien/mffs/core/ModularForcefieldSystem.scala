@@ -1,111 +1,134 @@
 package com.minalien.mffs.core
 
-import com.minalien.mffs.blocks.machines.{BlockExtractor, BlockProjector, MachineBlock}
-import com.minalien.mffs.blocks.{BlockForcefield, BlockForciciumStorage, BlockMonazitOre}
-import com.minalien.mffs.items.fieldshapes.{ItemFieldShapeCube, ItemFieldShapeSphere}
-import com.minalien.mffs.items.upgrades.{ItemBlockBreakerUpgrade, ItemSpongeUpgrade}
-import com.minalien.mffs.items.{ItemCard, ItemForcicium}
-import com.minalien.mffs.recipes.MFFSRecipes
-import com.minalien.mffs.world.MonazitOreWorldGenerator
-import cpw.mods.fml.client.event.ConfigChangedEvent.OnConfigChangedEvent
-import cpw.mods.fml.common.Mod.EventHandler
-import cpw.mods.fml.common.event.{FMLInitializationEvent, FMLPreInitializationEvent}
-import cpw.mods.fml.common.eventhandler.SubscribeEvent
-import cpw.mods.fml.common.network.NetworkRegistry
-import cpw.mods.fml.common.registry.GameRegistry
-import cpw.mods.fml.common.{FMLCommonHandler, Mod}
+import java.util
+
+
+import com.google.common.collect.Lists
+import com.minalien.mffs.blocks.BlockForcefield
+import com.minalien.mffs.blocks.machines.{BlockCapacitor, BlockExtractor, MachineBlock}
+import com.minalien.mffs.items.cards.{ItemPowerLinkCard, ItemCardEmpty}
+import com.minalien.mffs.items.{ItemForciumCell, ItemForcium}
+import com.minalien.mffs.tiles.MFFSMachine
 import net.minecraft.block.Block
 import net.minecraft.item.Item
+import net.minecraft.util.BlockPos
+import net.minecraft.world.World
+import net.minecraftforge.common.ForgeChunkManager
+import net.minecraftforge.common.ForgeChunkManager.Ticket
+import net.minecraftforge.fml.common.Mod.EventHandler
+import net.minecraftforge.fml.common.event.{FMLInitializationEvent, FMLPostInitializationEvent, FMLPreInitializationEvent}
+import net.minecraftforge.fml.common.network.NetworkRegistry
+import net.minecraftforge.fml.common.network.simpleimpl.SimpleNetworkWrapper
+import net.minecraftforge.fml.common.registry.GameRegistry
+import net.minecraftforge.fml.common.{Mod, SidedProxy}
+import org.apache.logging.log4j.Logger
 
 /**
- * Modular Forcefield System 3.0 - Minecraft Mod
- *
- * @author Cassy 'Minalien' Murray
+ * Created by Katrina on 13/12/2014.
  */
-@Mod(modid = ModularForcefieldSystem.MOD_ID, name = "Modular Forcefield System", modLanguage = "scala", guiFactory = "com.minalien.mffs.client.gui.MFFSGuiFactory")
+@Mod(modid = ModularForcefieldSystem.MOD_ID, name = "Modular Forcefield System", modLanguage = "scala",guiFactory = "com.minalien.mffs.client.gui.MFFSGuiFactory")
 object ModularForcefieldSystem {
-	/**
-	 * MFFS Mod ID.
-	 */
-	final val MOD_ID = "ModularForcefieldSystem"
-
-	/**
-	 * Loads mod configuration file and registers blocks and items.
-	 *
-	 * @param eventArgs Event arguments passed from Forge Mod Loader.
-	 */
-	@EventHandler
-	def preInit(eventArgs: FMLPreInitializationEvent) {
-		MFFSConfig.initialize(eventArgs.getSuggestedConfigurationFile)
-		NetworkRegistry.INSTANCE.registerGuiHandler(this, GuiHandler)
-		registerItems()
-		registerBlocks()
-	}
-
-	/**
-	 * Registers all items added by the mod.
-	 */
-	def registerItems() {
-		def registerItem(item: Item) {
-			GameRegistry.registerItem(item, item.getUnlocalizedName, MOD_ID)
-		}
+  /**
+   * MFFS Mod ID.
+   */
+  final val MOD_ID = "modularforcefieldsystem"
+  final var logger:Logger=null
+  var netHandler: SimpleNetworkWrapper = NetworkRegistry.INSTANCE.newSimpleChannel(MOD_ID+"|B")
+  @SidedProxy(clientSide="com.minalien.mffs.client.ClientProxy", serverSide="com.minalien.mffs.core.CommonProxy")
+  var proxy: CommonProxy = null
 
 
-		// Basic Items
-		registerItem(ItemForcicium)
-		registerItem(ItemCard)
+  def registerItems():Unit =
+  {
+    def registerItem(item:Item,name:String): Unit =
+    {
+      GameRegistry.registerItem(item,name)
+    }
+    registerItem(ItemForcium,"forcium")
+    registerItem(ItemForciumCell,"forciciumCell")
+    registerItem(ItemCardEmpty,"emptyCard")
+    registerItem(ItemPowerLinkCard,"powerLinkCard")
+  }
 
-		// Field Shapes
-		registerItem(ItemFieldShapeCube)
-		registerItem(ItemFieldShapeSphere)
+  def registerBlocks(): Unit =
+  {
+    def registerBlock(block: Block,name: String) {
+      GameRegistry.registerBlock(block, name)
 
-		// Upgrades
-		registerItem(ItemBlockBreakerUpgrade)
-		registerItem(ItemSpongeUpgrade)
-	}
+      block match {
+        case machineBlock: MachineBlock =>
+          GameRegistry.registerTileEntity(machineBlock.getTileEntityClass, name)
 
-	/**
-	 * Registers all blocks added by the mod.
-	 */
-	def registerBlocks() {
-		def registerBlock(block: Block) {
-			GameRegistry.registerBlock(block, block.getUnlocalizedName)
+        case _ =>
+      }
+    }
+    registerBlock(BlockExtractor,"extractor")
+    registerBlock(BlockCapacitor,"capacitor")
+    registerBlock(BlockForcefield,"forcefield")
+  }
 
-			block match {
-				case machineBlock: MachineBlock =>
-					GameRegistry.registerTileEntity(machineBlock.getTileEntityClass, block.getUnlocalizedName)
+  /**
+   * Loads mod configuration file and registers blocks and items.
+   *
+   * @param eventArgs Event arguments passed from Forge Mod Loader.
+   */
+  @EventHandler
+  def preInit(eventArgs: FMLPreInitializationEvent) {
 
-				case _ =>
-			}
-		}
+    registerBlocks()
+    registerItems()
+    logger=eventArgs.getModLog
 
-		// Basic Blocks
-		registerBlock(BlockMonazitOre)
-		registerBlock(BlockForciciumStorage)
-		registerBlock(BlockProjector)
-		registerBlock(BlockExtractor)
-		registerBlock(BlockForcefield)
-	}
+  }
+  @EventHandler
+  def Init(eventArgs: FMLInitializationEvent) {
+    proxy.registerInventoryBlock(BlockExtractor,"extractor")
+    proxy.registerInventoryBlock(BlockForcefield,"forcefield")
+    proxy.registerInventoryBlock(BlockCapacitor,"capacitor")
+    proxy.registerItem(ItemForcium,"forcium")
+    proxy.registerItem(ItemForciumCell,"forciciumCell")
+    proxy.registerItem(ItemCardEmpty,"emptyCard")
+    proxy.registerItem(ItemPowerLinkCard,"powerLinkCard")
+    NetworkRegistry.INSTANCE.registerGuiHandler(this,GuiHandler)
+    proxy.registerPackets()
+  }
 
-	/**
-	 * Registers any relevant World Generators & Mod recipes.
-	 *
-	 * @param eventArgs Event arguments passed from Forge Mod Loader.
-	 */
-	@EventHandler
-	def init(eventArgs: FMLInitializationEvent) {
-		GameRegistry.registerWorldGenerator(MonazitOreWorldGenerator, 0)
+  @EventHandler
+  def PostInit(eventArgs:FMLPostInitializationEvent): Unit =
+  {
+    object MFFSChunkLoadCallback extends ForgeChunkManager.OrderedLoadingCallback
+    {
+      override def ticketsLoaded(tickets: util.List[Ticket], world: World, maxTicketCount: Int): util.List[Ticket] =
+      {
+        val validTickets:java.util.List[Ticket]=Lists.newArrayList[Ticket]()
+        for(i <- 0 until tickets.size)
+        {
+          val ticket:Ticket=tickets.get(i)
+          val MachineX:Int=ticket.getModData.getInteger("MachineX")
+          val MachineY:Int=ticket.getModData.getInteger("MachineY")
+          val MachineZ:Int=ticket.getModData.getInteger("MachineZ")
+          if(world.getTileEntity(new BlockPos(MachineX,MachineY,MachineZ))!=null) {
+            world.getTileEntity(new BlockPos(MachineX, MachineY, MachineZ)) match {
+              case s: MFFSMachine => validTickets.add(ticket)
+            }
+          }
+        }
+        validTickets
+      }
 
-		MFFSRecipes.registerRecipes()
-
-		FMLCommonHandler.instance().bus().register(this)
-	}
-
-	@SubscribeEvent
-	def onConfigChanged(eventArgs: OnConfigChangedEvent) {
-		if (eventArgs.modID == ModularForcefieldSystem.MOD_ID) {
-			MFFSConfig.configFile.save()
-			MFFSConfig.sync()
-		}
-	}
+      override def ticketsLoaded(tickets: util.List[Ticket], world: World): Unit =
+      {
+        for(i <- 0 until tickets.size)
+        {
+          val ticket:Ticket=tickets.get(i)
+          val MachineX:Int=ticket.getModData.getInteger("MachineX")
+          val MachineY:Int=ticket.getModData.getInteger("MachineY")
+          val MachineZ:Int=ticket.getModData.getInteger("MachineZ")
+          val machine:MFFSMachine=world.getTileEntity(new BlockPos(MachineX,MachineY,MachineZ)).asInstanceOf[MFFSMachine]
+          machine.forceChunkLoading(ticket)
+        }
+      }
+    }
+    ForgeChunkManager.setForcedChunkLoadingCallback(this,MFFSChunkLoadCallback)
+  }
 }

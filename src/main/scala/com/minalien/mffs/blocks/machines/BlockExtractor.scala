@@ -1,25 +1,21 @@
 package com.minalien.mffs.blocks.machines
 
-import com.minalien.mffs.machines.TileEntityExtractor
-import net.minecraft.block.Block
-import net.minecraft.world.World
+import com.minalien.mffs.core.GuiHandler
+import com.minalien.mffs.tiles.{MFFSMachine, TileEntityExtractor}
 
 /**
- * Created by Katrina on 17/11/2014.
+ * Created by Katrina on 15/12/2014.
  */
-object BlockExtractor extends MachineBlock("extractor") {
+object BlockExtractor  extends {
 
-  override def getTileEntityClass = classOf[TileEntityExtractor]
+} with MachineBlock("extractor") {
+  setHarvestLevel("pickaxe", 2)
 
 
-  override def onNeighborBlockChange(world: World, x: Int, y: Int, z: Int, block: Block) {
-    val tileEntity = world.getTileEntity(x, y, z).asInstanceOf[TileEntityExtractor]
-    val inputPower = world.getBlockPowerInput(x, y, z)
+  override def GuiID: Int = GuiHandler.EXTRACTOR_GUI
 
-    if (tileEntity.isActive && inputPower == 0)
-      tileEntity.deactivate()
-    else if (!tileEntity.isActive && inputPower > 0)
-      tileEntity.activate()
-  }
-
+  /**
+   * @return TileEntity class associated with this Machine.
+   */
+  override def getTileEntityClass: Class[_ <: MFFSMachine] = classOf[TileEntityExtractor]
 }

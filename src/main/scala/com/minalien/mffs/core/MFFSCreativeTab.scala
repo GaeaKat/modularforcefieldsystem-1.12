@@ -1,14 +1,12 @@
 package com.minalien.mffs.core
 
+import com.minalien.mffs.items.ItemForcium
 import net.minecraft.creativetab.CreativeTabs
-import com.minalien.mffs.items.ItemForcicium
+import net.minecraft.item.Item
 
 /**
- * Creative Tab containing all MFFS Blocks & Items.
+ * Created by Katrina on 13/12/2014.
  */
 object MFFSCreativeTab extends CreativeTabs("MFFS") {
-	/**
-	 * @return Item instance whose texture will be used for the Creative Tab.
-	 */
-	override def getTabIconItem = ItemForcicium
+  override def getTabIconItem: Item = ItemForcium
 }

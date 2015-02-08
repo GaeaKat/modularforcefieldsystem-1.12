@@ -12,83 +12,59 @@ buildscript {
     }
     dependencies {
         classpath 'net.minecraftforge.gradle:ForgeGradle:1.2-SNAPSHOT'
-        classpath 'org.ajoberstar:gradle-git:0.2.3'
     }
 }
-
 apply plugin: 'scala'
 apply plugin: 'forge'
-import org.ajoberstar.gradle.git.tasks.*
 
-task cloneGitRepo(type: GitClone, dependsOn: "extractUserDev") {
-    def destination = file("temp")
-    uri = "https://github.com/CoFH/RedstoneFlux-API.git"
-    destinationPath = destination
-    bare = false
-    enabled = !destination.exists() //to clone only once
-}
-
-task copyApi(type: Copy, dependsOn: "cloneGitRepo") {
-            from "temp/src/main"
-            into "src/api"
-            includeEmptyDirs=true
-    mustRunAfter "deobfBinJar"
-    mustRunAfter "repackMinecraft"
-}
-tasks.setupDevWorkspace.dependsOn copyApi
-tasks.setupDecompWorkspace.dependsOn copyApi
-tasks.setupCIWorkspace.dependsOn copyApi
-project.ext.buildnumber = "CUSTOM_BUILD"
-
-if(System.getenv("BUILD_NUMBER"))
-{
-	project.buildnumber = System.getenv("BUILD_NUMBER")
-}
-
-version = "3.0-ALPHA-$project.buildnumber"
-group= "com.minalien.mffs"
-archivesBaseName = "ModularForcefieldSystem-1.7.10"
-
-repositories {
-}
-
+version = "1.0"
+group= "com.yourname.modid" // http://maven.apache.org/guides/mini/guide-naming-conventions.html
+archivesBaseName = "modid"
+sourceSets{ main { output.resourcesDir = output.classesDir } }
 minecraft {
-    version = "1.7.10-10.13.2.1236"
+    version = "1.8-11.14.0.1290-1.8"
     runDir = "eclipse"
+
+    // the mappings can be changed at any time, and must be in the following format.
+    // snapshot_YYYYMMDD   snapshot are built nightly.
+    // stable_#            stables are built at the discretion of the MCP team.
+    // Use non-default mappings at your own risk. they may not allways work.
+    // simply re-run your setup task after changing the mappings to update your workspace.
+    mappings = "snapshot_nodoc_20141130"
 }
 
 dependencies {
+    // you may put jars on which you depend on in ./libs
+    // or you may define them like so..
+    //compile "some.group:artifact:version:classifier"
+    //compile "some.group:artifact:version"
+
+    // real examples
+    //compile 'com.mod-buildcraft:buildcraft:6.0.8:dev'  // adds buildcraft to the dev env
+    //compile 'com.googlecode.efficient-java-matrix-library:ejml:0.24' // adds ejml to the dev env
+
+    // for more info...
+    // http://www.gradle.org/docs/current/userguide/artifact_dependencies_tutorial.html
+    // http://www.gradle.org/docs/current/userguide/dependency_management.html
+
 }
 
 processResources
-{
-    // this will ensure that this task is redone when the versions change.
-    inputs.property "version", project.version
-    inputs.property "mcversion", project.minecraft.version
+        {
+            // this will ensure that this task is redone when the versions change.
+            inputs.property "version", project.version
+            inputs.property "mcversion", project.minecraft.version
 
-    // replace stuff in mcmod.info, nothing else
-    from(sourceSets.main.resources.srcDirs) {
-        include 'mcmod.info'
-                
-        // replace version and mcversion
-        expand 'version':project.version, 'mcversion':project.minecraft.version
-    }
-        
-    // copy everything else, thats not the mcmod.info
-    from(sourceSets.main.resources.srcDirs) {
-        exclude 'mcmod.info'
-    }
-}
+            // replace stuff in mcmod.info, nothing else
+            from(sourceSets.main.resources.srcDirs) {
+                include 'mcmod.info'
 
-task deobfJar(type: Jar, dependsOn: 'classes') {
-	from(sourceSets.main.output) {
-		include '**'
-	}
+                // replace version and mcversion
+                expand 'version':project.version, 'mcversion':project.minecraft.version
+            }
 
-	extension = 'jar'
-	classifier = 'deobf'
-}
-
-artifacts {
-	archives deobfJar
-}
+            // copy everything else, thats not the mcmod.info
+            from(sourceSets.main.resources.srcDirs) {
+                exclude 'mcmod.info'
+            }
+        }
