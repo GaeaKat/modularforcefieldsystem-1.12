@@ -1,0 +1,14 @@
+itemGroup.MFFS=Modular Forcefield System
+tile.extractor.name=MFFS Extractor
+tile.generator.name=MFFS Capacitor
+
+
+#Items
+item.forcium.name=Forcicium
+
+
+
+#Generic card messages
+generic.card.installed=Success: %s Card installed.
+generic.card.copied=Success: %s Card data copied.
+generic.card.fail=Fail: Slot is not empty.

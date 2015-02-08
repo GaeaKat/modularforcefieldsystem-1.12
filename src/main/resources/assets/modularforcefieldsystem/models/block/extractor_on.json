@@ -1,0 +1,13 @@
+{
+  "parent":"block/cube",
+  "textures":
+  {
+    "down":"modularforcefieldsystem:blocks/extractor/sideActive",
+    "up":"modularforcefieldsystem:blocks/extractor/sideActive",
+    "east":"modularforcefieldsystem:blocks/extractor/sideActive",
+    "south":"modularforcefieldsystem:blocks/extractor/sideActive",
+    "west":"modularforcefieldsystem:blocks/extractor/sideActive",
+    "north":"modularforcefieldsystem:blocks/extractor/faceActive",
+    "particle":"modularforcefieldsystem:blocks/extractor/faceActive"
+  }
+}

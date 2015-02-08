@@ -1,0 +1,13 @@
+{
+  "parent":"block/cube",
+  "textures":
+  {
+    "down":"modularforcefieldsystem:blocks/capacitor/sideInactive",
+    "up":"modularforcefieldsystem:blocks/capacitor/sideInactive",
+    "east":"modularforcefieldsystem:blocks/capacitor/sideInactive",
+    "south":"modularforcefieldsystem:blocks/capacitor/sideInactive",
+    "west":"modularforcefieldsystem:blocks/capacitor/sideInactive",
+    "north":"modularforcefieldsystem:blocks/capacitor/faceInactive",
+    "particle":"modularforcefieldsystem:blocks/capacitor/faceInactive"
+  }
+}
