@@ -115,3 +115,49 @@ task copyLatestCoFH(type: Copy , dependsOn: "getLatestCoFH" ) {
 tasks.setupDevWorkspace.dependsOn copyLatestCoFH
 tasks.setupDecompWorkspace.dependsOn copyLatestCoFH
 
+task deobfJar(type: Jar) {
+    from sourceSets.main.output
+    classifier = 'dev'
+}
+
+task apiJar(type: Jar) {
+    from fileTree(dir: 'src/main/java').matching { include 'com/nekokittygames/mffs/api/**' }
+    classifier = 'api'
+}
+
+
+task sourcesJar(type: Jar) {
+    from sourceSets.main.allJava
+    classifier = 'sources'
+}
+
+publishing {
+    publications {
+        main(MavenPublication) {
+            groupId 'com.nekokittygames.mffs'
+            artifactId 'MFFS'
+            from components.java
+        }
+        api(MavenPublication) {
+            groupId 'com.nekokittygames.mffs'
+            artifactId 'MFFS'
+            artifact apiJar
+        }
+        dev(MavenPublication) {
+            groupId 'com.nekokittygames.mffs'
+            artifactId 'MFFS'
+            artifact deobfJar
+        }
+        sources(MavenPublication) {
+            groupId 'com.nekokittygames.mffs'
+            artifactId 'MFFS'
+            artifact sourcesJar
+        }
+
+    }
+    repositories {
+        maven {
+            url "/var/www/maven/"
+        }
+    }
+}
