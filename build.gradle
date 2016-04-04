@@ -99,15 +99,17 @@ processResources
     }
 }
 
-
-task getLatestCoFH(type: com.palominolabs.gradle.task.git.clone.GitCloneTask, dependsOn: "deobfProvidedDummyTask" ) {
-  dir = file("$buildDir/tmp")
+task deleteOldCoFH(type: Delete, dependsOn: "deobfProvidedDummyTask") {
+    delete file("$buildDir/tmp/CoFH/")
+}
+task getLatestCoFH(type: com.palominolabs.gradle.task.git.clone.GitCloneTask, dependsOn: "deleteOldCoFH" ) {
+  dir = file("$buildDir/tmp/CoFH/")
   uri = 'https://github.com/CoFH/RedstoneFlux-API.git'
   treeish = 'origin/1.8' // a commit hash, or tag name, or branch name (with remote prefix, like 'origin/master')
 }
 
 task copyLatestCoFH(type: Copy , dependsOn: "getLatestCoFH" ) {
-	def tempDir = file("$buildDir/tmp/src/main/java")
+	def tempDir = file("$buildDir/tmp/CoFH/src/main/java")
 	from tempDir
 	into "src/api/java"
 }
