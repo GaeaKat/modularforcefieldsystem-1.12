@@ -1,0 +1,11 @@
+{
+  "parent": "block/cube",
+  "textures": {
+    "north": "mffs:blocks/capacitor/face_inactive",
+    "east": "mffs:blocks/capacitor/side_inactive",
+    "south": "mffs:blocks/capacitor/side_inactive",
+    "west": "mffs:blocks/capacitor/side_inactive",
+    "up": "mffs:blocks/capacitor/side_inactive",
+    "down": "mffs:blocks/capacitor/side_inactive"
+  }
+}

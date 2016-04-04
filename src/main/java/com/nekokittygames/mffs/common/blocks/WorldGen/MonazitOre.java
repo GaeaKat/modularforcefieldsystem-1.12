@@ -1,8 +1,8 @@
-package com.nekokittygames.mffs.common.blocks.WorldGen;
+package com.nekokittygames.mffs.common.blocks.worldgen;
 
 import com.nekokittygames.mffs.common.blocks.MFFSBlock;
 import net.minecraft.block.material.Material;
-import net.minecraft.util.EnumWorldBlockLayer;
+import net.minecraft.util.BlockRenderLayer;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
@@ -16,8 +16,8 @@ public class MonazitOre extends MFFSBlock {
 
 
     @SideOnly(Side.CLIENT)
-    public EnumWorldBlockLayer getBlockLayer()
+    public BlockRenderLayer getBlockLayer()
     {
-        return EnumWorldBlockLayer.SOLID;
+        return BlockRenderLayer.SOLID;
     }
 }

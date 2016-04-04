@@ -5,4 +5,5 @@ package com.nekokittygames.mffs.common.libs;
  */
 public class LibBlockNames {
     public static final String MONAZIT_ORE="monazit_ore";
+    public static final String MFFS_CAPACITOR="capacitor";
 }
