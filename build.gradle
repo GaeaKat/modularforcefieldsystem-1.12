@@ -25,7 +25,7 @@ plugins {
 */
 group= "com.nekokittygames.mffs" // http://maven.apache.org/guides/mini/guide-naming-conventions.html
 archivesBaseName = "MFFS"
-def mcVersion="1.9-12.16.0.1832-1.9"
+def mcVersion="1.9-12.16.0.1865-1.9"
 version = "1.0-${mcVersion}"
 if (System.getenv("BUILD_NUMBER")!=null)
     version = "$version-${System.getenv().BUILD_NUMBER}"
@@ -54,8 +54,55 @@ repositories {
         name "BuildCraft"
         artifactPattern "http://www.mod-buildcraft.com/releases/BuildCraft/[revision]/[module]-[revision]-[classifier].[ext]"
     }
+    maven {
+        name = "forge"
+        url = "http://files.minecraftforge.net/maven"
+    }
+    maven {
+        name = "progwml6"
+        url =  "http://dvs1.progwml6.com/files/maven"
+    }
+    maven {
+        name = "mobiusstrip"
+        url = "http://mobiusstrip.eu/maven"
+    }
+    ivy {
+        name "JLib"
+        artifactPattern "http://addons.curse.cursecdn.com/files/2294/50/[module]-[revision].[ext]"
+    }
+    ivy {
+        name "DeepResonance"
+        artifactPattern "http://addons.curse.cursecdn.com/files/2292/853/[module]-[revision].[ext]"
+    }
+    ivy {
+        name "ElecCore"
+        artifactPattern "http://addons.curse.cursecdn.com/files/2291/982/[module]-[revision].[ext]"
+    }
+    ivy {
+        name "RFTools"
+        artifactPattern "http://addons.curse.cursecdn.com/files/2294/198/[module]-[revision].[ext]"
+    }
+    ivy {
+        name "MCMultiPart"
+        artifactPattern "http://addons.curse.cursecdn.com/files/2290/798/[module]-[revision].[ext]"
+    }
+    maven {
+        url "http://www.teambrmodding.com/maven2/"
+    }
+
+
 }
 dependencies {
+    deobfCompile "mezz.jei:jei_1.9:3.2.11.186"
+    deobfCompile "mcp.mobius.waila:Waila:1.7.0-B2_1.9"
+    deobfCompile name: "mcjtylib", version: "1.9.0-1.8.2", ext:"jar"
+    deobfCompile name: "ElecCore", version: "1.9-1.4.261", ext: "jar"
+    deobfCompile name: "deepresonance", version: "1.9.0-1.1.4beta27", ext: "jar"
+    deobfCompile name: "rftools", version: "1.9.0-4.30", ext: "jar"
+    deobfCompile name: "MCMultiPart", version: "1.1.1-universal", ext: "jar"
+    deobfCompile group: "com.teambr.bookshelf", name: "Bookshelf-API", version: "+",  changing: true
+    deobfCompile group: "com.dyonovan.neotech", name: "NeoTech", version: "1.9-3.0.5-B12",  changing: true
+
     // you may put jars on which you depend on in ./libs
     // or you may define them like so..
     //compile "some.group:artifact:version:classifier"

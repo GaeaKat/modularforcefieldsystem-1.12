@@ -2,4 +2,13 @@
 itemGroup.MFFS=MFFS
 
 tile.capacitor.name=MFFS Capacitor
+tile.capacitor.description=The capacitor takes in RF energy, and is the energy storage of a MFFS link setup, any energy needed will come from this instantly.
 tile.monazit_ore.name=Monazit Ore
+
+item.blank_card.name=Blank Card
+item.link_card.name=Link Card
+
+mffs.text.upgrades=Upgrades
+mffs.text.information=Information
+mffs.text.redstoneFlux=Redstone Flux Energy
+mffs.text.invalidLinkCard=No Network Linked

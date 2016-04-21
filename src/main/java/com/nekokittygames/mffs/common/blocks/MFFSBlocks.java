@@ -1,12 +1,11 @@
 package com.nekokittygames.mffs.common.blocks;
 
-import com.nekokittygames.mffs.common.blocks.machines.Capacitor;
+import com.nekokittygames.mffs.common.blocks.machines.MFFSCapacitor;
 import com.nekokittygames.mffs.common.blocks.machines.MFFSMachineFaced;
 import com.nekokittygames.mffs.common.blocks.worldgen.MonazitOre;
 import com.nekokittygames.mffs.common.libs.LibBlockNames;
 import com.nekokittygames.mffs.common.tiles.TileCapacitor;
 import net.minecraft.block.Block;
-import net.minecraft.block.SoundType;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.item.Item;
 import net.minecraftforge.client.model.ModelLoader;
@@ -18,13 +17,13 @@ import net.minecraftforge.fml.common.registry.GameRegistry;
 public class MFFSBlocks {
 
     public static MonazitOre monazit_ore;
-    public static Capacitor capacitor;
+    public static MFFSCapacitor capacitor;
 
 
     public static void createBlocks()
     {
         monazit_ore= (MonazitOre) new MonazitOre().setHardness(3.0F).setResistance(5.0F).setUnlocalizedName(LibBlockNames.MONAZIT_ORE);
-        capacitor=(Capacitor)new Capacitor().setHardness(3.0F).setUnlocalizedName(LibBlockNames.MFFS_CAPACITOR);
+        capacitor=(MFFSCapacitor)new MFFSCapacitor().setHardness(3.0F).setUnlocalizedName(LibBlockNames.MFFS_CAPACITOR);
 
 
         registerBlocks();
@@ -32,8 +31,9 @@ public class MFFSBlocks {
 
     public static void registerBlocks()
     {
-        GameRegistry.registerBlock(monazit_ore,LibBlockNames.MONAZIT_ORE);
-        GameRegistry.registerBlock(capacitor,LibBlockNames.MFFS_CAPACITOR);
+        
+        //GameRegistry.registerBlock(monazit_ore,LibBlockNames.MONAZIT_ORE);
+        //GameRegistry.registerBlock(capacitor,LibBlockNames.MFFS_CAPACITOR);
 
 
 
@@ -63,6 +63,7 @@ public class MFFSBlocks {
         ModelResourceLocation itemModelResourceLocation = new ModelResourceLocation("mffs:"+name, "inventory");
         final int DEFAULT_ITEM_SUBTYPE = 0;
         ModelLoader.setCustomModelResourceLocation(itemBlockSimple, DEFAULT_ITEM_SUBTYPE, itemModelResourceLocation);
+
     }
 
 

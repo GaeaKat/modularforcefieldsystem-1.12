@@ -1,6 +1,7 @@
 package com.nekokittygames.mffs.common;
 
 import com.nekokittygames.mffs.common.blocks.MFFSBlocks;
+import com.nekokittygames.mffs.common.common.GUIHandler;
 import com.nekokittygames.mffs.common.common.MFFSCommonProxy;
 import com.nekokittygames.mffs.common.libs.LibMisc;
 import com.nekokittygames.mffs.common.world.MFFSOreGen;
@@ -9,6 +10,7 @@ import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.SidedProxy;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
+import net.minecraftforge.fml.common.network.NetworkRegistry;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import org.apache.logging.log4j.Logger;
 
@@ -18,6 +20,8 @@ import org.apache.logging.log4j.Logger;
 @Mod(modid = LibMisc.MOD_ID , version = LibMisc.MOD_VERSION)
 public class MFFS {
 
+    @Mod.Instance()
+    public static MFFS instance;
 
     @SidedProxy(serverSide = LibMisc.COMMON_PROXY,clientSide = LibMisc.CLIENT_PROXY)
     public static MFFSCommonProxy proxy;
@@ -27,13 +31,17 @@ public class MFFS {
     {
         log=event.getModLog();
         proxy.setupBlocks();
+        proxy.setupItems();
+
     }
 
 
     @Mod.EventHandler
     public void init(FMLInitializationEvent event)
     {
+
         GameRegistry.registerWorldGenerator(new MFFSOreGen(),0);
+        NetworkRegistry.INSTANCE.registerGuiHandler(this,new GUIHandler());
     }
 
 }

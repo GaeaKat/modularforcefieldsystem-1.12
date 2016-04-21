@@ -14,11 +14,13 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.world.World;
+import net.minecraftforge.common.capabilities.ICapabilityProvider;
 
 /**
  * Created by katsw on 03/04/2016.
  */
-public abstract class MFFSMachineFaced extends MFFSTileBlock {
+public abstract class MFFSMachineFaced extends MFFSTileBlock{
+
 
     public static final PropertyDirection FACING = PropertyDirection.create( "facing" );
     public static final PropertyBool ACTIVE= PropertyBool.create("active");
@@ -60,6 +62,7 @@ public abstract class MFFSMachineFaced extends MFFSTileBlock {
 
     @Override
     public void onBlockClicked(World worldIn, BlockPos pos, EntityPlayer playerIn) {
-        worldIn.setBlockState(pos,worldIn.getBlockState(pos).withProperty(ACTIVE,!worldIn.getBlockState(pos).getValue(ACTIVE)));
+        //worldIn.setBlockState(pos,worldIn.getBlockState(pos).withProperty(ACTIVE,!worldIn.getBlockState(pos).getValue(ACTIVE)));
     }
+
 }

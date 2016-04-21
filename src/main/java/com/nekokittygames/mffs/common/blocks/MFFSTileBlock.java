@@ -11,7 +11,7 @@ import net.minecraft.world.World;
 /**
  * Created by katsw on 03/04/2016.
  */
-public abstract class MFFSTileBlock extends MFFSBlock implements ITileEntityProvider{
+public abstract class MFFSTileBlock extends ModBlock implements ITileEntityProvider{
     public MFFSTileBlock(Material blockMaterial) {
         super(blockMaterial);
     }
