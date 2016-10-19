@@ -34,7 +34,9 @@ import com.nekokittygames.mffs.common.item.ItemCapacitorUpgradeCapacity;
 import com.nekokittygames.mffs.common.item.ItemExtractorUpgradeBooster;
 import com.nekokittygames.mffs.common.item.ItemForcicium;
 import com.nekokittygames.mffs.common.item.ItemForcicumCell;
-import net.darkhax.tesla.api.ITeslaConsumer;
+import ic2.api.energy.event.EnergyTileLoadEvent;
+import ic2.api.energy.tile.IEnergyEmitter;
+import ic2.api.energy.tile.IEnergySink;
 import net.darkhax.tesla.capability.TeslaCapabilities;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.Container;
@@ -42,14 +44,20 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraft.util.EnumFacing;
+import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.util.Constants;
+import net.minecraftforge.fml.common.Loader;
+import net.minecraftforge.fml.common.Optional;
 
 import java.util.LinkedList;
 import java.util.List;
 
+@Optional.InterfaceList({	@Optional.Interface(modid = "CoFHAPI|energy",iface = "cofh.api.energy.IEnergyReceiver"),
+							@Optional.Interface(modid = "IC2",iface = "ic2.api.energy.tile.IEnergySink"),
+							@Optional.Interface(modid = "IC2",iface = "ic2.api.energy.tile.IEnergyEmitter")})
 public class TileEntityExtractor extends TileEntityFEPoweredMachine implements
-		/*IPowerReceptor,*/ IEnergyReceiver {
+		IEnergySink, IEnergyReceiver {
 	private ItemStack inventory[];
 
 	private int workmode = 0;
@@ -79,7 +87,8 @@ public class TileEntityExtractor extends TileEntityFEPoweredMachine implements
 		maxworkcylce = 125;
 		capacity = 0;
 		addedToEnergyNet = false;
-		cap=new TeslaCap(this);
+		if(Loader.isModLoaded("tesla"))
+			cap=new TeslaCap(this);
 
 
 	}
@@ -319,6 +328,14 @@ public class TileEntityExtractor extends TileEntityFEPoweredMachine implements
 
 			if (init) {
 				checkslots(true);
+				if(addedToEnergyNet==false)
+				{
+					if(Loader.isModLoaded("IC2"))
+						AddToIC2EnergyNet();
+					else
+						addedToEnergyNet=true;
+				}
+
 			}
 
 
@@ -401,6 +418,15 @@ public class TileEntityExtractor extends TileEntityFEPoweredMachine implements
 			this.setTicker((short) (this.getTicker() + 1));
 		}
 		super.update();
+	}
+
+	@Optional.Method(modid = "IC2")
+	private void AddToIC2EnergyNet() {
+		if (!worldObj.isRemote) {
+			EnergyTileLoadEvent event = new EnergyTileLoadEvent(this);
+			MinecraftForge.EVENT_BUS.post(event);
+			addedToEnergyNet=true;
+		}
 	}
 
 	@Override
@@ -656,21 +682,25 @@ public class TileEntityExtractor extends TileEntityFEPoweredMachine implements
 
 
 	@Override
+	@Optional.Method(modid = "CoFHAPI|energy")
 	public boolean canConnectEnergy(EnumFacing from) {
 		return true;
 	}
 
 	@Override
+	@Optional.Method(modid = "CoFHAPI|energy")
 	public int getEnergyStored(EnumFacing from) {
 		return 0;
 	}
 
 	@Override
+	@Optional.Method(modid = "CoFHAPI|energy")
 	public int getMaxEnergyStored(EnumFacing from) {
 		return 9999;
 	}
 
 	@Override
+	@Optional.Method(modid = "CoFHAPI|energy")
 	public int receiveEnergy(EnumFacing from, int maxReceive, boolean simulate) {
 
 		double freeSpace = (double)(getMaxWorkEnergy() - getWorkEnergy());
@@ -735,15 +765,62 @@ public class TileEntityExtractor extends TileEntityFEPoweredMachine implements
 
 	@Override
 	public boolean hasCapability(Capability<?> capability, EnumFacing facing) {
+		if(Loader.isModLoaded("tesla"))
+			if (hasTeslaCapability(capability))
+				return true;
+		return super.hasCapability(capability, facing);
+	}
+
+	@Optional.Method(modid = "tesla")
+	private boolean hasTeslaCapability(Capability<?> capability) {
 		if(capability== TeslaCapabilities.CAPABILITY_CONSUMER)
 			return true;
-		return super.hasCapability(capability, facing);
+		return false;
 	}
 
 	@Override
 	public <T> T getCapability(Capability<T> capability, EnumFacing facing) {
-		if(capability==TeslaCapabilities.CAPABILITY_CONSUMER)
-			return (T) cap;
+		if(Loader.isModLoaded("tesla"))
+			if (hasTeslaCapability(capability))
+				return (T) cap;
 		return super.getCapability(capability, facing);
+	}
+
+
+	@Override
+	@Optional.Method(modid = "IC2")
+	public double getDemandedEnergy() {
+
+		if(!this.isActive())
+			return 0;
+		return (double)(getMaxWorkEnergy() - getWorkEnergy());
+	}
+
+	@Override
+	@Optional.Method(modid = "IC2")
+	public int getSinkTier() {
+		return 3;
+	}
+
+	@Override
+	@Optional.Method(modid = "IC2")
+	public double injectEnergy(EnumFacing enumFacing, double v, double v1) {
+		double freeSpace = (double) (getMaxWorkEnergy() - getWorkEnergy());
+		if(getDemandedEnergy()<=0)
+			return v;
+		if (freeSpace >= v) {
+			setWorkEnergy(getWorkEnergy() + (int) v);
+			return 0;
+		} else {
+			setWorkEnergy(getMaxWorkEnergy());
+			return (int) (v-freeSpace);
+		}
+
+	}
+
+	@Override
+	@Optional.Method(modid = "IC2")
+	public boolean acceptsEnergyFrom(IEnergyEmitter iEnergyEmitter, EnumFacing enumFacing) {
+		return true;
 	}
 }
