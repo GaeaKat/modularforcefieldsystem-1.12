@@ -32,7 +32,6 @@ import com.nekokittygames.mffs.common.SecurityHelper;
 import com.nekokittygames.mffs.common.SecurityRight;
 import com.nekokittygames.mffs.common.tileentity.TileEntityAreaDefenseStation;
 import com.nekokittygames.mffs.common.tileentity.TileEntityCapacitor;
-import com.nekokittygames.mffs.common.tileentity.TileEntityConverter;
 import com.nekokittygames.mffs.common.tileentity.TileEntityExtractor;
 import com.nekokittygames.mffs.common.tileentity.TileEntityMachines;
 import com.nekokittygames.mffs.common.tileentity.TileEntityProjector;
@@ -88,15 +87,6 @@ public class ItemCardPowerLink extends ItemCard implements IPowerLinkItem {
 		TileEntity tileEntity = world.getTileEntity(pos);
 
 		if (!world.isRemote) {
-
-			if (tileEntity instanceof TileEntityConverter) {
-				if (SecurityHelper.isAccessGranted(tileEntity, player,
-						world, SecurityRight.EB)) {
-
-					return Functions.setIteminSlot(stack, player, tileEntity, 0, "<Power-Link>")?EnumActionResult.SUCCESS:EnumActionResult.FAIL;
-
-				}
-			}
 
 			if (tileEntity instanceof TileEntityProjector) {
 				if (SecurityHelper.isAccessGranted(tileEntity, player,

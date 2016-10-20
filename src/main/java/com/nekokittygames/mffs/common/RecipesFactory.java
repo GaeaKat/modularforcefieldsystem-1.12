@@ -23,9 +23,15 @@
 
 package com.nekokittygames.mffs.common;
 
+import com.nekokittygames.mffs.common.compat.EnderIOCompat;
+import ic2.api.item.IC2Items;
+import ic2.api.item.IItemAPI;
 import net.minecraft.block.Block;
+import net.minecraft.init.Blocks;
+import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraftforge.fml.common.registry.GameRegistry;
 
 public final class RecipesFactory {
 
@@ -33,7 +39,7 @@ public final class RecipesFactory {
 	public static boolean addRecipe(String Recipe, int count, int forMod,
 			Block block, Item item) {
 
-		/*if ((forMod >= 4 || forMod < 0) || (count < 0)
+		if ((forMod >= 4 || forMod < 0) || (count < 0)
 				|| (block == null && item == null)
 				|| (block != null && item != null) || (Recipe.length() != 9)) {
 			System.out
@@ -57,20 +63,20 @@ public final class RecipesFactory {
 
 			GameRegistry.addRecipe(itemstack, recipeSplit,
 
-			'a', Item.enderPearl, 'b',
-					Item.pickaxeIron,
+			'a', Items.ENDER_PEARL, 'b',
+					Items.IRON_PICKAXE,
 					'c',
-					Item.bucketEmpty,
+					Items.BUCKET,
 					'd',
-					Item.bucketLava,
+					Items.LAVA_BUCKET,
 					'e',
-					Item.bucketWater,
+					Items.WATER_BUCKET,
 					'f',
-					Item.bone, // Vanilla Stuff a++
-					'g', Item.blazeRod, 'h', Item.rottenFlesh, 'i',
-					Item.diamond, 'j', Item.spiderEye, 'k', Block.obsidian,
-					'l', Block.glass, 'm', Item.redstone, 'n', Block.lever,
-					'o', Item.paper,
+					Items.BONE, // Vanilla Stuff a++
+					'g', Items.BLAZE_ROD, 'h', Items.ROTTEN_FLESH, 'i',
+					Items.DIAMOND, 'j', Items.SPIDER_EYE, 'k', Blocks.OBSIDIAN,
+					'l', Blocks.GLASS, 'm', Items.REDSTONE, 'n', Blocks.LEVER,
+					'o', Items.PAPER,
 
 					'u', ModularForceFieldSystem.MFFSitemForcicium, 'v',
 					ModularForceFieldSystem.MFFSitemFocusmatix, 'w',
@@ -95,35 +101,35 @@ public final class RecipesFactory {
 								recipeSplit,
 
 								'a',
-								Item.enderPearl,
+								Items.ENDER_PEARL,
 								'b',
-								Item.pickaxeIron,
+								Items.IRON_PICKAXE,
 								'c',
-								Item.bucketEmpty,
+								Items.BUCKET,
 								'd',
-								Item.bucketLava,
+								Items.LAVA_BUCKET,
 								'e',
-								Item.bucketWater,
+								Items.WATER_BUCKET,
 								'f',
-								Item.bone, // Vanilla Stuff a++
+								Items.BONE, // Vanilla Stuff a++
 								'g',
-								Item.blazeRod,
+								Items.BLAZE_ROD,
 								'h',
-								Item.rottenFlesh,
+								Items.ROTTEN_FLESH,
 								'i',
-								Item.diamond,
+								Items.DIAMOND,
 								'j',
-								Item.spiderEye,
+								Items.SPIDER_EYE,
 								'k',
-								Block.obsidian,
+								Blocks.OBSIDIAN,
 								'l',
-								Block.glass,
+								Blocks.GLASS,
 								'm',
-								Item.redstone,
+								Items.REDSTONE,
 								'n',
-								Block.lever,
+								Blocks.LEVER,
 								'o',
-								Item.paper,
+								Items.PAPER,
 
 								'u',
 								ModularForceFieldSystem.MFFSitemForcicium,
@@ -139,31 +145,31 @@ public final class RecipesFactory {
 								ModularForceFieldSystem.MFFSitemFocusmatix,
 								'z', ModularForceFieldSystem.MFFSItemIDCard,
 
-								'A', Items.getItem("refinedIronIngot"),
-								'B', Items.getItem("overclockerUpgrade"),
-								'C', Items.getItem("electronicCircuit"),
-								'D', Items.getItem("advancedCircuit"),
-								'E', Items.getItem("carbonPlate"),
-								'F', Items.getItem("advancedMachine"),
-								'G', Items.getItem("extractor"),
-								'H', Items.getItem("copperCableItem"),
-								'I', Items.getItem("insulatedCopperCableItem"),
-								'J', Items.getItem("frequencyTransmitter"),
-								'K', Items.getItem("advancedAlloy"),
-								'M', Items.getItem("glassFiberCableItem"),
-								'N', Items.getItem("lvTransformer"),
-								'O', Items.getItem("mvTransformer"),
-								'P', Items.getItem("hvTransformer"),
-								'Q', Items.getItem("teslaCoil"),
-								'R', Items.getItem("matter"),
-								'S', Items.getItem("wrench")
+								'A', IC2Items.getItem("plate","iron"),
+								'B', IC2Items.getItem("upgrade","overclocker"),
+								'C', IC2Items.getItem("crafting","circuit"),
+								'D', IC2Items.getItem("crafting","advanced_circuit"),
+								'E', IC2Items.getItem("crafting","carbon_plate"),
+								'F', IC2Items.getItem("resource","advanced_machine"),
+								'G', IC2Items.getItem("te","extractor"),
+								'H', IC2Items.getItem("cable","type:copper,insulation:0"),
+								'I', IC2Items.getItem("cable","type:copper,insulation:1"),
+								'J', IC2Items.getItem("frequency_transmitter"),
+								'K', IC2Items.getItem("crafting","alloy"),
+								'M', IC2Items.getItem("cable","type:glass,insulation:0"),
+								'N', IC2Items.getItem("te","lv_transformer"),
+								'O', IC2Items.getItem("te","mv_transformer"),
+								'P', IC2Items.getItem("te","hv_transformer"),
+								'Q', IC2Items.getItem("te","tesla_coil"),
+								'R', IC2Items.getItem("misc_resource","matter"),
+								'S', IC2Items.getItem("wrench")
 
 						);
 				return true;
 			}
 			break;
 
-			*//*case 2: // Thermal Expansion
+			/*case 2: // Thermal Expansion
 				if (ModularForceFieldSystem.thermalExpansionFound
 						&& ModularForceFieldSystem.enableTERecipes) {
 					GameRegistry
@@ -234,8 +240,21 @@ public final class RecipesFactory {
 							);
 					return true;
 				}
-				break;*//*
-		}*/
+				*/
+            case 3:
+                if (ModularForceFieldSystem.enderIoFound
+                        && ModularForceFieldSystem.enableEIRecipes) {
+
+                    GameRegistry
+                            .addRecipe(
+                                    itemstack,
+                                    EnderIOCompat.getEnderIORecipes(recipeSplit)
+
+                            );
+                    return true;
+                }
+                break;
+		}
 
 		//return false;
 		return true;

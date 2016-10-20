@@ -25,6 +25,7 @@ package com.nekokittygames.mffs.common;
 
 
 import com.nekokittygames.mffs.common.block.BlockMFFSBase;
+import ic2.api.tile.ExplosionWhitelist;
 import net.minecraft.block.Block;
 import net.minecraft.inventory.Container;
 import net.minecraft.item.Item;
@@ -36,28 +37,25 @@ public enum MFFSMaschines {
 
 	Projector(1, "MFFSProjector", "Projector", "TileEntityProjector",
 			"GuiProjector", "ContainerProjector",
-			ModularForceFieldSystem.MFFSProjector, 0, "KyKyFyKJK", " y yFyaIa"),
+			ModularForceFieldSystem.MFFSProjector, 0, "KyKyFyKJK", " y yFyaIa","KyKyFyKJK"),
 	Extractor(2, "MFFSExtractor", "Extractor", "TileEntityExtractor",
 			"GuiExtractor", "ContainerForceEnergyExtractor",
-			ModularForceFieldSystem.MFFSExtractor, 0, " C xFx G ", " a xFxEIE"),
+			ModularForceFieldSystem.MFFSExtractor, 0, " C xFx G ", " a xFxEIE"," C xFx G "),
 	Capacitor(3, "MFFSCapacitor", "Capacitor", "TileEntityCapacitor",
 			"GuiCapacitor", "ContainerCapacitor",
-			ModularForceFieldSystem.MFFSCapacitor, 0, "xJxCFCxJx", " a xGxxIx"),
-	Converter(4, "MFFSForceEnergyConverter", "Converter", "TileEntityConverter",
-			"GuiConverter", "ContainerConverter",
-			ModularForceFieldSystem.MFFSForceEnergyConverter, 0, "ANAJOMAPA", "         "),
+			ModularForceFieldSystem.MFFSCapacitor, 0, "xJxCFCxJx", " a xGxxIx","xJxCFCxJx"),
 	DefenceStation(5, "MFFSDefenceStation", "Defence Station", "TileEntityAreaDefenseStation",
 			"GuiAreaDefenseStation", "ContainerAreaDefenseStation",
-			ModularForceFieldSystem.MFFSDefenceStation, 0, " J aFa E ", " a EFE I "),
+			ModularForceFieldSystem.MFFSDefenceStation, 0, " J aFa E ", " a EFE I "," J aFa E "),
 	SecurityStation(6, "MFFSSecurtyStation", "Security Station", "TileEntityAdvSecurityStation",
 			"GuiAdvSecurityStation", "ContainerAdvSecurityStation",
-			ModularForceFieldSystem.MFFSSecurtyStation, 0, "KCKCFCKJK", " E EFEIaI"),
+			ModularForceFieldSystem.MFFSSecurtyStation, 0, "KCKCFCKJK", " E EFEIaI","KCKCFCKJK"),
 	SecurityStorage(7, "MFFSSecurtyStorage", "Security Storage", "TileEntitySecStorage",
 			"GuiSecStorage", "ContainerSecStorage",
-			ModularForceFieldSystem.MFFSSecurtyStorage, 0, "AAAACAAAA", "AAAAEAAAA"),
+			ModularForceFieldSystem.MFFSSecurtyStorage, 0, "AAAACAAAA", "AAAAEAAAA","AAAACAAAA"),
 	ControlSystem(8, "MFFSControlSystem", "Control System","TileEntityControlSystem",
 			"GuiControlSystem", "ContainerControlSystem",
-			ModularForceFieldSystem.MFFSControlSystem, 0, "aCaAFAACA", " C aFaAIA");
+			ModularForceFieldSystem.MFFSControlSystem, 0, "aCaAFAACA", " C aFaAIA","aCaAFAACA");
 
 	public int index;
 	public String inCodeName;
@@ -68,11 +66,12 @@ public enum MFFSMaschines {
 	public Block block;
 	public String recipeic;
 	public String recipete;
+	public String recipeei;
 	public int baseTex;
 
 	private MFFSMaschines(int index, String nm, String dispNm, String cls,
 			String gui, String container, Block block, int baseTex,
-			String recipeic, String recipete) {
+			String recipeic, String recipete, String recipeei) {
 
 		this.index = index;
 		this.inCodeName = nm;
@@ -92,6 +91,7 @@ public enum MFFSMaschines {
 		}
 		this.recipeic = recipeic;
 		this.recipete = recipete;
+		this.recipeei=recipeei;
 		this.block = block;
 		this.baseTex = baseTex;
 	}
@@ -113,17 +113,28 @@ public enum MFFSMaschines {
 		}
 		return null;
 	}
-
-	public static void initialize() {
-
+	public static void preInit()
+	{
 		for (MFFSMaschines mach : MFFSMaschines.values()) {
 
 			GameRegistry.register(mach.block);
 			GameRegistry.register(new ItemBlock(mach.block),mach.block.getRegistryName());
 			GameRegistry.registerTileEntity(mach.clazz, mach.inCodeName);
 			ModularForceFieldSystem.proxy.setupClientMachine((BlockMFFSBase) mach.block,mach.block.getRegistryName().getResourcePath());
-			RecipesFactory.addRecipe(mach.recipete, 1, 1, mach.block, null);
 
+
+		}
+	}
+	public static void initialize() {
+
+		for (MFFSMaschines mach : MFFSMaschines.values()) {
+
+			if(ModularForceFieldSystem.ic2Found)
+				RecipesFactory.addRecipe(mach.recipeic, 1, 1, mach.block, null);
+
+			if(ModularForceFieldSystem.enderIoFound)
+				RecipesFactory.addRecipe(mach.recipeei, 1, 3, mach.block, null);
+			ExplosionWhitelist.addWhitelistedBlock(mach.block);
 		}
 	}
 

@@ -1,7 +1,6 @@
 package com.nekokittygames.mffs.network.client;
 
 import com.nekokittygames.mffs.common.ModularForceFieldSystem;
-import com.nekokittygames.mffs.common.tileentity.TileEntityConverter;
 import com.nekokittygames.mffs.common.tileentity.TileEntityMachines;
 import com.nekokittygames.mffs.network.PacketTileHandler;
 

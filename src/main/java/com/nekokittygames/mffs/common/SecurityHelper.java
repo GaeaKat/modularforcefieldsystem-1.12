@@ -96,23 +96,6 @@ public class SecurityHelper {
 			}
 		}
 
-		if (tileEntity instanceof TileEntityConverter) {
-
-			TileEntityAdvSecurityStation sec = ((TileEntityConverter) tileEntity)
-					.getLinkedSecurityStation();
-			if (sec != null) {
-				if (sec.isAccessGranted(entityplayer.getUniqueID().toString(), right)) {
-					return true;
-				} else {
-					if (!suppresswarning)
-						Functions.ChattoPlayer(entityplayer, I18n.format("fieldSecurity.accessDenied"));
-					return false;
-				}
-
-			}
-			return true;
-		}
-
 		if (tileEntity instanceof TileEntityCapacitor) {
 
 			TileEntityAdvSecurityStation sec = ((TileEntityCapacitor) tileEntity)

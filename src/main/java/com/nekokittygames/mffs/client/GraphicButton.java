@@ -78,16 +78,6 @@ public class GraphicButton extends GuiButton {
 				drawButtonRect(this.xPosition, this.yPosition, (((TileEntityMachines) tileEntity).getSwitchModi() *
 						16), 0, this.width, this.height, SWITCH_MODE_TEXTURE_SIZE);
 			}
-
-			if (tileEntity instanceof TileEntityConverter) {
-				if (typ == 1) {
-					par1Minecraft.renderEngine.bindTexture(new ResourceLocation("modularforcefieldsystem:textures/gui/ConverterOutput.png"));
-
-					drawButtonRect(xPosition, yPosition, (((TileEntityConverter) tileEntity).getRF_Output() * 16), 0,
-							width, height, CONVERTER_OUTPUT_TEXTURE_SIZE);
-				}
-			}
-
 			if (tileEntity instanceof TileEntityControlSystem) {
 				if (((TileEntityControlSystem) tileEntity).getStackInSlot(1) != null) {
 					if (typ == 1) {

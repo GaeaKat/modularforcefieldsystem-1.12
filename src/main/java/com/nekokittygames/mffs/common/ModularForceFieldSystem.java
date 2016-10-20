@@ -371,7 +371,7 @@ public class ModularForceFieldSystem {
 
 			// Machines + Blocks
 
-			MFFSForceEnergyConverter = new BlockConverter();
+
 			MFFSExtractor = new BlockExtractor();
 			MFFSMonazitOre = new BlockMonazitOre();
 			MFFSDefenceStation = new BlockAreaDefenseStation();
@@ -565,7 +565,7 @@ public class ModularForceFieldSystem {
 		GameRegistry.registerTileEntity(TileEntityForceField.class,
 				"MFFSForceField");
 		//proxy.setupClientBlock(MFFSFieldblock, LibBlockNames.FORCE_FIELD);
-		MFFSMaschines.initialize();
+		MFFSMaschines.preInit();
 		ProjectorTyp.initialize();
 		ProjectorOptions.initialize();
 
@@ -587,6 +587,7 @@ public class ModularForceFieldSystem {
 				MFFSitemForcicium);
 		OreDictionary.registerOre("MonazitOre",
 				MFFSMonazitOre);
+		MFFSMaschines.initialize();
 	}
 
 	@Mod.EventHandler

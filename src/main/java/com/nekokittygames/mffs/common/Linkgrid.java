@@ -31,7 +31,6 @@ import com.nekokittygames.mffs.common.tileentity.TileEntityAdvSecurityStation;
 import com.nekokittygames.mffs.common.tileentity.TileEntityAreaDefenseStation;
 import com.nekokittygames.mffs.common.tileentity.TileEntityCapacitor;
 import com.nekokittygames.mffs.common.tileentity.TileEntityControlSystem;
-import com.nekokittygames.mffs.common.tileentity.TileEntityConverter;
 import com.nekokittygames.mffs.common.tileentity.TileEntityExtractor;
 import com.nekokittygames.mffs.common.tileentity.TileEntityMachines;
 import com.nekokittygames.mffs.common.tileentity.TileEntityProjector;
@@ -48,7 +47,6 @@ public final class Linkgrid {
 		private Map<Integer, TileEntityAdvSecurityStation> SecStation = new Hashtable<Integer, TileEntityAdvSecurityStation>();
 		private Map<Integer, TileEntityAreaDefenseStation> DefStation = new Hashtable<Integer, TileEntityAreaDefenseStation>();
 		private Map<Integer, TileEntityExtractor> Extractor = new Hashtable<Integer, TileEntityExtractor>();
-		private Map<Integer, TileEntityConverter> Converter = new Hashtable<Integer, TileEntityConverter>();
 		private Map<Integer, TileEntityProjector> Jammer = new Hashtable<Integer, TileEntityProjector>();
 		private Map<Integer, TileEntityProjector> FieldFusion = new Hashtable<Integer, TileEntityProjector>();
 		private Map<Integer, TileEntitySecStorage> SecStorage = new Hashtable<Integer, TileEntitySecStorage>();
@@ -60,10 +58,6 @@ public final class Linkgrid {
 
 		public Map<Integer, TileEntityControlSystem> getControlSystem() {
 			return ControlSystem;
-		}
-
-		public Map<Integer, TileEntityConverter> getConverter() {
-			return Converter;
 		}
 
 		public Map<Integer, TileEntityExtractor> getExtractor() {
@@ -156,17 +150,7 @@ public final class Linkgrid {
 				Capacitors.put(DeviceID, (TileEntityCapacitor) tileEntity);
 				return DeviceID;
 			}
-			if (tileEntity instanceof TileEntityConverter) {
-				if (remDeviceID == 0) {
-					while (Converter.get(DeviceID) != null) {
-						DeviceID = random.nextInt();
-					}
-				} else {
-					DeviceID = remDeviceID;
-				}
-				Converter.put(DeviceID, (TileEntityConverter) tileEntity);
-				return DeviceID;
-			}
+
 			if (tileEntity instanceof TileEntityExtractor) {
 				if (remDeviceID == 0) {
 					while (Extractor.get(DeviceID) != null) {
@@ -234,15 +218,7 @@ public final class Linkgrid {
 				}
 			}
 
-			for (TileEntityConverter tileentity : Converter.values()) {
-				if (tileentity.getPowerSourceID() == Cap.getPowerStorageID()) {
-					if (range >= PointXYZ.distance(
-							tileentity.getMaschinePoint(),
-							Cap.getMaschinePoint())) {
-						counter++;
-					}
-				}
-			}
+
 
 			return counter;
 		}
@@ -260,8 +236,6 @@ public final class Linkgrid {
 					return getExtractor().get(key);
 				case 3:
 					return getCapacitor().get(key);
-				case 4:
-					return getConverter().get(key);
 				case 5:
 					return getDefStation().get(key);
 				case 6:
