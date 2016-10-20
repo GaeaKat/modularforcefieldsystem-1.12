@@ -337,7 +337,7 @@ public class ModularForceFieldSystem {
 			enableIC2Recipes = ic2Recipes.getBoolean(true);
 
 			Property teRecipes = MFFSconfig.get(Configuration.CATEGORY_GENERAL,
-					"enableTERecipes", true);
+					"enableTERecipes", false);
 			teRecipes.setComment("Set to false to disable Thermal Expansion recipes for MFFS machines.");
 			enableTERecipes = teRecipes.getBoolean(true);
 
@@ -566,8 +566,7 @@ public class ModularForceFieldSystem {
 				"MFFSForceField");
 		//proxy.setupClientBlock(MFFSFieldblock, LibBlockNames.FORCE_FIELD);
 		MFFSMaschines.preInit();
-		ProjectorTyp.initialize();
-		ProjectorOptions.initialize();
+
 
 		proxy.registerTileEntitySpecialRenderer();
 	}
@@ -588,6 +587,8 @@ public class ModularForceFieldSystem {
 		OreDictionary.registerOre("MonazitOre",
 				MFFSMonazitOre);
 		MFFSMaschines.initialize();
+        ProjectorTyp.initialize();
+        ProjectorOptions.initialize();
 	}
 
 	@Mod.EventHandler

@@ -24,12 +24,14 @@
 package com.nekokittygames.mffs.common;
 
 
+import crazypants.enderio.EnderIO;
 import ic2.api.item.IC2Items;
 import ic2.api.recipe.RecipeInputItemStack;
 import ic2.api.recipe.Recipes;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.CraftingManager;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 
 import java.lang.reflect.Method;
@@ -76,6 +78,23 @@ public class MFFSRecipes {
 				ModularForceFieldSystem.MFFSitemWrench);
 	}
 
+	public static void AddEIRecipes()
+	{
+		RecipesFactory.addRecipe("AAAAxAADA", 1, 3, null,
+				ModularForceFieldSystem.MFFSitemForcicumCell);
+		RecipesFactory.addRecipe(" E EBE E ", 4, 3, null,
+				ModularForceFieldSystem.MFFSitemupgradeexctractorboost);
+		RecipesFactory.addRecipe(" E ExE E ", 1, 3, null,
+				ModularForceFieldSystem.MFFSitemupgradecapcap);
+		RecipesFactory.addRecipe("HHHEIEEDE", 1, 3, null,
+				ModularForceFieldSystem.MFFSitemupgradecaprange);
+		RecipesFactory.addRecipe("AlAlilAlA", 64, 3, null,
+				ModularForceFieldSystem.MFFSitemFocusmatix);
+		RecipesFactory.addRecipe("ooooCoooo", 1, 3, null,
+				ModularForceFieldSystem.MFFSitemcardempty);
+		RecipesFactory.addRecipe("mSnExEEDE", 1, 3, null,
+				ModularForceFieldSystem.MFFSitemWrench);
+	}
 	public static void AddTERecipes() {
 		/*CraftingManagers.pulverizerManager.addRecipe(400, new ItemStack(
 				ModularForceFieldSystem.MFFSMonazitOre, 1), new ItemStack(
@@ -170,6 +189,8 @@ public class MFFSRecipes {
 
 		if(ModularForceFieldSystem.appliedEnergisticsFound && ModularForceFieldSystem.enableAEGrindStoneRecipe)
 			AddAERecipes();
+		if(ModularForceFieldSystem.enderIoFound && ModularForceFieldSystem.enableEIRecipes)
+			AddEIRecipes();
 	}
 
 }

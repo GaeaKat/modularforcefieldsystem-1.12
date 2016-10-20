@@ -24,6 +24,7 @@
 package com.nekokittygames.mffs.common;
 
 import net.minecraft.item.Item;
+import net.minecraftforge.fml.common.Mod;
 
 public enum ProjectorOptions {
 
@@ -64,7 +65,10 @@ public enum ProjectorOptions {
 	public static void initialize() {
 
 		for (ProjectorOptions mach : ProjectorOptions.values()) {
-				RecipesFactory.addRecipe(mach.recipete, 1, 2, null, mach.item);
+			if(ModularForceFieldSystem.enableEIRecipes)
+				RecipesFactory.addRecipe(mach.recipete, 1, 3, null, mach.item);
+			if(ModularForceFieldSystem.enableIC2Recipes)
+				RecipesFactory.addRecipe(mach.recipeic, 1, 1, null, mach.item);
 		}
 	}
 
