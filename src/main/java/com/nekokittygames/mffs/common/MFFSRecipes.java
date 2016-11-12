@@ -23,8 +23,6 @@
 
 package com.nekokittygames.mffs.common;
 
-
-import crazypants.enderio.EnderIO;
 import ic2.api.item.IC2Items;
 import ic2.api.recipe.RecipeInputItemStack;
 import ic2.api.recipe.Recipes;

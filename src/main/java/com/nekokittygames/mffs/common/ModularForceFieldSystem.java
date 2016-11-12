@@ -33,6 +33,8 @@ import com.nekokittygames.mffs.libs.LibBlockNames;
 import com.nekokittygames.mffs.libs.LibItemNames;
 import com.nekokittygames.mffs.network.PacketTileHandler;
 import net.minecraft.block.Block;
+import net.minecraft.client.gui.FontRenderer;
+import net.minecraft.client.gui.GuiErrorScreen;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemBlock;
@@ -44,6 +46,8 @@ import net.minecraftforge.common.ForgeChunkManager.Ticket;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.config.Configuration;
 import net.minecraftforge.common.config.Property;
+import net.minecraftforge.fml.client.CustomModLoadingErrorDisplayException;
+import net.minecraftforge.fml.common.FMLCommonHandler;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.SidedProxy;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
@@ -188,7 +192,7 @@ public class ModularForceFieldSystem {
 	public static boolean enableEIRecipes;
 	public  static Logger log;
 	@Mod.EventHandler
-	public void preInit(FMLPreInitializationEvent event) {
+	public void preInit(FMLPreInitializationEvent event) throws Exception {
 		log=event.getModLog();
 		initIC2Plugin();
 		initBuildcraftPlugin();
@@ -198,6 +202,26 @@ public class ModularForceFieldSystem {
 		initComputerCraftPlugin();
 		initAEPlugin();
 
+		if(!enderIoFound && !ic2Found)
+		{
+			if(FMLCommonHandler.instance().getEffectiveSide().isClient()) {
+				throw new CustomModLoadingErrorDisplayException("You must have either EnderIO or IC2 or both to continue",null) {
+					@Override
+					public void initGui(GuiErrorScreen errorScreen, FontRenderer fontRenderer) {
+
+					}
+
+					@Override
+					public void drawScreen(GuiErrorScreen errorScreen, FontRenderer fontRenderer, int mouseRelX, int mouseRelY, float tickTime) {
+						errorScreen.drawCenteredString(fontRenderer, String.format("Modular Force Field System - Ender IO or IC2 not found"), errorScreen.width / 2, errorScreen.height/2, 0xFFFFFF);
+					}
+				};
+			}
+			else
+			{
+				throw new Exception("You must have either EnderIO or IC2 or both to continue");
+			}
+		}
 		MinecraftForge.EVENT_BUS.register(this);
 		MinecraftForge.EVENT_BUS.register(proxy);
 		networkWrapper=NetworkRegistry.INSTANCE.newSimpleChannel("MFFS");
@@ -589,12 +613,13 @@ public class ModularForceFieldSystem {
 		MFFSMaschines.initialize();
         ProjectorTyp.initialize();
         ProjectorOptions.initialize();
+		MFFSRecipes.init();
 	}
 
 	@Mod.EventHandler
 	public void postInit(FMLPostInitializationEvent evt) {
 
-		MFFSRecipes.init();
+
 
 		ForgeChunkManager.setForcedChunkLoadingCallback(instance,
 				new MFFSChunkloadCallback());
@@ -635,20 +660,19 @@ public class ModularForceFieldSystem {
 	}
 
 	public void initComputerCraftPlugin() {
-		System.out.println("[ModularForcefieldSystem] Loading module for ComputerCraft");
+		log.info("Loading module for ComputerCraft");
 
 		try {
 			Class.forName("dan200.ComputerCraft");
 			computercraftFound = true;
 		} catch(Throwable t) {
-			System.out.println("[ModularForceFieldSystem] Module not loaded: ComputerCraft not found");
+			log.info("Module not loaded: ComputerCraft not found");
 		}
 	}
 
 	public void initBuildcraftPlugin() {
 
-		System.out
-				.println("[ModularForceFieldSystem] Loading module for Buildcraft");
+		log.info("Loading module for Buildcraft");
 
 		try {
 
@@ -656,15 +680,14 @@ public class ModularForceFieldSystem {
 			buildcraftFound = true;
 
 		} catch (Throwable t) {
-			System.out.println("[ModularForceFieldSystem] Module not loaded: Buildcraft not found");
+			log.info("Module not loaded: Buildcraft not found");
 
 		}
 	}
 
 	public void initThermalExpansionPlugin() {
 
-		System.out
-				.println("[ModularForceFieldSystem] Loading module for ThermalExpansion");
+		log.info("Loading module for ThermalExpansion");
 
 		try {
 
@@ -672,15 +695,14 @@ public class ModularForceFieldSystem {
 			thermalExpansionFound = true;
 
 		} catch (Throwable t) {
-			System.out.println("[ModularForceFieldSystem] Module not loaded: ThermalExpansion not found");
+			log.info("Module not loaded: ThermalExpansion not found");
 
 		}
 	}
 
 	public void initEnderIoPlugin() {
 
-		System.out
-				.println("[ModularForceFieldSystem] Loading module for EnderIo");
+		log.info("Loading module for EnderIo");
 
 		try {
 
@@ -688,13 +710,13 @@ public class ModularForceFieldSystem {
 			enderIoFound = true;
 
 		} catch (Throwable t) {
-			System.out.println("[ModularForceFieldSystem] Module not loaded: EnderIo not found");
+			log.info("Module not loaded: EnderIo not found");
 
 		}
 	}
 	public void initEE3Plugin() {
 
-		System.out.println("[ModularForceFieldSystem] Loading module for EE3");
+		log.info("Loading module for EE3");
 
 		try {
 
@@ -702,14 +724,14 @@ public class ModularForceFieldSystem {
 			ee3Found = true;
 
 		} catch (Throwable t) {
-			System.out.println("[ModularForceFieldSystem] Module not loaded: EE3 not found");
+			log.info("Module not loaded: EE3 not found");
 
 		}
 	}
 
 	public void initIC2Plugin() {
 
-		System.out.println("[ModularForceFieldSystem] Loading module for IC2");
+		log.info("Loading module for IC2");
 
 		try {
 
@@ -717,19 +739,19 @@ public class ModularForceFieldSystem {
 			ic2Found = true;
 
 		} catch (Throwable t) {
-			System.out.println("[ModularForceFieldSystem] Module not loaded: IC2 not found");
+			log.info("Module not loaded: IC2 not found");
 
 		}
 	}
 
 	public void initAEPlugin() {
-		System.out.println("[ModularForceFieldSystem] Loading module for Applied Energistics");
+		log.info("Loading module for Applied Energistics");
 
 		try {
 			Class.forName("appeng.common.AppEng");
 			appliedEnergisticsFound = true;
 		} catch (Throwable t) {
-			System.out.println("[ModularForceFieldSystem] Module not loaded: Applied Energistics not found");
+			log.info("Module not loaded: Applied Energistics not found");
 		}
 	}
 
