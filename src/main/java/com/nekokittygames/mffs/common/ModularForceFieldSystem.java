@@ -64,7 +64,7 @@ import java.util.List;
 
 import static com.nekokittygames.mffs.common.ModularForceFieldSystem.MODID;
 
-@Mod(modid = MODID, name = "Modular ForceField System", version = "2.5.0", dependencies = "after:ThermalExpansion")
+@Mod(modid = MODID, name = "Modular ForceField System", version = "2.5.0", dependencies = "after:EnderIO;after:IC2")
 public class ModularForceFieldSystem {
 
 	public static final String MODID="modularforcefieldsystem";
@@ -618,8 +618,6 @@ public class ModularForceFieldSystem {
 
 	@Mod.EventHandler
 	public void postInit(FMLPostInitializationEvent evt) {
-
-
 
 		ForgeChunkManager.setForcedChunkLoadingCallback(instance,
 				new MFFSChunkloadCallback());

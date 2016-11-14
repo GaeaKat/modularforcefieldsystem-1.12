@@ -84,10 +84,10 @@ public class EnderIOCompat {
                 'J', new ItemStack(ModObject.itemFrankenSkull.getItem(),1, FrankenSkull.ENDER_RESONATOR.ordinal()),
                 'K', Alloy.DARK_STEEL.getStackIngot(),
                 'M', new ItemStack(ModObject.itemPowerConduit.getItem(), 1, 2),
-                'N', new ItemStack(ModObject.blockCapBank.getBlock(),1, CapBankType.SIMPLE.ordinal()),
-                'O', new ItemStack(ModObject.blockCapBank.getBlock(),1, CapBankType.ACTIVATED.ordinal()),
-                'P', new ItemStack(ModObject.blockCapBank.getBlock(),1, CapBankType.VIBRANT.ordinal()),
-                'Q', new ItemStack(ModObject.blockEndermanSkull.getBlock(),1, BlockEndermanSkull.SkullType.TORMENTED.ordinal()),
-                'S', ModObject.itemYetaWrench};
+                'N', new ItemStack(ModObject.blockCapBank.getItem(),1, CapBankType.SIMPLE.ordinal()),
+                'O', new ItemStack(ModObject.blockCapBank.getItem(),1, CapBankType.ACTIVATED.ordinal()),
+                'P', new ItemStack(ModObject.blockCapBank.getItem(),1, CapBankType.VIBRANT.ordinal()),
+                'Q', new ItemStack(ModObject.blockEndermanSkull.getItem(),1, BlockEndermanSkull.SkullType.TORMENTED.ordinal()),
+                'S', ModObject.itemYetaWrench.getItem()};
     }
 }
