@@ -33,8 +33,6 @@ import com.nekokittygames.mffs.libs.LibBlockNames;
 import com.nekokittygames.mffs.libs.LibItemNames;
 import com.nekokittygames.mffs.network.PacketTileHandler;
 import net.minecraft.block.Block;
-import net.minecraft.client.gui.FontRenderer;
-import net.minecraft.client.gui.GuiErrorScreen;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemBlock;
@@ -46,7 +44,6 @@ import net.minecraftforge.common.ForgeChunkManager.Ticket;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.config.Configuration;
 import net.minecraftforge.common.config.Property;
-import net.minecraftforge.fml.client.CustomModLoadingErrorDisplayException;
 import net.minecraftforge.fml.common.FMLCommonHandler;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.SidedProxy;
@@ -202,26 +199,7 @@ public class ModularForceFieldSystem {
 		initComputerCraftPlugin();
 		initAEPlugin();
 
-		if(!enderIoFound && !ic2Found)
-		{
-			if(FMLCommonHandler.instance().getEffectiveSide().isClient()) {
-				throw new CustomModLoadingErrorDisplayException("You must have either EnderIO or IC2 or both to continue",null) {
-					@Override
-					public void initGui(GuiErrorScreen errorScreen, FontRenderer fontRenderer) {
 
-					}
-
-					@Override
-					public void drawScreen(GuiErrorScreen errorScreen, FontRenderer fontRenderer, int mouseRelX, int mouseRelY, float tickTime) {
-						errorScreen.drawCenteredString(fontRenderer, String.format("Modular Force Field System - Ender IO or IC2 not found"), errorScreen.width / 2, errorScreen.height/2, 0xFFFFFF);
-					}
-				};
-			}
-			else
-			{
-				throw new Exception("You must have either EnderIO or IC2 or both to continue");
-			}
-		}
 		MinecraftForge.EVENT_BUS.register(this);
 		MinecraftForge.EVENT_BUS.register(proxy);
 		networkWrapper=NetworkRegistry.INSTANCE.newSimpleChannel("MFFS");
