@@ -31,6 +31,7 @@ import net.minecraft.inventory.Container;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemBlock;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraftforge.fml.common.Optional;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 
 public enum MFFSMaschines {
@@ -129,13 +130,20 @@ public enum MFFSMaschines {
 
 		for (MFFSMaschines mach : MFFSMaschines.values()) {
 
-			if(ModularForceFieldSystem.ic2Found)
+			if(ModularForceFieldSystem.ic2Found) {
 				RecipesFactory.addRecipe(mach.recipeic, 1, 1, mach.block, null);
+				AddWhitelist(mach.block);
+			}
 
 			if(ModularForceFieldSystem.enderIoFound)
 				RecipesFactory.addRecipe(mach.recipeei, 1, 3, mach.block, null);
-			ExplosionWhitelist.addWhitelistedBlock(mach.block);
+
 		}
+	}
+
+	@Optional.Method(modid = "IC2")
+	private static void AddWhitelist(Block block) {
+		ExplosionWhitelist.addWhitelistedBlock(block);
 	}
 
 }
