@@ -19,21 +19,11 @@
  */
 package com.nekokittygames.mffs.common.block;
 
-import buildcraft.api.core.Identifier;
-import com.nekokittygames.mffs.api.IFieldTeleporter;
-import com.nekokittygames.mffs.api.IForceFieldBlock;
-import com.nekokittygames.mffs.api.PointXYZ;
-import com.nekokittygames.mffs.common.*;
-import com.nekokittygames.mffs.common.WorldMap.ForceFieldWorld;
-import com.nekokittygames.mffs.common.item.ItemCardPowerLink;
-import com.nekokittygames.mffs.common.multitool.ItemDebugger;
-import com.nekokittygames.mffs.common.tileentity.TileEntityCapacitor;
-import com.nekokittygames.mffs.common.tileentity.TileEntityForceField;
-import com.nekokittygames.mffs.common.tileentity.TileEntityProjector;
-import com.nekokittygames.mffs.libs.LibBlockNames;
-import com.nekokittygames.mffs.libs.LibMisc;
+import java.util.Random;
+
+import javax.annotation.Nullable;
+
 import net.minecraft.block.Block;
-import net.minecraft.block.BlockContainer;
 import net.minecraft.block.ITileEntityProvider;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.PropertyEnum;
@@ -47,21 +37,41 @@ import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.*;
+import net.minecraft.util.BlockRenderLayer;
+import net.minecraft.util.EnumFacing;
+import net.minecraft.util.EnumHand;
+import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.text.TextComponentTranslation;
-import net.minecraft.world.ChunkCache;
 import net.minecraft.world.Explosion;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
-import net.minecraftforge.fml.relauncher.ReflectionHelper;
+
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-import javax.annotation.Nullable;
-import java.util.Random;
+import com.nekokittygames.mffs.api.IFieldTeleporter;
+import com.nekokittygames.mffs.api.IForceFieldBlock;
+import com.nekokittygames.mffs.api.PointXYZ;
+import com.nekokittygames.mffs.common.ForceFieldBlockStack;
+import com.nekokittygames.mffs.common.ForceFieldTyps;
+import com.nekokittygames.mffs.common.Functions;
+import com.nekokittygames.mffs.common.Linkgrid;
+import com.nekokittygames.mffs.common.MFFSDamageSource;
+import com.nekokittygames.mffs.common.ModularForceFieldSystem;
+import com.nekokittygames.mffs.common.SecurityHelper;
+import com.nekokittygames.mffs.common.SecurityRight;
+import com.nekokittygames.mffs.common.WorldMap;
+import com.nekokittygames.mffs.common.WorldMap.ForceFieldWorld;
+import com.nekokittygames.mffs.common.item.ItemCardPowerLink;
+import com.nekokittygames.mffs.common.multitool.ItemDebugger;
+import com.nekokittygames.mffs.common.tileentity.TileEntityCapacitor;
+import com.nekokittygames.mffs.common.tileentity.TileEntityForceField;
+import com.nekokittygames.mffs.common.tileentity.TileEntityProjector;
+import com.nekokittygames.mffs.libs.LibBlockNames;
+import com.nekokittygames.mffs.libs.LibMisc;
 
 public class BlockForceField extends Block implements IForceFieldBlock ,ITileEntityProvider {
 	public static PropertyEnum<ForceFieldTyps> FORCEFIELD_TYPE=PropertyEnum.create("type",ForceFieldTyps.class);
