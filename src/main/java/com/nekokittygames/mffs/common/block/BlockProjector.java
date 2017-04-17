@@ -66,7 +66,7 @@ public class BlockProjector extends BlockMFFSBase {
 			int type=0;
 			if(proj.get_type()!=null)
 				type=proj.get_type().getForceFieldModuleType();
-			ModularForceFieldSystem.log.info("With state type: "+type);
+			//ModularForceFieldSystem.log.info("With state type: "+type);
 			return super.getActualState(state, worldIn, pos).withProperty(FIELD_TYPE,type);
 		}
 
