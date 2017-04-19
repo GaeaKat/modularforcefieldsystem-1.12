@@ -934,7 +934,7 @@ public class TileEntityProjector extends TileEntityFEPoweredMachine implements
 				&& this.hasOption(
 						ModularForceFieldSystem.MFFSProjectorOptionCamouflage,
 						true))
-			return true;
+			return par1ItemStack.getItem() instanceof ItemBlock;
 
 		if (hasValidTypeMod()) {
 			ModuleBase modTyp = get_type();
