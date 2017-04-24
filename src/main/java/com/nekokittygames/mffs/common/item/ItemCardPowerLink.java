@@ -35,7 +35,6 @@ import com.nekokittygames.mffs.common.tileentity.TileEntityCapacitor;
 import com.nekokittygames.mffs.common.tileentity.TileEntityExtractor;
 import com.nekokittygames.mffs.common.tileentity.TileEntityMachines;
 import com.nekokittygames.mffs.common.tileentity.TileEntityProjector;
-import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
@@ -106,7 +105,7 @@ public class ItemCardPowerLink extends ItemCard implements IPowerLinkItem {
 						((TileEntityExtractor) tileEntity)
 								.setInventorySlotContents(1, stack);
 						player.inventory.mainInventory[player.inventory.currentItem] = null;
-						Functions.ChattoPlayer(player, I18n.format("linkCard.installed"));
+						Functions.ChattoPlayer(player, "linkCard.installed");
 						return EnumActionResult.SUCCESS;
 					} else {
 						if (((TileEntityExtractor) tileEntity)
@@ -114,11 +113,10 @@ public class ItemCardPowerLink extends ItemCard implements IPowerLinkItem {
 							ItemStack itemstackcopy = stack.copy();
 							((TileEntityExtractor) tileEntity)
 									.setInventorySlotContents(1, itemstackcopy);
-							Functions.ChattoPlayer(player, I18n.format("linkCard.copied"));
+							Functions.ChattoPlayer(player, "linkCard.copied");
 							return EnumActionResult.SUCCESS;
 						}
-						Functions.ChattoPlayer(player,I18n.format
-								("linkCard.notEmpty"));
+						Functions.ChattoPlayer(player, "linkCard.notEmpty");
 						return EnumActionResult.FAIL;
 					}
 				}

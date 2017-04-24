@@ -20,7 +20,6 @@
 
 package com.nekokittygames.mffs.common.multitool;
 
-//import buildcraft.api.tools.IToolWrench;
 import buildcraft.api.tools.IToolWrench;
 import com.nekokittygames.mffs.libs.LibItemNames;
 import com.nekokittygames.mffs.libs.LibMisc;
@@ -30,11 +29,9 @@ import com.nekokittygames.mffs.common.tileentity.TileEntityAdvSecurityStation;
 import com.nekokittygames.mffs.common.tileentity.TileEntityAreaDefenseStation;
 import com.nekokittygames.mffs.common.tileentity.TileEntityMachines;
 import com.nekokittygames.mffs.common.tileentity.TileEntityProjector;
-import net.minecraft.block.Block;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.item.EntityItem;
-import net.minecraft.entity.item.EntityMinecart;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
@@ -68,13 +65,11 @@ public class ItemWrench extends ItemMultitool  implements IToolWrench {
 				if (this.consumePower(stack, 10000, true)) {
 					this.consumePower(stack, 10000, false);
 					((TileEntityProjector) tileentity).setBurnedOut(false);
-					Functions.ChattoPlayer(player, I18n.format("multitool" +
-							".projectorRepaired"));
+					Functions.ChattoPlayer(player, "multitool.projectorRepaired");
 					return EnumActionResult.SUCCESS;
 				} else {
 
-					Functions.ChattoPlayer(player, I18n.format("multitool" +
-							".notEnoughFE"));
+					Functions.ChattoPlayer(player, "multitool.notEnoughFE");
 					return EnumActionResult.FAIL;
 				}
 

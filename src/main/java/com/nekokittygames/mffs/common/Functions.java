@@ -20,20 +20,16 @@
 
 package com.nekokittygames.mffs.common;
 
+import java.util.List;
+
 import net.minecraft.block.Block;
-import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.text.TextComponentString;
 import net.minecraft.util.text.TextComponentTranslation;
 import net.minecraft.world.World;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class Functions {
 	public static Block getBlock(BlockPos pos, World world) {
@@ -50,8 +46,8 @@ public class Functions {
 		return block.getDrops(world, pos, world.getBlockState(pos), 0);
 	}
 
-	public static void ChattoPlayer(EntityPlayer player, String Message) {
-		player.addChatMessage(new TextComponentTranslation(Message));
+	public static void ChattoPlayer(EntityPlayer player, String Message, Object... args) {
+		player.addChatMessage(new TextComponentTranslation(Message, args));
 	}
 
 	public static boolean setIteminSlot(ItemStack itemstack,
@@ -60,7 +56,7 @@ public class Functions {
 		if (((IInventory) tileEntity).getStackInSlot(Slot) == null) {
 			((IInventory) tileEntity).setInventorySlotContents(Slot, itemstack);
 			entityplayer.inventory.mainInventory[entityplayer.inventory.currentItem] = null;
-			Functions.ChattoPlayer(entityplayer, I18n.format("generic.card.installed", Cardname));
+			Functions.ChattoPlayer(entityplayer, "generic.card.installed", Cardname);
 			((IInventory) tileEntity).markDirty();
 			return true;
 		} else {
@@ -68,12 +64,11 @@ public class Functions {
 				ItemStack itemstackcopy = itemstack.copy();
 				((IInventory) tileEntity).setInventorySlotContents(Slot,
 						itemstackcopy);
-				Functions.ChattoPlayer(entityplayer, I18n.format("generic.card.copied", Cardname));
+				Functions.ChattoPlayer(entityplayer, "generic.card.copied", Cardname);
 				((IInventory) tileEntity).markDirty();
 				return true;
 			}
-			Functions.ChattoPlayer(entityplayer, I18n.format("generic.card" +
-					".fail"));
+			Functions.ChattoPlayer(entityplayer, "generic.card.fail");
 			return false;
 		}
 	}

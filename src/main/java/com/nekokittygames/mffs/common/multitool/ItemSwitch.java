@@ -26,7 +26,6 @@ import com.nekokittygames.mffs.api.ISwitchabel;
 import com.nekokittygames.mffs.common.Functions;
 import com.nekokittygames.mffs.common.SecurityHelper;
 import com.nekokittygames.mffs.common.SecurityRight;
-import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
@@ -64,12 +63,12 @@ public class ItemSwitch extends ItemMultitool {
 						return EnumActionResult.SUCCESS;
 					} else {
 
-						Functions.ChattoPlayer(player, I18n.format("multitool.notEnoughFE"));
+						Functions.ChattoPlayer(player, "multitool.notEnoughFE");
 						return EnumActionResult.FAIL;
 					}
 				} else {
 
-					Functions.ChattoPlayer(player, I18n.format("multitool.notInSwitchMode"));
+					Functions.ChattoPlayer(player, "multitool.notInSwitchMode");
 					return EnumActionResult.FAIL;
 				}
 

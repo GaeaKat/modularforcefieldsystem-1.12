@@ -116,21 +116,20 @@ public class ItemPersonalIDWriter extends ItemMultitool {
 								.addItemStackToInventory(IDCard))
 							playerIn.dropItem(IDCard,false);
 						if (worldIn.isRemote)
-							Functions.ChattoPlayer(playerIn, I18n.format("multitool.idCardCreated"));
+							Functions.ChattoPlayer(playerIn, "multitool.idCardCreated");
 
 						return ActionResult.newResult(EnumActionResult.SUCCESS,itemStackIn);
 					} else {
 						if (worldIn.isRemote)
 							Functions
-									.ChattoPlayer(playerIn, I18n.format("multitool.notEnoughFE"));
+									.ChattoPlayer(playerIn, "multitool.notEnoughFE");
 						return ActionResult.newResult(EnumActionResult.FAIL,itemStackIn);
 					}
 				}
 			}
 		}
 		if (worldIn.isRemote)
-			Functions.ChattoPlayer(playerIn, I18n.format("multitool" +
-					".needBlankCard"));
+			Functions.ChattoPlayer(playerIn, "multitool.needBlankCard");
 
 		return ActionResult.newResult(EnumActionResult.FAIL,itemStackIn);
 	}
@@ -177,12 +176,12 @@ public class ItemPersonalIDWriter extends ItemMultitool {
 
 								playerIn.inventoryContainer
 										.detectAndSendChanges();
-								Functions.ChattoPlayer(playerIn, I18n.format("multitool.dataLinkCreated"));
+								Functions.ChattoPlayer(playerIn, "multitool.dataLinkCreated");
 
 								return EnumActionResult.SUCCESS;
 							} else {
 
-								Functions.ChattoPlayer(playerIn, I18n.format("multitool.notEnoughFE"));
+								Functions.ChattoPlayer(playerIn, "multitool.notEnoughFE");
 								return EnumActionResult.FAIL;
 							}
 						}

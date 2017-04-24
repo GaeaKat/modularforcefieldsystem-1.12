@@ -23,7 +23,6 @@ package com.nekokittygames.mffs.common.modules;
 import com.nekokittygames.mffs.api.PointXYZ;
 import com.nekokittygames.mffs.common.*;
 import com.nekokittygames.mffs.common.tileentity.TileEntityProjector;
-import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -99,15 +98,15 @@ public abstract class ModuleBase extends Item {
 				if (((IModularProjector) tileEntity).getStackInSlot(1) == null) {
 					((IModularProjector) tileEntity).setInventorySlotContents(
 							1, stack.splitStack(1));
-					Functions.ChattoPlayer(player, I18n.format("projectorModule.installed", ProjectorTyp
+					Functions.ChattoPlayer(player, "projectorModule.installed", ProjectorTyp
 							.TypfromItem(((IModularProjector) tileEntity)
 									.getStackInSlot(1)
-									.getItem()).displayName));
+									.getItem()).displayName);
 
 					((TileEntityProjector) tileEntity).checkslots();
 					return EnumActionResult.SUCCESS;
 				} else {
-					Functions.ChattoPlayer(player, I18n.format("projectorModule.notEmpty"));
+					Functions.ChattoPlayer(player, "projectorModule.notEmpty");
 					return EnumActionResult.FAIL;
 				}
 			}
