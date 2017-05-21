@@ -24,10 +24,8 @@ import com.nekokittygames.mffs.libs.LibItemNames;
 import com.nekokittygames.mffs.libs.LibMisc;
 import com.nekokittygames.mffs.api.IFieldTeleporter;
 import com.nekokittygames.mffs.common.Functions;
-import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.ActionResult;
 import net.minecraft.util.EnumActionResult;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
@@ -60,14 +58,13 @@ public class ItemFieldtransporter extends ItemMultitool implements
 	public void onFieldTeleportSuccess(EntityPlayer player, ItemStack stack,
 			int teleportCost) {
 		consumePower(stack, teleportCost, false);
-		Functions.ChattoPlayer(player, I18n.format("fieldSecurity" +
-				".transmissionComplete"));
+		Functions.ChattoPlayer(player, "fieldSecurity.transmissionComplete");
 	}
 
 	@Override
 	public void onFieldTeleportFailed(EntityPlayer player, ItemStack stack,
 			int teleportCost) {
-		Functions.ChattoPlayer(player, I18n.format("fieldSecurity.notEnoughFE"));
+		Functions.ChattoPlayer(player, "fieldSecurity.notEnoughFE");
 	}
 
 }

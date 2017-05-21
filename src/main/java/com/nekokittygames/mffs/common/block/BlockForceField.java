@@ -29,7 +29,6 @@ import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.PropertyEnum;
 import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
-import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.player.EntityPlayer;
@@ -305,7 +304,7 @@ public class BlockForceField extends Block implements IForceFieldBlock ,ITileEnt
 
 						if (First_Gen_ID != wff.isExistForceFieldStackMap(pos, counter - 1, typ, world)) {
 
-							Functions.ChattoPlayer(player, I18n.format("fieldSecurity.accessDenied"));
+							Functions.ChattoPlayer(player, "fieldSecurity.accessDenied");
 							return false;
 						}
 						BlockPos newPos=new BlockPos(pos);
@@ -332,7 +331,7 @@ public class BlockForceField extends Block implements IForceFieldBlock ,ITileEnt
 								break;
 						}
 
-						Functions.ChattoPlayer(player, I18n.format("fieldSecurity.accessGranted"));
+						Functions.ChattoPlayer(player, "fieldSecurity.accessGranted");
 
 						if (counter >= 0 && counter <= 5) {
 
@@ -342,7 +341,7 @@ public class BlockForceField extends Block implements IForceFieldBlock ,ITileEnt
 									.isLiquid() || world.isAirBlock(newPos.add(0,-ymodi,0)))) {
 
 								if (newPos.getY() - ymodi <= 0) {
-									Functions.ChattoPlayer(player, I18n.format("fieldSecurity.voidNotAllowed"));
+									Functions.ChattoPlayer(player, "fieldSecurity.voidNotAllowed");
 								} else {
 									IFieldTeleporter teleporter = (IFieldTeleporter) item;
 									if (teleporter
@@ -367,15 +366,15 @@ public class BlockForceField extends Block implements IForceFieldBlock ,ITileEnt
 								}
 							} else {
 
-								Functions.ChattoPlayer(player, I18n.format("fieldSecurity.detectedObstacle"));
+								Functions.ChattoPlayer(player, "fieldSecurity.detectedObstacle");
 							}
 						} else {
 
-							Functions.ChattoPlayer(player, I18n.format("fieldSecurity.fieldTooStrong"));
+							Functions.ChattoPlayer(player, "fieldSecurity.fieldTooStrong");
 						}
 					} else {
 						{
-							Functions.ChattoPlayer(player, I18n.format("fieldSecurity.accessDenied"));
+							Functions.ChattoPlayer(player, "fieldSecurity.accessDenied");
 						}
 					}
 				}
@@ -385,7 +384,7 @@ public class BlockForceField extends Block implements IForceFieldBlock ,ITileEnt
 					if (projector.getStackInSlot(projector.getPowerlinkSlot()) != null)
 						if (!(projector.getStackInSlot(
 								projector.getPowerlinkSlot()).getItem() instanceof ItemCardPowerLink))
-							Functions.ChattoPlayer(player, I18n.format("fieldSecurity.invalidItemInPowerLink"));
+							Functions.ChattoPlayer(player, "fieldSecurity.invalidItemInPowerLink");
 			}
 		}
 
@@ -412,8 +411,7 @@ public class BlockForceField extends Block implements IForceFieldBlock ,ITileEnt
 					case 0:
 						player.attackEntityFrom(
 								MFFSDamageSource.fieldShock, 10);
-						Functions.ChattoPlayer(player, I18n.format("field" +
-								".highEnergyField"));
+						Functions.ChattoPlayer(player, "field.highEnergyField");
 						break;
 
 					case 2:
@@ -422,8 +420,7 @@ public class BlockForceField extends Block implements IForceFieldBlock ,ITileEnt
 								player, world, SecurityRight.SR)) {
 							player.attackEntityFrom(
 									MFFSDamageSource.fieldShock, 10);
-							Functions.ChattoPlayer(player, I18n.format("field" +
-									".highEnergyField"));
+							Functions.ChattoPlayer(player, "field.highEnergyField");
 						}
 						break;
 				}
@@ -433,8 +430,7 @@ public class BlockForceField extends Block implements IForceFieldBlock ,ITileEnt
 					world, SecurityRight.SR)) {
 				player.attackEntityFrom(MFFSDamageSource.fieldShock,
 						10);
-				Functions.ChattoPlayer(player, I18n.format("field" +
-						".highEnergyField"));
+				Functions.ChattoPlayer(player, "field.highEnergyField");
 			}
 		}
 

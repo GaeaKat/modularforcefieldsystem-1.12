@@ -24,7 +24,6 @@
 package com.nekokittygames.mffs.common;
 
 import com.nekokittygames.mffs.common.tileentity.*;
-import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
@@ -91,7 +90,7 @@ public class SecurityHelper {
 					entityplayer.getUniqueID().toString(), right))) {
 
 				if (!suppresswarning)
-					Functions.ChattoPlayer(entityplayer, I18n.format("fieldSecurity.accessDenied"));
+					Functions.ChattoPlayer(entityplayer, "fieldSecurity.accessDenied");
 				return false;
 			}
 		}
@@ -105,7 +104,7 @@ public class SecurityHelper {
 					return true;
 				} else {
 					if (!suppresswarning)
-						Functions.ChattoPlayer(entityplayer, I18n.format("fieldSecurity.accessDenied"));
+						Functions.ChattoPlayer(entityplayer, "fieldSecurity.accessDenied");
 					return false;
 				}
 
@@ -122,7 +121,7 @@ public class SecurityHelper {
 					return true;
 				} else {
 					if (!suppresswarning)
-						Functions.ChattoPlayer(entityplayer, I18n.format("fieldSecurity.accessDenied"));
+						Functions.ChattoPlayer(entityplayer, "fieldSecurity.accessDenied");
 					return false;
 				}
 
@@ -142,7 +141,7 @@ public class SecurityHelper {
 					return true;
 				} else {
 					if (!suppresswarning)
-						Functions.ChattoPlayer(entityplayer, I18n.format("fieldSecurity.accessDenied"));
+						Functions.ChattoPlayer(entityplayer, "fieldSecurity.accessDenied");
 					return false;
 				}
 
@@ -169,7 +168,7 @@ public class SecurityHelper {
 							return true;
 						} else {
 							if (!suppresswarning)
-								Functions.ChattoPlayer(entityplayer, I18n.format("fieldSecurity.accessDenied"));
+								Functions.ChattoPlayer(entityplayer, "fieldSecurity.accessDenied");
 							return false;
 						}
 
@@ -186,7 +185,7 @@ public class SecurityHelper {
 						return true;
 					} else {
 						if (!suppresswarning)
-							Functions.ChattoPlayer(entityplayer, I18n.format("fieldSecurity.accessDenied"));
+							Functions.ChattoPlayer(entityplayer, "fieldSecurity.accessDenied");
 						return false;
 					}
 				}

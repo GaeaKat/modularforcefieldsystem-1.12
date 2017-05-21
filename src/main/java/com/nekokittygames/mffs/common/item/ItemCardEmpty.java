@@ -29,7 +29,6 @@ import com.nekokittygames.mffs.common.tileentity.TileEntityAdvSecurityStation;
 import com.nekokittygames.mffs.common.tileentity.TileEntityCapacitor;
 import com.nekokittygames.mffs.libs.LibItemNames;
 import com.nekokittygames.mffs.libs.LibMisc;
-import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
@@ -89,15 +88,13 @@ public class ItemCardEmpty extends ItemMFFSBase {
 						player.dropItem(newcard,false);
 
 					player.inventoryContainer.detectAndSendChanges();
-					Functions.ChattoPlayer(player, I18n.format
-							("securityStation.cardCreated"));
+					Functions.ChattoPlayer(player, "securityStation.cardCreated");
 
 					return EnumActionResult.SUCCESS;
 				}
 			} else {
 
-				Functions.ChattoPlayer(player, I18n.format("securityStation" +
-						".mustBeActive"));
+				Functions.ChattoPlayer(player, "securityStation.mustBeActive");
 			}
 
 		}
