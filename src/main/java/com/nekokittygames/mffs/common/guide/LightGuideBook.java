@@ -19,6 +19,7 @@ import com.nekokittygames.mffs.common.RecipesFactory;
 import com.nekokittygames.mffs.common.modules.*;
 import com.nekokittygames.mffs.common.options.ItemProjectorOptionBase;
 import net.minecraft.client.resources.I18n;
+import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipe;
@@ -55,8 +56,9 @@ public class LightGuideBook {
         book.setDisplayName("MFFS Guide");
         book.setColor(Color.BLUE);
         book.setRegistryName("mffsGuide");
-        GameRegistry.register(book);
 
+        GameRegistry.register(book);
+        GameRegistry.addShapelessRecipe(GuideAPI.getStackFromBook(book),new ItemStack(Items.BOOK),new ItemStack(ModularForceFieldSystem.MFFSitemForcicium));
         if (FMLCommonHandler.instance().getEffectiveSide() == Side.CLIENT)
             GuideAPI.setModel(book);
     }
