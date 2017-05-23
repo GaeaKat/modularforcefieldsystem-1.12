@@ -23,6 +23,7 @@
 
 package com.nekokittygames.mffs.common;
 
+
 import ic2.api.item.IC2Items;
 import ic2.api.recipe.RecipeInputItemStack;
 import ic2.api.recipe.Recipes;
@@ -30,6 +31,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.CraftingManager;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.fml.common.Optional;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 
 import java.lang.reflect.Method;
@@ -37,6 +39,7 @@ import java.lang.reflect.Method;
 public class MFFSRecipes {
 	public static final int MONAZIT_MACERATION_OUTPUT = 8;
 
+	@Optional.Method(modid = "IC2")
 	public static void AddIC2Recipes() {
 		Method addMaceratorRecipe = null;
 		Method addMatterAmplifier = null;
