@@ -49,8 +49,6 @@ public class LightGuideBook {
     {
         book=new Book();
 
-        book.setSpawnWithBook(true);
-
         book.setTitle("MFFS Guide");
         book.setWelcomeMessage("Welcome to MFFS");
         book.setDisplayName("MFFS Guide");
