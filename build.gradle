@@ -33,7 +33,7 @@ else {
 
 group = "com.nekokittygames.mffs"
 archivesBaseName = "MFFS"
-version = "1.10.2-3.0.0.${buildnumber}"
+version = "1.10.2-3.0.1.${buildnumber}"
 
 boolean dev = System.getenv("RELEASE") == null || System.getenv("RELEASE").equalsIgnoreCase("false")
 
