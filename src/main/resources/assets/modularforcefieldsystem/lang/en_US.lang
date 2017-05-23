@@ -44,6 +44,7 @@ item.modularforcefieldsystem.optionFieldJammer.name=Projector Option: Forcefield
 item.modularforcefieldsystem.optionMobDefense.name=Projector Option: Mob Killer
 item.modularforcefieldsystem.optionSponge.name=Projector Option: Sponge
 item.modularforcefieldsystem.optionTouchDamage.name=Projector Option: Zapper
+item.modularforcefieldsystem.optionLight.name=Projector Option: Light
 
 // Items: Projector Upgrades
 item.modularforcefieldsystem.projectorDistance.name=Projector Upgrade: Field Distance
@@ -142,5 +143,121 @@ itemInfo.compatibleWith=Compatible With:
 itemInfo.infinitePower.lineOne=Admin Card to power MFFS machines
 itemInfo.infinitePower.lineTwo=or infinitely charge a Capacitor.
 
+// Guide
+
+// Light
+mffs.guide.general.forciumEntry=Forcium
+mffs.guide.general.forcium.1=Forcium is the basic fuel for all MFFS based tech. It is a crystaline material that can carry more conventional power around and, emit it in force fields.
+
+mffs.guide.general.forcefieldEntry=Forcefields
+mffs.guide.general.forcefield.1=Forcefields are harnessed energy projected into space. This energy can take many different forms, and shapes. The usual form is a completely solid block, however with alterations to the projector, forms that leak energy, shock living creatures, forms that are strong enough to cut through
+mffs.guide.general.forcefield.2=solid matter or even just give off light can be created. Shape wise, there are spheres, tubes, and different interactions between two fields. The projector can also alter the energy to allow certain people through, depending on their identity.
+
+mffs.guide.general.machinesEntry=General Machines
+mffs.guide.general.machines.1=Most machines in MFFS are similar in several ways. They can be named, they can be turned on or off in similar ways, and more.
+mffs.guide.general.machines.2=The different ways to turn a machine on in MFFS can be toggled through the button in the top right corner, the choices are Redstone controlled, Multi-tool controlled, disabled, remotely, or computer controlled.
 
 
+// General
+mffs.guide.general.category=General
+
+// About
+mffs.guide.general.about=Welcome to MFFS, This mod provides unbreakable forcefields for your use, and enjoyment in Minecraft! Theese forcefields come at the cost of power, and forcium, which can be mined easilly with any iron pick.
+
+mffs.guide.general.aboutEntry=About MFFS
+
+// Modules
+mffs.guide.modules=Projector Modules
+
+// Advanced Cube
+mffs.guide.modules.advCube=Advanced Cube
+mffs.guide.modules.advCube.1=This Projector module allows you to project a custom sized cube shaped module around the projector.
+mffs.guide.modules.advCube.2=The projector will always be one block inside the center of one of face of the cube, depending on the orientation of the projector. When using the advanced cube, strength upgrades and focus matrix upgrades are used to determine the dimensions of the cube.
+mffs.guide.modules.advCube.3=The strength upgrade determines how far from the projector the opposite face will be. The Focus Matrix within the four slots around the projector will determine how far from the projector each of the four side faces will be.
+// Containment
+
+mffs.guide.modules.containment=Containment
+mffs.guide.modules.containment.1=This Projector module allows you to project a custom sized cube shaped module in front of the projector.
+mffs.guide.modules.containment.2=The projector will always be one block in front, depending on the orientation of the projector. When using the containment, strength upgrades and focus matrix upgrades are used to determine the dimensions of the cube.
+mffs.guide.modules.containment.3=The strength upgrade determines how far from the projector the opposite face will be. The Focus Matrix within the four slots around the projector will determine how far from the projector each of the four side faces will be.
+mffs.guide.modules.containment.4=The distance upgrade determines how far from the projector the centre of the field will be.
+
+mffs.guide.modules.cube=Cube
+mffs.guide.modules.cube.1=This Projector module allows you to project a  cube shaped module around the projector. The distance upgrade determines how big the cube would be.
+
+mffs.guide.modules.deflector=Deflector
+mffs.guide.modules.deflector.1=This Projector module allows you to project a flat plane in front of the projector.
+mffs.guide.modules.deflector.2=The Focus matrix within the four slots around the projector will determine how far from the projector each side of the field will be.
+mffs.guide.modules.deflector.3=The Distrance upgrade determines how far from the projector the centre of the field will be.
+
+mffs.guide.modules.wall=Wall
+mffs.guide.modules.wall.1=This Projector module allows you to project 4 walls in front of the projector.
+mffs.guide.modules.wall.2=The focus matrix within the four slots around the projector will determine how far from the projector each axis of the walls will be.
+mffs.guide.modules.wall.3=The Distance upgrade determines how far from the projector the centre of the field will be. The strength upgrade determines how far from the start point the field will extend.
+
+mffs.guide.modules.diagWall=Diagonal Wall
+mffs.guide.modules.diagWall.1=This Projector module allows you to project 4 walls in front of the projector like the wall module,but diagonal instead of vertical.
+mffs.guide.modules.diagWall.2=The focus matrix within the four slots around the projector will determine how far from the projector each axis of the walls will be.
+mffs.guide.modules.diagWall.3=The Distance upgrade determines how far from the projector the centre of the field will be. The strength upgrade determines how far from the start point the field will extend.
+
+mffs.guide.modules.sphere=Sphere
+mffs.guide.modules.sphere.1=This projector module allows you to project a sphere around the projector.
+mffs.guide.modules.sphere.2=The Distance upgrade determines the diameter of the sphere, while the strength upgrade determnes how thick the field will be.
+
+mffs.guide.modules.tube=Tube
+mffs.guide.modules.tube.1=This projector module allows you to project a tube around the projector.
+mffs.guide.modules.tube.2=The Distance upgrade alters the length of the tube, while the Strength upgrade altars the size of the tube
+
+mffs.guide.options=Options
+mffs.guide.options.worksWith=This module works with:
+mffs.guide.options.blockBreaker=Block Breaker
+mffs.guide.options.blockBreaker.1=This projector option allows the forcefield to break existing blocks without drops.
+
+mffs.guide.options.camoflage=Camoflage
+mffs.guide.options.camoflage.1=This projector option allows you to place any simple block in the centre slot on the projector. This will make the field look like that block.
+
+
+mffs.guide.options.defenceStation=Defence Station
+mffs.guide.options.defenceStation.1=This projector option allows you to protect the inside of the forcefield with a defence station.
+
+mffs.guide.options.fieldFusion=Field Fusion
+mffs.guide.options.fieldFusion.1=This projector option allows you to meld two fields together.
+
+mffs.guide.options.dome=Dome
+mffs.guide.options.dome.1=This projector option allows you to cut the force field at the projector level, forming a dome
+
+mffs.guide.options.jammer=Field Jammer
+mffs.guide.options.jammer.1=This projector option makes any forcefield inside the force field jammed.
+
+mffs.guide.options.mobDefense=Mob Defense
+mffs.guide.options.mobDefense.1=This projector option kills any mob inside the forcefield.
+
+mffs.guide.options.sponge=Sponge
+mffs.guide.options.sponge.1=This projector option removes any liquid inside the force field.
+
+mffs.guide.options.zap=Touch Damage
+mffs.guide.options.zap.1=This projector option makes the forcefields do damage on touch.
+
+mffs.guide.options.light=Light
+mffs.guide.options.light.1=This projector option makes the forcefields emit light (Not compatible with zap or camoflage options)
+
+
+
+mffs.guide.machines=Machines
+
+mffs.guide.machines.extractor=Extractor
+mffs.guide.machines.extractor.1=This machine converts power and forcium into Force Energy. It can take Tesla, RF, or IC2. and infuses the power into the forcium.
+mffs.guide.machines.extractor.2=The power can be applied via any of the usual wires. Without a Capacitor attached, it has a relatively small internal buffer, and will stop converting when full. This internal buffer can be increased with the Capacity plugin. The Booster plugin increases the speed of the machine's operation.
+
+mffs.guide.machines.capacitor=Capcitor
+mffs.guide.machines.capacitor.1=This machine stores, and also allocates Force Energy to machines on it's network. It has a small range, though plugins can be used.
+mffs.guide.machines.capacitor.2=This capacitor can also be used to empty, or fill Force Power Crystals. The capacitor accepts Booster plugin to increase it's range, or Capacity to increase the Force Energy it can store.
+mffs.guide.machines.capacitor.3=The capacitor is the linchpin to a MFFS power network. right click on it with an empty card to create a power link card, which can be used to add any powered, or power producing MFFS machine into the network.
+mffs.guide.machines.projector=Projector
+mffs.guide.machines.projector.1=This machine projects Force Energy out in the form of a force field, the size, shape, and even type of energy depending on the plugins used.
+mffs.guide.machines.projector.2=The projector accepts a projector module, to control the shape of the produced field, and depending on the shape, can take one or more option plugins to control the behaviour of the fields it produces.
+
+
+
+mffs.guide.recipes.enderio=EnderIO Recipe.
+mffs.guide.recipes.ic2=IC2 Recipe.

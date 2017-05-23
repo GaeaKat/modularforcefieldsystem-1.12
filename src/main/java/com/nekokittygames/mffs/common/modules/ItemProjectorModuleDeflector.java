@@ -25,10 +25,7 @@ import java.util.Set;
 import com.nekokittygames.mffs.api.PointXYZ;
 import com.nekokittygames.mffs.common.IModularProjector;
 import com.nekokittygames.mffs.common.IModularProjector.Slots;
-import com.nekokittygames.mffs.common.options.ItemProjectorOptionBase;
-import com.nekokittygames.mffs.common.options.ItemProjectorOptionBlockBreaker;
-import com.nekokittygames.mffs.common.options.ItemProjectorOptionCamoflage;
-import com.nekokittygames.mffs.common.options.ItemProjectorOptionTouchDamage;
+import com.nekokittygames.mffs.common.options.*;
 import com.nekokittygames.mffs.libs.LibItemNames;
 import com.nekokittygames.mffs.libs.LibMisc;
 import net.minecraft.item.Item;
@@ -119,7 +116,8 @@ public class ItemProjectorModuleDeflector extends ModuleBase {
 			return true;
 		if (item instanceof ItemProjectorOptionTouchDamage)
 			return true;
-
+		if(item instanceof ItemProjectorOptionLight)
+			return true;
 		return false;
 
 	}
@@ -133,7 +131,8 @@ public class ItemProjectorModuleDeflector extends ModuleBase {
 			return true;
 		if (item instanceof ItemProjectorOptionTouchDamage)
 			return true;
-
+		if(item instanceof ItemProjectorOptionLight)
+			return true;
 		return false;
 	}
 

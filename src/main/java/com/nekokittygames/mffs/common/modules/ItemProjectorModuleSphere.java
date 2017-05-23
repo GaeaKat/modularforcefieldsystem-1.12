@@ -108,7 +108,8 @@ public class ItemProjectorModuleSphere extends Module3DBase {
 			return true;
 		if (item instanceof ItemProjectorOptionBlockBreaker)
 			return true;
-
+		if(item instanceof ItemProjectorOptionLight)
+			return true;
 		return false;
 
 	}
@@ -132,7 +133,8 @@ public class ItemProjectorModuleSphere extends Module3DBase {
 			return true;
 		if (item instanceof ItemProjectorOptionBlockBreaker)
 			return true;
-
+		if(item instanceof ItemProjectorOptionLight)
+			return true;
 		return false;
 	}
 

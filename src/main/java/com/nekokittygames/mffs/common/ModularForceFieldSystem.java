@@ -22,6 +22,7 @@ package com.nekokittygames.mffs.common;
 
 import com.google.common.collect.Lists;
 import com.nekokittygames.mffs.common.block.*;
+import com.nekokittygames.mffs.common.guide.LightGuideBook;
 import com.nekokittygames.mffs.common.item.*;
 import com.nekokittygames.mffs.common.modules.*;
 import com.nekokittygames.mffs.common.multitool.*;
@@ -44,7 +45,6 @@ import net.minecraftforge.common.ForgeChunkManager.Ticket;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.config.Configuration;
 import net.minecraftforge.common.config.Property;
-import net.minecraftforge.fml.common.FMLCommonHandler;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.SidedProxy;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
@@ -125,12 +125,13 @@ public class ModularForceFieldSystem {
 	public static Item MFFSProjectorOptionForceFieldJammer;
 	public static Item MFFSProjectorOptionCamouflage;
 	public static Item MFFSProjectorOptionFieldFusion;
+	public static Item MFFSProjectorOptionLight;
 
 	public static Item MFFSProjectorFFDistance;
 	public static Item MFFSProjectorFFStrength;
 
 	public static int MonazitOreworldamount = 4;
-
+	public static int MonazitOreSmeltAmount=4;
 	public static int forceFieldBlockCost;
 	public static int forceFieldBlockCreateModifier;
 	public static int forceFieldBlockZapperModifier;
@@ -353,6 +354,9 @@ public class ModularForceFieldSystem {
 			grindRecipe.setComment("Set to false to disable the Applied Energistics Grind Stone recipe for MFFS " +
 					"machines.");
 			enableAEGrindStoneRecipe = grindRecipe.getBoolean(true);
+			Property monazitSmeltOutput=MFFSconfig.get(Configuration.CATEGORY_GENERAL,"monazitOreSmeltAmount",4);
+			monazitSmeltOutput.setComment("Amount of Forcium to generate per Monazit ore when smelting");
+			MonazitOreSmeltAmount=monazitSmeltOutput.getInt(4);
 
 			Property grindOutput = MFFSconfig.get(Configuration.CATEGORY_GENERAL,
 					"grindRecipeOutput", 8);
@@ -481,6 +485,10 @@ public class ModularForceFieldSystem {
 			GameRegistry.register(MFFSProjectorOptionFieldFusion);
 			proxy.setupClientItem(MFFSProjectorOptionFieldFusion,LibItemNames.OPTION_FIELD_FUSION);
 
+			MFFSProjectorOptionLight=new ItemProjectorOptionLight();
+			GameRegistry.register(MFFSProjectorOptionLight);
+			proxy.setupClientItem(MFFSProjectorOptionLight,LibItemNames.OPTION_LIGHT);
+
 			// Cards
 			MFFSitemcardempty = new ItemCardEmpty();
 			GameRegistry.register(MFFSitemcardempty);
@@ -563,14 +571,16 @@ public class ModularForceFieldSystem {
 		proxy.setupClientBlock(MFFSMonazitOre, LibBlockNames.MONAZIT_ORE);
 		GameRegistry.register(MFFSFieldblock);
         GameRegistry.register(new ItemBlock(MFFSFieldblock),MFFSFieldblock.getRegistryName());
+        proxy.setupClientFieldBlock(MFFSFieldblock,LibBlockNames.FORCE_FIELD);
 		MFFSFieldblock.setCreativeTab(MFFSTab);
 		GameRegistry.registerTileEntity(TileEntityForceField.class,
 				"MFFSForceField");
 		//proxy.setupClientBlock(MFFSFieldblock, LibBlockNames.FORCE_FIELD);
 		MFFSMaschines.preInit();
-
-
+		LightGuideBook.MakeBook();
 		proxy.registerTileEntitySpecialRenderer();
+
+
 	}
 	private static int packetId = 0;
 
@@ -584,14 +594,16 @@ public class ModularForceFieldSystem {
 		NetworkRegistry.INSTANCE.registerGuiHandler(instance,proxy);
 		GameRegistry.registerWorldGenerator(new MFFSWorldGenerator(),0);
 
-		OreDictionary.registerOre("ForciciumItem",
+		OreDictionary.registerOre("dustMonazit",
 				MFFSitemForcicium);
-		OreDictionary.registerOre("MonazitOre",
+		OreDictionary.registerOre("oreMonazit",
 				MFFSMonazitOre);
 		MFFSMaschines.initialize();
-        ProjectorTyp.initialize();
-        ProjectorOptions.initialize();
+		ProjectorTyp.initialize();
+		ProjectorOptions.initialize();
+
 		MFFSRecipes.init();
+		proxy.addBookPages();
 	}
 
 	@Mod.EventHandler

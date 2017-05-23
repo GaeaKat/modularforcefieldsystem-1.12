@@ -45,7 +45,8 @@ public enum ProjectorOptions {
 	MoobEx("<NPC Defense>", ModularForceFieldSystem.MFFSProjectorOptionMoobEx,
 			"fgfhQhjgj", "fgfhdhjgj"),
 	DefenceStation("<Defense Station>", ModularForceFieldSystem.MFFSProjectorOptionDefenceStation,
-			" z CQC z ", " z EdE z ");
+			" z CQC z ", " z EdE z "),
+	Light("<Light>",ModularForceFieldSystem.MFFSProjectorOptionLight," K KpK K "," K KpK K ");
 
 	String displayName;
 	Item item;

@@ -169,7 +169,15 @@ public class BlockForceField extends Block implements IForceFieldBlock ,ITileEnt
 	}
 
 
-	public void breakBlock(World world, BlockPos pos,IBlockState block) {
+	@Override
+	public int getLightValue(IBlockState state) {
+		if(state.getValue(FORCEFIELD_TYPE)==ForceFieldTyps.Light)
+				return 255;
+			else
+				return super.getLightValue(state);
+	}
+
+	public void breakBlock(World world, BlockPos pos, IBlockState block) {
 		ForceFieldBlockStack ffworldmap = WorldMap.getForceFieldWorld(world)
 				.getForceFieldStackMap(new PointXYZ(pos, world).hashCode());
 

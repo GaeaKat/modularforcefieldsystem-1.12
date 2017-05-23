@@ -62,4 +62,5 @@ public class LibItemNames {
 	public static final String OPTION_MOB_DEFENSE = "optionMobDefense";
 	public static final String OPTION_SPONGE = "optionSponge";
 	public static final String OPTION_TOUCH_DAMAGE = "optionTouchDamage";
+	public static final String OPTION_LIGHT = "optionLight";
 }

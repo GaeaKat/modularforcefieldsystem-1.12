@@ -31,13 +31,38 @@ import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.crafting.IRecipe;
 import net.minecraftforge.fml.common.registry.GameRegistry;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public final class RecipesFactory {
 
-	// forMod: 0: independent, 1: IC2, 2: Thermal Expansion
+	public static Map<Object,IRecipe> Ic2Recipes=new HashMap<Object, IRecipe>();
+	public static Map<Object,IRecipe> IndRecipes=new HashMap<Object, IRecipe>();
+	public static Map<Object,IRecipe> EIORecipes=new HashMap<Object, IRecipe>();
+
+
+
+	public static IRecipe GetRecipe(Object result,int forMod)
+	{
+		switch (forMod)
+		{
+			case 0:
+				return IndRecipes.get(result);
+			case 1:
+				return Ic2Recipes.get(result);
+			case 3:
+				return EIORecipes.get(result);
+
+		}
+		return null;
+	}
+	// forMod: 0: independent, 1: IC2, 2: Thermal Expansion, 3: Ender IO
 	public static boolean addRecipe(String Recipe, int count, int forMod,
 			Block block, Item item) {
+
 
 		if ((forMod >= 4 || forMod < 0) || (count < 0)
 				|| (block == null && item == null)
@@ -50,10 +75,15 @@ public final class RecipesFactory {
 
 		ItemStack itemstack = null;
 
-		if (block != null && item == null)
+		Object result=null;
+		if (block != null && item == null) {
 			itemstack = new ItemStack(block, count);
-		if (block == null && item != null)
+			result=block;
+		}
+		if (block == null && item != null) {
+			result=item;
 			itemstack = new ItemStack(item, count);
+		}
 
 		String[] recipeSplit = new String[] { Recipe.substring(0, 3),
 				Recipe.substring(3, 6), Recipe.substring(6, 9) };
@@ -61,7 +91,8 @@ public final class RecipesFactory {
 		switch (forMod) {
 		case 0: // Independent
 
-			GameRegistry.addRecipe(itemstack, recipeSplit,
+
+			IndRecipes.put(result,GameRegistry.addShapedRecipe(itemstack, recipeSplit,
 
 			'a', Items.ENDER_PEARL, 'b',
 					Items.IRON_PICKAXE,
@@ -77,7 +108,7 @@ public final class RecipesFactory {
 					Items.DIAMOND, 'j', Items.SPIDER_EYE, 'k', Blocks.OBSIDIAN,
 					'l', Blocks.GLASS, 'm', Items.REDSTONE, 'n', Blocks.LEVER,
 					'o', Items.PAPER,
-
+					'p',Blocks.GLOWSTONE,
 					'u', ModularForceFieldSystem.MFFSitemForcicium, 'v',
 					ModularForceFieldSystem.MFFSitemFocusmatix, 'w',
 					ModularForceFieldSystem.MFFSProjectorTypCube,
@@ -88,15 +119,15 @@ public final class RecipesFactory {
 					'y', ModularForceFieldSystem.MFFSitemFocusmatix, 'z',
 					ModularForceFieldSystem.MFFSItemIDCard
 
-			);
+			));
 			return true;
 
 		case 1: // IndustrialCraft 2
 			if (ModularForceFieldSystem.ic2Found
 					&& ModularForceFieldSystem.enableIC2Recipes) {
 
-				GameRegistry
-						.addRecipe(
+				Ic2Recipes.put(result,GameRegistry
+						.addShapedRecipe(
 								itemstack,
 								recipeSplit,
 
@@ -130,7 +161,7 @@ public final class RecipesFactory {
 								Blocks.LEVER,
 								'o',
 								Items.PAPER,
-
+								'p',Blocks.GLOWSTONE,
 								'u',
 								ModularForceFieldSystem.MFFSitemForcicium,
 								'v',
@@ -164,7 +195,7 @@ public final class RecipesFactory {
 								'R', IC2Items.getItem("misc_resource","matter"),
 								'S', IC2Items.getItem("wrench")
 
-						);
+						));
 				return true;
 			}
 			break;
@@ -245,12 +276,12 @@ public final class RecipesFactory {
                 if (ModularForceFieldSystem.enderIoFound
                         && ModularForceFieldSystem.enableEIRecipes) {
 
-                    GameRegistry
-                            .addRecipe(
+                    EIORecipes.put(result,GameRegistry
+                            .addShapedRecipe(
                                     itemstack,
                                     EnderIOCompat.getEnderIORecipes(recipeSplit)
 
-                            );
+                            ));
                     return true;
                 }
                 break;

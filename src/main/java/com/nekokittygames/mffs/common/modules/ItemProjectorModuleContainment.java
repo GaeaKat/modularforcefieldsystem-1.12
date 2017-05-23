@@ -146,6 +146,8 @@ public class ItemProjectorModuleContainment extends Module3DBase {
 			return true;
 		if (item instanceof ItemProjectorOptionBlockBreaker)
 			return true;
+		if(item instanceof ItemProjectorOptionLight)
+			return true;
 
 		return false;
 
@@ -167,6 +169,8 @@ public class ItemProjectorModuleContainment extends Module3DBase {
 		if (item instanceof ItemProjectorOptionSponge)
 			return true;
 		if (item instanceof ItemProjectorOptionBlockBreaker)
+			return true;
+		if(item instanceof ItemProjectorOptionLight)
 			return true;
 
 		return false;

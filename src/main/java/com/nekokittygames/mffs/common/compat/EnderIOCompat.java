@@ -57,7 +57,7 @@ public class EnderIOCompat {
                 Blocks.LEVER,
                 'o',
                 Items.PAPER,
-
+                'p',Blocks.GLOWSTONE,
                 'u',
                 ModularForceFieldSystem.MFFSitemForcicium,
                 'v',

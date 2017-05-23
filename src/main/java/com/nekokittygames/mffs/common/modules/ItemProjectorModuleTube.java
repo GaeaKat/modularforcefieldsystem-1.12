@@ -174,7 +174,8 @@ public class ItemProjectorModuleTube extends Module3DBase {
 			return true;
 		if (item instanceof ItemProjectorOptionTouchDamage)
 			return true;
-
+		if(item instanceof ItemProjectorOptionLight)
+			return true;
 		return false;
 
 	}
@@ -196,7 +197,8 @@ public class ItemProjectorModuleTube extends Module3DBase {
 			return true;
 		if (item instanceof ItemProjectorOptionTouchDamage)
 			return true;
-
+		if(item instanceof ItemProjectorOptionLight)
+			return true;
 		return false;
 	}
 

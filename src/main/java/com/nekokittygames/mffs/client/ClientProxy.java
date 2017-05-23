@@ -24,9 +24,9 @@ import com.nekokittygames.mffs.client.renderer.CapacitorRenderer;
 import com.nekokittygames.mffs.client.renderer.ExtractorRenderer;
 import com.nekokittygames.mffs.client.renderer.MFFSBlockRenderer;
 import com.nekokittygames.mffs.common.CommonProxy;
-import com.nekokittygames.mffs.common.ModularForceFieldSystem;
 import com.nekokittygames.mffs.common.block.BlockMFFSBase;
 import com.nekokittygames.mffs.common.block.BlockProjector;
+import com.nekokittygames.mffs.common.guide.LightGuideBook;
 import com.nekokittygames.mffs.common.tileentity.TileEntityCapacitor;
 import com.nekokittygames.mffs.common.tileentity.TileEntityExtractor;
 import com.nekokittygames.mffs.common.tileentity.TileEntityForceField;
@@ -37,8 +37,6 @@ import net.minecraft.world.World;
 import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.fml.client.FMLClientHandler;
 import net.minecraftforge.fml.client.registry.ClientRegistry;
-import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.fml.common.registry.GameRegistry;
 
 public class ClientProxy extends CommonProxy {
 	@Override
@@ -48,6 +46,11 @@ public class ClientProxy extends CommonProxy {
 		ClientRegistry.bindTileEntitySpecialRenderer(TileEntityExtractor.class,new ExtractorRenderer());
 		ClientRegistry.bindTileEntitySpecialRenderer(TileEntityCapacitor.class,new CapacitorRenderer());
 
+	}
+
+	@Override
+	public void addBookPages() {
+		LightGuideBook.AddPages();
 	}
 
 	@Override
@@ -75,6 +78,11 @@ public class ClientProxy extends CommonProxy {
 	public void setupClientMachine(BlockMFFSBase block,String name)
 	{
 		ModelLoader.setCustomModelResourceLocation(Item.getItemFromBlock(block),0,new ModelResourceLocation("modularforcefieldsystem:"+name, "active=false,facing=north"+((block instanceof BlockProjector)?",type=0":"")));
+	}
+
+	@Override
+	public void setupClientFieldBlock(Block block, String name) {
+		ModelLoader.setCustomModelResourceLocation(Item.getItemFromBlock(block),0,new ModelResourceLocation("modularforcefieldsystem:"+name, "type=default"));
 	}
 
 	@Override

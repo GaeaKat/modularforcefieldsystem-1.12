@@ -26,7 +26,7 @@ package com.nekokittygames.mffs.common;
 import net.minecraft.util.IStringSerializable;
 
 public enum ForceFieldTyps implements IStringSerializable{
-	Camouflage(2,"camoflage"), Default(1,"default"), Zapper(3,"zapper"), Area(1,"area"), Containment(1,"containment");
+	Camouflage(2,"camoflage"), Default(1,"default"), Zapper(3,"zapper"), Area(1,"area"), Containment(1,"containment"),Light(4,"light");
 
 	int costmodi;
 	String forceType;

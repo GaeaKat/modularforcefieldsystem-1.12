@@ -177,7 +177,7 @@ public class MFFSRecipes {
 
 		GameRegistry.addSmelting(
 				ModularForceFieldSystem.MFFSMonazitOre, new ItemStack(
-						ModularForceFieldSystem.MFFSitemForcicium, 4), 0.5F);
+						ModularForceFieldSystem.MFFSitemForcicium, ModularForceFieldSystem.MonazitOreSmeltAmount), 0.5F);
 
 		if (ModularForceFieldSystem.ic2Found && ModularForceFieldSystem.enableIC2Recipes)
 			AddIC2Recipes();

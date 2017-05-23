@@ -336,7 +336,11 @@ public class TileEntityProjector extends TileEntityFEPoweredMachine implements
 			if (getforcefieldblock_meta() != ForceFieldTyps.Camouflage) {
 				setforcefieldblock_meta(ForceFieldTyps.Camouflage);
 			}
-
+		if (hasOption(ModularForceFieldSystem.MFFSProjectorOptionLight,
+				true))
+			if (getforcefieldblock_meta() != ForceFieldTyps.Light) {
+				setforcefieldblock_meta(ForceFieldTyps.Light);
+			}
 		if (hasOption(ModularForceFieldSystem.MFFSProjectorOptionZapper, true))
 			if (getforcefieldblock_meta() != ForceFieldTyps.Zapper) {
 				setforcefieldblock_meta(ForceFieldTyps.Zapper);

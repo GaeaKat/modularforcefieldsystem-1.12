@@ -86,12 +86,12 @@ public enum ProjectorTyp {
 		String[] recipeSplit = new String[] { mach.recipe.substring(0, 3),
 				mach.recipe.substring(3, 6), mach.recipe.substring(6, 9) };
 
-		GameRegistry.addRecipe(new ItemStack(mach.item, 1), recipeSplit,
+		RecipesFactory.IndRecipes.put(mach.item,GameRegistry.addShapedRecipe(new ItemStack(mach.item, 1), recipeSplit,
 
 		'C', ModularForceFieldSystem.MFFSProjectorTypCube, 'B', Blocks.OBSIDIAN,
 				'A', ModularForceFieldSystem.MFFSitemFocusmatix
 
-		);
+		));
 
 	}
 

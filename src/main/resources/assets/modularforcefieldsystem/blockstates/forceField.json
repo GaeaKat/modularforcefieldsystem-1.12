@@ -40,8 +40,12 @@
         "textures": {
           "side": "modularforcefieldsystem:blocks/field/default"
         }
+      },
+      "light":{
+        "textures": {
+          "side": "modularforcefieldsystem:blocks/field/default"
+        }
       }
-
     }
   }
 }

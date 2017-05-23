@@ -43,6 +43,11 @@ public class CommonProxy implements IGuiHandler {
 
 	}
 
+	public void setupClientFieldBlock(Block block,String name)
+	{
+
+	}
+
 	public void setupClientMachine(BlockMFFSBase block, String name) {
 
 	}
@@ -108,4 +113,7 @@ public class CommonProxy implements IGuiHandler {
 		return false;
 	}
 
+	public void addBookPages() {
+
+	}
 }

@@ -65,6 +65,9 @@ repositories {
     maven { url = "http://maven.cil.li/" }
     maven { url = "http://maven.ic2.player.to" }
     maven { url 'http://maven.epoxide.xyz' }
+    repositories {
+        maven { url 'http://tehnut.info/maven/' }
+    }
     mavenLocal()
 }
 
@@ -75,6 +78,7 @@ dependencies {
     //compile "net.darkhax.tesla:Tesla:1.10.2-1.2.1.49"
     deobfCompile "com.enderio.core:EnderCore:1.10.2-0.4.1.58-beta"
     deobfCompile "com.enderio:EnderIO:1.10.2-3.0.1.131_beta"
+    deobfCompile "info.amerifrance.guideapi:Guide-API:1.10.2-2.0.2-45"
 }
 
 processResources
