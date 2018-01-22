@@ -24,6 +24,7 @@ import com.nekokittygames.mffs.client.GraphicButton;
 import com.nekokittygames.mffs.common.ModularForceFieldSystem;
 import com.nekokittygames.mffs.common.ProjectorTyp;
 import com.nekokittygames.mffs.common.container.ContainerProjector;
+import com.nekokittygames.mffs.common.item.ModItems;
 import com.nekokittygames.mffs.common.tileentity.TileEntityProjector;
 import com.nekokittygames.mffs.network.client.NetworkHandlerClient;
 import net.minecraft.client.gui.GuiButton;
@@ -126,7 +127,7 @@ public class GuiProjector extends GuiContainer {
 
 			if (projector
 					.hasOption(
-							ModularForceFieldSystem.MFFSProjectorOptionCamouflage,
+							ModItems.OPTION_CAMOFLAGE,
 							true)) {
 				drawTexturedModalRect(w + 137, k + 45, 177, 143, 16, 16); // center
 			}
@@ -150,15 +151,15 @@ public class GuiProjector extends GuiContainer {
 
 	@Override
 	protected void drawGuiContainerForegroundLayer(int par1, int par2) {
-		fontRendererObj.drawString(projector.getDeviceName(), 12, 9, 0x404040);
-		fontRendererObj.drawString("MFFS Projector", 12, 24, 0x404040);
-		fontRendererObj.drawString("Typ-Mode", 34, 44, 0x404040);
-		fontRendererObj.drawString("PowerLink", 34, 66, 0x404040);
+		fontRenderer.drawString(projector.getDeviceName(), 12, 9, 0x404040);
+		fontRenderer.drawString("MFFS Projector", 12, 24, 0x404040);
+		fontRenderer.drawString("Typ-Mode", 34, 44, 0x404040);
+		fontRenderer.drawString("PowerLink", 34, 66, 0x404040);
 		if (projector.hasPowerSource()) {
-			fontRendererObj.drawString(String.valueOf(projector.getLinkPower()),
+			fontRenderer.drawString(String.valueOf(projector.getLinkPower()),
 					30, 80, 0x404040);
 		} else {
-			fontRendererObj.drawString("No Link/OOR", 30, 80, 0x404040);
+			fontRenderer.drawString("No Link/OOR", 30, 80, 0x404040);
 		}
 	}
 }

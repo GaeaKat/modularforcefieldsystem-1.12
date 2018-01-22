@@ -24,6 +24,7 @@ import com.nekokittygames.mffs.api.PointXYZ;
 import com.nekokittygames.mffs.common.IModularProjector;
 import com.nekokittygames.mffs.common.IModularProjector.Slots;
 import com.nekokittygames.mffs.common.ModularForceFieldSystem;
+import com.nekokittygames.mffs.common.item.ModItems;
 import com.nekokittygames.mffs.common.options.*;
 import com.nekokittygames.mffs.common.tileentity.TileEntityProjector;
 import com.nekokittygames.mffs.libs.LibItemNames;
@@ -121,7 +122,7 @@ public class ItemProjectorModuleAdvCube extends Module3DBase {
 							|| x1 == xPout || z1 == 0 - zPout || z1 == zMout) {
 						if (((TileEntityProjector) projector)
 								.hasOption(
-										ModularForceFieldSystem.MFFSProjectorOptionDome,
+										ModItems.OPTION_FIELD_MANIPULATOR,
 										true)) {
 							switch (((TileEntityProjector) projector).getSide()) {
 								case DOWN:

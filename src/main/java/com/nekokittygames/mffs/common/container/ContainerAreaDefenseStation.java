@@ -101,20 +101,20 @@ public class ContainerAreaDefenseStation extends Container {
 			IContainerListener icrafting = (IContainerListener) listeners.get(i);
 
 			if (contratyp != defstation.getcontratyp()) {
-				icrafting.sendProgressBarUpdate(this, 1,
+				icrafting.sendWindowProperty(this, 1,
 						defstation.getcontratyp());
 			}
 			if (actionmode != defstation.getActionmode()) {
-				icrafting.sendProgressBarUpdate(this, 2,
+				icrafting.sendWindowProperty(this, 2,
 						defstation.getActionmode());
 			}
 			if (scanmode != defstation.getScanmode()) {
-				icrafting.sendProgressBarUpdate(this, 3,
+				icrafting.sendWindowProperty(this, 3,
 						defstation.getScanmode());
 			}
 
 			if (capacity != defstation.getPercentageCapacity()) {
-				icrafting.sendProgressBarUpdate(this, 4,
+				icrafting.sendWindowProperty(this, 4,
 						defstation.getPercentageCapacity());
 			}
 		}
@@ -146,7 +146,7 @@ public class ContainerAreaDefenseStation extends Container {
 
 	@Override
 	public boolean canInteractWith(EntityPlayer entityplayer) {
-		return defstation.isUseableByPlayer(entityplayer);
+		return defstation.isUsableByPlayer(entityplayer);
 	}
 
 	@Override

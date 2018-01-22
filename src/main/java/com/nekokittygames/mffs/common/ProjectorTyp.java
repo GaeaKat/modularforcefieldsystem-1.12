@@ -23,6 +23,7 @@
 
 package com.nekokittygames.mffs.common;
 
+import com.nekokittygames.mffs.common.item.ModItems;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -30,20 +31,20 @@ import net.minecraftforge.fml.common.registry.GameRegistry;
 
 public enum ProjectorTyp {
 
-	wall(1, "Wall", "AA AA BB ", ModularForceFieldSystem.MFFSProjectorTypwall,
+	wall(1, "Wall", "AA AA BB ", ModItems.MODULE_WALL,
 			true), deflector(2, "Deflector", "AAAABAAAA",
-			ModularForceFieldSystem.MFFSProjectorTypdeflector, true), tube(3,
-			"Tube", "AAA B AAA", ModularForceFieldSystem.MFFSProjectorTyptube,
+			ModItems.MODULE_DEFLECTOR, true), tube(3,
+			"Tube", "AAA B AAA", ModItems.MODULE_TUBE,
 			false), cube(4, "Cube", "B B A B B",
-			ModularForceFieldSystem.MFFSProjectorTypCube, false), sphere(5,
+			ModItems.MODULE_CUBE, false), sphere(5,
 			"Sphere", " B BAB B ",
-			ModularForceFieldSystem.MFFSProjectorTypsphere, false), containment(
+			ModItems.MODULE_SPHERE, false), containment(
 			6, "Containment", "BBBBABBBB",
-			ModularForceFieldSystem.MFFSProjectorTypcontainment, false), AdvCube(
+			ModItems.MODULE_CONTAINMENT, false), AdvCube(
 			7, "Adv. Cube", "AAAACAAAA",
-			ModularForceFieldSystem.MFFSProjectorTypAdvCube, false), diagonallywall(
+			ModItems.MODULE_ADVCUBE, false), diagonallywall(
 			8, "Diagonal Wall", "A A B A A",
-			ModularForceFieldSystem.MFFSProjectorTypdiagowall, true);
+			ModItems.MODULE_DIAGONAL_WALL, true);
 
 	public String displayName;
 	public String recipe;
@@ -86,12 +87,12 @@ public enum ProjectorTyp {
 		String[] recipeSplit = new String[] { mach.recipe.substring(0, 3),
 				mach.recipe.substring(3, 6), mach.recipe.substring(6, 9) };
 
-		RecipesFactory.IndRecipes.put(mach.item,GameRegistry.addShapedRecipe(new ItemStack(mach.item, 1), recipeSplit,
-
-		'C', ModularForceFieldSystem.MFFSProjectorTypCube, 'B', Blocks.OBSIDIAN,
-				'A', ModularForceFieldSystem.MFFSitemFocusmatix
-
-		));
+///		RecipesFactory.IndRecipes.put(mach.item,GameRegistry.addShapedRecipe(new ItemStack(mach.item, 1), recipeSplit,
+//
+//		'C', ModularForceFieldSystem.MFFSProjectorTypCube, 'B', Blocks.OBSIDIAN,
+//				'A', ModularForceFieldSystem.MFFSitemFocusmatix
+//
+//		));
 
 	}
 

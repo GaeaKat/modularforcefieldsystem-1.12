@@ -6,10 +6,12 @@ import com.nekokittygames.mffs.api.IForceEnergyItems;
 import com.nekokittygames.mffs.api.IPowerLinkItem;
 import com.nekokittygames.mffs.common.tileentity.TileEntityMachines;
 import net.minecraft.client.resources.I18n;
+import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 
+import javax.annotation.Nullable;
 import java.util.List;
 
 public class ItemCardPower extends ItemMFFSBase implements IPowerLinkItem,
@@ -76,8 +78,7 @@ public class ItemCardPower extends ItemMFFSBase implements IPowerLinkItem,
 	}
 
 	@Override
-	public void addInformation(ItemStack itemStack, EntityPlayer player,
-			List info, boolean b) {
+	public void addInformation(ItemStack stack, @Nullable World worldIn, List<String> info, ITooltipFlag flagIn) {
 
 		info.add(I18n.format("itemInfo.infinitePower.lineOne"));
 		info.add(I18n.format("itemInfo.infinitePower.lineTwo"));

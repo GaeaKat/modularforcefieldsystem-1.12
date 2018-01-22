@@ -54,12 +54,12 @@ public class TileEntitySecStorage extends TileEntityMachines implements
 
 	@Override
 	public TileEntityAdvSecurityStation getLinkedSecurityStation() {
-		return ItemCardSecurityLink.getLinkedSecurityStation(this, 0, worldObj);
+		return ItemCardSecurityLink.getLinkedSecurityStation(this, 0, world);
 	}
 
 	@Override
 	public void invalidate() {
-		Linkgrid.getWorldMap(worldObj).getSecStorage().remove(getDeviceID());
+		Linkgrid.getWorldMap(world).getSecStorage().remove(getDeviceID());
 		super.invalidate();
 	}
 
@@ -94,7 +94,7 @@ public class TileEntitySecStorage extends TileEntityMachines implements
 	@Override
 	public void update() {
 
-		if (!worldObj.isRemote) {
+		if (!world.isRemote) {
 			if (getLinkedSecurityStation() != null && !isActive()
 					&& getSwitchValue())
 				setActive(true);
@@ -115,8 +115,7 @@ public class TileEntitySecStorage extends TileEntityMachines implements
 					.getCompoundTagAt(i);
 			byte byte0 = nbttagcompound1.getByte("Slot");
 			if (byte0 >= 0 && byte0 < inventory.length) {
-				inventory[byte0] = ItemStack
-						.loadItemStackFromNBT(nbttagcompound1);
+				inventory[byte0] = new ItemStack(nbttagcompound1);
 			}
 		}
 	}
@@ -164,8 +163,8 @@ public class TileEntitySecStorage extends TileEntityMachines implements
 		this.inventory[par1] = par2ItemStack;
 
 		if (par2ItemStack != null
-				&& par2ItemStack.stackSize > this.getInventoryStackLimit()) {
-			par2ItemStack.stackSize = this.getInventoryStackLimit();
+				&& par2ItemStack.getCount() > this.getInventoryStackLimit()) {
+			par2ItemStack.setCount(this.getInventoryStackLimit());
 		}
 
 		this.markDirty();
@@ -174,13 +173,13 @@ public class TileEntitySecStorage extends TileEntityMachines implements
 	@Override
 	public ItemStack decrStackSize(int i, int j) {
 		if (inventory[i] != null) {
-			if (inventory[i].stackSize <= j) {
+			if (inventory[i].getCount() <= j) {
 				ItemStack itemstack = inventory[i];
 				inventory[i] = null;
 				return itemstack;
 			}
 			ItemStack itemstack1 = inventory[i].splitStack(j);
-			if (inventory[i].stackSize == 0) {
+			if (inventory[i].getCount() == 0) {
 				inventory[i] = null;
 			}
 			return itemstack1;

@@ -64,7 +64,7 @@ public final class RecipesFactory {
 			Block block, Item item) {
 
 
-		if ((forMod >= 4 || forMod < 0) || (count < 0)
+		/*if ((forMod >= 4 || forMod < 0) || (count < 0)
 				|| (block == null && item == null)
 				|| (block != null && item != null) || (Recipe.length() != 9)) {
 			System.out
@@ -200,7 +200,7 @@ public final class RecipesFactory {
 			}
 			break;
 
-			/*case 2: // Thermal Expansion
+			*//*case 2: // Thermal Expansion
 				if (ModularForceFieldSystem.thermalExpansionFound
 						&& ModularForceFieldSystem.enableTERecipes) {
 					GameRegistry
@@ -271,7 +271,7 @@ public final class RecipesFactory {
 							);
 					return true;
 				}
-				*/
+				*//*
             case 3:
                 if (ModularForceFieldSystem.enderIoFound
                         && ModularForceFieldSystem.enableEIRecipes) {
@@ -287,7 +287,7 @@ public final class RecipesFactory {
                 break;
 		}
 
-		//return false;
+		//return false;*/
 		return true;
 	}
 

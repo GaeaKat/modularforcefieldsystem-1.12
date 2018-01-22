@@ -24,6 +24,7 @@ import com.nekokittygames.mffs.api.PointXYZ;
 import com.nekokittygames.mffs.common.IModularProjector;
 import com.nekokittygames.mffs.common.IModularProjector.Slots;
 import com.nekokittygames.mffs.common.ModularForceFieldSystem;
+import com.nekokittygames.mffs.common.item.ModItems;
 import com.nekokittygames.mffs.common.options.*;
 import com.nekokittygames.mffs.common.tileentity.TileEntityProjector;
 import com.nekokittygames.mffs.libs.LibItemNames;
@@ -81,7 +82,7 @@ public class ItemProjectorModuleTube extends Module3DBase {
 
 			y_offset_s = Strength - Strength;
 			if (((TileEntityProjector) projector).hasOption(
-					ModularForceFieldSystem.MFFSProjectorOptionDome, true)) {
+					ModItems.OPTION_FIELD_MANIPULATOR, true)) {
 				if (projector.getSide() == EnumFacing.UP) {
 					y_offset_e = Strength;
 				}
@@ -98,7 +99,7 @@ public class ItemProjectorModuleTube extends Module3DBase {
 
 			z_offset_s = Strength - Strength;
 			if (((TileEntityProjector) projector).hasOption(
-					ModularForceFieldSystem.MFFSProjectorOptionDome, true)) {
+					ModItems.OPTION_FIELD_MANIPULATOR, true)) {
 				if (projector.getSide() == EnumFacing.NORTH) {
 					z_offset_e = Strength;
 				}
@@ -114,7 +115,7 @@ public class ItemProjectorModuleTube extends Module3DBase {
 
 			x_offset_s = Strength - Strength;
 			if (((TileEntityProjector) projector).hasOption(
-					ModularForceFieldSystem.MFFSProjectorOptionDome, true)) {
+					ModItems.OPTION_FIELD_MANIPULATOR, true)) {
 				if (projector.getSide() == EnumFacing.WEST) {
 					x_offset_e = Strength;
 				}

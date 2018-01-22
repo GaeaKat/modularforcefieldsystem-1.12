@@ -74,19 +74,19 @@ public class InventoryHelper {
 						if (inventorystack.getItem() == items.getItem()
 								&& inventorystack.getItemDamage() == items
 										.getItemDamage()
-								&& inventorystack.stackSize + 1 <= inventorystack
+								&& inventorystack.getCount() + 1 <= inventorystack
 										.getMaxStackSize()
-								&& inventorystack.stackSize + 1 <= inventory
+								&& inventorystack.getCount() + 1 <= inventory
 										.getInventoryStackLimit()) {
-							inventorystack.stackSize++;
+							inventorystack.setCount(inventorystack.getCount()+1);
 
-							items.stackSize--;
+							items.setCount(items.getCount()-1);
 							return true;
 						}
 					} else {
 						inventorystack = items.copy();
-						inventorystack.stackSize = 1;
-						items.stackSize--;
+						inventorystack.setCount(1);
+						items.setCount(items.getCount()-1);
 						inventory.setInventorySlotContents(a, inventorystack);
 
 						return true;

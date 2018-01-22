@@ -109,8 +109,8 @@ public class GuiSecStorage extends GuiContainer {
 
 	@Override
 	protected void drawGuiContainerForegroundLayer(int par1, int par2) {
-		fontRendererObj.drawString(SecStorage.getDeviceName(), 12, 9, 0x404040);
-		fontRendererObj.drawString("MFFS Security Storage", 38, 28, 0x404040);
+		fontRenderer.drawString(SecStorage.getDeviceName(), 12, 9, 0x404040);
+		fontRenderer.drawString("MFFS Security Storage", 38, 28, 0x404040);
 
 	}
 }

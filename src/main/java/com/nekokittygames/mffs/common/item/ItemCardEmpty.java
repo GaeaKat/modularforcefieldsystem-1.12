@@ -30,6 +30,7 @@ import com.nekokittygames.mffs.common.tileentity.TileEntityCapacitor;
 import com.nekokittygames.mffs.libs.LibItemNames;
 import com.nekokittygames.mffs.libs.LibMisc;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumActionResult;
@@ -54,13 +55,14 @@ public class ItemCardEmpty extends ItemMFFSBase {
 		return false;
 	}
 
+
 	@Override
-	public EnumActionResult onItemUse(ItemStack stack, EntityPlayer player, World world, BlockPos pos, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
+	public EnumActionResult onItemUse(EntityPlayer player, World world, BlockPos pos, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
 		if (world.isRemote)
 			return EnumActionResult.PASS;
 
 		TileEntity tileEntity = world.getTileEntity(pos);
-
+		ItemStack stack=player.getHeldItem(hand);
 		if (tileEntity instanceof TileEntityAdvSecurityStation) {
 
 			if (((TileEntityAdvSecurityStation) tileEntity).isActive()) {
@@ -69,7 +71,7 @@ public class ItemCardEmpty extends ItemMFFSBase {
 						world, SecurityRight.CSR)) {
 
 					ItemStack newcard = new ItemStack(
-							ModularForceFieldSystem.MFFSItemSecLinkCard);
+							ModItems.SECURITYLINK_CARD);
 					((ItemCardSecurityLink) newcard.getItem()).setInformation(
 							newcard, new PointXYZ(pos, world),
 							"Secstation_ID",
@@ -79,8 +81,8 @@ public class ItemCardEmpty extends ItemMFFSBase {
 							newcard,
 							((TileEntityAdvSecurityStation) tileEntity)
 									.getDeviceName());
-
-					if (--stack.stackSize <= 0) {
+					stack.setCount(stack.getCount()-1);
+					if (stack.isEmpty()) {
 						player.inventory.setInventorySlotContents(
 								player.inventory.currentItem, newcard);
 					} else if (!player.inventory
@@ -105,14 +107,15 @@ public class ItemCardEmpty extends ItemMFFSBase {
 					SecurityRight.EB)) {
 
 				ItemStack newcard = new ItemStack(
-						ModularForceFieldSystem.MFFSitemfc);
+						ModItems.POWERLINK_CARD);
 				((ItemCardPowerLink) newcard.getItem()).setInformation(newcard,
 						new PointXYZ(pos, world), "CapacitorID",
 						((TileEntityCapacitor) tileEntity).getPowerStorageID());
 				ItemCard.setforArea(newcard,
 						((TileEntityCapacitor) tileEntity).getDeviceName());
 
-				if (--stack.stackSize <= 0) {
+				stack.setCount(stack.getCount()-1);
+				if (stack.isEmpty()) {
 					player.inventory.setInventorySlotContents(
 							player.inventory.currentItem, newcard);
 				} else if (!player.inventory
@@ -121,7 +124,7 @@ public class ItemCardEmpty extends ItemMFFSBase {
 
 				player.inventoryContainer.detectAndSendChanges();
 
-				player.addChatMessage(new TextComponentTranslation("capacitor.cardCreated"));
+				player.sendMessage(new TextComponentTranslation("capacitor.cardCreated"));
 
 				return EnumActionResult.SUCCESS;
 			}

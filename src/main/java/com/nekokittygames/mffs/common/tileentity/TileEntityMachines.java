@@ -30,10 +30,7 @@ import com.nekokittygames.mffs.common.ModularForceFieldSystem;
 import com.nekokittygames.mffs.common.SecurityHelper;
 import com.nekokittygames.mffs.common.SecurityRight;
 import com.nekokittygames.mffs.common.block.BlockMFFSBase;
-import com.nekokittygames.mffs.common.item.ItemCardDataLink;
-import com.nekokittygames.mffs.common.item.ItemCardPersonalID;
-import com.nekokittygames.mffs.common.item.ItemCardPowerLink;
-import com.nekokittygames.mffs.common.item.ItemCardSecurityLink;
+import com.nekokittygames.mffs.common.item.*;
 import com.nekokittygames.mffs.network.INetworkHandlerEventListener;
 import com.nekokittygames.mffs.network.INetworkHandlerListener;
 import net.minecraft.block.state.IBlockState;
@@ -56,6 +53,8 @@ import net.minecraft.world.World;
 import net.minecraftforge.common.ForgeChunkManager;
 import net.minecraftforge.common.ForgeChunkManager.Ticket;
 import net.minecraftforge.common.ForgeChunkManager.Type;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 
 import javax.annotation.Nullable;
 import java.util.LinkedList;
@@ -67,7 +66,7 @@ public abstract class TileEntityMachines extends TileEntity implements
 		IMFFS_Wrench, ISwitchabel,ITickable {
 
 	private boolean Active;
-	private EnumFacing Side;
+	private EnumFacing curSide;
 	private short ticker;
 	protected boolean init;
 	protected String DeviceName;
@@ -86,7 +85,7 @@ public abstract class TileEntityMachines extends TileEntity implements
 		Active = false;
 		SwitchValue = false;
 		init = true;
-		Side = EnumFacing.UP;
+		curSide = EnumFacing.UP;
 		SwitchModi = 0; // 0:OFF 1: Redstone 2:Switch 3:CC
 		ticker = 0;
 		DeviceID = 0;
@@ -126,8 +125,8 @@ public abstract class TileEntityMachines extends TileEntity implements
 
 		}
 		this.markDirty();
-        worldObj.notifyBlockUpdate(pos, worldObj.getBlockState(pos), worldObj.getBlockState(pos), 2);
-        worldObj.markBlockRangeForRenderUpdate(pos,pos);
+        world.notifyBlockUpdate(pos, world.getBlockState(pos), world.getBlockState(pos), 2);
+		world.markBlockRangeForRenderUpdate(pos,pos);
 	}
 
 	@Override
@@ -136,7 +135,7 @@ public abstract class TileEntityMachines extends TileEntity implements
 		NetworkedFields.clear();
 
 		NetworkedFields.add("Active");
-		NetworkedFields.add("Side");
+		NetworkedFields.add("curSide");
 		NetworkedFields.add("DeviceID");
 		NetworkedFields.add("DeviceName");
 		NetworkedFields.add("SwitchModi");
@@ -148,7 +147,7 @@ public abstract class TileEntityMachines extends TileEntity implements
 	@Override
 	public void onNetworkHandlerUpdate(String field) {
 
-		worldObj.markBlockRangeForRenderUpdate(pos,pos);
+		world.markBlockRangeForRenderUpdate(pos,pos);
 
 	}
 
@@ -156,11 +155,11 @@ public abstract class TileEntityMachines extends TileEntity implements
 	@Override
 	public void update() {
 
-		if (!worldObj.isRemote)
+		if (!world.isRemote)
 			if (init)
 				init();
 
-		if (worldObj.isRemote)
+		if (world.isRemote)
 			if (DeviceID == 0) {
 				if (this.getTicker() >= 5 + random.nextInt(20)) {
 					setTicker((short) 0);
@@ -171,7 +170,7 @@ public abstract class TileEntityMachines extends TileEntity implements
 
 	public void init() {
 
-		DeviceID = Linkgrid.getWorldMap(worldObj).refreshID(this, DeviceID);
+		DeviceID = Linkgrid.getWorldMap(world).refreshID(this, DeviceID);
 		if (ModularForceFieldSystem.enableChunkLoader)
 			registerChunkLoading();
 		init = false;
@@ -196,9 +195,9 @@ public abstract class TileEntityMachines extends TileEntity implements
 	}
 
 	public boolean isRedstoneSignal() {
-		// if(worldObj.isBlockGettingPowered(xCoord,yCoord, zCoord) ||
-		if (worldObj.getStrongPower(pos) > 0
-				|| worldObj.isBlockIndirectlyGettingPowered(pos)>0)
+		// if(world.isBlockGettingPowered(xCoord,yCoord, zCoord) ||
+		if (world.getStrongPower(pos) > 0
+				|| world.isBlockIndirectlyGettingPowered(pos)>0)
 			return true;
 		return false;
 	}
@@ -243,14 +242,14 @@ public abstract class TileEntityMachines extends TileEntity implements
 	}
 
 	public PointXYZ getMaschinePoint() {
-		return new PointXYZ(pos, worldObj);
+		return new PointXYZ(pos, world);
 	}
 
 	public abstract void dropPlugins();
 
 	public void dropplugins(int slot, IInventory inventory) {
 
-		if (worldObj.isRemote) {
+		if (world.isRemote) {
 			this.setInventorySlotContents(slot, null);
 			return;
 		}
@@ -260,11 +259,11 @@ public abstract class TileEntityMachines extends TileEntity implements
 					|| inventory.getStackInSlot(slot).getItem() instanceof ItemCardPowerLink
 					|| inventory.getStackInSlot(slot).getItem() instanceof ItemCardPersonalID
 					|| inventory.getStackInSlot(slot).getItem() instanceof ItemCardDataLink) {
-				worldObj.spawnEntityInWorld(new EntityItem(worldObj,
+				world.spawnEntity(new EntityItem(world,
 						this.pos.getX(), this.pos.getY(), this.pos.getZ(), new ItemStack(
-								ModularForceFieldSystem.MFFSitemcardempty, 1)));
+						ModItems.EMPTY_CARD, 1)));
 			} else {
-				worldObj.spawnEntityInWorld(new EntityItem(worldObj,
+				world.spawnEntity(new EntityItem(world,
 						this.pos.getX(), this.pos.getY(), this.pos.getZ(), inventory
 								.getStackInSlot(slot)));
 			}
@@ -289,7 +288,7 @@ public abstract class TileEntityMachines extends TileEntity implements
 	}
 
 	public void readExtraNBT(NBTTagCompound nbttagcompound) {
-		Side = EnumFacing.values()[nbttagcompound.getInteger("side")];
+		curSide = EnumFacing.values()[nbttagcompound.getInteger("side")];
 		Active = nbttagcompound.getBoolean("active");
 		SwitchValue = nbttagcompound.getBoolean("SwitchValue");
 		DeviceID = nbttagcompound.getInteger("DeviceID");
@@ -307,7 +306,7 @@ public abstract class TileEntityMachines extends TileEntity implements
 
 	public void writeExtraNBT(NBTTagCompound nbttagcompound) {
 		nbttagcompound.setShort("SwitchModi", SwitchModi);
-		nbttagcompound.setInteger("side", Side.getIndex());
+		nbttagcompound.setInteger("side", curSide.getIndex());
 		nbttagcompound.setBoolean("active", Active);
 		nbttagcompound.setBoolean("SwitchValue", SwitchValue);
 		nbttagcompound.setInteger("DeviceID", DeviceID);
@@ -333,11 +332,12 @@ public abstract class TileEntityMachines extends TileEntity implements
 
 		NBTTagCompound comp=new NBTTagCompound();
 		writeExtraNBT(comp);
-		SPacketUpdateTileEntity packetUpdateTileEntity=new SPacketUpdateTileEntity(pos,worldObj.getBlockState(pos).getBlock().getMetaFromState(worldObj.getBlockState(pos)),comp);
+		SPacketUpdateTileEntity packetUpdateTileEntity=new SPacketUpdateTileEntity(pos,world.getBlockState(pos).getBlock().getMetaFromState(world.getBlockState(pos)),comp);
 		return packetUpdateTileEntity;
 	}
 
 	@Override
+	@SideOnly(Side.CLIENT)
 	public void onDataPacket(NetworkManager net, SPacketUpdateTileEntity pkt) {
 		super.onDataPacket(net, pkt);
 		readExtraNBT(pkt.getNbtCompound());
@@ -345,7 +345,7 @@ public abstract class TileEntityMachines extends TileEntity implements
 
 	@Override
 	public boolean wrenchCanManipulate(EntityPlayer entityPlayer, EnumFacing side) {
-		if (!SecurityHelper.isAccessGranted(this, entityPlayer, worldObj,
+		if (!SecurityHelper.isAccessGranted(this, entityPlayer, world,
 				SecurityRight.EB)) {
 			return false;
 		}
@@ -363,8 +363,8 @@ public abstract class TileEntityMachines extends TileEntity implements
 
 	@Override
 	public void setSide(EnumFacing i) {
-		Side = i;
-		worldObj.setBlockState(pos,worldObj.getBlockState(pos).withProperty(BlockMFFSBase.FACING,i));
+		curSide = i;
+		world.setBlockState(pos,world.getBlockState(pos).withProperty(BlockMFFSBase.FACING,i));
 
 	}
 
@@ -374,15 +374,15 @@ public abstract class TileEntityMachines extends TileEntity implements
 
 	public void setActive(boolean flag) {
 		Active = flag;
-		if(worldObj.getBlockState(pos).getBlock() instanceof BlockMFFSBase)
-			worldObj.setBlockState(pos,worldObj.getBlockState(pos).withProperty(BlockMFFSBase.ACTIVE,flag));
+		if(world.getBlockState(pos).getBlock() instanceof BlockMFFSBase)
+			world.setBlockState(pos,world.getBlockState(pos).withProperty(BlockMFFSBase.ACTIVE,flag));
 
 	}
 
 	@Override
 	public EnumFacing getSide() {
-		if(worldObj.getBlockState(pos).getBlock() instanceof BlockMFFSBase)
-			return worldObj.getBlockState(pos).getValue(BlockMFFSBase.FACING);
+		if(world.getBlockState(pos).getBlock() instanceof BlockMFFSBase)
+			return world.getBlockState(pos).getValue(BlockMFFSBase.FACING);
 		return EnumFacing.UP;
 	}
 
@@ -400,7 +400,7 @@ public abstract class TileEntityMachines extends TileEntity implements
 	protected void registerChunkLoading() {
 		if (chunkTicket == null) {
 			chunkTicket = ForgeChunkManager.requestTicket(
-					ModularForceFieldSystem.instance, worldObj, Type.NORMAL);
+					ModularForceFieldSystem.instance, world, Type.NORMAL);
 		}
 		if (chunkTicket == null) {
 			System.out
@@ -438,13 +438,14 @@ public abstract class TileEntityMachines extends TileEntity implements
 	}
 
 	@Override
-	public boolean isUseableByPlayer(EntityPlayer entityplayer) {
-		if (worldObj.getTileEntity(pos) != this) {
+	public boolean isUsableByPlayer(EntityPlayer player) {
+		if (world.getTileEntity(pos) != this) {
 			return false;
 		} else {
-			return entityplayer.getDistance(pos.getX(),pos.getY(),pos.getZ()) <= 64D;
+			return player.getDistance(pos.getX(),pos.getY(),pos.getZ()) <= 64D;
 		}
 	}
+
 
 
 
@@ -454,8 +455,13 @@ public abstract class TileEntityMachines extends TileEntity implements
 	}
 
 	public int countItemsInSlot(Slots slt) {
-		if (this.getStackInSlot(slt.slot) != null)
-			return this.getStackInSlot(slt.slot).stackSize;
+		if (this.getStackInSlot(slt.slot) != ItemStack.EMPTY)
+			return this.getStackInSlot(slt.slot).getCount();
 		return 0;
+	}
+
+	@Override
+	public boolean isEmpty() {
+		return false;
 	}
 }

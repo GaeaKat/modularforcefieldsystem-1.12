@@ -31,6 +31,7 @@ import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.Container;
+import net.minecraft.inventory.ItemStackHelper;
 import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
@@ -76,12 +77,12 @@ public class TileEntityAdvSecurityStation extends TileEntityMachines {
 			if (getStackInSlot(slot).getItem() instanceof ItemCardSecurityLink
 					|| getStackInSlot(slot).getItem() instanceof ItemCardPowerLink
 					|| getStackInSlot(slot).getItem() instanceof ItemCardPersonalID) {
-				worldObj.spawnEntityInWorld(new EntityItem(worldObj,
+				world.spawnEntity(new EntityItem(world,
 						this.pos.getX(), this.pos.getY(),
 						this.pos.getZ(), new ItemStack(
-								ModularForceFieldSystem.MFFSitemcardempty, 1)));
+								ModItems.EMPTY_CARD, 1)));
 			} else {
-				worldObj.spawnEntityInWorld(new EntityItem(worldObj,
+				world.spawnEntity(new EntityItem(world,
 						this.pos.getX(), this.pos.getY(),
 						this.pos.getZ(), this.getStackInSlot(slot)));
 			}
@@ -98,7 +99,7 @@ public class TileEntityAdvSecurityStation extends TileEntityMachines {
 
 	@Override
 	public void invalidate() {
-		Linkgrid.getWorldMap(worldObj).getSecStation().remove(getDeviceID());
+		Linkgrid.getWorldMap(world).getSecStation().remove(getDeviceID());
 		super.invalidate();
 	}
 
@@ -117,8 +118,7 @@ public class TileEntityAdvSecurityStation extends TileEntityMachines {
 					.getCompoundTagAt(i);
 			byte byte0 = nbttagcompound1.getByte("Slot");
 			if (byte0 >= 0 && byte0 < inventory.length) {
-				inventory[byte0] = ItemStack
-						.loadItemStackFromNBT(nbttagcompound1);
+				inventory[byte0] = new ItemStack(nbttagcompound1);
 			}
 		}
 	}
@@ -162,7 +162,7 @@ public class TileEntityAdvSecurityStation extends TileEntityMachines {
 
 	@Override
 	public void update() {
-		if (worldObj.isRemote == false) {
+		if (world.isRemote == false) {
 			if (this.getTicker() >= 10) {
 
 				if (!getMainUser().equals("")) {
@@ -190,7 +190,7 @@ public class TileEntityAdvSecurityStation extends TileEntityMachines {
 
 	public void checkSlots() {
 		if (getStackInSlot(0) != null) {
-			if (getStackInSlot(0).getItem() == ModularForceFieldSystem.MFFSItemIDCard) {
+			if (getStackInSlot(0).getItem() == ModItems.PERSONAL_ID) {
 				ItemCardPersonalID Card = (ItemCardPersonalID) getStackInSlot(0)
 						.getItem();
 
@@ -218,7 +218,7 @@ public class TileEntityAdvSecurityStation extends TileEntityMachines {
 					&& getStackInSlot(39).getItem() instanceof ItemCardPersonalID) {
 
 				this.setInventorySlotContents(38,
-						ItemStack.copyItemStack(getStackInSlot(39)));
+						getStackInSlot(39).copy());
 
 			}
 		}
@@ -243,13 +243,13 @@ public class TileEntityAdvSecurityStation extends TileEntityMachines {
 	@Override
 	public ItemStack decrStackSize(int i, int j) {
 		if (inventory[i] != null) {
-			if (inventory[i].stackSize <= j) {
+			if (inventory[i].getCount() <= j) {
 				ItemStack itemstack = inventory[i];
 				inventory[i] = null;
 				return itemstack;
 			}
 			ItemStack itemstack1 = inventory[i].splitStack(j);
-			if (inventory[i].stackSize == 0) {
+			if (inventory[i].getCount() == 0) {
 				inventory[i] = null;
 			}
 			return itemstack1;
@@ -269,8 +269,8 @@ public class TileEntityAdvSecurityStation extends TileEntityMachines {
 	@Override
 	public void setInventorySlotContents(int i, ItemStack itemstack) {
 		inventory[i] = itemstack;
-		if (itemstack != null && itemstack.stackSize > getInventoryStackLimit()) {
-			itemstack.stackSize = getInventoryStackLimit();
+		if (itemstack != null && itemstack.getCount()> getInventoryStackLimit()) {
+			itemstack.setCount( getInventoryStackLimit());
 		}
 	}
 
@@ -288,7 +288,7 @@ public class TileEntityAdvSecurityStation extends TileEntityMachines {
 
 		for (int a = 35; a >= 1; a--) {
 			if (getStackInSlot(a) != null) {
-				if (getStackInSlot(a).getItem() == ModularForceFieldSystem.MFFSItemIDCard) {
+				if (getStackInSlot(a).getItem() == ModItems.PERSONAL_ID) {
 					String username_invtory = NBTTagCompoundHelper
 							.getTAGfromItemstack(getStackInSlot(a)).getString(
 									"name");
@@ -314,12 +314,12 @@ public class TileEntityAdvSecurityStation extends TileEntityMachines {
 	}
 
 	public boolean RemotePlayerInventory(String username, SecurityRight right) {
-		EntityPlayer player = worldObj.getPlayerEntityByName(username);
+		EntityPlayer player = world.getPlayerEntityByName(username);
 		if (player != null) {
 			List<Slot> slots = player.inventoryContainer.inventorySlots;
 			for (Slot slot : slots) {
 				ItemStack stack = slot.getStack();
-				if (stack != null) {
+				if (stack != ItemStack.EMPTY) {
 					if (stack.getItem() instanceof ItemAccessCard) {
 						if (ItemAccessCard
 								.getvalidity(stack) > 0) {
@@ -341,7 +341,7 @@ public class TileEntityAdvSecurityStation extends TileEntityMachines {
 							/*player.sendChatToPlayer(LanguageRegistry.instance().getStringLocalization
 									("securityStation.expiredValidity"));*/
 							ItemStack Card = new ItemStack(
-									ModularForceFieldSystem.MFFSitemcardempty,
+									ModItems.EMPTY_CARD,
 									1);
 							slot.putStack(Card);
 
@@ -365,7 +365,7 @@ public class TileEntityAdvSecurityStation extends TileEntityMachines {
 
 		String[] ops = ModularForceFieldSystem.Admin.split(";");
 
-		EntityPlayer player = worldObj.getPlayerEntityByName(username);
+		EntityPlayer player = world.getPlayerEntityByName(username);
 		if(player != null && player.capabilities.isCreativeMode) {
 			return true;
 		}
@@ -449,7 +449,7 @@ public class TileEntityAdvSecurityStation extends TileEntityMachines {
 				if (getStackInSlot(1).getItem() instanceof ItemAccessCard) {
 					if (ItemAccessCard.getvalidity(getStackInSlot(1)) <= 5) {
 						this.setInventorySlotContents(1, new ItemStack(
-								ModularForceFieldSystem.MFFSitemcardempty, 1));
+								ModItems.EMPTY_CARD, 1));
 					} else {
 						ItemAccessCard
 								.setvalidity(getStackInSlot(1), ItemAccessCard
@@ -462,7 +462,7 @@ public class TileEntityAdvSecurityStation extends TileEntityMachines {
 			if (getStackInSlot(1) != null) {
 				if (getStackInSlot(1).getItem() instanceof ItemCardEmpty) {
 					setInventorySlotContents(1, new ItemStack(
-							ModularForceFieldSystem.MFFSAccessCard, 1));
+							ModItems.ACCESS_CARD, 1));
 					if (getStackInSlot(1).getItem() instanceof ItemAccessCard) {
 						ItemAccessCard.setforArea(getStackInSlot(1), this);
 						ItemAccessCard.setvalidity(getStackInSlot(1), 5);

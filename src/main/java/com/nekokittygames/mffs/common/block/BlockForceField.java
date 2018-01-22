@@ -19,6 +19,7 @@
  */
 package com.nekokittygames.mffs.common.block;
 
+import java.util.Objects;
 import java.util.Random;
 
 import javax.annotation.Nullable;
@@ -36,10 +37,7 @@ import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.BlockRenderLayer;
-import net.minecraft.util.EnumFacing;
-import net.minecraft.util.EnumHand;
-import net.minecraft.util.EnumParticleTypes;
+import net.minecraft.util.*;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
@@ -125,8 +123,9 @@ public class BlockForceField extends Block implements IForceFieldBlock ,ITileEnt
 		setTickRandomly(true);
 
 		this.setDefaultState(blockState.getBaseState().withProperty(FORCEFIELD_TYPE,ForceFieldTyps.Default));
-		setUnlocalizedName(LibMisc.UNLOCALIZED_PREFIX+ LibBlockNames.FORCE_FIELD);
-		setRegistryName(LibBlockNames.FORCE_FIELD);
+		this.setRegistryName(ModularForceFieldSystem.MODID, LibBlockNames.FORCE_FIELD);
+		final ResourceLocation registryName = Objects.requireNonNull(this.getRegistryName());
+		this.setUnlocalizedName(registryName.toString());
 	}
 
 
@@ -153,11 +152,11 @@ public class BlockForceField extends Block implements IForceFieldBlock ,ITileEnt
 	@Override
 	public void onNeighborChange(IBlockAccess world, BlockPos pos, BlockPos neighbor) {
 		IBlockState bs=world.getBlockState(neighbor);
-		if (bs.getBlock()!= ModularForceFieldSystem.MFFSFieldblock) {
+		if (bs.getBlock()!= ModBlocks.FORCE_FIELD) {
 			for (int x1 = -1; x1 <= 1; x1++) {
 				for (int y1 = -1; y1 <= 1; y1++) {
 					for (int z1 = -1; z1 <= 1; z1++) {
-						if (world.getBlockState(pos.add(x1, y1, z1)) != ModularForceFieldSystem.MFFSFieldblock) {
+						if (world.getBlockState(pos.add(x1, y1, z1)) != ModBlocks.FORCE_FIELD) {
 							if (world.getBlockState(pos.add(x1, y1, z1)) == Blocks.AIR) {
 								breakBlock((World)world,pos.add(x1, y1, z1),bs);
 							}
@@ -190,8 +189,8 @@ public class BlockForceField extends Block implements IForceFieldBlock ,ITileEnt
 						ffworldmap.removebyProjector(ffworldmap
 								.getProjectorID());
 					} else {
-						world.setBlockState(pos,ModularForceFieldSystem.MFFSFieldblock.getDefaultState().withProperty(FORCEFIELD_TYPE,ffworldmap.getTyp()));
-						world.markAndNotifyBlock(pos,world.getChunkFromBlockCoords(pos),world.getBlockState(pos),ModularForceFieldSystem.MFFSFieldblock.getDefaultState().withProperty(FORCEFIELD_TYPE,ffworldmap.getTyp()),3);
+						world.setBlockState(pos,ModBlocks.FORCE_FIELD.getDefaultState().withProperty(FORCEFIELD_TYPE,ffworldmap.getTyp()));
+						world.markAndNotifyBlock(pos,world.getChunkFromBlockCoords(pos),world.getBlockState(pos),ModBlocks.FORCE_FIELD.getDefaultState().withProperty(FORCEFIELD_TYPE,ffworldmap.getTyp()),3);
 						ffworldmap.setSync(true);
 
 						if (ffworldmap.getTyp() == ForceFieldTyps.Default) {
@@ -215,11 +214,11 @@ public class BlockForceField extends Block implements IForceFieldBlock ,ITileEnt
 	}
 
 	@Override
-	public boolean onBlockActivated(World world, BlockPos pos, IBlockState state, EntityPlayer player, EnumHand hand, @Nullable ItemStack heldItem, EnumFacing side, float hitX, float hitY, float hitZ) {
+	public boolean onBlockActivated(World world, BlockPos pos, IBlockState state, EntityPlayer player, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
 		if (world.isRemote)
 			return false;
 
-		ItemStack stack = heldItem;
+		ItemStack stack = player.getHeldItem(hand);
 		if (stack == null)
 			return false;
 
@@ -247,7 +246,7 @@ public class BlockForceField extends Block implements IForceFieldBlock ,ITileEnt
 				// Debugger can be spawned in and used to kill force fields.
 				if(debugger) {
 					projector.setBurnedOut(true);
-					player.addChatMessage(new TextComponentTranslation("mffs.burntOut",projector.getPos().toString()));
+					player.sendMessage(new TextComponentTranslation("mffs.burntOut",projector.getPos().toString()));
 					return true;
 				}
 
@@ -284,7 +283,7 @@ public class BlockForceField extends Block implements IForceFieldBlock ,ITileEnt
 						int ymodi = 0;
 
 						int lm = MathHelper
-								.floor_double((player.rotationYaw * 4F) / 360F + 0.5D) & 3;
+								.floor((player.rotationYaw * 4F) / 360F + 0.5D) & 3;
 						int i1 = Math.round(player.rotationPitch);
 
 						if (i1 >= 65) { // Facing 1
@@ -461,15 +460,16 @@ public class BlockForceField extends Block implements IForceFieldBlock ,ITileEnt
 			return super.getActualState(state, worldIn, pos);
 	}
 
+
 	@Nullable
 	@Override
-	public AxisAlignedBB getCollisionBoundingBox(IBlockState blockState, World world, BlockPos pos) {
+	public AxisAlignedBB getCollisionBoundingBox(IBlockState blockState, IBlockAccess world, BlockPos pos) {
 		if (blockState.getValue(FORCEFIELD_TYPE) == ForceFieldTyps.Zapper) {
 			float f = 0.0625F;
 			return new AxisAlignedBB(pos.getX()+f,pos.getY()+f,pos.getZ()+f,pos.getX()+1-f,pos.getY()+1-f,pos.getZ()+1-f);
 		}
 
-		return super.getCollisionBoundingBox(blockState, world, pos);
+		return super.getCollisionBoundingBox(blockState,world,pos);
 	}
 
 	@Override

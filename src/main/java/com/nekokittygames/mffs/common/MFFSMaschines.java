@@ -25,6 +25,7 @@ package com.nekokittygames.mffs.common;
 
 
 import com.nekokittygames.mffs.common.block.BlockMFFSBase;
+import com.nekokittygames.mffs.common.block.ModBlocks;
 import ic2.api.tile.ExplosionWhitelist;
 import net.minecraft.block.Block;
 import net.minecraft.inventory.Container;
@@ -38,25 +39,25 @@ public enum MFFSMaschines {
 
 	Projector(1, "MFFSProjector", "Projector", "TileEntityProjector",
 			"GuiProjector", "ContainerProjector",
-			ModularForceFieldSystem.MFFSProjector, 0, "KyKyFyKJK", " y yFyaIa","KyKyFyKJK"),
+			ModBlocks.PROJECTOR, 0, "KyKyFyKJK", " y yFyaIa","KyKyFyKJK"),
 	Extractor(2, "MFFSExtractor", "Extractor", "TileEntityExtractor",
 			"GuiExtractor", "ContainerForceEnergyExtractor",
-			ModularForceFieldSystem.MFFSExtractor, 0, " C xFx G ", " a xFxEIE"," C xFx G "),
+			ModBlocks.EXTRACTOR, 0, " C xFx G ", " a xFxEIE"," C xFx G "),
 	Capacitor(3, "MFFSCapacitor", "Capacitor", "TileEntityCapacitor",
 			"GuiCapacitor", "ContainerCapacitor",
-			ModularForceFieldSystem.MFFSCapacitor, 0, "xJxCFCxJx", " a xGxxIx","xJxCFCxJx"),
+			ModBlocks.CAPACITOR, 0, "xJxCFCxJx", " a xGxxIx","xJxCFCxJx"),
 	DefenceStation(5, "MFFSDefenceStation", "Defence Station", "TileEntityAreaDefenseStation",
 			"GuiAreaDefenseStation", "ContainerAreaDefenseStation",
-			ModularForceFieldSystem.MFFSDefenceStation, 0, " J aFa E ", " a EFE I "," J aFa E "),
+			ModBlocks.AREA_DEFENSE, 0, " J aFa E ", " a EFE I "," J aFa E "),
 	SecurityStation(6, "MFFSSecurtyStation", "Security Station", "TileEntityAdvSecurityStation",
 			"GuiAdvSecurityStation", "ContainerAdvSecurityStation",
-			ModularForceFieldSystem.MFFSSecurtyStation, 0, "KCKCFCKJK", " E EFEIaI","KCKCFCKJK"),
+			ModBlocks.ADV_SECURITY, 0, "KCKCFCKJK", " E EFEIaI","KCKCFCKJK"),
 	SecurityStorage(7, "MFFSSecurtyStorage", "Security Storage", "TileEntitySecStorage",
 			"GuiSecStorage", "ContainerSecStorage",
-			ModularForceFieldSystem.MFFSSecurtyStorage, 0, "AAAACAAAA", "AAAAEAAAA","AAAACAAAA"),
+			ModBlocks.SECURITY_STORAGE, 0, "AAAACAAAA", "AAAAEAAAA","AAAACAAAA"),
 	ControlSystem(8, "MFFSControlSystem", "Control System","TileEntityControlSystem",
 			"GuiControlSystem", "ContainerControlSystem",
-			ModularForceFieldSystem.MFFSControlSystem, 0, "aCaAFAACA", " C aFaAIA","aCaAFAACA");
+			ModBlocks.CONTROL_SYSTEM, 0, "aCaAFAACA", " C aFaAIA","aCaAFAACA");
 
 	public int index;
 	public String inCodeName;
@@ -118,10 +119,9 @@ public enum MFFSMaschines {
 	{
 		for (MFFSMaschines mach : MFFSMaschines.values()) {
 
-			GameRegistry.register(mach.block);
-			GameRegistry.register(new ItemBlock(mach.block),mach.block.getRegistryName());
-			GameRegistry.registerTileEntity(mach.clazz, mach.inCodeName);
-			ModularForceFieldSystem.proxy.setupClientMachine((BlockMFFSBase) mach.block,mach.block.getRegistryName().getResourcePath());
+			//GameRegistry.register(mach.block);
+			//GameRegistry.register(new ItemBlock(mach.block),mach.block.getRegistryName());
+			//ModularForceFieldSystem.proxy.setupClientMachine((BlockMFFSBase) mach.block,mach.block.getRegistryName().getResourcePath());
 
 
 		}

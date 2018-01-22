@@ -22,6 +22,7 @@ package com.nekokittygames.mffs.common;
 
 import java.util.List;
 
+import com.nekokittygames.mffs.common.item.ModItems;
 import net.minecraft.block.Block;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
@@ -47,20 +48,20 @@ public class Functions {
 	}
 
 	public static void ChattoPlayer(EntityPlayer player, String Message, Object... args) {
-		player.addChatMessage(new TextComponentTranslation(Message, args));
+		player.sendMessage(new TextComponentTranslation(Message, args));
 	}
 
 	public static boolean setIteminSlot(ItemStack itemstack,
 			EntityPlayer entityplayer, TileEntity tileEntity, int Slot,
 			String Cardname) {
-		if (((IInventory) tileEntity).getStackInSlot(Slot) == null) {
+		if (((IInventory) tileEntity).getStackInSlot(Slot) == ItemStack.EMPTY) {
 			((IInventory) tileEntity).setInventorySlotContents(Slot, itemstack);
-			entityplayer.inventory.mainInventory[entityplayer.inventory.currentItem] = null;
+			entityplayer.inventory.mainInventory.get(entityplayer.inventory.currentItem).setCount(0);
 			Functions.ChattoPlayer(entityplayer, "generic.card.installed", Cardname);
 			((IInventory) tileEntity).markDirty();
 			return true;
 		} else {
-			if (((IInventory) tileEntity).getStackInSlot(Slot).getItem() == ModularForceFieldSystem.MFFSitemcardempty) {
+			if (((IInventory) tileEntity).getStackInSlot(Slot).getItem() == ModItems.EMPTY_CARD) {
 				ItemStack itemstackcopy = itemstack.copy();
 				((IInventory) tileEntity).setInventorySlotContents(Slot,
 						itemstackcopy);
@@ -73,4 +74,7 @@ public class Functions {
 		}
 	}
 
+	public static <T> T Null() {
+		return null;
+	}
 }

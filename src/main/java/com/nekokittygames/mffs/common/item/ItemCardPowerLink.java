@@ -80,11 +80,12 @@ public class ItemCardPowerLink extends ItemCard implements IPowerLinkItem {
 		Tick++;
 	}
 
+
 	@Override
-	public EnumActionResult onItemUseFirst(ItemStack stack, EntityPlayer player, World world, BlockPos pos, EnumFacing side, float hitX, float hitY, float hitZ, EnumHand hand) {
+	public EnumActionResult onItemUseFirst(EntityPlayer player, World world, BlockPos pos, EnumFacing side, float hitX, float hitY, float hitZ, EnumHand hand) {
 
 		TileEntity tileEntity = world.getTileEntity(pos);
-
+		ItemStack stack=player.getHeldItem(hand);
 		if (!world.isRemote) {
 
 			if (tileEntity instanceof TileEntityProjector) {
@@ -101,15 +102,15 @@ public class ItemCardPowerLink extends ItemCard implements IPowerLinkItem {
 				if (SecurityHelper.isAccessGranted(tileEntity, player,
 						world, SecurityRight.EB)) {
 
-					if (((TileEntityExtractor) tileEntity).getStackInSlot(1) == null) {
+					if (((TileEntityExtractor) tileEntity).getStackInSlot(1) == ItemStack.EMPTY) {
 						((TileEntityExtractor) tileEntity)
 								.setInventorySlotContents(1, stack);
-						player.inventory.mainInventory[player.inventory.currentItem] = null;
+						player.inventory.mainInventory.get(player.inventory.currentItem).setCount(0);
 						Functions.ChattoPlayer(player, "linkCard.installed");
 						return EnumActionResult.SUCCESS;
 					} else {
 						if (((TileEntityExtractor) tileEntity)
-								.getStackInSlot(1).getItem() == ModularForceFieldSystem.MFFSitemcardempty) {
+								.getStackInSlot(1).getItem() == ModItems.EMPTY_CARD) {
 							ItemStack itemstackcopy = stack.copy();
 							((TileEntityExtractor) tileEntity)
 									.setInventorySlotContents(1, itemstackcopy);

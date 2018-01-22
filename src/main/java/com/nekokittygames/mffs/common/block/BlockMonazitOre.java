@@ -20,6 +20,7 @@
 
 package com.nekokittygames.mffs.common.block;
 
+import java.util.Objects;
 import java.util.Random;
 
 import com.nekokittygames.mffs.common.ModularForceFieldSystem;
@@ -28,6 +29,7 @@ import com.nekokittygames.mffs.libs.LibMisc;
 import net.minecraft.block.Block;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
+import net.minecraft.util.ResourceLocation;
 
 public class BlockMonazitOre extends Block {
 
@@ -37,8 +39,9 @@ public class BlockMonazitOre extends Block {
 		setHardness(3.0F);
 		setResistance(5.0F);
 		setSoundType(SoundType.STONE);
-		setUnlocalizedName(LibMisc.UNLOCALIZED_PREFIX+ LibBlockNames.MONAZIT_ORE);
-		setRegistryName(LibBlockNames.MONAZIT_ORE);
+		this.setRegistryName(ModularForceFieldSystem.MODID, LibBlockNames.MONAZIT_ORE);
+		final ResourceLocation registryName = Objects.requireNonNull(this.getRegistryName());
+		this.setUnlocalizedName(registryName.toString());
 		setCreativeTab(ModularForceFieldSystem.MFFSTab);
 	}
 

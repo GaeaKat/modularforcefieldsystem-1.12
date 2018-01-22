@@ -23,6 +23,7 @@ package com.nekokittygames.mffs.client.gui;
 import com.nekokittygames.mffs.client.GraphicButton;
 import com.nekokittygames.mffs.common.ModularForceFieldSystem;
 import com.nekokittygames.mffs.common.container.ContainerControlSystem;
+import com.nekokittygames.mffs.common.item.ModItems;
 import com.nekokittygames.mffs.common.tileentity.TileEntityControlSystem;
 import com.nekokittygames.mffs.network.client.NetworkHandlerClient;
 import net.minecraft.client.gui.GuiButton;
@@ -128,44 +129,44 @@ public class GuiControlSystem extends GuiContainer {
 
 	@Override
 	protected void drawGuiContainerForegroundLayer(int par1, int par2) {
-		fontRendererObj.drawString("MFFS Control System", 8, 9, 0x404040);
-		fontRendererObj
+		fontRenderer.drawString("MFFS Control System", 8, 9, 0x404040);
+		fontRenderer
 				.drawString(ControlSystem.getDeviceName(), 123, 9, 0x404040);
 
-		fontRendererObj.drawString("DataLink", 190, 54, 0x404040);
-		fontRendererObj.drawString("Reader", 190, 65, 0x404040);
+		fontRenderer.drawString("DataLink", 190, 54, 0x404040);
+		fontRenderer.drawString("Reader", 190, 65, 0x404040);
 
-		fontRendererObj.drawString("Name: " + ControlSystem.getRemoteDeviceName(),
+		fontRenderer.drawString("Name: " + ControlSystem.getRemoteDeviceName(),
 				15, 30, 0x404040);
-		fontRendererObj.drawString("Type:  " + ControlSystem.getRemoteDeviceTyp(),
+		fontRenderer.drawString("Type:  " + ControlSystem.getRemoteDeviceTyp(),
 				15, 45, 0x404040);
 		if (ControlSystem.getStackInSlot(1) != null) {
 
 			RenderHelper.enableGUIStandardItemLighting();
 			itemRender.renderItemIntoGUI(
-					new ItemStack(ModularForceFieldSystem.MFFSItemSecLinkCard),
+					new ItemStack(ModItems.SECURITYLINK_CARD),
 					40, 59);
 			itemRender.renderItemIntoGUI(
-					new ItemStack(ModularForceFieldSystem.MFFSitemfc), 100, 59);
+					new ItemStack(ModItems.POWER_CARD), 100, 59);
 			RenderHelper.disableStandardItemLighting();
 			if (ControlSystem.getRemoteSecurityStationlink()) {
-				fontRendererObj.drawString("linked", 60, 64, 0x228B22);
+				fontRenderer.drawString("linked", 60, 64, 0x228B22);
 			} else {
-				fontRendererObj.drawString("linked", 60, 64, 0x8B1A1A);
+				fontRenderer.drawString("linked", 60, 64, 0x8B1A1A);
 			}
 			if (ControlSystem.getRemotehasPowersource()) {
-				fontRendererObj.drawString("linked", 120, 64, 0x228B22);
-				fontRendererObj.drawString(
+				fontRenderer.drawString("linked", 120, 64, 0x228B22);
+				fontRenderer.drawString(
 						"Power left: " + ControlSystem.getRemotePowerleft()
 								+ "%", 40, 80, 0x404040);
 			} else {
-				fontRendererObj.drawString("linked", 120, 64, 0x8B1A1A);
+				fontRenderer.drawString("linked", 120, 64, 0x8B1A1A);
 			}
 
 			if (ControlSystem.getRemoteGUIinRange()) {
-				fontRendererObj.drawString("OK", 40, 107, 0x228B22);
+				fontRenderer.drawString("OK", 40, 107, 0x228B22);
 			} else {
-				fontRendererObj.drawString("OOR", 40, 107, 0x8B1A1A);
+				fontRenderer.drawString("OOR", 40, 107, 0x8B1A1A);
 			}
 
 		}

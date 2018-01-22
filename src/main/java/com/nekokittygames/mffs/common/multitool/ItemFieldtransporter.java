@@ -43,9 +43,10 @@ public class ItemFieldtransporter extends ItemMultitool implements
 	}
 
 	@Override
-	public EnumActionResult onItemUseFirst(ItemStack stack, EntityPlayer player, World world, BlockPos pos, EnumFacing side, float hitX, float hitY, float hitZ, EnumHand hand) {
+	public EnumActionResult onItemUseFirst(EntityPlayer player, World world, BlockPos pos, EnumFacing side, float hitX, float hitY, float hitZ, EnumHand hand) {
 		return EnumActionResult.PASS;
 	}
+
 
 
 	@Override

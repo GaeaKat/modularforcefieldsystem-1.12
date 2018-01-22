@@ -23,8 +23,8 @@ package com.nekokittygames.mffs.client;
 import com.nekokittygames.mffs.common.tileentity.*;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiButton;
+import net.minecraft.client.renderer.BufferBuilder;
 import net.minecraft.client.renderer.Tessellator;
-import net.minecraft.client.renderer.VertexBuffer;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ResourceLocation;
@@ -53,7 +53,7 @@ public class GraphicButton extends GuiButton {
 		double uvMult = 1.0 / (double)textureSize;
 
 		Tessellator tessellator = Tessellator.getInstance();
-		VertexBuffer buffer=tessellator.getBuffer();
+		BufferBuilder buffer=tessellator.getBuffer();
 		buffer.begin(GL11.GL_QUADS, DefaultVertexFormats.POSITION_TEX);
 
 
@@ -66,16 +66,13 @@ public class GraphicButton extends GuiButton {
 		tessellator.draw();
 	}
 
-	/**
-	 * Draws this button to the screen.
-	 */
 	@Override
-	public void drawButton(Minecraft par1Minecraft, int par2, int par3) {
+	public void drawButton(Minecraft par1Minecraft, int mouseX, int mouseY, float partialTicks) {
 		if (true) {
 			if ((tileEntity instanceof TileEntityMachines) && typ == 0) {
 				par1Minecraft.renderEngine.bindTexture(new ResourceLocation("modularforcefieldsystem:textures/gui/SwitchModes.png"));
 
-				drawButtonRect(this.xPosition, this.yPosition, (((TileEntityMachines) tileEntity).getSwitchModi() *
+				drawButtonRect(this.x, this.y, (((TileEntityMachines) tileEntity).getSwitchModi() *
 						16), 0, this.width, this.height, SWITCH_MODE_TEXTURE_SIZE);
 			}
 			if (tileEntity instanceof TileEntityControlSystem) {
@@ -86,7 +83,7 @@ public class GraphicButton extends GuiButton {
 						par1Minecraft.renderEngine.bindTexture(new ResourceLocation
 								("modularforcefieldsystem:textures/gui/ControlSystemButtons.png"));
 
-						drawButtonRect(xPosition, yPosition,
+						drawButtonRect(x, y,
 								(active ? 0 : 16), 0, width, height, CONTROL_SYSTEM_TEXTURE_SIZE);
 					}
 
@@ -97,7 +94,7 @@ public class GraphicButton extends GuiButton {
 							par1Minecraft.renderEngine.bindTexture(new ResourceLocation
 									("modularforcefieldsystem:textures/gui/Switchmodes.png"));
 
-							drawButtonRect(this.xPosition, this.yPosition, (((TileEntityControlSystem)tileEntity)
+							drawButtonRect(this.x, this.y, (((TileEntityControlSystem)tileEntity)
 									.getRemoteSwitchModi() *
 									16), 0, this.width, this.height, SWITCH_MODE_TEXTURE_SIZE);
 						}
@@ -113,7 +110,7 @@ public class GraphicButton extends GuiButton {
 							par1Minecraft.renderEngine.bindTexture(new ResourceLocation
 									("modularforcefieldsystem:textures/gui/ControlSystemButtons.png"));
 
-							drawButtonRect(xPosition, yPosition,
+							drawButtonRect(x, y,
 									(switchValue ? 0 : 16), 16, width, height, CONTROL_SYSTEM_TEXTURE_SIZE);
 						}
 				}
@@ -125,8 +122,8 @@ public class GraphicButton extends GuiButton {
 					par1Minecraft.renderEngine.bindTexture(new ResourceLocation
 							("modularforcefieldsystem:textures/gui/ControlSystemButtons.png"));
 
-					drawButtonRect(xPosition, yPosition, (((TileEntityAreaDefenseStation)tileEntity).getcontratyp())
-							* 16,
+					drawButtonRect(x, y, (((TileEntityAreaDefenseStation)tileEntity).getcontratyp())
+									* 16,
 							0, width, height, CONTROL_SYSTEM_TEXTURE_SIZE);
 				}
 				if (typ == 2) {
@@ -134,7 +131,7 @@ public class GraphicButton extends GuiButton {
 					par1Minecraft.renderEngine.bindTexture(new ResourceLocation
 							("modularforcefieldsystem:textures/gui/DefenseStationButtons.png"));
 
-					drawButtonRect(xPosition, yPosition, (((TileEntityAreaDefenseStation)tileEntity).getActionmode()
+					drawButtonRect(x, y, (((TileEntityAreaDefenseStation)tileEntity).getActionmode()
 							* 16), 0, width, height, DEFENSE_STATION_TEXTURE_SIZE);
 				}
 				if (typ == 3) {
@@ -142,7 +139,7 @@ public class GraphicButton extends GuiButton {
 					par1Minecraft.renderEngine.bindTexture(new ResourceLocation
 							("modularforcefieldsystem:textures/gui/DefenseStationButtons.png"));
 
-					drawButtonRect(xPosition, yPosition, (((TileEntityAreaDefenseStation)tileEntity).getScanmode() *
+					drawButtonRect(x, y, (((TileEntityAreaDefenseStation)tileEntity).getScanmode() *
 							16), 16, width, height, DEFENSE_STATION_TEXTURE_SIZE);
 				}
 			}
@@ -156,7 +153,7 @@ public class GraphicButton extends GuiButton {
 
 					int powerLinkMode = ((TileEntityCapacitor)tileEntity).getPowerlinkmode();
 
-					drawButtonRect(xPosition, yPosition,
+					drawButtonRect(x, y,
 							(powerLinkMode < 3 ? powerLinkMode : (powerLinkMode - 3)) * 16,
 							(powerLinkMode < 3 ? 0 : 16), width, height,
 							CAPACITOR_TEXTURE_SIZE);
@@ -170,7 +167,7 @@ public class GraphicButton extends GuiButton {
 					par1Minecraft.renderEngine.bindTexture(new ResourceLocation
 							("modularforcefieldsystem:textures/gui/ProjectorButtons.png"));
 
-					drawButtonRect(xPosition, yPosition,
+					drawButtonRect(x, y,
 							((TileEntityProjector)tileEntity).getaccesstyp() * 16,
 							0,
 							width, height,
@@ -180,4 +177,5 @@ public class GraphicButton extends GuiButton {
 
 		}
 	}
+
 }

@@ -23,30 +23,31 @@
 
 package com.nekokittygames.mffs.common;
 
+import com.nekokittygames.mffs.common.item.ModItems;
 import net.minecraft.item.Item;
 import net.minecraftforge.fml.common.Mod;
 
 public enum ProjectorOptions {
 
-	Zapper("<touch damage>", ModularForceFieldSystem.MFFSProjectorOptionZapper,
+	Zapper("<touch damage>", ModItems.OPTION_TOUCH_DAMAGE,
 			" K KQK K ", " C CdC C "),
-	Subwater("<Sponge>", ModularForceFieldSystem.MFFSProjectorOptionSubwater,
+	Subwater("<Sponge>", ModItems.OPTION_SPONGE,
 			" K KcK K ", " C CcC C "),
-	Dome("<Field Manipulator>", ModularForceFieldSystem.MFFSProjectorOptionDome,
+	Dome("<Field Manipulator>", ModItems.OPTION_FIELD_MANIPULATOR,
 			" K KCK K ", " C CEC C "),
-	Cutter("<Block Breaker>", ModularForceFieldSystem.MFFSProjectorOptionCutter,
+	Cutter("<Block Breaker>", ModItems.OPTION_BLOCK_BREAKER,
 			" K KbK K ", " C CbC C "),
-	FieldJammer("<Force Field Jammer>", ModularForceFieldSystem.MFFSProjectorOptionForceFieldJammer,
+	FieldJammer("<Force Field Jammer>", ModItems.OPTION_FIELD_JAMMER,
 			" J JvJ J ", " a ava a "),
-	Camouflage("<Camouflage>", ModularForceFieldSystem.MFFSProjectorOptionCamouflage,
+	Camouflage("<Camouflage>", ModItems.OPTION_CAMOFLAGE,
 			" K KRK K ", " C CKC C "),
-	FieldFusion("<Field Fusion>", ModularForceFieldSystem.MFFSProjectorOptionFieldFusion,
+	FieldFusion("<Field Fusion>", ModItems.OPTION_FIELD_FUSION,
 			" K KDK K ", " C CDC C "),
-	MoobEx("<NPC Defense>", ModularForceFieldSystem.MFFSProjectorOptionMoobEx,
+	MoobEx("<NPC Defense>", ModItems.OPTION_MOB_DEFENCE,
 			"fgfhQhjgj", "fgfhdhjgj"),
-	DefenceStation("<Defense Station>", ModularForceFieldSystem.MFFSProjectorOptionDefenceStation,
+	DefenceStation("<Defense Station>", ModItems.OPTION_DEFENSE_STATION,
 			" z CQC z ", " z EdE z "),
-	Light("<Light>",ModularForceFieldSystem.MFFSProjectorOptionLight," K KpK K "," K KpK K ");
+	Light("<Light>",ModItems.OPTION_LIGHT," K KpK K "," K KpK K ");
 
 	String displayName;
 	Item item;

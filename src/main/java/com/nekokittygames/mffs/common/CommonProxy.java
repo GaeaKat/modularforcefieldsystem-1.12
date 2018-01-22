@@ -20,7 +20,6 @@
 
 package com.nekokittygames.mffs.common;
 
-import com.nekokittygames.mffs.client.gui.GuiManualScreen;
 import com.nekokittygames.mffs.common.block.BlockMFFSBase;
 import com.nekokittygames.mffs.common.container.ContainerDummy;
 import net.minecraft.block.Block;
@@ -59,7 +58,6 @@ public class CommonProxy implements IGuiHandler {
 	public Object getClientGuiElement(int ID, EntityPlayer player, World world,
 			int x, int y, int z) {
 		if (ID != 0) {
-			return new GuiManualScreen(new ContainerDummy());
 		}
 
 		TileEntity te = world.getTileEntity(new BlockPos(x,y,z));

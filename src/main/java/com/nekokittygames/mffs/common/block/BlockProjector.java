@@ -48,9 +48,7 @@ public class BlockProjector extends BlockMFFSBase {
 	public static final PropertyInteger FIELD_TYPE= PropertyInteger.create("type",0, 8);
 	public BlockProjector() {
 
-		super();
-		setUnlocalizedName(LibMisc.UNLOCALIZED_PREFIX+ LibBlockNames.PROJECTOR);
-		setRegistryName(LibBlockNames.PROJECTOR);
+		super(LibBlockNames.PROJECTOR);
 		this.setDefaultState(this.blockState.getBaseState().withProperty(FACING,EnumFacing.NORTH).withProperty(ACTIVE,false).withProperty(FIELD_TYPE,0));
 	}
 
@@ -75,8 +73,9 @@ public class BlockProjector extends BlockMFFSBase {
 		return new TileEntityProjector();
 	}
 
+
 	@Override
-	public boolean onBlockActivated(World world, BlockPos pos, IBlockState state, EntityPlayer entityplayer, EnumHand hand, @Nullable ItemStack heldItem, EnumFacing side, float hitX, float hitY, float hitZ) {
+	public boolean onBlockActivated(World world, BlockPos pos, IBlockState state, EntityPlayer entityplayer, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
 		TileEntityProjector tileentity = (TileEntityProjector) world
 				.getTileEntity(pos);
 
@@ -84,7 +83,7 @@ public class BlockProjector extends BlockMFFSBase {
 			return false;
 		}
 
-		return super.onBlockActivated(world, pos, state, entityplayer, hand, heldItem, side, hitX, hitY, hitZ);
+		return super.onBlockActivated(world, pos, state, entityplayer, hand, facing, hitX, hitY, hitZ);
 	}
 
 

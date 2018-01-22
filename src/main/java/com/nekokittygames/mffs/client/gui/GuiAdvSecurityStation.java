@@ -27,9 +27,9 @@ import com.nekokittygames.mffs.common.item.ItemCardPersonalID;
 import com.nekokittygames.mffs.common.tileentity.TileEntityAdvSecurityStation;
 import com.nekokittygames.mffs.network.client.NetworkHandlerClient;
 import net.minecraft.client.gui.inventory.GuiContainer;
+import net.minecraft.client.renderer.BufferBuilder;
 import net.minecraft.client.renderer.RenderHelper;
 import net.minecraft.client.renderer.Tessellator;
-import net.minecraft.client.renderer.VertexBuffer;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
@@ -135,7 +135,7 @@ public class GuiAdvSecurityStation extends GuiContainer {
 			par4 += 36;
 
 		Tessellator Tess = Tessellator.getInstance();
-		VertexBuffer var10=Tess.getBuffer();
+		BufferBuilder var10=Tess.getBuffer();
 		var10.begin(GL11.GL_QUADS, DefaultVertexFormats.POSITION_TEX);
 		var10.pos(par1 + 0, par2 + 18,
 				this.zLevel).tex((par3 + 0) * 0.0078125F,
@@ -188,12 +188,12 @@ public class GuiAdvSecurityStation extends GuiContainer {
 	@Override
 	protected void drawGuiContainerForegroundLayer(int mouseX, int mouseY) {
 
-		fontRendererObj.drawString("MFFS Security Station:", 8, 8, 0x404040);
-		fontRendererObj.drawString(tileEntity.getDeviceName(), 125, 8, 0x404040);
-		fontRendererObj.drawString("Master", 200, 38, 0x404040);
-		fontRendererObj.drawString("Rights Allocation", 52, 35, 0x404040);
-		fontRendererObj.drawString("Copy->", 109, 106, 0x404040);
-		fontRendererObj.drawString("validity", 31, 106, 0x404040);
+		fontRenderer.drawString("MFFS Security Station:", 8, 8, 0x404040);
+		fontRenderer.drawString(tileEntity.getDeviceName(), 125, 8, 0x404040);
+		fontRenderer.drawString("Master", 200, 38, 0x404040);
+		fontRenderer.drawString("Rights Allocation", 52, 35, 0x404040);
+		fontRenderer.drawString("Copy->", 109, 106, 0x404040);
+		fontRenderer.drawString("validity", 31, 106, 0x404040);
 
 		if (hoverSR != null) {
 			List list = new ArrayList();
@@ -206,7 +206,7 @@ public class GuiAdvSecurityStation extends GuiContainer {
 
 				int j2 = 0;
 				for (int k2 = 0; k2 < list.size(); k2++) {
-					int i3 = fontRendererObj.getStringWidth((String) list.get(k2));
+					int i3 = fontRenderer.getStringWidth((String) list.get(k2));
 					if (i3 > j2) {
 						j2 = i3;
 					}
@@ -250,7 +250,7 @@ public class GuiAdvSecurityStation extends GuiContainer {
 						s = (new StringBuilder()).append("\2477").append(s)
 								.toString();
 					}
-					fontRendererObj.drawStringWithShadow(s, l2, j3, -1);
+					fontRenderer.drawStringWithShadow(s, l2, j3, -1);
 					if (l4 == 0) {
 						j3 += 2;
 					}

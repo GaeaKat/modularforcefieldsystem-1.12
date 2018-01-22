@@ -30,10 +30,7 @@ import com.nekokittygames.mffs.common.Linkgrid;
 import com.nekokittygames.mffs.common.ModularForceFieldSystem;
 import com.nekokittygames.mffs.common.compat.TeslaCap;
 import com.nekokittygames.mffs.common.container.ContainerForceEnergyExtractor;
-import com.nekokittygames.mffs.common.item.ItemCapacitorUpgradeCapacity;
-import com.nekokittygames.mffs.common.item.ItemExtractorUpgradeBooster;
-import com.nekokittygames.mffs.common.item.ItemForcicium;
-import com.nekokittygames.mffs.common.item.ItemForcicumCell;
+import com.nekokittygames.mffs.common.item.*;
 import ic2.api.energy.event.EnergyTileLoadEvent;
 import ic2.api.energy.tile.IEnergyEmitter;
 import ic2.api.energy.tile.IEnergySink;
@@ -139,8 +136,8 @@ public class TileEntityExtractor extends TileEntityFEPoweredMachine implements
 	public void setMaxForceEnergyBuffer(int maxForceEnergyBuffer) {
 		MaxForceEnergyBuffer = maxForceEnergyBuffer;
 		this.markDirty();
-		worldObj.notifyBlockUpdate(pos, worldObj.getBlockState(pos), worldObj.getBlockState(pos), 2);
-		worldObj.markBlockRangeForRenderUpdate(pos,pos);
+		getWorld().notifyBlockUpdate(pos, getWorld().getBlockState(pos), getWorld().getBlockState(pos), 2);
+		getWorld().markBlockRangeForRenderUpdate(pos,pos);
 		//todo: make more packet friendly
 	}
 
@@ -151,8 +148,8 @@ public class TileEntityExtractor extends TileEntityFEPoweredMachine implements
 	public void setForceEnergybuffer(int forceEnergybuffer) {
 		ForceEnergybuffer = forceEnergybuffer;
 		this.markDirty();
-		worldObj.notifyBlockUpdate(pos, worldObj.getBlockState(pos), worldObj.getBlockState(pos), 2);
-		worldObj.markBlockRangeForRenderUpdate(pos,pos);
+		getWorld().notifyBlockUpdate(pos, getWorld().getBlockState(pos), getWorld().getBlockState(pos), 2);
+		getWorld().markBlockRangeForRenderUpdate(pos,pos);
 	}
 
 	public void setWorkCylce(int i) {
@@ -160,8 +157,8 @@ public class TileEntityExtractor extends TileEntityFEPoweredMachine implements
 			this.WorkCylce = i;
 		}
 		this.markDirty();
-		worldObj.notifyBlockUpdate(pos, worldObj.getBlockState(pos), worldObj.getBlockState(pos), 2);
-		worldObj.markBlockRangeForRenderUpdate(pos,pos);
+		getWorld().notifyBlockUpdate(pos, getWorld().getBlockState(pos), getWorld().getBlockState(pos), 2);
+		getWorld().markBlockRangeForRenderUpdate(pos,pos);
 	}
 
 	public int getWorkCylce() {
@@ -175,8 +172,8 @@ public class TileEntityExtractor extends TileEntityFEPoweredMachine implements
 	public void setWorkEnergy(int workEnergy) {
 		WorkEnergy = workEnergy;
 		this.markDirty();
-		worldObj.notifyBlockUpdate(pos, worldObj.getBlockState(pos), worldObj.getBlockState(pos), 2);
-		worldObj.markBlockRangeForRenderUpdate(pos,pos);
+		getWorld().notifyBlockUpdate(pos, getWorld().getBlockState(pos), getWorld().getBlockState(pos), 2);
+		getWorld().markBlockRangeForRenderUpdate(pos,pos);
 	}
 
 	public int getMaxWorkEnergy() {
@@ -186,8 +183,8 @@ public class TileEntityExtractor extends TileEntityFEPoweredMachine implements
 	public void setMaxWorkEnergy(int maxWorkEnergy) {
 		MaxWorkEnergy = maxWorkEnergy;
 		this.markDirty();
-		worldObj.notifyBlockUpdate(pos, worldObj.getBlockState(pos), worldObj.getBlockState(pos), 2);
-		worldObj.markBlockRangeForRenderUpdate(pos,pos);
+		getWorld().notifyBlockUpdate(pos, getWorld().getBlockState(pos), getWorld().getBlockState(pos), 2);
+		getWorld().markBlockRangeForRenderUpdate(pos,pos);
 	}
 
 	@Override
@@ -202,8 +199,8 @@ public class TileEntityExtractor extends TileEntityFEPoweredMachine implements
 	public void checkslots(boolean init) {
 
 		if (getStackInSlot(2) != null) {
-			if (getStackInSlot(2).getItem() == ModularForceFieldSystem.MFFSitemupgradecapcap) {
-				setMaxForceEnergyBuffer(1000000 + (getStackInSlot(2).stackSize * 100000));
+			if (getStackInSlot(2).getItem() == ModItems.UPGRADE_CAPACITY) {
+				setMaxForceEnergyBuffer(1000000 + (getStackInSlot(2).getCount() * 100000));
 			} else {
 				setMaxForceEnergyBuffer(1000000);
 			}
@@ -212,8 +209,8 @@ public class TileEntityExtractor extends TileEntityFEPoweredMachine implements
 		}
 
 		if (getStackInSlot(3) != null) {
-			if (getStackInSlot(3).getItem() == ModularForceFieldSystem.MFFSitemupgradeexctractorboost) {
-				setWorkTicker(20 - getStackInSlot(3).stackSize);
+			if (getStackInSlot(3).getItem() == ModItems.EXTRACTOR_UPGRADE_BOOSTER) {
+				setWorkTicker(20 - getStackInSlot(3).getCount());
 			} else {
 				setWorkTicker(20);
 			}
@@ -222,7 +219,7 @@ public class TileEntityExtractor extends TileEntityFEPoweredMachine implements
 		}
 
 		if (getStackInSlot(4) != null) {
-			if (getStackInSlot(4).getItem() == ModularForceFieldSystem.MFFSitemForcicumCell) {
+			if (getStackInSlot(4).getItem() == ModItems.FORCICIUM_CELL) {
 				workmode = 1;
 				setMaxWorkEnergy(200000);
 			}
@@ -257,14 +254,14 @@ public class TileEntityExtractor extends TileEntityFEPoweredMachine implements
 			}
 
 			if (getStackInSlot(0) != null) {
-				if (getStackInSlot(0).getItem() == ModularForceFieldSystem.MFFSitemForcicium) {
+				if (getStackInSlot(0).getItem() == ModItems.FORCICIUM) {
 					setMaxworkcylce(ModularForceFieldSystem.ForciciumWorkCycle);
 					setWorkCylce(getMaxworkcylce());
 					decrStackSize(0, 1);
 					return true;
 				}
 
-				if (getStackInSlot(0).getItem() == ModularForceFieldSystem.MFFSitemForcicumCell) {
+				if (getStackInSlot(0).getItem() == ModItems.FORCICIUM_CELL) {
 					if (((ItemForcicumCell) getStackInSlot(0).getItem())
 							.useForcecium(1, getStackInSlot(0))) {
 						setMaxworkcylce(ModularForceFieldSystem.ForciciumCellWorkCycle);
@@ -324,7 +321,7 @@ public class TileEntityExtractor extends TileEntityFEPoweredMachine implements
 
 	@Override
 	public void update() {
-		if (worldObj.isRemote == false) {
+		if (getWorld().isRemote == false) {
 
 			if (init) {
 				checkslots(true);
@@ -422,7 +419,7 @@ public class TileEntityExtractor extends TileEntityFEPoweredMachine implements
 
 	@Optional.Method(modid = "IC2")
 	private void AddToIC2EnergyNet() {
-		if (!worldObj.isRemote) {
+		if (!getWorld().isRemote) {
 			EnergyTileLoadEvent event = new EnergyTileLoadEvent(this);
 			MinecraftForge.EVENT_BUS.post(event);
 			addedToEnergyNet=true;
@@ -454,9 +451,9 @@ public class TileEntityExtractor extends TileEntityFEPoweredMachine implements
 			NBTTagCompound nbttagcompound1 = (NBTTagCompound) nbttaglist
 					.getCompoundTagAt(i);
 			byte byte0 = nbttagcompound1.getByte("Slot");
+			inventory[byte0] = new ItemStack(nbttagcompound1);
 			if (byte0 >= 0 && byte0 < inventory.length) {
-				inventory[byte0] = ItemStack
-						.loadItemStackFromNBT(nbttagcompound1);
+
 			}
 		}
 	}
@@ -512,21 +509,21 @@ public class TileEntityExtractor extends TileEntityFEPoweredMachine implements
 	@Override
 	public void setInventorySlotContents(int i, ItemStack itemstack) {
 		inventory[i] = itemstack;
-		if (itemstack != null && itemstack.stackSize > getInventoryStackLimit()) {
-			itemstack.stackSize = getInventoryStackLimit();
+		if (itemstack != null && itemstack.getCount() > getInventoryStackLimit()) {
+			itemstack.setCount(getInventoryStackLimit());
 		}
 	}
 
 	@Override
 	public ItemStack decrStackSize(int i, int j) {
 		if (inventory[i] != null) {
-			if (inventory[i].stackSize <= j) {
+			if (inventory[i].getCount() <= j) {
 				ItemStack itemstack = inventory[i];
 				inventory[i] = null;
 				return itemstack;
 			}
 			ItemStack itemstack1 = inventory[i].splitStack(j);
-			if (inventory[i].stackSize == 0) {
+			if (inventory[i].getCount()== 0) {
 				inventory[i] = null;
 			}
 			return itemstack1;
@@ -607,7 +604,7 @@ public class TileEntityExtractor extends TileEntityFEPoweredMachine implements
 	public void invalidate() {
 
 
-		Linkgrid.getWorldMap(worldObj).getExtractor().remove(getDeviceID());
+		Linkgrid.getWorldMap(getWorld()).getExtractor().remove(getDeviceID());
 
 		super.invalidate();
 	}
@@ -661,7 +658,7 @@ public class TileEntityExtractor extends TileEntityFEPoweredMachine implements
 	@Override
 	public TileEntityAdvSecurityStation getLinkedSecurityStation() {
 
-		TileEntityCapacitor cap = Linkgrid.getWorldMap(worldObj).getCapacitor()
+		TileEntityCapacitor cap = Linkgrid.getWorldMap(getWorld()).getCapacitor()
 				.get(getPowerSourceID());
 		if (cap != null) {
 			TileEntityAdvSecurityStation sec = cap.getLinkedSecurityStation();

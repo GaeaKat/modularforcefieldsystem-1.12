@@ -8,6 +8,7 @@ import com.nekokittygames.mffs.common.MFFSMaschines;
 import com.nekokittygames.mffs.common.NBTTagCompoundHelper;
 import com.nekokittygames.mffs.common.tileentity.TileEntityMachines;
 import net.minecraft.client.resources.I18n;
+import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
@@ -15,6 +16,7 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
 
+import javax.annotation.Nullable;
 import java.util.List;
 
 public class ItemCardDataLink extends ItemCard {
@@ -65,8 +67,7 @@ public class ItemCardDataLink extends ItemCard {
 	}
 
 	@Override
-	public void addInformation(ItemStack itemStack, EntityPlayer player,
-			List info, boolean b) {
+	public void addInformation(ItemStack itemStack, @Nullable World worldIn, List<String> info, ITooltipFlag flagIn) {
 		NBTTagCompound tag = NBTTagCompoundHelper
 				.getTAGfromItemstack(itemStack);
 

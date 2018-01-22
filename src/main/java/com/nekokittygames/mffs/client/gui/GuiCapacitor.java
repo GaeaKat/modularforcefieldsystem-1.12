@@ -96,20 +96,20 @@ public class GuiCapacitor extends GuiContainer {
 
 	@Override
 	protected void drawGuiContainerForegroundLayer(int par1, int par2) {
-		fontRendererObj.drawString("Force Energy Capacitor", 8, 25, 0x404040);
-		fontRendererObj.drawString(Core.getDeviceName(), 8, 8, 0x404040);
-		fontRendererObj.drawString(
+		fontRenderer.drawString("Force Energy Capacitor", 8, 25, 0x404040);
+		fontRenderer.drawString(Core.getDeviceName(), 8, 8, 0x404040);
+		fontRenderer.drawString(
 				"FE: " + String.valueOf(Core.getStorageAvailablePower()), 8,
 				100, 0x404040);
-		fontRendererObj.drawString("Power Uplink: ", 8, 80, 0x404040);
+		fontRenderer.drawString("Power Uplink: ", 8, 80, 0x404040);
 
-		fontRendererObj.drawString("transmit range:", 8, 60, 0x404040);
-		fontRendererObj.drawString(
+		fontRenderer.drawString("transmit range:", 8, 60, 0x404040);
+		fontRenderer.drawString(
 				(new StringBuilder()).append(" ")
 						.append(Core.getTransmitRange()).toString(), 90, 60,
 				0x404040);
-		fontRendererObj.drawString("linked device:", 8, 43, 0x404040);
-		fontRendererObj.drawString(
+		fontRenderer.drawString("linked device:", 8, 43, 0x404040);
+		fontRenderer.drawString(
 				(new StringBuilder()).append(" ")
 						.append(Core.getLinketProjektor()).toString(), 90, 45,
 				0x404040);

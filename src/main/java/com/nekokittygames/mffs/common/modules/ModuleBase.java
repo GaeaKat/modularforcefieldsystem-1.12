@@ -85,7 +85,7 @@ public abstract class ModuleBase extends Item {
 			Set<PointXYZ> fieldPoints);
 
 	@Override
-	public EnumActionResult onItemUseFirst(ItemStack stack, EntityPlayer player, World world, BlockPos pos, EnumFacing side, float hitX, float hitY, float hitZ, EnumHand hand) {
+	public EnumActionResult onItemUseFirst(EntityPlayer player, World world, BlockPos pos, EnumFacing side, float hitX, float hitY, float hitZ, EnumHand hand) {
 		TileEntity tileEntity = world.getTileEntity(pos);
 
 		if (!world.isRemote) {
@@ -97,7 +97,7 @@ public abstract class ModuleBase extends Item {
 
 				if (((IModularProjector) tileEntity).getStackInSlot(1) == null) {
 					((IModularProjector) tileEntity).setInventorySlotContents(
-							1, stack.splitStack(1));
+							1, player.getActiveItemStack().splitStack(1));
 					Functions.ChattoPlayer(player, "projectorModule.installed", ProjectorTyp
 							.TypfromItem(((IModularProjector) tileEntity)
 									.getStackInSlot(1)

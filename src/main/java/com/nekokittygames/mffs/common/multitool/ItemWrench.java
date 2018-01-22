@@ -52,11 +52,43 @@ public class ItemWrench extends ItemMultitool  implements IToolWrench {
 		setRegistryName(LibItemNames.MULTITOOL_WRENCH);
 	}
 
+
+
 	@Override
-	public EnumActionResult onItemUseFirst(ItemStack stack, EntityPlayer player, World world, BlockPos pos, EnumFacing side, float hitX, float hitY, float hitZ, EnumHand hand) {
+	@Optional.Method(modid = "BuildCraftAPI|core")
+	public boolean canWrench(EntityPlayer player, BlockPos blockPos) {
+		if (this.consumePower(player.inventory.getCurrentItem(), 1000, true)) {
+			return true;
+		}
+		return false;
+	}
+
+	@Override
+	@Optional.Method(modid = "BuildCraftAPI|core")
+	public void wrenchUsed(EntityPlayer player, BlockPos blockPos) {
+		this.consumePower(player.inventory.getCurrentItem(), 1000, false);
+	}
+
+	@Override
+	@Optional.Method(modid = "BuildCraftAPI|core")
+	public boolean canWrench(EntityPlayer player, Entity entity) {
+		if (this.consumePower(player.inventory.getCurrentItem(), 1000, true)) {
+			return true;
+		}
+		return false;
+	}
+
+	@Override
+	@Optional.Method(modid = "BuildCraftAPI|core")
+	public void wrenchUsed(EntityPlayer player, Entity entity) {
+		this.consumePower(player.inventory.getCurrentItem(), 1000, false);
+	}
+
+	@Override
+	public EnumActionResult onItemUseFirst(EntityPlayer player, World world, BlockPos pos, EnumFacing side, float hitX, float hitY, float hitZ, EnumHand hand) {
 		if (world.isRemote)
 			return EnumActionResult.PASS;
-
+		ItemStack stack=player.getHeldItem(hand);
 		TileEntity tileentity = world.getTileEntity(pos);
 
 		if (tileentity instanceof TileEntityProjector) {
@@ -111,8 +143,7 @@ public class ItemWrench extends ItemMultitool  implements IToolWrench {
 						this.consumePower(stack, 1000, false);
 						return EnumActionResult.SUCCESS;
 					} else {
-
-						world.spawnEntityInWorld(new EntityItem(world, pos.getX(),pos.getY(),pos.getZ(),
+						world.spawnEntity(new EntityItem(world, pos.getX(),pos.getY(),pos.getZ(),
 								new ItemStack(world.getBlockState(pos).getBlock())));
 						world.setBlockState(pos, Blocks.AIR.getDefaultState(),2);
 						// world.setBlockWithNotify(x, y, z, 0);
@@ -128,36 +159,6 @@ public class ItemWrench extends ItemMultitool  implements IToolWrench {
 		}
 
 		return EnumActionResult.PASS;
-	}
-
-	@Override
-	@Optional.Method(modid = "BuildCraftAPI|core")
-	public boolean canWrench(EntityPlayer player, BlockPos blockPos) {
-		if (this.consumePower(player.inventory.getCurrentItem(), 1000, true)) {
-			return true;
-		}
-		return false;
-	}
-
-	@Override
-	@Optional.Method(modid = "BuildCraftAPI|core")
-	public void wrenchUsed(EntityPlayer player, BlockPos blockPos) {
-		this.consumePower(player.inventory.getCurrentItem(), 1000, false);
-	}
-
-	@Override
-	@Optional.Method(modid = "BuildCraftAPI|core")
-	public boolean canWrench(EntityPlayer player, Entity entity) {
-		if (this.consumePower(player.inventory.getCurrentItem(), 1000, true)) {
-			return true;
-		}
-		return false;
-	}
-
-	@Override
-	@Optional.Method(modid = "BuildCraftAPI|core")
-	public void wrenchUsed(EntityPlayer player, Entity entity) {
-		this.consumePower(player.inventory.getCurrentItem(), 1000, false);
 	}
 
 

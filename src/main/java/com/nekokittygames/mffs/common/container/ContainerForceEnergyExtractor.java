@@ -73,7 +73,7 @@ public class ContainerForceEnergyExtractor extends Container {
 
 	@Override
 	public boolean canInteractWith(EntityPlayer entityplayer) {
-		return ForceEnergyExtractor.isUseableByPlayer(entityplayer);
+		return ForceEnergyExtractor.isUsableByPlayer(entityplayer);
 	}
 
 	@Override
@@ -83,12 +83,12 @@ public class ContainerForceEnergyExtractor extends Container {
 		if (slot != null && slot.getHasStack()) {
 			ItemStack itemstack1 = slot.getStack();
 			itemstack = itemstack1.copy();
-			if (itemstack1.stackSize == 0) {
+			if (itemstack1.getCount() == 0) {
 				slot.putStack(null);
 			} else {
 				slot.onSlotChanged();
 			}
-			if (itemstack1.stackSize != itemstack.stackSize) {
+			if (itemstack1.getCount() != itemstack.getCount()) {
 				slot.onSlotChanged();
 			} else {
 				return null;
@@ -127,19 +127,19 @@ public class ContainerForceEnergyExtractor extends Container {
 			IContainerListener icrafting = (IContainerListener) listeners.get(i);
 
 			if (workdone != ForceEnergyExtractor.getWorkdone()) {
-				icrafting.sendProgressBarUpdate(this, 0,
+				icrafting.sendWindowProperty(this, 0,
 						ForceEnergyExtractor.getWorkdone());
 			}
 			if (WorkCylce != ForceEnergyExtractor.getWorkCylce()) {
-				icrafting.sendProgressBarUpdate(this, 1,
+				icrafting.sendWindowProperty(this, 1,
 						ForceEnergyExtractor.getWorkCylce());
 			}
 
 			if (ForceEnergybuffer != ForceEnergyExtractor
 					.getForceEnergybuffer()) {
-				icrafting.sendProgressBarUpdate(this, 2,
+				icrafting.sendWindowProperty(this, 2,
 						ForceEnergyExtractor.getForceEnergybuffer() & 0xffff);
-				icrafting.sendProgressBarUpdate(this, 3,
+				icrafting.sendWindowProperty(this, 3,
 						ForceEnergyExtractor.getForceEnergybuffer() >>> 16);
 			}
 		}

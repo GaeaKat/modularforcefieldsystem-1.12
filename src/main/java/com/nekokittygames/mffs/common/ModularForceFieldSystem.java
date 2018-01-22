@@ -69,66 +69,9 @@ public class ModularForceFieldSystem {
 
 	public static int MFFSRENDER_ID = 2908;
 	public static SimpleNetworkWrapper networkWrapper;
-	public static Block MFFSCapacitor;
-	public static Block MFFSProjector;
-	public static Block MFFSDefenceStation;
-	public static Block MFFSFieldblock;
-	public static Block MFFSExtractor;
-	public static Block MFFSMonazitOre;
-	public static Block MFFSForceEnergyConverter;
-	public static Block MFFSSecurtyStorage;
-	public static Block MFFSSecurtyStation;
-	public static Block MFFSControlSystem;
 
-	public static Item MFFSitemForcicumCell;
-	public static Item MFFSitemForcicium;
-	public static Item MFFSitemForcePowerCrystal;
 
-	public static Item MFFSitemdensifiedForcicium;
-	public static Item MFFSitemdepletedForcicium;
 
-	public static Item MFFSitemFocusmatix;
-	public static Item MFFSitemSwitch;
-	public static Item MFFSitemWrench;
-
-	public static Item MFFSitemFieldTeleporter;
-	public static Item MFFSitemMFDidtool;
-	public static Item MFFSitemMFDdebugger;
-	public static Item MFFSitemcardempty;
-	public static Item MFFSitemfc;
-	public static Item MFFSItemIDCard;
-	public static Item MFFSAccessCard;
-	public static Item MFFSItemSecLinkCard;
-	public static Item MFFSitemManuelBook;
-	public static Item MFFSitemInfinitePowerCard;
-	public static Item MFFSitemDataLinkCard;
-
-	public static Item MFFSitemupgradeexctractorboost;
-	public static Item MFFSitemupgradecaprange;
-	public static Item MFFSitemupgradecapcap;
-
-	public static Item MFFSProjectorTypsphere;
-	public static Item MFFSProjectorTypCube;
-	public static Item MFFSProjectorTypwall;
-	public static Item MFFSProjectorTypdeflector;
-	public static Item MFFSProjectorTyptube;
-	public static Item MFFSProjectorTypcontainment;
-	public static Item MFFSProjectorTypAdvCube;
-	public static Item MFFSProjectorTypdiagowall;
-
-	public static Item MFFSProjectorOptionZapper;
-	public static Item MFFSProjectorOptionSubwater;
-	public static Item MFFSProjectorOptionDome;
-	public static Item MFFSProjectorOptionCutter;
-	public static Item MFFSProjectorOptionMoobEx;
-	public static Item MFFSProjectorOptionDefenceStation;
-	public static Item MFFSProjectorOptionForceFieldJammer;
-	public static Item MFFSProjectorOptionCamouflage;
-	public static Item MFFSProjectorOptionFieldFusion;
-	public static Item MFFSProjectorOptionLight;
-
-	public static Item MFFSProjectorFFDistance;
-	public static Item MFFSProjectorFFStrength;
 
 	public static int MonazitOreworldamount = 4;
 	public static int MonazitOreSmeltAmount=4;
@@ -378,183 +321,7 @@ public class ModularForceFieldSystem {
 			// Machines + Blocks
 
 
-			MFFSExtractor = new BlockExtractor();
-			MFFSMonazitOre = new BlockMonazitOre();
-			MFFSDefenceStation = new BlockAreaDefenseStation();
-			MFFSCapacitor = new BlockCapacitor();
 
-			MFFSFieldblock = new BlockForceField();
-			MFFSSecurtyStorage = new BlockSecurtyStorage();
-			MFFSSecurtyStation = new BlockAdvSecurtyStation();
-			MFFSControlSystem = new BlockControlSystem();
-
-			// Items
-			MFFSProjectorFFDistance = new ItemProjectorFieldModulatorDistance();
-			GameRegistry.register(MFFSProjectorFFDistance);
-			proxy.setupClientItem(MFFSProjectorFFDistance, LibItemNames.PROJECTOR_DISTANCE_MODULATOR);
-
-			MFFSProjectorFFStrength = new ItemProjectorFieldModulatorStrength();
-			GameRegistry.register(MFFSProjectorFFStrength);
-			proxy.setupClientItem(MFFSProjectorFFStrength,LibItemNames.PROJECTOR_STENGTH_MODULATOR);
-
-			MFFSitemFocusmatix = new ItemProjectorFocusMatrix();
-			GameRegistry.register(MFFSitemFocusmatix);
-			proxy.setupClientItem(MFFSitemFocusmatix,LibItemNames.PROJECTOR_FOCUS_MATRIX);
-
-			MFFSitemForcePowerCrystal = new ItemForcePowerCrystal();
-			GameRegistry.register(MFFSitemForcePowerCrystal);
-			proxy.setupClientItem(MFFSitemForcePowerCrystal,LibItemNames.FORCE_POWER_CRYSTAL);
-
-			MFFSitemForcicium = new ItemForcicium();
-			GameRegistry.register(MFFSitemForcicium);
-			proxy.setupClientItem(MFFSitemForcicium, LibItemNames.FORCICIUM);
-
-			MFFSitemForcicumCell = new ItemForcicumCell();
-			GameRegistry.register(MFFSitemForcicumCell);
-			proxy.setupClientItem(MFFSitemForcicumCell,LibItemNames.FORCICIUM_CELL);
-
-			// Modules
-			MFFSProjectorTypdiagowall = new ItemProjectorModuleDiagonalWall();
-			GameRegistry.register(MFFSProjectorTypdiagowall);
-			proxy.setupClientItem(MFFSProjectorTypdiagowall,LibItemNames.MODULE_DIAGONAL_WALL);
-
-			MFFSProjectorTypsphere = new ItemProjectorModuleSphere();
-			GameRegistry.register(MFFSProjectorTypsphere);
-			proxy.setupClientItem(MFFSProjectorTypsphere,LibItemNames.MODULE_SPHERE);
-
-			MFFSProjectorTypCube = new ItemProjectorModuleCube();
-			GameRegistry.register(MFFSProjectorTypCube);
-			proxy.setupClientItem(MFFSProjectorTypCube,LibItemNames.MODULE_CUBE);
-
-			MFFSProjectorTypwall = new ItemProjectorModuleWall();
-			GameRegistry.register(MFFSProjectorTypwall);
-			proxy.setupClientItem(MFFSProjectorTypwall,LibItemNames.MODULE_WALL);
-
-			MFFSProjectorTypdeflector = new ItemProjectorModuleDeflector();
-			GameRegistry.register(MFFSProjectorTypdeflector);
-			proxy.setupClientItem(MFFSProjectorTypdeflector,LibItemNames.MODULE_DEFLECTOR);
-
-			MFFSProjectorTyptube = new ItemProjectorModuleTube();
-			GameRegistry.register(MFFSProjectorTyptube);
-			proxy.setupClientItem(MFFSProjectorTyptube,LibItemNames.MODULE_TUBE);
-
-			MFFSProjectorTypcontainment = new ItemProjectorModuleContainment();
-			GameRegistry.register(MFFSProjectorTypcontainment);
-			proxy.setupClientItem(MFFSProjectorTypcontainment,LibItemNames.MODULE_CONTAINMENT);
-
-			MFFSProjectorTypAdvCube = new ItemProjectorModuleAdvCube();
-			GameRegistry.register(MFFSProjectorTypAdvCube);
-			proxy.setupClientItem(MFFSProjectorTypAdvCube,LibItemNames.MODULE_ADV_CUBE);
-
-			// Initing projector here for module access
-			MFFSProjector = new BlockProjector();
-			// Options
-			MFFSProjectorOptionZapper = new ItemProjectorOptionTouchDamage();
-			GameRegistry.register(MFFSProjectorOptionZapper);
-			proxy.setupClientItem(MFFSProjectorOptionZapper,LibItemNames.OPTION_TOUCH_DAMAGE);
-
-			MFFSProjectorOptionSubwater = new ItemProjectorOptionSponge();
-			GameRegistry.register(MFFSProjectorOptionSubwater);
-			proxy.setupClientItem(MFFSProjectorOptionSubwater,LibItemNames.OPTION_SPONGE);
-
-			MFFSProjectorOptionDome = new ItemProjectorOptionFieldManipulator();
-			GameRegistry.register(MFFSProjectorOptionDome);
-			proxy.setupClientItem(MFFSProjectorOptionDome,LibItemNames.OPTION_FIELD_MANIPULATOR);
-
-			MFFSProjectorOptionCutter = new ItemProjectorOptionBlockBreaker();
-			GameRegistry.register(MFFSProjectorOptionCutter);
-			proxy.setupClientItem(MFFSProjectorOptionCutter,LibItemNames.OPTION_BLOCK_BREAKER);
-
-			MFFSProjectorOptionDefenceStation = new ItemProjectorOptionDefenseStation();
-			GameRegistry.register(MFFSProjectorOptionDefenceStation);
-			proxy.setupClientItem(MFFSProjectorOptionDefenceStation,LibItemNames.OPTION_DEFENSE_STATION);
-
-			MFFSProjectorOptionMoobEx = new ItemProjectorOptionMobDefence();
-			GameRegistry.register(MFFSProjectorOptionMoobEx);
-			proxy.setupClientItem(MFFSProjectorOptionMoobEx,LibItemNames.OPTION_MOB_DEFENSE);
-
-			MFFSProjectorOptionForceFieldJammer = new ItemProjectorOptionForceFieldJammer();
-			GameRegistry.register(MFFSProjectorOptionForceFieldJammer);
-			proxy.setupClientItem(MFFSProjectorOptionForceFieldJammer,LibItemNames.OPTION_FIELD_JAMMER);
-
-			MFFSProjectorOptionCamouflage = new ItemProjectorOptionCamoflage();
-			GameRegistry.register(MFFSProjectorOptionCamouflage);
-			proxy.setupClientItem(MFFSProjectorOptionCamouflage,LibItemNames.OPTION_CAMOFLAGE);
-
-			MFFSProjectorOptionFieldFusion = new ItemProjectorOptionFieldFusion();
-			GameRegistry.register(MFFSProjectorOptionFieldFusion);
-			proxy.setupClientItem(MFFSProjectorOptionFieldFusion,LibItemNames.OPTION_FIELD_FUSION);
-
-			MFFSProjectorOptionLight=new ItemProjectorOptionLight();
-			GameRegistry.register(MFFSProjectorOptionLight);
-			proxy.setupClientItem(MFFSProjectorOptionLight,LibItemNames.OPTION_LIGHT);
-
-			// Cards
-			MFFSitemcardempty = new ItemCardEmpty();
-			GameRegistry.register(MFFSitemcardempty);
-			proxy.setupClientItem(MFFSitemcardempty,LibItemNames.EMPTY_CARD);
-
-			MFFSitemfc = new ItemCardPowerLink();
-			GameRegistry.register(MFFSitemfc);
-			proxy.setupClientItem(MFFSitemfc,LibItemNames.POWER_LINK_CARD);
-
-			MFFSItemIDCard = new ItemCardPersonalID();
-			GameRegistry.register(MFFSItemIDCard);
-			proxy.setupClientItem(MFFSItemIDCard,LibItemNames.PERSONAL_ID);
-
-			MFFSItemSecLinkCard = new ItemCardSecurityLink();
-			GameRegistry.register(MFFSItemSecLinkCard);
-			proxy.setupClientItem(MFFSItemSecLinkCard,LibItemNames.SECURITY_LINK_CARD);
-
-			MFFSitemInfinitePowerCard = new ItemCardPower();
-			GameRegistry.register(MFFSitemInfinitePowerCard);
-			proxy.setupClientItem(MFFSitemInfinitePowerCard,LibItemNames.POWER_CARD);
-
-			MFFSAccessCard = new ItemAccessCard();
-			GameRegistry.register(MFFSAccessCard);
-			proxy.setupClientItem(MFFSAccessCard,LibItemNames.ACCESS_CARD);
-
-			MFFSitemDataLinkCard = new ItemCardDataLink();
-			GameRegistry.register(MFFSitemDataLinkCard);
-			proxy.setupClientItem(MFFSitemDataLinkCard,LibItemNames.DATA_LINK_CARD);
-
-			// MultiTools
-			MFFSitemWrench = new ItemWrench();
-			GameRegistry.register(MFFSitemWrench);
-			proxy.setupClientItem(MFFSitemWrench,LibItemNames.MULTITOOL_WRENCH);
-
-			MFFSitemSwitch = new ItemSwitch();
-			GameRegistry.register(MFFSitemSwitch);
-			proxy.setupClientItem(MFFSitemSwitch,LibItemNames.MULTITOOL_SWITCH);
-
-			MFFSitemFieldTeleporter = new ItemFieldtransporter();
-			GameRegistry.register(MFFSitemFieldTeleporter);
-			proxy.setupClientItem(MFFSitemFieldTeleporter,LibItemNames.MULTITOOL_TRANSPORTER);
-
-			MFFSitemMFDidtool = new ItemPersonalIDWriter();
-			GameRegistry.register(MFFSitemMFDidtool);
-			proxy.setupClientItem(MFFSitemMFDidtool,LibItemNames.MULTITOOL_ID_WRITER);
-
-			MFFSitemMFDdebugger = new ItemDebugger();
-			GameRegistry.register(MFFSitemMFDdebugger);
-			proxy.setupClientItem(MFFSitemMFDdebugger,LibItemNames.MULTITOOL_DEBUGGER);
-
-			MFFSitemManuelBook = new ItemManualBook();
-			GameRegistry.register(MFFSitemManuelBook);
-			proxy.setupClientItem(MFFSitemManuelBook,LibItemNames.MULTITOOL_MANUAL);
-
-			// Upgrades
-			MFFSitemupgradeexctractorboost = new ItemExtractorUpgradeBooster();
-			GameRegistry.register(MFFSitemupgradeexctractorboost);
-			proxy.setupClientItem(MFFSitemupgradeexctractorboost,LibItemNames.EXTRACTOR_UPGRADE_BOOSTER);
-
-			MFFSitemupgradecaprange = new ItemCapacitorUpgradeRange();
-			GameRegistry.register(MFFSitemupgradecaprange);
-			proxy.setupClientItem(MFFSitemupgradecaprange,LibItemNames.UPGRADE_RANGE);
-
-			MFFSitemupgradecapcap = new ItemCapacitorUpgradeCapacity();
-			GameRegistry.register(MFFSitemupgradecapcap);
-			proxy.setupClientItem(MFFSitemupgradecapcap,LibItemNames.UPGRADE_CAPACITY);
 		} catch (Exception e) {
 			log.error(
 					"ModularForceFieldSystem has a problem loading its configuration!",e);
@@ -566,15 +333,15 @@ public class ModularForceFieldSystem {
 		VersionLocal = Versioninfo.curentversion();
 		VersionRemote = Versioninfo.newestversion();
 
-		GameRegistry.register(MFFSMonazitOre);
-		GameRegistry.register(new ItemBlock(MFFSMonazitOre),MFFSMonazitOre.getRegistryName());
-		proxy.setupClientBlock(MFFSMonazitOre, LibBlockNames.MONAZIT_ORE);
-		GameRegistry.register(MFFSFieldblock);
-        GameRegistry.register(new ItemBlock(MFFSFieldblock),MFFSFieldblock.getRegistryName());
-        proxy.setupClientFieldBlock(MFFSFieldblock,LibBlockNames.FORCE_FIELD);
-		MFFSFieldblock.setCreativeTab(MFFSTab);
-		GameRegistry.registerTileEntity(TileEntityForceField.class,
-				"MFFSForceField");
+		//GameRegistry.register(MFFSMonazitOre);
+		//GameRegistry.register(new ItemBlock(MFFSMonazitOre),MFFSMonazitOre.getRegistryName());
+		//proxy.setupClientBlock(MFFSMonazitOre, LibBlockNames.MONAZIT_ORE);
+		//GameRegistry.register(MFFSFieldblock);
+        //GameRegistry.register(new ItemBlock(MFFSFieldblock),MFFSFieldblock.getRegistryName());
+        //proxy.setupClientFieldBlock(MFFSFieldblock,LibBlockNames.FORCE_FIELD);
+		//MFFSFieldblock.setCreativeTab(MFFSTab);
+		//GameRegistry.registerTileEntity(TileEntityForceField.class,
+				//"MFFSForceField");
 		//proxy.setupClientBlock(MFFSFieldblock, LibBlockNames.FORCE_FIELD);
 		MFFSMaschines.preInit();
 		LightGuideBook.MakeBook();
@@ -592,12 +359,12 @@ public class ModularForceFieldSystem {
 	public void load(FMLInitializationEvent evt) {
 
 		NetworkRegistry.INSTANCE.registerGuiHandler(instance,proxy);
-		GameRegistry.registerWorldGenerator(new MFFSWorldGenerator(),0);
+		//GameRegistry.registerWorldGenerator(new MFFSWorldGenerator(),0);
 
 		OreDictionary.registerOre("dustMonazit",
-				MFFSitemForcicium);
+				ModItems.FORCICIUM);
 		OreDictionary.registerOre("oreMonazit",
-				MFFSMonazitOre);
+				ModBlocks.MONAZIT_ORE);
 		MFFSMaschines.initialize();
 		ProjectorTyp.initialize();
 		ProjectorOptions.initialize();

@@ -44,11 +44,12 @@ public class ItemSwitch extends ItemMultitool {
 
 	}
 
+
 	@Override
-	public EnumActionResult onItemUseFirst(ItemStack stack, EntityPlayer player, World world, BlockPos pos, EnumFacing side, float hitX, float hitY, float hitZ, EnumHand hand) {
+	public EnumActionResult onItemUseFirst(EntityPlayer player, World world, BlockPos pos, EnumFacing side, float hitX, float hitY, float hitZ, EnumHand hand) {
 		if (world.isRemote)
 			return EnumActionResult.PASS;
-
+		ItemStack stack=player.getHeldItem(hand);
 		TileEntity tileentity = world.getTileEntity(pos);
 
 		if (tileentity instanceof ISwitchabel) {

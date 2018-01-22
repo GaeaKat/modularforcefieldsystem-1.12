@@ -121,15 +121,15 @@ public class GuiExtractor extends GuiContainer {
 
 	@Override
 	protected void drawGuiContainerForegroundLayer(int par1, int par2) {
-		fontRendererObj.drawString("Force Energy", 5, 25, 0x404040);
-		fontRendererObj.drawString("Upgrades", 10, 50, 0x404040);
-		fontRendererObj.drawString(Extractor.getDeviceName(), 8, 9, 0x404040);
-		fontRendererObj.drawString("Extractor", 5, 35, 0x404040);
-		fontRendererObj.drawString(
+		fontRenderer.drawString("Force Energy", 5, 25, 0x404040);
+		fontRenderer.drawString("Upgrades", 10, 50, 0x404040);
+		fontRenderer.drawString(Extractor.getDeviceName(), 8, 9, 0x404040);
+		fontRenderer.drawString("Extractor", 5, 35, 0x404040);
+		fontRenderer.drawString(
 				String.valueOf(Extractor.getForceEnergybuffer() / 1000).concat(
 						"k"), 140, 89, 0x404040);
 
-		fontRendererObj.drawString(
+		fontRenderer.drawString(
 				String.valueOf(Extractor.getWorkdone()).concat("%"), 23, 89,
 				0x404040);
 	}

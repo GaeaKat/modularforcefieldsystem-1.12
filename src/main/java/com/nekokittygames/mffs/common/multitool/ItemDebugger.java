@@ -44,8 +44,10 @@ public class ItemDebugger extends ItemMultitool {
 		setRegistryName(LibItemNames.MULTITOOL_DEBUGGER);
 	}
 
+
+
 	@Override
-	public EnumActionResult onItemUseFirst(ItemStack stack, EntityPlayer player, World world, BlockPos pos, EnumFacing side, float hitX, float hitY, float hitZ, EnumHand hand) {
+	public EnumActionResult onItemUseFirst(EntityPlayer player, World world, BlockPos pos, EnumFacing side, float hitX, float hitY, float hitZ, EnumHand hand) {
 		TileEntity tileEntity = world.getTileEntity(pos);
 
 		if (world.isRemote) {
@@ -81,10 +83,10 @@ public class ItemDebugger extends ItemMultitool {
 		return EnumActionResult.SUCCESS;
 	}
 
-
 	@Override
-	public ActionResult<ItemStack> onItemRightClick(ItemStack itemStackIn, World worldIn, EntityPlayer playerIn, EnumHand hand) {
-		return ActionResult.newResult(EnumActionResult.FAIL,itemStackIn);
+	public ActionResult<ItemStack> onItemRightClick(World worldIn, EntityPlayer playerIn, EnumHand handIn) {
+		return ActionResult.newResult(EnumActionResult.FAIL,playerIn.getHeldItem(handIn));
 	}
+
 
 }

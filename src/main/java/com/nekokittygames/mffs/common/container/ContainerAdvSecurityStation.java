@@ -71,7 +71,7 @@ public class ContainerAdvSecurityStation extends Container {
 
 	@Override
 	public boolean canInteractWith(EntityPlayer entityplayer) {
-		return SecStation.isUseableByPlayer(entityplayer);
+		return SecStation.isUsableByPlayer(entityplayer);
 	}
 
 	@Override
@@ -81,12 +81,12 @@ public class ContainerAdvSecurityStation extends Container {
 		if (slot != null && slot.getHasStack()) {
 			ItemStack itemstack1 = slot.getStack();
 			itemstack = itemstack1.copy();
-			if (itemstack1.stackSize == 0) {
+			if (itemstack1.getCount() == 0) {
 				slot.putStack(null);
 			} else {
 				slot.onSlotChanged();
 			}
-			if (itemstack1.stackSize != itemstack.stackSize) {
+			if (itemstack1.getCount()!= itemstack.getCount()) {
 				slot.onSlotChanged();
 			} else {
 				return null;

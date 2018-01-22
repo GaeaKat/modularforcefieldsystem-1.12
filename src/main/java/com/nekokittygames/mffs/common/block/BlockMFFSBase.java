@@ -49,6 +49,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.Explosion;
@@ -57,21 +58,27 @@ import net.minecraft.world.World;
 
 
 import javax.annotation.Nullable;
+import java.util.Objects;
 import java.util.Random;
 
 public abstract class BlockMFFSBase extends Block implements ITileEntityProvider {
 
 	public static final PropertyDirection FACING = PropertyDirection.create( "facing" );
 	public static final PropertyBool ACTIVE= PropertyBool.create("active");
-	public BlockMFFSBase() {
+	public BlockMFFSBase(String blockName) {
 		super(Material.IRON);
+		setBlockName(this,blockName);
 		setBlockUnbreakable();
 		setResistance(100F);
 		setSoundType(SoundType.METAL);
 		setCreativeTab(ModularForceFieldSystem.MFFSTab);
 		this.setDefaultState(this.blockState.getBaseState().withProperty(FACING,EnumFacing.NORTH).withProperty(ACTIVE,false));
 	}
-
+	private static void setBlockName(final Block block, final String blockName) {
+		block.setRegistryName(ModularForceFieldSystem.MODID, blockName);
+		final ResourceLocation registryName = Objects.requireNonNull(block.getRegistryName());
+		block.setUnlocalizedName(registryName.toString());
+	}
 	@Override
 	protected BlockStateContainer createBlockState() {
 		return new BlockStateContainer(this,FACING,ACTIVE);
@@ -93,8 +100,10 @@ public abstract class BlockMFFSBase extends Block implements ITileEntityProvider
 	@Override
 	public abstract TileEntity createNewTileEntity(World worldIn, int meta);
 
+
+
 	@Override
-	public boolean onBlockActivated(World world, BlockPos pos, IBlockState state, EntityPlayer entityplayer, EnumHand hand, @Nullable ItemStack heldItem, EnumFacing side, float hitX, float hitY, float hitZ) {
+	public boolean onBlockActivated(World world, BlockPos pos, IBlockState state, EntityPlayer entityplayer, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
 		if (entityplayer.isSneaking()) {
 			return false;
 		}
@@ -192,9 +201,10 @@ public abstract class BlockMFFSBase extends Block implements ITileEntityProvider
 	}
 
 	@Override
-	public IBlockState onBlockPlaced(World worldIn, BlockPos pos, EnumFacing facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer) {
-		return this.getDefaultState().withProperty( FACING, BlockPistonBase.getFacingFromEntity(pos,placer));
+	public IBlockState getStateForPlacement(World world, BlockPos pos, EnumFacing facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer, EnumHand hand) {
+		return this.getDefaultState().withProperty( FACING, EnumFacing.getDirectionFromEntityLiving(pos, placer));
 	}
+
 
 	@Override
 	public float getExplosionResistance(Entity exploder) {

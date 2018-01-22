@@ -24,4 +24,5 @@ package com.nekokittygames.mffs.libs;
 
 public class LibMisc {
 	public static final String UNLOCALIZED_PREFIX = "modularforcefieldsystem.";
+	public static final String RESOURCE_PREFIX =  "modularforcefieldsystem:";
 }

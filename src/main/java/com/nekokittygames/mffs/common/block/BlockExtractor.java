@@ -30,9 +30,7 @@ import net.minecraft.world.World;
 public class BlockExtractor extends BlockMFFSBase {
 
 	public BlockExtractor() {
-		super();
-		setRegistryName(LibBlockNames.EXTRACTOR);
-		setUnlocalizedName(LibMisc.UNLOCALIZED_PREFIX+LibBlockNames.EXTRACTOR);
+		super(LibBlockNames.EXTRACTOR);
 
 	}
 

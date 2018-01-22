@@ -45,9 +45,7 @@ import javax.annotation.Nullable;
 public class BlockSecurtyStorage extends BlockMFFSBase {
 
 	public BlockSecurtyStorage() {
-		super();
-		setUnlocalizedName(LibMisc.UNLOCALIZED_PREFIX+ LibBlockNames.SECURITY_STORAGE);
-		setRegistryName(LibBlockNames.SECURITY_STORAGE);
+		super(LibBlockNames.SECURITY_STORAGE);
 	}
 
 	@Override
@@ -58,7 +56,7 @@ public class BlockSecurtyStorage extends BlockMFFSBase {
 
 
 	@Override
-	public boolean onBlockActivated(World world, BlockPos pos, IBlockState state, EntityPlayer entityplayer, EnumHand hand, @Nullable ItemStack heldItem, EnumFacing side, float hitX, float hitY, float hitZ) {
+	public boolean onBlockActivated(World world, BlockPos pos, IBlockState state, EntityPlayer entityplayer, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
 		if (world.isRemote)
 			return true;
 

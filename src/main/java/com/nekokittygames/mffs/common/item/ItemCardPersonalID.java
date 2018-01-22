@@ -25,14 +25,17 @@ import com.nekokittygames.mffs.libs.LibMisc;
 import com.nekokittygames.mffs.common.NBTTagCompoundHelper;
 import com.nekokittygames.mffs.common.SecurityRight;
 import net.minecraft.client.resources.I18n;
+import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.world.World;
 import net.minecraftforge.common.UsernameCache;
 import net.minecraftforge.fml.common.FMLCommonHandler;
 import org.lwjgl.input.Keyboard;
 
+import javax.annotation.Nullable;
 import java.util.List;
 import java.util.UUID;
 
@@ -105,8 +108,7 @@ public class ItemCardPersonalID extends Item {
 		return "nobody";
 	}
 	@Override
-	public void addInformation(ItemStack itemStack, EntityPlayer player,
-			List info, boolean b) {
+	public void addInformation(ItemStack itemStack, @Nullable World worldIn, List<String> info, ITooltipFlag flagIn) {
 		String tooltip = String.format("Owner: %s ", NBTTagCompoundHelper
 				.getTAGfromItemstack(itemStack).getString("username"));
 		info.add(tooltip);

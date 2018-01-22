@@ -29,9 +29,7 @@ import net.minecraft.world.World;
 
 public class BlockAdvSecurtyStation extends BlockMFFSBase {
 	public BlockAdvSecurtyStation() {
-		super();
-		setUnlocalizedName( LibMisc.UNLOCALIZED_PREFIX+LibBlockNames.ADV_SECURITY);
-		setRegistryName(LibBlockNames.ADV_SECURITY);
+		super(LibBlockNames.ADV_SECURITY);
 	}
 
 

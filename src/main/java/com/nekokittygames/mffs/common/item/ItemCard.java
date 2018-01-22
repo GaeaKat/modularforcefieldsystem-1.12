@@ -22,12 +22,15 @@ package com.nekokittygames.mffs.common.item;
 
 import com.nekokittygames.mffs.api.PointXYZ;
 import com.nekokittygames.mffs.common.NBTTagCompoundHelper;
+import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.world.World;
 import net.minecraftforge.common.DimensionManager;
 
+import javax.annotation.Nullable;
 import java.util.List;
 
 public abstract class ItemCard extends Item {
@@ -77,8 +80,7 @@ public abstract class ItemCard extends Item {
 	}
 
 	@Override
-	public void addInformation(ItemStack itemStack, EntityPlayer player,
-			List info, boolean b) {
+	public void addInformation(ItemStack itemStack, @Nullable World worldIn, List<String> info, ITooltipFlag flagIn) {
 		NBTTagCompound tag = NBTTagCompoundHelper
 				.getTAGfromItemstack(itemStack);
 		info.add("Links To: " + getforAreaname(itemStack));

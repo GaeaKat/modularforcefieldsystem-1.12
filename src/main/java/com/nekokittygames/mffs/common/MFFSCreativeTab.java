@@ -23,6 +23,7 @@
 
 package com.nekokittygames.mffs.common;
 
+import com.nekokittygames.mffs.common.block.ModBlocks;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -36,8 +37,8 @@ public class MFFSCreativeTab extends CreativeTabs {
 
 
 	@Override
-	public Item getTabIconItem() {
-		return Item.getItemFromBlock(ModularForceFieldSystem.MFFSCapacitor);
+	public ItemStack getTabIconItem() {
+		return new ItemStack(Item.getItemFromBlock(ModBlocks.CAPACITOR));
 	}
 
 }

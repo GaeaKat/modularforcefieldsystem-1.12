@@ -24,13 +24,13 @@ package com.nekokittygames.mffs.libs;
 
 public class LibBlockNames {
 	public static final String EXTRACTOR = "extractor";
-	public static final String ADV_SECURITY = "advSecurity";
-	public static final String AREA_DEFENSE = "areaDefense";
+	public static final String ADV_SECURITY = "adv_security";
+	public static final String AREA_DEFENSE = "area_defense";
 	public static final String CAPACITOR = "capacitor";
-	public static final String CONTROL_SYSTEM = "controlSystem";
+	public static final String CONTROL_SYSTEM = "control_system";
 	public static final String CONVERTER = "converter";
-	public static final String MONAZIT_ORE = "monazitOre";
+	public static final String MONAZIT_ORE = "monazit_ore";
 	public static final String PROJECTOR = "projector";
-	public static final String SECURITY_STORAGE = "securityStorage";
-	public static final String FORCE_FIELD = "forceField";
+	public static final String SECURITY_STORAGE = "security_storage";
+	public static final String FORCE_FIELD = "force_field";
 }

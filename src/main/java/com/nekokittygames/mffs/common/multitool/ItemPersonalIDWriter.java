@@ -20,6 +20,7 @@
 
 package com.nekokittygames.mffs.common.multitool;
 
+import com.nekokittygames.mffs.common.item.ModItems;
 import com.nekokittygames.mffs.libs.LibItemNames;
 import com.nekokittygames.mffs.libs.LibMisc;
 import com.nekokittygames.mffs.api.PointXYZ;
@@ -61,15 +62,15 @@ public class ItemPersonalIDWriter extends ItemMultitool {
 			for (Slot slot : slots) {
 				ItemStack stack = slot.getStack();
 				if (stack != null) {
-					if (stack.getItem() == ModularForceFieldSystem.MFFSitemcardempty) {
+					if (stack.getItem() == ModItems.EMPTY_CARD) {
 						if (this.consumePower(itemstack, 1000, true)) {
 							this.consumePower(itemstack, 1000, false);
 							ItemStack IDCard = new ItemStack(
-									ModularForceFieldSystem.MFFSItemIDCard, 1);
+									ModItems.PERSONAL_ID, 1);
 							ItemCardPersonalID.setOwner(IDCard,
 									((EntityPlayer) entity).getUniqueID().toString(),((EntityPlayer)entity).getName());
-
-							if (--stack.stackSize <= 0) {
+							stack.setCount(stack.getCount()-1);
+							if (stack.isEmpty()) {
 								slot.putStack(IDCard);
 							} else if (!entityplayer.inventory
 									.addItemStackToInventory(IDCard))
@@ -92,41 +93,42 @@ public class ItemPersonalIDWriter extends ItemMultitool {
 		return false;
 	}
 
+
+
 	@Override
-	public ActionResult<ItemStack> onItemRightClick(ItemStack itemStackIn, World worldIn, EntityPlayer playerIn, EnumHand hand) {
+	public ActionResult<ItemStack> onItemRightClick(World worldIn, EntityPlayer playerIn, EnumHand handIn) {
+		ItemStack itemStackIn=playerIn.getHeldItem(handIn);
 		if (playerIn.isSneaking()) {
-			return super.onItemRightClick(itemStackIn, worldIn, playerIn, hand);
+			return super.onItemRightClick(worldIn, playerIn, handIn);
 		}
 
 		List<Slot> slots = playerIn.inventoryContainer.inventorySlots;
 		for (Slot slot : slots) {
 			ItemStack stack = slot.getStack();
-			if (stack != null) {
-				if (stack.getItem() == ModularForceFieldSystem.MFFSitemcardempty) {
-					if (this.consumePower(itemStackIn, 1000, true)) {
-						this.consumePower(itemStackIn, 1000, false);
-						ItemStack IDCard = new ItemStack(
-								ModularForceFieldSystem.MFFSItemIDCard, 1);
-						ItemCardPersonalID.setOwner(IDCard,
-								playerIn.getUniqueID().toString(),playerIn.getName());
+			if (stack.getItem() == ModItems.EMPTY_CARD) {
+                if (this.consumePower(itemStackIn, 1000, true)) {
+                    this.consumePower(itemStackIn, 1000, false);
+                    ItemStack IDCard = new ItemStack(
+                            ModItems.PERSONAL_ID, 1);
+                    ItemCardPersonalID.setOwner(IDCard,
+                            playerIn.getUniqueID().toString(),playerIn.getName());
+                    stack.setCount(stack.getCount()-1);
+                    if (stack.isEmpty()) {
+                        slot.putStack(IDCard);
+                    } else if (!playerIn.inventory
+                            .addItemStackToInventory(IDCard))
+                        playerIn.dropItem(IDCard,false);
+                    if (worldIn.isRemote)
+                        Functions.ChattoPlayer(playerIn, "multitool.idCardCreated");
 
-						if (--stack.stackSize <= 0) {
-							slot.putStack(IDCard);
-						} else if (!playerIn.inventory
-								.addItemStackToInventory(IDCard))
-							playerIn.dropItem(IDCard,false);
-						if (worldIn.isRemote)
-							Functions.ChattoPlayer(playerIn, "multitool.idCardCreated");
-
-						return ActionResult.newResult(EnumActionResult.SUCCESS,itemStackIn);
-					} else {
-						if (worldIn.isRemote)
-							Functions
-									.ChattoPlayer(playerIn, "multitool.notEnoughFE");
-						return ActionResult.newResult(EnumActionResult.FAIL,itemStackIn);
-					}
-				}
-			}
+                    return ActionResult.newResult(EnumActionResult.SUCCESS,itemStackIn);
+                } else {
+                    if (worldIn.isRemote)
+                        Functions
+                                .ChattoPlayer(playerIn, "multitool.notEnoughFE");
+                    return ActionResult.newResult(EnumActionResult.FAIL,itemStackIn);
+                }
+            }
 		}
 		if (worldIn.isRemote)
 			Functions.ChattoPlayer(playerIn, "multitool.needBlankCard");
@@ -136,10 +138,10 @@ public class ItemPersonalIDWriter extends ItemMultitool {
 
 
 	@Override
-	public EnumActionResult onItemUse(ItemStack stack, EntityPlayer playerIn, World worldIn, BlockPos pos, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
+	public EnumActionResult onItemUse(EntityPlayer playerIn, World worldIn, BlockPos pos, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
 		if (worldIn.isRemote)
 			return EnumActionResult.PASS;
-
+		ItemStack stack=playerIn.getHeldItem(hand);
 		TileEntity tileEntity = worldIn.getTileEntity(pos);
 		if (tileEntity instanceof TileEntityMachines) {
 			if (SecurityHelper.isAccessGranted(tileEntity, playerIn, worldIn,
@@ -148,11 +150,11 @@ public class ItemPersonalIDWriter extends ItemMultitool {
 				for (Slot slot : slots) {
 					ItemStack playerstack = slot.getStack();
 					if (playerstack != null) {
-						if (playerstack.getItem() == ModularForceFieldSystem.MFFSitemcardempty) {
+						if (playerstack.getItem() == ModItems.EMPTY_CARD) {
 							if (this.consumePower(stack, 1000, true)) {
 								this.consumePower(stack, 1000, false);
 								ItemStack IDCard = new ItemStack(
-										ModularForceFieldSystem.MFFSitemDataLinkCard);
+										ModItems.DATALINK_CARD);
 
 								ItemCard
 										.setforArea(
@@ -167,8 +169,8 @@ public class ItemPersonalIDWriter extends ItemMultitool {
 												((TileEntityMachines) tileEntity)
 														.getDeviceID(),
 												tileEntity);
-
-								if (--playerstack.stackSize <= 0) {
+								playerstack.setCount(playerstack.getCount()-1);
+								if (playerstack.isEmpty()) {
 									slot.putStack(IDCard);
 								} else if (!playerIn.inventory
 										.addItemStackToInventory(IDCard))
@@ -193,10 +195,9 @@ public class ItemPersonalIDWriter extends ItemMultitool {
 
 	}
 
+
 	@Override
-	public EnumActionResult onItemUseFirst(ItemStack stack, EntityPlayer player, World world, BlockPos pos, EnumFacing side, float hitX, float hitY, float hitZ, EnumHand hand) {
+	public EnumActionResult onItemUseFirst(EntityPlayer player, World world, BlockPos pos, EnumFacing side, float hitX, float hitY, float hitZ, EnumHand hand) {
 		return EnumActionResult.PASS;
 	}
-
-
 }

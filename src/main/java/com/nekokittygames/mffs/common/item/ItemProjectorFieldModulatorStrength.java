@@ -24,10 +24,13 @@ import com.nekokittygames.mffs.libs.LibItemNames;
 import com.nekokittygames.mffs.libs.LibMisc;
 import com.nekokittygames.mffs.common.MFFSMaschines;
 import net.minecraft.client.resources.I18n;
+import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
+import net.minecraft.world.World;
 import org.lwjgl.input.Keyboard;
 
+import javax.annotation.Nullable;
 import java.util.List;
 
 
@@ -46,8 +49,7 @@ public class ItemProjectorFieldModulatorStrength extends ItemMFFSBase {
 	}
 
 	@Override
-	public void addInformation(ItemStack itemStack, EntityPlayer player,
-			List info, boolean b) {
+	public void addInformation(ItemStack stack, @Nullable World worldIn, List<String> info, ITooltipFlag flagIn) {
 		if (Keyboard.isKeyDown(Keyboard.KEY_LSHIFT)
 				|| Keyboard.isKeyDown(Keyboard.KEY_RSHIFT)) {
 			info.add(I18n.format("itemInfo.compatibleWith"));
@@ -57,5 +59,7 @@ public class ItemProjectorFieldModulatorStrength extends ItemMFFSBase {
 			info.add(I18n.format("itemInfo.compatibleWithHoldShift"));
 		}
 	}
+
+
 
 }

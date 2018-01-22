@@ -121,99 +121,99 @@ public class GuiAreaDefenseStation extends GuiContainer {
 
 	@Override
 	protected void drawGuiContainerForegroundLayer(int par1, int par2) {
-		fontRendererObj.drawString("MFFS Defence Station", 7, 9, 0x404040);
-		fontRendererObj.drawString(DefenceStation.getDeviceName(), 120, 9,
+		fontRenderer.drawString("MFFS Defence Station", 7, 9, 0x404040);
+		fontRenderer.drawString(DefenceStation.getDeviceName(), 120, 9,
 				0x404040);
 
 		switch (DefenceStation.getActionmode()) {
 		case 0:
-			fontRendererObj.drawString("inform", 110, 55, 0x404040);
+			fontRenderer.drawString("inform", 110, 55, 0x404040);
 
-			fontRendererObj.drawString(" send Info", 95, 85, 0x404040);
-			fontRendererObj.drawString(" to player ", 95, 95, 0x404040);
-			fontRendererObj.drawString(" without (SR)", 95, 105, 0x404040);
-			fontRendererObj.drawString(" Stay Right", 95, 115, 0x404040);
+			fontRenderer.drawString(" send Info", 95, 85, 0x404040);
+			fontRenderer.drawString(" to player ", 95, 95, 0x404040);
+			fontRenderer.drawString(" without (SR)", 95, 105, 0x404040);
+			fontRenderer.drawString(" Stay Right", 95, 115, 0x404040);
 
 			break;
 		case 1:
-			fontRendererObj.drawString("kill", 110, 55, 0x404040);
+			fontRenderer.drawString("kill", 110, 55, 0x404040);
 
-			fontRendererObj.drawString(" kill player", 95, 85, 0x404040);
-			fontRendererObj.drawString(" without (SR)", 95, 95, 0x404040);
-			fontRendererObj.drawString(" gathers his", 95, 105, 0x404040);
-			fontRendererObj.drawString(" equipment", 95, 115, 0x404040);
+			fontRenderer.drawString(" kill player", 95, 85, 0x404040);
+			fontRenderer.drawString(" without (SR)", 95, 95, 0x404040);
+			fontRenderer.drawString(" gathers his", 95, 105, 0x404040);
+			fontRenderer.drawString(" equipment", 95, 115, 0x404040);
 
 			break;
 		case 2:
-			fontRendererObj.drawString("search", 110, 55, 0x404040);
+			fontRenderer.drawString("search", 110, 55, 0x404040);
 
-			fontRendererObj.drawString("scans player", 95, 85, 0x404040);
-			fontRendererObj.drawString("without (AAI)", 95, 95, 0x404040);
-			fontRendererObj.drawString("and remove", 95, 105, 0x404040);
-			fontRendererObj.drawString("banned items", 95, 115, 0x404040);
+			fontRenderer.drawString("scans player", 95, 85, 0x404040);
+			fontRenderer.drawString("without (AAI)", 95, 95, 0x404040);
+			fontRenderer.drawString("and remove", 95, 105, 0x404040);
+			fontRenderer.drawString("banned items", 95, 115, 0x404040);
 			break;
 
 		case 3:
-			fontRendererObj.drawString("NPC kill", 110, 55, 0x404040);
+			fontRenderer.drawString("NPC kill", 110, 55, 0x404040);
 
-			fontRendererObj.drawString("kill any NPC", 95, 85, 0x404040);
-			fontRendererObj.drawString("friendly or", 95, 95, 0x404040);
-			fontRendererObj.drawString("hostile", 95, 105, 0x404040);
+			fontRenderer.drawString("kill any NPC", 95, 85, 0x404040);
+			fontRenderer.drawString("friendly or", 95, 95, 0x404040);
+			fontRenderer.drawString("hostile", 95, 105, 0x404040);
 			break;
 
 		case 4:
-			fontRendererObj.drawString("NPC kill", 110, 55, 0x404040);
+			fontRenderer.drawString("NPC kill", 110, 55, 0x404040);
 
-			fontRendererObj.drawString("kill only", 95, 85, 0x404040);
-			fontRendererObj.drawString("hostile NPCs", 95, 95, 0x404040);
+			fontRenderer.drawString("kill only", 95, 85, 0x404040);
+			fontRenderer.drawString("hostile NPCs", 95, 95, 0x404040);
 
 			break;
 
 		case 5:
-			fontRendererObj.drawString("NPC kill", 110, 55, 0x404040);
+			fontRenderer.drawString("NPC kill", 110, 55, 0x404040);
 
-			fontRendererObj.drawString("kill only", 95, 85, 0x404040);
-			fontRendererObj.drawString("friendly NPCs", 95, 95, 0x404040);
+			fontRenderer.drawString("kill only", 95, 85, 0x404040);
+			fontRenderer.drawString("friendly NPCs", 95, 95, 0x404040);
 
 			break;
 
 		}
 
-		fontRendererObj.drawString("Action desc:", 95, 73, 0x00008B);
+		fontRenderer.drawString("Action desc:", 95, 73, 0x00008B);
 
-		fontRendererObj.drawString("items", 205, 68, 0x228B22);
+		fontRenderer.drawString("items", 205, 68, 0x228B22);
 
 		if (DefenceStation.getcontratyp() == 0) {
-			fontRendererObj.drawString("allowed", 200, 82, 0x228B22);
+			fontRenderer.drawString("allowed", 200, 82, 0x228B22);
 		}
 
 		if (DefenceStation.getcontratyp() == 1) {
-			fontRendererObj.drawString("banned", 200, 82, 0xFF0000);
+			fontRenderer.drawString("banned", 200, 82, 0xFF0000);
 		}
 
 		if (DefenceStation.getPowerSourceID() != 0) {
-			fontRendererObj.drawString((new StringBuilder()).append("FE: ")
+			fontRenderer.drawString((new StringBuilder()).append("FE: ")
 					.append(DefenceStation.getCapacity()).append(" %")
 					.toString(), 35, 31, 0x404040);
 		} else {
-			fontRendererObj.drawString("No Link/OOR", 35, 31, 0xFF0000);
+			fontRenderer.drawString("No Link/OOR", 35, 31, 0xFF0000);
 		}
 
 		if (DefenceStation.hasSecurityCard()) {
-			fontRendererObj.drawString("linked", 120, 31, 0x228B22);
+			fontRenderer.drawString("linked", 120, 31, 0x228B22);
 		}
 
-		fontRendererObj.drawString("warning", 35, 55, 0x00008B);
-		fontRendererObj.drawString(
+		fontRenderer.drawString("warning", 35, 55, 0x00008B);
+		fontRenderer.drawString(
 				"perimeter: " + DefenceStation.getInfoDistance(), 12, 73,
 				0x404040);
 
-		fontRendererObj.drawString("action", 35, 91, 0xEE3B3B);
-		fontRendererObj.drawString(
+		fontRenderer.drawString("action", 35, 91, 0xEE3B3B);
+		fontRenderer.drawString(
 				"perimeter: " + DefenceStation.getActionDistance(), 12, 111,
 				0x404040);
 
-		fontRendererObj.drawString("inventory ", 180, 195, 0x404040);
+		fontRenderer.drawString("inventory ", 180, 195, 0x404040);
 
 	}
 }

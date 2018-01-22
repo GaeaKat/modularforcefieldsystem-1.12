@@ -8,6 +8,7 @@ import com.nekokittygames.mffs.common.NBTTagCompoundHelper;
 import com.nekokittygames.mffs.common.container.ContainerControlSystem;
 import com.nekokittygames.mffs.common.item.ItemCardDataLink;
 import com.nekokittygames.mffs.common.item.ItemCardSecurityLink;
+import com.nekokittygames.mffs.common.item.ModItems;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.Container;
@@ -16,6 +17,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraft.util.EnumFacing;
+import net.minecraft.util.NonNullList;
 import net.minecraftforge.common.util.Constants;
 
 import java.util.LinkedList;
@@ -39,10 +41,10 @@ public class TileEntityControlSystem extends TileEntityMachines implements
 	protected boolean RemoteGUIinRange = false;
 	protected int RemotePowerleft = 0;
 	// ------------------------------
-	private ItemStack inventory[];
+	private NonNullList<ItemStack> inventory=NonNullList.withSize(40,ItemStack.EMPTY);
 
 	public TileEntityControlSystem() {
-		inventory = new ItemStack[40];
+
 	}
 
 	@Override
@@ -66,20 +68,20 @@ public class TileEntityControlSystem extends TileEntityMachines implements
 
 	@Override
 	public void invalidate() {
-		Linkgrid.getWorldMap(worldObj).getControlSystem().remove(getDeviceID());
+		Linkgrid.getWorldMap(world).getControlSystem().remove(getDeviceID());
 		super.invalidate();
 	}
 
 	@Override
 	public void dropPlugins() {
-		for (int a = 0; a < this.inventory.length; a++) {
+		for (int a = 0; a < this.inventory.size(); a++) {
 			dropplugins(a, this);
 		}
 	}
 
 	@Override
 	public void update() {
-		if (!worldObj.isRemote) {
+		if (!world.isRemote) {
 
 			if (this.getTicker() == 20) {
 
@@ -109,7 +111,7 @@ public class TileEntityControlSystem extends TileEntityMachines implements
 
 	@Override
 	public TileEntityAdvSecurityStation getLinkedSecurityStation() {
-		return ItemCardSecurityLink.getLinkedSecurityStation(this, 0, worldObj);
+		return ItemCardSecurityLink.getLinkedSecurityStation(this, 0, world);
 	}
 
 	@Override
@@ -129,14 +131,13 @@ public class TileEntityControlSystem extends TileEntityMachines implements
 	public void readExtraNBT(NBTTagCompound nbttagcompound) {
 		super.readExtraNBT(nbttagcompound);
 		NBTTagList nbttaglist = nbttagcompound.getTagList("Items", Constants.NBT.TAG_COMPOUND);
-		inventory = new ItemStack[getSizeInventory()];
+		inventory = NonNullList.withSize(40,ItemStack.EMPTY);
 		for (int i = 0; i < nbttaglist.tagCount(); i++) {
 			NBTTagCompound nbttagcompound1 = (NBTTagCompound) nbttaglist
 					.getCompoundTagAt(i);
 			byte byte0 = nbttagcompound1.getByte("Slot");
-			if (byte0 >= 0 && byte0 < inventory.length) {
-				inventory[byte0] = ItemStack
-						.loadItemStackFromNBT(nbttagcompound1);
+			if (byte0 >= 0 && byte0 < inventory.size()) {
+				inventory.set(byte0, new ItemStack(nbttagcompound1));
 			}
 		}
 	}
@@ -189,13 +190,13 @@ public class TileEntityControlSystem extends TileEntityMachines implements
 	@Override
 	public ItemStack decrStackSize(int i, int j) {
 		if (inventory[i] != null) {
-			if (inventory[i].stackSize <= j) {
+			if (inventory[i].getCount() <= j) {
 				ItemStack itemstack = inventory[i];
 				inventory[i] = null;
 				return itemstack;
 			}
 			ItemStack itemstack1 = inventory[i].splitStack(j);
-			if (inventory[i].stackSize == 0) {
+			if (inventory[i].getCount() == 0) {
 				inventory[i] = null;
 			}
 			return itemstack1;
@@ -215,8 +216,8 @@ public class TileEntityControlSystem extends TileEntityMachines implements
 	@Override
 	public void setInventorySlotContents(int i, ItemStack itemstack) {
 		inventory[i] = itemstack;
-		if (itemstack != null && itemstack.stackSize > getInventoryStackLimit()) {
-			itemstack.stackSize = getInventoryStackLimit();
+		if (itemstack != null && itemstack.getCount()> getInventoryStackLimit()) {
+			itemstack.setCount(getInventoryStackLimit());
 		}
 	}
 
@@ -257,10 +258,10 @@ public class TileEntityControlSystem extends TileEntityMachines implements
 		if (key == 103) {
 			if (remote != null) {
 				if (getRemoteGUIinRange()) {
-					EntityPlayer player = worldObj.getPlayerEntityByName(value);
+					EntityPlayer player = world.getPlayerEntityByName(value);
 					if (player != null) {
 						player.openGui(ModularForceFieldSystem.instance, 0,
-								worldObj, remote.getPos().getX(), remote.getPos().getY(),
+								world, remote.getPos().getX(), remote.getPos().getY(),
 								remote.getPos().getZ());
 					}
 				}
@@ -348,8 +349,8 @@ public class TileEntityControlSystem extends TileEntityMachines implements
 
 		}
 		this.markDirty();
-		worldObj.notifyBlockUpdate(pos, worldObj.getBlockState(pos), worldObj.getBlockState(pos), 2);
-		worldObj.markBlockRangeForRenderUpdate(pos,pos);
+		world.notifyBlockUpdate(pos, world.getBlockState(pos), world.getBlockState(pos), 2);
+		world.markBlockRangeForRenderUpdate(pos,pos);
 
 	}
 
@@ -364,7 +365,7 @@ public class TileEntityControlSystem extends TileEntityMachines implements
 
 				if (DeviceID != 0) {
 					TileEntityMachines device = Linkgrid
-							.getWorldMap(worldObj)
+							.getWorldMap(world)
 							.getTileEntityMachines(
 									ItemCardDataLink
 											.getDeviceTyp(getStackInSlot(slot)),
@@ -373,7 +374,7 @@ public class TileEntityControlSystem extends TileEntityMachines implements
 						return device;
 				}
 				setInventorySlotContents(slot, new ItemStack(
-						ModularForceFieldSystem.MFFSitemcardempty));
+						ModItems.EMPTY_CARD));
 			}
 		return null;
 	}

@@ -24,6 +24,7 @@ import com.nekokittygames.mffs.api.PointXYZ;
 import com.nekokittygames.mffs.common.IModularProjector;
 import com.nekokittygames.mffs.common.IModularProjector.Slots;
 import com.nekokittygames.mffs.common.ModularForceFieldSystem;
+import com.nekokittygames.mffs.common.item.ModItems;
 import com.nekokittygames.mffs.common.options.*;
 import com.nekokittygames.mffs.common.tileentity.TileEntityProjector;
 import com.nekokittygames.mffs.libs.LibItemNames;
@@ -64,7 +65,7 @@ public class ItemProjectorModuleSphere extends Module3DBase {
 		int yDown = radius;
 
 		if (((TileEntityProjector) projector).hasOption(
-				ModularForceFieldSystem.MFFSProjectorOptionDome, true)) {
+				ModItems.OPTION_FIELD_MANIPULATOR, true)) {
 			yDown = 0;
 		}
 

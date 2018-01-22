@@ -123,8 +123,7 @@ public class ItemProjectorOptionDefenseStation extends ItemProjectorOptionBase {
 
 					if (killswitch) {
 						if (projector.consumePower(10000, true)) {
-							((EntityPlayer) EntityLivingBase)
-									.addChatMessage(new TextComponentTranslation("warning" +
+							((EntityPlayer) EntityLivingBase).sendMessage(new TextComponentTranslation("warning" +
 											".areaDefense"));
 							((EntityPlayer) EntityLivingBase).attackEntityFrom(
 									MFFSDamageSource.fieldDefense, 10);

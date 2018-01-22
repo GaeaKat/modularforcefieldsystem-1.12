@@ -28,9 +28,7 @@ import net.minecraft.world.World;
 
 public class BlockCapacitor extends BlockMFFSBase {
 	public BlockCapacitor() {
-		super();
-		setUnlocalizedName( LibMisc.UNLOCALIZED_PREFIX+ LibBlockNames.CAPACITOR);
-		setRegistryName(LibBlockNames.CAPACITOR);
+		super(LibBlockNames.CAPACITOR);
 	}
 
 

@@ -90,7 +90,7 @@ public class ContainerProjector extends Container {
 
 	@Override
 	public boolean canInteractWith(EntityPlayer entityplayer) {
-		return projectorentity.isUseableByPlayer(entityplayer);
+		return projectorentity.isUsableByPlayer(entityplayer);
 	}
 
 	@Override
@@ -100,12 +100,12 @@ public class ContainerProjector extends Container {
 		if (slot != null && slot.getHasStack()) {
 			ItemStack itemstack1 = slot.getStack();
 			itemstack = itemstack1.copy();
-			if (itemstack1.stackSize == 0) {
+			if (itemstack1.getCount() == 0) {
 				slot.putStack(null);
 			} else {
 				slot.onSlotChanged();
 			}
-			if (itemstack1.stackSize != itemstack.stackSize) {
+			if (itemstack1.getCount() != itemstack.getCount()) {
 				slot.onSlotChanged();
 			} else {
 				return null;
@@ -122,18 +122,18 @@ public class ContainerProjector extends Container {
 			IContainerListener icrafting = (IContainerListener) listeners.get(i);
 
 			if (linkPower != projectorentity.getLinkPower()) {
-				icrafting.sendProgressBarUpdate(this, 0,
+				icrafting.sendWindowProperty(this, 0,
 						projectorentity.getLinkPower() & 0xffff);
-				icrafting.sendProgressBarUpdate(this, 1,
+				icrafting.sendWindowProperty(this, 1,
 						projectorentity.getLinkPower() >>> 16);
 			}
 			if (capacity != projectorentity.getPercentageCapacity()) {
-				icrafting.sendProgressBarUpdate(this, 2,
+				icrafting.sendWindowProperty(this, 2,
 						projectorentity.getPercentageCapacity());
 			}
 
 			if (accesstyp != projectorentity.getaccesstyp()) {
-				icrafting.sendProgressBarUpdate(this, 4,
+				icrafting.sendWindowProperty(this, 4,
 						projectorentity.getaccesstyp());
 			}
 

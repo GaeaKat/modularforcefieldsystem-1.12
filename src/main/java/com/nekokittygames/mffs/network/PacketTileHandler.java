@@ -64,7 +64,7 @@ public class PacketTileHandler extends PacketTile<TileEntityMachines> implements
             world = ModularForceFieldSystem.proxy.getClientWorld();
         }
         else {
-            world = ctx.getServerHandler().playerEntity.getEntityWorld();
+            world = ctx.getServerHandler().player.getEntityWorld();
         }
 
         if (world == null) {

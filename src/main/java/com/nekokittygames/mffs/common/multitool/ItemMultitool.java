@@ -23,18 +23,17 @@ package com.nekokittygames.mffs.common.multitool;
 
 import com.nekokittygames.mffs.api.IForceEnergyItems;
 import com.nekokittygames.mffs.common.ForceEnergyItems;
+import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.ActionResult;
-import net.minecraft.util.EnumActionResult;
-import net.minecraft.util.EnumFacing;
-import net.minecraft.util.EnumHand;
+import net.minecraft.util.*;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
+import javax.annotation.Nullable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -70,17 +69,19 @@ public abstract class ItemMultitool extends ForceEnergyItems implements
 		return true;
 	}
 
-	@Override
-	public abstract EnumActionResult onItemUseFirst(ItemStack stack, EntityPlayer player, World world, BlockPos pos, EnumFacing side, float hitX, float hitY, float hitZ, EnumHand hand) ;
-
 
 	@Override
-	public ActionResult<ItemStack> onItemRightClick(ItemStack itemStackIn, World worldIn, EntityPlayer playerIn, EnumHand hand) {
+	public abstract EnumActionResult onItemUseFirst(EntityPlayer player, World world, BlockPos pos, EnumFacing side, float hitX, float hitY, float hitZ, EnumHand hand) ;
+
+
+
+	@Override
+	public ActionResult<ItemStack> onItemRightClick(World worldIn, EntityPlayer playerIn, EnumHand handIn) {
 		if (playerIn.isSneaking()) {
 			int modeNum = 0;
 			for (int i = 0; i < MTTypes.size(); i++) {
 				ItemMultitool MT = MTTypes.get(i);
-				if (MT.getRegistryName().equals(itemStackIn.getItem().getRegistryName())) {
+				if (MT.getRegistryName().equals(playerIn.getHeldItem(handIn).getItem().getRegistryName())) {
 					if (i + 1 < MTTypes.size()) {
 						modeNum = i + 1;
 					} else {
@@ -89,13 +90,13 @@ public abstract class ItemMultitool extends ForceEnergyItems implements
 				}
 			}
 
-			int powerleft = getAvailablePower(itemStackIn);
+			int powerleft = getAvailablePower(playerIn.getHeldItem(handIn));
 			ItemStack inHand = playerIn.inventory.getCurrentItem();
 			inHand = new ItemStack(MTTypes.get(modeNum), 1);
 			this.chargeItem(inHand, powerleft, false);
 			return ActionResult.newResult(EnumActionResult.SUCCESS,inHand);
 		}
-		return ActionResult.newResult(EnumActionResult.FAIL,itemStackIn);
+		return ActionResult.newResult(EnumActionResult.FAIL,playerIn.getHeldItem(handIn));
 	}
 
 
@@ -106,8 +107,7 @@ public abstract class ItemMultitool extends ForceEnergyItems implements
 	}
 
 	@Override
-	public void addInformation(ItemStack itemStack, EntityPlayer player,
-			List info, boolean b) {
+	public void addInformation(ItemStack itemStack, @Nullable World worldIn, List<String> info, ITooltipFlag flagIn) {
 		String tooltip = String.format("%d FE/%d FE ",
 				getAvailablePower(itemStack), getMaximumPower(itemStack));
 		info.add(tooltip);
@@ -132,12 +132,12 @@ public abstract class ItemMultitool extends ForceEnergyItems implements
 	}
 
 	@Override
-	public void getSubItems(Item itemIn, CreativeTabs tab, List<ItemStack> subItems) {
-		super.getSubItems(itemIn, tab, subItems);
+	public void getSubItems(CreativeTabs tab, NonNullList<ItemStack> items) {
+		super.getSubItems(tab, items);
 		ItemStack charged = new ItemStack(this, 1);
 		charged.setItemDamage(1);
 		setAvailablePower(charged, getMaximumPower(null));
-		subItems.add(charged);
+		items.add(charged);
 	}
 
 }

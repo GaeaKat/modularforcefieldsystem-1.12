@@ -27,6 +27,8 @@ import com.nekokittygames.mffs.common.ForceFieldBlockStack;
 import com.nekokittygames.mffs.common.Linkgrid;
 import com.nekokittygames.mffs.common.ModularForceFieldSystem;
 import com.nekokittygames.mffs.common.WorldMap;
+import com.nekokittygames.mffs.common.block.ModBlocks;
+import com.nekokittygames.mffs.common.item.ModItems;
 import com.nekokittygames.mffs.common.tileentity.TileEntityProjector;
 import com.nekokittygames.mffs.libs.LibItemNames;
 import com.nekokittygames.mffs.libs.LibMisc;
@@ -80,14 +82,14 @@ public class ItemProjectorOptionFieldFusion extends ItemProjectorOptionBase
 				if (Projector != null) {
 					if (Projector
 							.hasOption(
-									ModularForceFieldSystem.MFFSProjectorOptionFieldFusion,
+									ModItems.OPTION_FIELD_FUSION,
 									true)) {
 						Projector.getfield_queue().remove(png);
 						ffworldmap.removebyProjector(Projector.getDeviceID());
 
 						PointXYZ ffpng = ffworldmap.getPoint();
 
-						if (world.getBlockState(ffpng.pos).getBlock() == ModularForceFieldSystem.MFFSFieldblock) {
+						if (world.getBlockState(ffpng.pos).getBlock() == ModBlocks.FORCE_FIELD) {
 							world.removeTileEntity(ffpng.pos);
 							world.setBlockState(ffpng.pos, Blocks.AIR.getDefaultState(),2);
 						}

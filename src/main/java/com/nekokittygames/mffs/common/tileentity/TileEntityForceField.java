@@ -96,7 +96,7 @@ public class TileEntityForceField extends TileEntity implements ITickable{
 
 	@Override
 	public void update() {
-		if (worldObj.isRemote == false) {
+		if (world.isRemote == false) {
 			if (this.getTicker() >= 20) {
 					UpdateTextur();
 				this.markDirty();
@@ -134,18 +134,18 @@ public class TileEntityForceField extends TileEntity implements ITickable{
 
 	public void UpdateTextur() // Serverside
 	{
-		if (worldObj.isRemote == false) {
+		if (world.isRemote == false) {
 			ForceFieldBlockStack ffworldmap = WorldMap.getForceFieldWorld(
-					worldObj).getForceFieldStackMap(
+					world).getForceFieldStackMap(
 					new PointXYZ(pos,
-							worldObj).hashCode());
+							world).hashCode());
 
 			if (ffworldmap != null) {
 				if (!ffworldmap.isEmpty())
 
 				{
 					TileEntityProjector projector = Linkgrid
-							.getWorldMap(worldObj).getProjektor()
+							.getWorldMap(world).getProjektor()
 							.get(ffworldmap.getProjectorID());
 
 					if (projector != null) {
@@ -211,13 +211,13 @@ public class TileEntityForceField extends TileEntity implements ITickable{
 	public SPacketUpdateTileEntity getUpdatePacket() {
 		NBTTagCompound comp=new NBTTagCompound();
 		writeExtraNBT(comp);
-		return new SPacketUpdateTileEntity(pos,worldObj.getBlockState(pos).getBlock().getMetaFromState(worldObj.getBlockState(pos)),comp);
+		return new SPacketUpdateTileEntity(pos,world.getBlockState(pos).getBlock().getMetaFromState(world.getBlockState(pos)),comp);
 	}
 
 	@Override
 	public void onDataPacket(NetworkManager net, SPacketUpdateTileEntity pkt) {
 		super.onDataPacket(net, pkt);
 		readExtraNBT(pkt.getNbtCompound());
-		worldObj.markBlockRangeForRenderUpdate(pos,pos);
+		world.markBlockRangeForRenderUpdate(pos,pos);
 	}
 }

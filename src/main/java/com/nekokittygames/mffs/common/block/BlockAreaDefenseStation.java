@@ -28,9 +28,7 @@ import net.minecraft.world.World;
 
 public class BlockAreaDefenseStation extends BlockMFFSBase {
 	public BlockAreaDefenseStation() {
-		super();
-		setRegistryName(LibBlockNames.AREA_DEFENSE);
-		setUnlocalizedName( LibMisc.UNLOCALIZED_PREFIX+LibBlockNames.AREA_DEFENSE);
+		super(LibBlockNames.AREA_DEFENSE);
 	}
 
 

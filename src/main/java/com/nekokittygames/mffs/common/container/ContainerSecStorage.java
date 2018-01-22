@@ -68,7 +68,7 @@ public class ContainerSecStorage extends Container {
 
 	@Override
 	public boolean canInteractWith(EntityPlayer entityplayer) {
-		return SecStorage.isUseableByPlayer(entityplayer);
+		return SecStorage.isUsableByPlayer(entityplayer);
 	}
 
 	@Override
@@ -87,7 +87,7 @@ public class ContainerSecStorage extends Container {
 					SecStorage.getSizeInventory(), false)) {
 				return null;
 			}
-			if (itemstack1.stackSize == 0) {
+			if (itemstack1.getCount() == 0) {
 				slot.putStack(null);
 			} else {
 				slot.onSlotChanged();

@@ -10,9 +10,7 @@ import net.minecraft.world.World;
 public class BlockControlSystem extends BlockMFFSBase {
 
 	public BlockControlSystem() {
-		super();
-		setUnlocalizedName( LibMisc.UNLOCALIZED_PREFIX+ LibBlockNames.CONTROL_SYSTEM);
-		setRegistryName(LibBlockNames.CONTROL_SYSTEM);
+		super(LibBlockNames.CONTROL_SYSTEM);
 	}
 
 	@Override

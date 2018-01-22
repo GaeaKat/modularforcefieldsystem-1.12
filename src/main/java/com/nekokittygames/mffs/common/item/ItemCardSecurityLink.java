@@ -79,7 +79,7 @@ public class ItemCardSecurityLink extends ItemCard {
 	public static TileEntityAdvSecurityStation getLinkedSecurityStation(
 			ISidedInventory inventiory, int slot, World world) {
 
-		if (inventiory.getStackInSlot(slot) != null) {
+		if (inventiory.getStackInSlot(slot) != ItemStack.EMPTY) {
 
 			if (inventiory.getStackInSlot(slot).getItem() instanceof ItemCardSecurityLink) {
 				ItemCardSecurityLink card = (ItemCardSecurityLink) inventiory
@@ -135,7 +135,7 @@ public class ItemCardSecurityLink extends ItemCard {
 								.setInventorySlotContents(
 										slot,
 										new ItemStack(
-												ModularForceFieldSystem.MFFSitemcardempty));
+												ModItems.EMPTY_CARD));
 				}
 			}
 		}
@@ -143,10 +143,11 @@ public class ItemCardSecurityLink extends ItemCard {
 		return null;
 	}
 
-	@Override
-	public EnumActionResult onItemUseFirst(ItemStack stack, EntityPlayer player, World world, BlockPos pos, EnumFacing side, float hitX, float hitY, float hitZ, EnumHand hand) {
-		TileEntity tileEntity = world.getTileEntity(pos);
 
+	@Override
+	public EnumActionResult onItemUseFirst(EntityPlayer player, World world, BlockPos pos, EnumFacing side, float hitX, float hitY, float hitZ, EnumHand hand) {
+		TileEntity tileEntity = world.getTileEntity(pos);
+		ItemStack stack=player.getHeldItem(hand);
 		if (!world.isRemote) {
 
 			if (tileEntity instanceof TileEntityControlSystem) {

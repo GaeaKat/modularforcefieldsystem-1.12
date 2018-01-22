@@ -17,9 +17,10 @@ public class ExtractorRenderer extends TileEntitySpecialRenderer<TileEntityExtra
         return super.isGlobalRenderer(te);
     }
 
+
     @Override
-    public void renderTileEntityAt(TileEntityExtractor te, double x, double y, double z, float partialTicks, int destroyStage) {
-        super.renderTileEntityAt(te, x, y, z, partialTicks, destroyStage);
+    public void render(TileEntityExtractor te, double x, double y, double z, float partialTicks, int destroyStage, float alpha) {
+        super.render(te, x, y, z, partialTicks, destroyStage,alpha);
         GL11.glPushMatrix();
         GL11.glPolygonOffset(-10, -10);
         GL11.glEnable(GL11.GL_POLYGON_OFFSET_FILL);

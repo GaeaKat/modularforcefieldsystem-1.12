@@ -83,22 +83,22 @@ public class ContainerCapacitor extends Container {
 			IContainerListener icrafting = (IContainerListener) listeners.get(i);
 
 			if (linketprojektor != generatorentity.getLinketProjektor()) {
-				icrafting.sendProgressBarUpdate(this, 1,
+				icrafting.sendWindowProperty(this, 1,
 						generatorentity.getLinketProjektor());
 			}
 
 			if (forcepower != generatorentity.getStorageAvailablePower()) {
-				icrafting.sendProgressBarUpdate(this, 2,
+				icrafting.sendWindowProperty(this, 2,
 						generatorentity.getStorageAvailablePower() & 0xffff);
-				icrafting.sendProgressBarUpdate(this, 3,
+				icrafting.sendWindowProperty(this, 3,
 						generatorentity.getStorageAvailablePower() >>> 16);
 			}
 			if (capacity != generatorentity.getPercentageStorageCapacity()) {
-				icrafting.sendProgressBarUpdate(this, 4,
+				icrafting.sendWindowProperty(this, 4,
 						generatorentity.getPercentageStorageCapacity());
 			}
 			if (Powerlinkmode != generatorentity.getPowerlinkmode()) {
-				icrafting.sendProgressBarUpdate(this, 6,
+				icrafting.sendWindowProperty(this, 6,
 						generatorentity.getPowerlinkmode());
 			}
 		}
@@ -138,7 +138,7 @@ public class ContainerCapacitor extends Container {
 
 	@Override
 	public boolean canInteractWith(EntityPlayer entityplayer) {
-		return generatorentity.isUseableByPlayer(entityplayer);
+		return generatorentity.isUsableByPlayer(entityplayer);
 	}
 
 	@Override
@@ -148,12 +148,12 @@ public class ContainerCapacitor extends Container {
 		if (slot != null && slot.getHasStack()) {
 			ItemStack itemstack1 = slot.getStack();
 			itemstack = itemstack1.copy();
-			if (itemstack1.stackSize == 0) {
+			if (itemstack1.getCount() == 0) {
 				slot.putStack(null);
 			} else {
 				slot.onSlotChanged();
 			}
-			if (itemstack1.stackSize != itemstack.stackSize) {
+			if (itemstack1.getCount() != itemstack.getCount()) {
 				slot.onSlotChanged();
 			} else {
 				return null;

@@ -28,6 +28,7 @@ import com.nekokittygames.mffs.libs.LibMisc;
 import com.nekokittygames.mffs.common.ModularForceFieldSystem;
 import com.nekokittygames.mffs.common.NBTTagCompoundHelper;
 import net.minecraft.client.resources.I18n;
+import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
@@ -38,9 +39,11 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.EnumActionResult;
 import net.minecraft.util.EnumHand;
+import net.minecraft.util.NonNullList;
 import net.minecraft.util.text.TextComponentTranslation;
 import net.minecraft.world.World;
 
+import javax.annotation.Nullable;
 import java.util.List;
 
 public class ItemForcicumCell extends ItemMFFSBase {
@@ -87,15 +90,15 @@ public class ItemForcicumCell extends ItemMFFSBase {
 						List<Slot> slots = ((EntityPlayer) entity).inventoryContainer.inventorySlots;
 						for (Slot slot : slots) {
 							if (slot.getStack() != null) {
-								if (slot.getStack().getItem() == ModularForceFieldSystem.MFFSitemForcicium) {
+								if (slot.getStack().getItem() == ModItems.FORCICIUM) {
 
 									setForceciumlevel(itemStack,
 											getForceciumlevel(itemStack) + 1);
 
-									if (slot.getStack().stackSize > 1) {
+									if (slot.getStack().getCount() > 1) {
 										ItemStack forcecium = new ItemStack(
-												ModularForceFieldSystem.MFFSitemForcicium,
-												slot.getStack().stackSize - 1);
+												ModItems.FORCICIUM,
+												slot.getStack().getCount() - 1);
 										slot.putStack(forcecium);
 									} else {
 
@@ -117,12 +120,12 @@ public class ItemForcicumCell extends ItemMFFSBase {
 		}
 	}
 
+
 	@Override
-	public void addInformation(ItemStack itemStack, EntityPlayer player,
-			List info, boolean b) {
-		String tooltip = String.format("%d / %d  Forcicium",
-				getForceciumlevel(itemStack), getMaxForceciumlevel());
-		info.add(tooltip);
+	public void addInformation(ItemStack stack, @Nullable World worldIn, List<String> tooltip, ITooltipFlag flagIn) {
+		String tool = String.format("%d / %d  Forcicium",
+				getForceciumlevel(stack), getMaxForceciumlevel());
+		tooltip.add(tool);
 	}
 
 	public boolean useForcecium(int count, ItemStack itemstack) {
@@ -159,27 +162,28 @@ public class ItemForcicumCell extends ItemMFFSBase {
 		return 0;
 	}
 
+
 	@Override
-	public ActionResult<ItemStack> onItemRightClick(ItemStack itemStackIn, World world, EntityPlayer playerIn, EnumHand hand) {
+	public ActionResult<ItemStack> onItemRightClick(World world, EntityPlayer playerIn, EnumHand handIn) {
 		if (world.isRemote == false) {
 			if (!aktiv) {
 				aktiv = true;
-				playerIn.addChatMessage(new TextComponentTranslation("itemInfo" +
+				playerIn.sendMessage(new TextComponentTranslation("itemInfo" +
 						".forciciumCellActive"));
 			} else {
 				aktiv = false;
-				playerIn.addChatMessage(new TextComponentTranslation("itemInfo" +
+				playerIn.sendMessage(new TextComponentTranslation("itemInfo" +
 						".forciciumCellInactive"));
 			}
 
 		}
-		return ActionResult.newResult(EnumActionResult.SUCCESS,itemStackIn);
+		return ActionResult.newResult(EnumActionResult.SUCCESS,playerIn.getHeldItem(handIn));
 	}
 
 
 
 	@Override
-	public void getSubItems(Item itemIn, CreativeTabs tab, List<ItemStack> subItems) {
+	public void getSubItems(CreativeTabs tab, NonNullList<ItemStack> subItems) {
 		ItemStack charged = new ItemStack(this, 1);
 		charged.setItemDamage(1);
 		setForceciumlevel(charged, getMaxForceciumlevel());

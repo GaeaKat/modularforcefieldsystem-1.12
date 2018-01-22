@@ -12,9 +12,10 @@ import org.lwjgl.opengl.GL11;
 public class CapacitorRenderer extends TileEntitySpecialRenderer<TileEntityCapacitor> {
 
 
+
     @Override
-    public void renderTileEntityAt(TileEntityCapacitor te, double x, double y, double z, float partialTicks, int destroyStage) {
-        super.renderTileEntityAt(te, x, y, z, partialTicks, destroyStage);
+    public void render(TileEntityCapacitor te, double x, double y, double z, float partialTicks, int destroyStage, float alpha) {
+        super.render(te, x, y, z, partialTicks, destroyStage, alpha);
         GL11.glPushMatrix();
         GL11.glPolygonOffset(-10, -10);
         GL11.glEnable(GL11.GL_POLYGON_OFFSET_FILL);

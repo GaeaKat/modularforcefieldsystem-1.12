@@ -28,12 +28,16 @@ import com.nekokittygames.mffs.common.NBTTagCompoundHelper;
 import com.nekokittygames.mffs.common.tileentity.TileEntityMachines;
 import com.nekokittygames.mffs.libs.LibItemNames;
 import com.nekokittygames.mffs.libs.LibMisc;
+import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.util.NonNullList;
 import net.minecraft.world.World;
+
+import javax.annotation.Nullable;
 
 public class ItemForcePowerCrystal extends ItemMFFSBase implements
 		IPowerLinkItem, IForceEnergyItems {
@@ -80,8 +84,7 @@ public class ItemForcePowerCrystal extends ItemMFFSBase implements
 	}
 
 	@Override
-	public void addInformation(ItemStack itemStack, EntityPlayer player,
-			List info, boolean b) {
+	public void addInformation(ItemStack itemStack, @Nullable World worldIn, List<String> info, ITooltipFlag flagIn) {
 		String tooltip = String.format("%d FE/%d FE ",
 				getAvailablePower(itemStack, null, null),
 				getMaximumPower(itemStack));
@@ -89,8 +92,9 @@ public class ItemForcePowerCrystal extends ItemMFFSBase implements
 	}
 
 
+
 	@Override
-	public void getSubItems(Item itemIn, CreativeTabs tab, List<ItemStack> subItems) {
+	public void getSubItems(CreativeTabs tab, NonNullList<ItemStack> subItems) {
 		ItemStack charged = new ItemStack(this, 1);
 		charged.setItemDamage(1);
 		setAvailablePower(charged, getMaximumPower(null));

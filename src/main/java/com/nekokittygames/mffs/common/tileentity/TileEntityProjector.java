@@ -25,11 +25,9 @@ import com.nekokittygames.mffs.api.PointXYZ;
 import com.nekokittygames.mffs.common.*;
 import com.nekokittygames.mffs.common.block.BlockForceField;
 import com.nekokittygames.mffs.common.block.BlockProjector;
+import com.nekokittygames.mffs.common.block.ModBlocks;
 import com.nekokittygames.mffs.common.container.ContainerProjector;
-import com.nekokittygames.mffs.common.item.ItemCardSecurityLink;
-import com.nekokittygames.mffs.common.item.ItemProjectorFieldModulatorDistance;
-import com.nekokittygames.mffs.common.item.ItemProjectorFieldModulatorStrength;
-import com.nekokittygames.mffs.common.item.ItemProjectorFocusMatrix;
+import com.nekokittygames.mffs.common.item.*;
 import com.nekokittygames.mffs.common.modules.Module3DBase;
 import com.nekokittygames.mffs.common.modules.ModuleBase;
 import com.nekokittygames.mffs.common.options.*;
@@ -139,8 +137,8 @@ public class TileEntityProjector extends TileEntityFEPoweredMachine implements
 
 	public void setProjektor_Typ(int ProjektorTyp) {
 		this.ProjektorTyp = ProjektorTyp;
-		worldObj.setBlockState(pos,worldObj.getBlockState(pos).withProperty(BlockProjector.FIELD_TYPE,ProjektorTyp));
-		worldObj.markBlockRangeForRenderUpdate(pos,pos);
+		world.setBlockState(pos,world.getBlockState(pos).withProperty(BlockProjector.FIELD_TYPE,ProjektorTyp));
+		world.markBlockRangeForRenderUpdate(pos,pos);
 
 
 	}
@@ -203,8 +201,7 @@ public class TileEntityProjector extends TileEntityFEPoweredMachine implements
 					.getCompoundTagAt(i);
 			byte byte0 = nbttagcompound1.getByte("Slot");
 			if (byte0 >= 0 && byte0 < ProjektorItemStacks.length) {
-				ProjektorItemStacks[byte0] = ItemStack
-						.loadItemStackFromNBT(nbttagcompound1);
+				ProjektorItemStacks[byte0] = new ItemStack(nbttagcompound1);
 			}
 		}
 	}
@@ -267,14 +264,14 @@ public class TileEntityProjector extends TileEntityFEPoweredMachine implements
 			if (getforcefieldblock_meta() != get_type().getForceFieldTyps())
 				setforcefieldblock_meta(get_type().getForceFieldTyps());
 
-			worldObj.notifyBlockUpdate(pos, worldObj.getBlockState(pos), worldObj.getBlockState(pos), 2);
-			worldObj.markBlockRangeForRenderUpdate(pos,pos);
+			world.notifyBlockUpdate(pos, world.getBlockState(pos), world.getBlockState(pos), 2);
+			world.markBlockRangeForRenderUpdate(pos,pos);
 
 		} else {
 			if (getProjektor_Typ() != 0) {
 				setProjektor_Typ(0);
 			}
-			worldObj.notifyBlockUpdate(pos, worldObj.getBlockState(pos), worldObj.getBlockState(pos), 2);
+			world.notifyBlockUpdate(pos, world.getBlockState(pos), world.getBlockState(pos), 2);
 		}
 
 		// Focus function
@@ -282,16 +279,16 @@ public class TileEntityProjector extends TileEntityFEPoweredMachine implements
 		if (hasValidTypeMod()) {
 			for (int place = 7; place < 11; place++) {
 				if (getStackInSlot(place) != null) {
-					if (getStackInSlot(place).getItem() == ModularForceFieldSystem.MFFSitemFocusmatix) {
+					if (getStackInSlot(place).getItem() == ModItems.PROJECTOR_FOCUS_MATRIX) {
 						switch (ProjectorTyp.TypfromItem(get_type()).ProTyp) {
 							case 6:
-								focusmatrix[place - 7] = getStackInSlot(place).stackSize + 1;
+								focusmatrix[place - 7] = getStackInSlot(place).getCount()+ 1;
 								break;
 							case 7:
-								focusmatrix[place - 7] = getStackInSlot(place).stackSize + 2;
+								focusmatrix[place - 7] = getStackInSlot(place).getCount()+ 2;
 								break;
 							default:
-								focusmatrix[place - 7] = getStackInSlot(place).stackSize;
+								focusmatrix[place - 7] = getStackInSlot(place).getCount();
 								break;
 						}
 					} else {
@@ -331,45 +328,45 @@ public class TileEntityProjector extends TileEntityFEPoweredMachine implements
 			}
 		}
 
-		if (hasOption(ModularForceFieldSystem.MFFSProjectorOptionCamouflage,
+		if (hasOption(ModItems.OPTION_CAMOFLAGE,
 				true))
 			if (getforcefieldblock_meta() != ForceFieldTyps.Camouflage) {
 				setforcefieldblock_meta(ForceFieldTyps.Camouflage);
 			}
-		if (hasOption(ModularForceFieldSystem.MFFSProjectorOptionLight,
+		if (hasOption(ModItems.OPTION_LIGHT,
 				true))
 			if (getforcefieldblock_meta() != ForceFieldTyps.Light) {
 				setforcefieldblock_meta(ForceFieldTyps.Light);
 			}
-		if (hasOption(ModularForceFieldSystem.MFFSProjectorOptionZapper, true))
+		if (hasOption(ModItems.OPTION_TOUCH_DAMAGE, true))
 			if (getforcefieldblock_meta() != ForceFieldTyps.Zapper) {
 				setforcefieldblock_meta(ForceFieldTyps.Zapper);
 			}
 
-		if (hasOption(ModularForceFieldSystem.MFFSProjectorOptionFieldFusion,
+		if (hasOption(ModItems.OPTION_FIELD_FUSION,
 				true)) {
-			if (!Linkgrid.getWorldMap(worldObj).getFieldFusion()
+			if (!Linkgrid.getWorldMap(world).getFieldFusion()
 					.containsKey(getDeviceID()))
-				Linkgrid.getWorldMap(worldObj).getFieldFusion()
+				Linkgrid.getWorldMap(world).getFieldFusion()
 						.put(getDeviceID(), this);
 		} else {
-			if (Linkgrid.getWorldMap(worldObj).getFieldFusion()
+			if (Linkgrid.getWorldMap(world).getFieldFusion()
 					.containsKey(getDeviceID()))
-				Linkgrid.getWorldMap(worldObj).getFieldFusion()
+				Linkgrid.getWorldMap(world).getFieldFusion()
 						.remove(getDeviceID());
 		}
 
 		if (hasOption(
-				ModularForceFieldSystem.MFFSProjectorOptionForceFieldJammer,
+				ModItems.OPTION_FIELD_JAMMER,
 				false)) {
-			if (!Linkgrid.getWorldMap(worldObj).getJammer()
+			if (!Linkgrid.getWorldMap(world).getJammer()
 					.containsKey(getDeviceID()))
-				Linkgrid.getWorldMap(worldObj).getJammer()
+				Linkgrid.getWorldMap(world).getJammer()
 						.put(getDeviceID(), this);
 		} else {
-			if (Linkgrid.getWorldMap(worldObj).getJammer()
+			if (Linkgrid.getWorldMap(world).getJammer()
 					.containsKey(getDeviceID()))
-				Linkgrid.getWorldMap(worldObj).getJammer()
+				Linkgrid.getWorldMap(world).getJammer()
 						.remove(getDeviceID());
 		}
 
@@ -426,7 +423,7 @@ public class TileEntityProjector extends TileEntityFEPoweredMachine implements
 
 			if (!this
 					.hasOption(
-							ModularForceFieldSystem.MFFSProjectorOptionCamouflage,
+							ModItems.OPTION_CAMOFLAGE,
 							true))
 				dropplugins(11, this);
 
@@ -440,13 +437,13 @@ public class TileEntityProjector extends TileEntityFEPoweredMachine implements
 	private void UpdateForcefieldTexttur() {
 		if (this.isActive()
 				&& this.hasOption(
-						ModularForceFieldSystem.MFFSProjectorOptionCamouflage,
+						ModItems.OPTION_CAMOFLAGE,
 						true)) {
 			for (PointXYZ png : field_def) {
 
-				if (worldObj.getChunkFromBlockCoords(png.pos).isLoaded()) {
+				if (world.getChunkFromBlockCoords(png.pos).isLoaded()) {
 
-					TileEntity tileEntity = worldObj.getTileEntity(png.pos);
+					TileEntity tileEntity = world.getTileEntity(png.pos);
 
 					if (tileEntity != null
 							&& tileEntity instanceof TileEntityForceField) {
@@ -462,7 +459,7 @@ public class TileEntityProjector extends TileEntityFEPoweredMachine implements
 
 	@Override
 	public void update() {
-		if (worldObj.isRemote == false) {
+		if (!world.isRemote) {
 
 			if (init) {
 				checkslots();
@@ -503,7 +500,7 @@ public class TileEntityProjector extends TileEntityFEPoweredMachine implements
 					} catch (ArrayIndexOutOfBoundsException ex) {
 						System.out.println("Found.");
 					}
-					worldObj.notifyBlockUpdate(pos,worldObj.getBlockState(pos),worldObj.getBlockState(pos),3);
+					world.notifyBlockUpdate(pos,world.getBlockState(pos),world.getBlockState(pos),3);
 				}
 			}
 			if ((!getSwitchValue() && switchdelay >= 40) || !hasValidTypeMod()
@@ -513,7 +510,7 @@ public class TileEntityProjector extends TileEntityFEPoweredMachine implements
 					setActive(false);
 					switchdelay = 0;
 					destroyField();
-					worldObj.notifyBlockUpdate(pos,worldObj.getBlockState(pos),worldObj.getBlockState(pos),3);
+					world.notifyBlockUpdate(pos,world.getBlockState(pos),world.getBlockState(pos),3);
 				}
 			}
 
@@ -523,16 +520,16 @@ public class TileEntityProjector extends TileEntityFEPoweredMachine implements
 					FieldGenerate(false);
 
 					if (hasOption(
-							ModularForceFieldSystem.MFFSProjectorOptionMoobEx,
+							ModItems.OPTION_MOB_DEFENCE,
 							true))
 						ItemProjectorOptionMobDefence.ProjectorNPCDefence(this,
-								worldObj);
+								world);
 
 					if (hasOption(
-							ModularForceFieldSystem.MFFSProjectorOptionDefenceStation,
+							ModItems.OPTION_DEFENSE_STATION,
 							true))
 						ItemProjectorOptionDefenseStation
-								.ProjectorPlayerDefence(this, worldObj);
+								.ProjectorPlayerDefence(this, world);
 
 				}
 
@@ -568,7 +565,7 @@ public class TileEntityProjector extends TileEntityFEPoweredMachine implements
 			for (PointXYZ pnt : tField) {
 
 				if (pnt.pos.getY() + this.pos.getY()< 255) {
-					PointXYZ tp = new PointXYZ(pnt.pos.add(this.pos), worldObj);
+					PointXYZ tp = new PointXYZ(pnt.pos.add(this.pos), world);
 
 					if (Forcefielddefine(tp, addtoMap)) {
 						field_def.add(tp);
@@ -580,7 +577,7 @@ public class TileEntityProjector extends TileEntityFEPoweredMachine implements
 			for (PointXYZ pnt : tFieldInt) {
 
 				if (pnt.pos.getY() + this.pos.getY()< 255) {
-					PointXYZ tp = new PointXYZ(this.pos.add(pnt.pos), worldObj);
+					PointXYZ tp = new PointXYZ(this.pos.add(pnt.pos), world);
 
 					if (calculateBlock(tp)) {
 						field_interior.add(tp);
@@ -599,7 +596,7 @@ public class TileEntityProjector extends TileEntityFEPoweredMachine implements
 
 		for (ItemProjectorOptionBase opt : getOptions(true)) {
 			if (opt instanceof IInteriorCheck)
-				((IInteriorCheck) opt).checkInteriorBlock(pnt, worldObj, this);
+				((IInteriorCheck) opt).checkInteriorBlock(pnt, world, this);
 
 		}
 		return true;
@@ -611,20 +608,20 @@ public class TileEntityProjector extends TileEntityFEPoweredMachine implements
 
 			if (opt instanceof ItemProjectorOptionForceFieldJammer) {
 				if (((ItemProjectorOptionForceFieldJammer) opt)
-						.CheckJammerinfluence(png, worldObj, this))
+						.CheckJammerinfluence(png, world, this))
 					return false;
 			}
 
 			if (opt instanceof ItemProjectorOptionFieldFusion) {
 				if (((ItemProjectorOptionFieldFusion) opt)
-						.checkFieldFusioninfluence(png, worldObj, this))
+						.checkFieldFusioninfluence(png, world, this))
 					return true;
 			}
 
 		}
 
-		ForceFieldBlockStack ffworldmap = WorldMap.getForceFieldWorld(worldObj)
-				.getorcreateFFStackMap(png.pos, worldObj);
+		ForceFieldBlockStack ffworldmap = WorldMap.getForceFieldWorld(world)
+				.getorcreateFFStackMap(png.pos, world);
 
 		if (!ffworldmap.isEmpty()) {
 			if (ffworldmap.getProjectorID() != getDeviceID()) {
@@ -667,7 +664,7 @@ public class TileEntityProjector extends TileEntityFEPoweredMachine implements
 			if (blockcounter >= ModularForceFieldSystem.forceFieldMaxBlocksPerTick) {
 				break;
 			}
-			ForceFieldBlockStack ffb = WorldMap.getForceFieldWorld(worldObj)
+			ForceFieldBlockStack ffb = WorldMap.getForceFieldWorld(world)
 					.getForceFieldStackMap(pnt.hashCode());
 
 			if (ffb != null) {
@@ -677,32 +674,32 @@ public class TileEntityProjector extends TileEntityFEPoweredMachine implements
 
 				PointXYZ png = ffb.getPoint();
 
-				if (worldObj.getChunkFromBlockCoords(png.pos).isLoaded()) {
+				if (world.getChunkFromBlockCoords(png.pos).isLoaded()) {
 					if (!ffb.isEmpty()) {
 						if (ffb.getProjectorID() == getDeviceID()) {
 							if (hasOption(
-									ModularForceFieldSystem.MFFSProjectorOptionCutter,
+									ModItems.OPTION_BLOCK_BREAKER,
 									true)) {
-								IBlockState blockState = worldObj.getBlockState(png.pos);
-								TileEntity entity = worldObj
+								IBlockState blockState = world.getBlockState(png.pos);
+								TileEntity entity = world
 										.getTileEntity(png.pos);
 
-								if (blockState.getBlock() != ModularForceFieldSystem.MFFSFieldblock
+								if (blockState.getBlock() != ModBlocks.FORCE_FIELD
 										&& blockState.getBlock() != Blocks.AIR
 										&& blockState.getBlock() != Blocks.BEDROCK
 										&& entity == null)
 
 								{
 									List<ItemStack> stacks = Functions
-											.getItemStackFromBlock(worldObj,
+											.getItemStackFromBlock(world,
 													png.pos);
-									worldObj.setBlockToAir(png.pos);
+									world.setBlockToAir(png.pos);
 
 									if (ProjectorTyp.TypfromItem(get_type()).Blockdropper
 											&& stacks != null) {
 										IInventory inventory = InventoryHelper
 												.findAttachedInventory(
-														worldObj, pos);
+														world, pos);
 										if (inventory != null) {
 											if (inventory.getSizeInventory() > 0) {
 												InventoryHelper
@@ -715,19 +712,19 @@ public class TileEntityProjector extends TileEntityFEPoweredMachine implements
 								}
 							}
 
-							if (worldObj.getBlockState(png.pos).getMaterial()
+							if (world.getBlockState(png.pos).getMaterial()
 									.isLiquid()
-									|| worldObj.isAirBlock(png.pos)
-									|| worldObj.getBlockState(png.pos).getBlock() == ModularForceFieldSystem.MFFSFieldblock) {
-								if (worldObj.getBlockState(png.pos).getBlock() != ModularForceFieldSystem.MFFSFieldblock) {
-									worldObj.setBlockState(
+									|| world.isAirBlock(png.pos)
+									|| world.getBlockState(png.pos).getBlock() == ModBlocks.FORCE_FIELD) {
+								if (world.getBlockState(png.pos).getBlock() != ModBlocks.FORCE_FIELD) {
+									world.setBlockState(
 											png.pos,
-											ModularForceFieldSystem.MFFSFieldblock.getDefaultState().withProperty(BlockForceField.FORCEFIELD_TYPE,ffb.getTyp()), 3);
+											ModBlocks.FORCE_FIELD.getDefaultState().withProperty(BlockForceField.FORCEFIELD_TYPE,ffb.getTyp()), 3);
 									if(ffb.getTyp()==ForceFieldTyps.Camouflage)
 									{
-										((TileEntityForceField)worldObj.getTileEntity(png.pos)).setForcefieldCamoblockid(getForcefieldCamoblock());
-										((TileEntityForceField)worldObj.getTileEntity(png.pos)).setForcefieldCamoblockmeta(getForcefieldCamoblockMeta());
-                                        worldObj.getTileEntity(png.pos).markDirty();
+										((TileEntityForceField)world.getTileEntity(png.pos)).setForcefieldCamoblockid(getForcefieldCamoblock());
+										((TileEntityForceField)world.getTileEntity(png.pos)).setForcefieldCamoblockmeta(getForcefieldCamoblockMeta());
+                                        world.getTileEntity(png.pos).markDirty();
 
 
 									}
@@ -746,7 +743,7 @@ public class TileEntityProjector extends TileEntityFEPoweredMachine implements
 	public void destroyField() {
 		while (!field_queue.isEmpty()) {
 			ForceFieldBlockStack ffworldmap = WorldMap.getForceFieldWorld(
-					worldObj).getForceFieldStackMap(field_queue.pop());
+					world).getForceFieldStackMap(field_queue.pop());
 
 			if (!ffworldmap.isEmpty()) {
 				if (ffworldmap.getProjectorID() == getDeviceID()) {
@@ -754,9 +751,9 @@ public class TileEntityProjector extends TileEntityFEPoweredMachine implements
 
 					if (ffworldmap.isSync()) {
 						PointXYZ png = ffworldmap.getPoint();
-						worldObj.removeTileEntity(png.pos);
-						worldObj.setBlockToAir(png.pos);
-						// worldObj.setBlockWithNotify(png.X,png.Y,png.Z, 0);
+						world.removeTileEntity(png.pos);
+						world.setBlockToAir(png.pos);
+						// world.setBlockWithNotify(png.X,png.Y,png.Z, 0);
 					}
 
 					ffworldmap.setSync(false);
@@ -767,7 +764,7 @@ public class TileEntityProjector extends TileEntityFEPoweredMachine implements
 		}
 
 		Map<Integer, TileEntityProjector> FieldFusion = Linkgrid.getWorldMap(
-				worldObj).getFieldFusion();
+				world).getFieldFusion();
 		for (TileEntityProjector tileentity : FieldFusion.values()) {
 
 			if (tileentity.getPowerSourceID() == this.getPowerSourceID()) {
@@ -780,7 +777,7 @@ public class TileEntityProjector extends TileEntityFEPoweredMachine implements
 
 	@Override
 	public void invalidate() {
-		Linkgrid.getWorldMap(worldObj).getProjektor().remove(getDeviceID());
+		Linkgrid.getWorldMap(world).getProjektor().remove(getDeviceID());
 		destroyField();
 		super.invalidate();
 	}
@@ -835,13 +832,13 @@ public class TileEntityProjector extends TileEntityFEPoweredMachine implements
 	@Override
 	public ItemStack decrStackSize(int i, int j) {
 		if (ProjektorItemStacks[i] != null) {
-			if (ProjektorItemStacks[i].stackSize <= j) {
+			if (ProjektorItemStacks[i].getCount() <= j) {
 				ItemStack itemstack = ProjektorItemStacks[i];
 				ProjektorItemStacks[i] = null;
 				return itemstack;
 			}
 			ItemStack itemstack1 = ProjektorItemStacks[i].splitStack(j);
-			if (ProjektorItemStacks[i].stackSize == 0) {
+			if (ProjektorItemStacks[i].getCount() == 0) {
 				ProjektorItemStacks[i] = null;
 			}
 			return itemstack1;
@@ -853,8 +850,8 @@ public class TileEntityProjector extends TileEntityFEPoweredMachine implements
 	@Override
 	public void setInventorySlotContents(int i, ItemStack itemstack) {
 		ProjektorItemStacks[i] = itemstack;
-		if (itemstack != null && itemstack.stackSize > getInventoryStackLimit()) {
-			itemstack.stackSize = getInventoryStackLimit();
+		if (itemstack.getCount() > getInventoryStackLimit()) {
+			itemstack.setCount(getInventoryStackLimit());
 		}
 	}
 
@@ -936,7 +933,7 @@ public class TileEntityProjector extends TileEntityFEPoweredMachine implements
 			return true;
 		if (Slot == 11
 				&& this.hasOption(
-						ModularForceFieldSystem.MFFSProjectorOptionCamouflage,
+						ModItems.OPTION_CAMOFLAGE,
 						true))
 			return par1ItemStack.getItem() instanceof ItemBlock;
 
@@ -1070,7 +1067,7 @@ public class TileEntityProjector extends TileEntityFEPoweredMachine implements
 	@Override
 	public TileEntityAdvSecurityStation getLinkedSecurityStation() {
 		TileEntityAdvSecurityStation sec = ItemCardSecurityLink
-				.getLinkedSecurityStation(this, 12, worldObj);
+				.getLinkedSecurityStation(this, 12, world);
 		if (sec != null) {
 			if (this.getaccesstyp() != 3 && !isPowersourceItem())
 				this.setaccesstyp(3);
@@ -1148,7 +1145,7 @@ public class TileEntityProjector extends TileEntityFEPoweredMachine implements
 
 	@Override
 	public World getWorldObj() {
-		return worldObj;
+		return world;
 	}
 
 	@Override

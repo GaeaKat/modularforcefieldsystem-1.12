@@ -37,7 +37,7 @@ public abstract class TileEntityFEPoweredMachine extends TileEntityMachines {
 		ItemStack linkCard = getPowerLinkStack();
 		if (hasPowerSource()) {
 			return ((IPowerLinkItem) linkCard.getItem()).getPercentageCapacity(
-					linkCard, this, worldObj);
+					linkCard, this, world);
 		}
 		return 0;
 	}
@@ -54,7 +54,7 @@ public abstract class TileEntityFEPoweredMachine extends TileEntityMachines {
 		ItemStack linkCard = getPowerLinkStack();
 		if (hasPowerSource()) {
 			return ((IPowerLinkItem) linkCard.getItem()).getAvailablePower(
-					linkCard, this, worldObj);
+					linkCard, this, world);
 		}
 		return 0;
 	}
@@ -64,7 +64,7 @@ public abstract class TileEntityFEPoweredMachine extends TileEntityMachines {
 		ItemStack linkCard = getPowerLinkStack();
 		if (hasPowerSource()) {
 			return ((IPowerLinkItem) linkCard.getItem()).getPowersourceID(
-					linkCard, this, worldObj);
+					linkCard, this, world);
 		}
 		return 0;
 	}
@@ -73,7 +73,7 @@ public abstract class TileEntityFEPoweredMachine extends TileEntityMachines {
 		ItemStack linkCard = getPowerLinkStack();
 		if (hasPowerSource()) {
 			return ((IPowerLinkItem) linkCard.getItem()).getMaximumPower(
-					linkCard, this, worldObj);
+					linkCard, this, world);
 		}
 		return 0;
 	}
@@ -82,7 +82,7 @@ public abstract class TileEntityFEPoweredMachine extends TileEntityMachines {
 		ItemStack linkCard = getPowerLinkStack();
 		if (hasPowerSource()) {
 			return ((IPowerLinkItem) linkCard.getItem()).consumePower(linkCard,
-					powerAmount, simulation, this, worldObj);
+					powerAmount, simulation, this, world);
 		}
 		return false;
 	}
@@ -91,7 +91,7 @@ public abstract class TileEntityFEPoweredMachine extends TileEntityMachines {
 		ItemStack linkCard = getPowerLinkStack();
 		if (hasPowerSource()) {
 			return ((IPowerLinkItem) linkCard.getItem()).insertPower(linkCard,
-					powerAmount, simulation, this, worldObj);
+					powerAmount, simulation, this, world);
 		}
 		return false;
 	}
