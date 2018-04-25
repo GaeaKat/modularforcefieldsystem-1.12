@@ -2,12 +2,12 @@
   "forge_marker": 1,
   "defaults": {
     "textures": {
-      "inactiveSide": "modularforcefieldsystem:blocks/projector/Empty/side_inactive",
-      "inactiveTop": "modularforcefieldsystem:blocks/projector/Empty/side_inactive",
-      "inactiveFace": "modularforcefieldsystem:blocks/projector/Empty/face_inactive",
-      "activeSide": "modularforcefieldsystem:blocks/projector/Empty/side_active",
-      "activeTop": "modularforcefieldsystem:blocks/projector/Empty/side_active",
-      "activeFace": "modularforcefieldsystem:blocks/projector/Empty/face_active",
+      "inactiveSide": "modularforcefieldsystem:blocks/projector/empty/side_inactive",
+      "inactiveTop": "modularforcefieldsystem:blocks/projector/empty/side_inactive",
+      "inactiveFace": "modularforcefieldsystem:blocks/projector/empty/face_inactive",
+      "activeSide": "modularforcefieldsystem:blocks/projector/empty/side_active",
+      "activeTop": "modularforcefieldsystem:blocks/projector/empty/side_active",
+      "activeFace": "modularforcefieldsystem:blocks/projector/empty/face_active",
       "north": "#inactiveSide",
       "south": "#inactiveSide",
       "east": "#inactiveSide",
@@ -24,106 +24,106 @@
     {
       "0": {
         "textures": {
-          "activeSide": "modularforcefieldsystem:blocks/projector/Empty/side_active",
-          "inactiveSide": "modularforcefieldsystem:blocks/projector/Empty/side_inactive",
-          "activeTop": "modularforcefieldsystem:blocks/projector/Empty/side_active",
-          "inactiveTop": "modularforcefieldsystem:blocks/projector/Empty/side_inactive",
-          "activeFace": "modularforcefieldsystem:blocks/projector/Empty/face_active",
-          "inactiveFace": "modularforcefieldsystem:blocks/projector/Empty/face_inactive"
+          "activeSide": "modularforcefieldsystem:blocks/projector/empty/side_active",
+          "inactiveSide": "modularforcefieldsystem:blocks/projector/empty/side_inactive",
+          "activeTop": "modularforcefieldsystem:blocks/projector/empty/side_active",
+          "inactiveTop": "modularforcefieldsystem:blocks/projector/empty/side_inactive",
+          "activeFace": "modularforcefieldsystem:blocks/projector/empty/face_active",
+          "inactiveFace": "modularforcefieldsystem:blocks/projector/empty/face_inactive"
         }
       },
       "1":
       {
         "textures": {
-          "activeSide": "modularforcefieldsystem:blocks/projector/Wall/side_active",
-          "inactiveSide": "modularforcefieldsystem:blocks/projector/Wall/side_inactive",
-          "activeTop": "modularforcefieldsystem:blocks/projector/Wall/side_active",
-          "inactiveTop": "modularforcefieldsystem:blocks/projector/Wall/side_inactive",
-          "activeFace": "modularforcefieldsystem:blocks/projector/Wall/face_active",
-          "inactiveFace": "modularforcefieldsystem:blocks/projector/Walls/face_inactive"
+          "activeSide": "modularforcefieldsystem:blocks/projector/wall/side_active",
+          "inactiveSide": "modularforcefieldsystem:blocks/projector/wall/side_inactive",
+          "activeTop": "modularforcefieldsystem:blocks/projector/wall/side_active",
+          "inactiveTop": "modularforcefieldsystem:blocks/projector/wall/side_inactive",
+          "activeFace": "modularforcefieldsystem:blocks/projector/wall/face_active",
+          "inactiveFace": "modularforcefieldsystem:blocks/projector/wall/face_inactive"
         }
       }
     ,
       "2":
       {
         "textures": {
-          "activeSide": "modularforcefieldsystem:blocks/projector/Tube/side_active",
-          "inactiveSide": "modularforcefieldsystem:blocks/projector/Tube/side_inactive",
-          "activeTop": "modularforcefieldsystem:blocks/projector/Tube/side_active",
-          "inactiveTop": "modularforcefieldsystem:blocks/projector/Tube/side_inactive",
-          "activeFace": "modularforcefieldsystem:blocks/projector/Tube/face_active",
-          "inactiveFace": "modularforcefieldsystem:blocks/projector/Tube/face_inactive"
+          "activeSide": "modularforcefieldsystem:blocks/projector/tube/side_active",
+          "inactiveSide": "modularforcefieldsystem:blocks/projector/tube/side_inactive",
+          "activeTop": "modularforcefieldsystem:blocks/projector/tube/side_active",
+          "inactiveTop": "modularforcefieldsystem:blocks/projector/tube/side_inactive",
+          "activeFace": "modularforcefieldsystem:blocks/projector/tube/face_active",
+          "inactiveFace": "modularforcefieldsystem:blocks/projector/tube/face_inactive"
         }
       }
     ,
       "3":
       {
         "textures": {
-          "activeSide": "modularforcefieldsystem:blocks/projector/Sphere/side_active",
-          "inactiveSide": "modularforcefieldsystem:blocks/projector/Sphere/side_inactive",
-          "activeTop": "modularforcefieldsystem:blocks/projector/Sphere/side_active",
-          "inactiveTop": "modularforcefieldsystem:blocks/projector/Sphere/side_inactive",
-          "activeFace": "modularforcefieldsystem:blocks/projector/Sphere/face_active",
-          "inactiveFace": "modularforcefieldsystem:blocks/projector/Sphere/face_inactive"
+          "activeSide": "modularforcefieldsystem:blocks/projector/sphere/side_active",
+          "inactiveSide": "modularforcefieldsystem:blocks/projector/sphere/side_inactive",
+          "activeTop": "modularforcefieldsystem:blocks/projector/sphere/side_active",
+          "inactiveTop": "modularforcefieldsystem:blocks/projector/sphere/side_inactive",
+          "activeFace": "modularforcefieldsystem:blocks/projector/sphere/face_active",
+          "inactiveFace": "modularforcefieldsystem:blocks/projector/sphere/face_inactive"
         }
       }
     ,
       "4":
       {
         "textures": {
-          "activeSide": "modularforcefieldsystem:blocks/projector/DiagWall/side_active",
-          "inactiveSide": "modularforcefieldsystem:blocks/projector/DiagWall/side_inactive",
-          "activeTop": "modularforcefieldsystem:blocks/projector/DiagWall/side_active",
-          "inactiveTop": "modularforcefieldsystem:blocks/projector/DiagWall/side_inactive",
-          "activeFace": "modularforcefieldsystem:blocks/projector/DiagWall/face_active",
-          "inactiveFace": "modularforcefieldsystem:blocks/projector/DiagWalls/face_inactive"
+          "activeSide": "modularforcefieldsystem:blocks/projector/diag_wall/side_active",
+          "inactiveSide": "modularforcefieldsystem:blocks/projector/diag_wall/side_inactive",
+          "activeTop": "modularforcefieldsystem:blocks/projector/diag_wall/side_active",
+          "inactiveTop": "modularforcefieldsystem:blocks/projector/diag_wall/side_inactive",
+          "activeFace": "modularforcefieldsystem:blocks/projector/diag_wall/face_active",
+          "inactiveFace": "modularforcefieldsystem:blocks/projector/diag_wall/face_inactive"
         }
       }
     ,
       "5":
       {
         "textures": {
-          "activeSide": "modularforcefieldsystem:blocks/projector/Deflector/side_active",
-          "inactiveSide": "modularforcefieldsystem:blocks/projector/Deflector/side_inactive",
-          "activeTop": "modularforcefieldsystem:blocks/projector/Deflector/side_active",
-          "inactiveTop": "modularforcefieldsystem:blocks/projector/Deflector/side_inactive",
-          "activeFace": "modularforcefieldsystem:blocks/projector/Deflector/face_active",
-          "inactiveFace": "modularforcefieldsystem:blocks/projector/Deflector/face_inactive"
+          "activeSide": "modularforcefieldsystem:blocks/projector/deflector/side_active",
+          "inactiveSide": "modularforcefieldsystem:blocks/projector/deflector/side_inactive",
+          "activeTop": "modularforcefieldsystem:blocks/projector/deflector/side_active",
+          "inactiveTop": "modularforcefieldsystem:blocks/projector/deflector/side_inactive",
+          "activeFace": "modularforcefieldsystem:blocks/projector/deflector/face_active",
+          "inactiveFace": "modularforcefieldsystem:blocks/projector/deflector/face_inactive"
         }
       }
     ,
       "6": {
         "textures": {
-          "activeSide": "modularforcefieldsystem:blocks/projector/Cube/side_active",
-          "inactiveSide": "modularforcefieldsystem:blocks/projector/Cube/side_inactive",
-          "activeTop": "modularforcefieldsystem:blocks/projector/Cube/side_active",
-          "inactiveTop": "modularforcefieldsystem:blocks/projector/Cube/side_inactive",
-          "activeFace": "modularforcefieldsystem:blocks/projector/Cube/face_active",
-          "inactiveFace": "modularforcefieldsystem:blocks/projector/Cube/face_inactive"
+          "activeSide": "modularforcefieldsystem:blocks/projector/cube/side_active",
+          "inactiveSide": "modularforcefieldsystem:blocks/projector/cube/side_inactive",
+          "activeTop": "modularforcefieldsystem:blocks/projector/cube/side_active",
+          "inactiveTop": "modularforcefieldsystem:blocks/projector/cube/side_inactive",
+          "activeFace": "modularforcefieldsystem:blocks/projector/cube/face_active",
+          "inactiveFace": "modularforcefieldsystem:blocks/projector/cube/face_inactive"
         }
       }
     ,
       "7":
       {
         "textures": {
-          "activeSide": "modularforcefieldsystem:blocks/projector/Containment/side_active",
-          "inactiveSide": "modularforcefieldsystem:blocks/projector/Containment/side_inactive",
-          "activeTop": "modularforcefieldsystem:blocks/projector/Containment/side_active",
-          "inactiveTop": "modularforcefieldsystem:blocks/projector/Containment/side_inactive",
-          "activeFace": "modularforcefieldsystem:blocks/projector/Containment/face_active",
-          "inactiveFace": "modularforcefieldsystem:blocks/projector/Containment/face_inactive"
+          "activeSide": "modularforcefieldsystem:blocks/projector/containment/side_active",
+          "inactiveSide": "modularforcefieldsystem:blocks/projector/containment/side_inactive",
+          "activeTop": "modularforcefieldsystem:blocks/projector/containment/side_active",
+          "inactiveTop": "modularforcefieldsystem:blocks/projector/containment/side_inactive",
+          "activeFace": "modularforcefieldsystem:blocks/projector/containment/face_active",
+          "inactiveFace": "modularforcefieldsystem:blocks/projector/containment/face_inactive"
         }
       }
     ,
       "8":
       {
         "textures": {
-          "activeSide": "modularforcefieldsystem:blocks/projector/AdvCube/side_active",
-          "inactiveSide": "modularforcefieldsystem:blocks/projector/AdvCube/side_inactive",
-          "activeTop": "modularforcefieldsystem:blocks/projector/AdvCube/side_active",
-          "inactiveTop": "modularforcefieldsystem:blocks/projector/AdvCube/side_inactive",
-          "activeFace": "modularforcefieldsystem:blocks/projector/AdvCube/face_active",
-          "inactiveFace": "modularforcefieldsystem:blocks/projector/AdvCube/face_inactive"
+          "activeSide": "modularforcefieldsystem:blocks/projector/adv_cube/side_active",
+          "inactiveSide": "modularforcefieldsystem:blocks/projector/adv_cube/side_inactive",
+          "activeTop": "modularforcefieldsystem:blocks/projector/adv_cube/side_active",
+          "inactiveTop": "modularforcefieldsystem:blocks/projector/adv_cube/side_inactive",
+          "activeFace": "modularforcefieldsystem:blocks/projector/adv_cube/face_active",
+          "inactiveFace": "modularforcefieldsystem:blocks/projector/adv_cube/face_inactive"
         }
       }
     },

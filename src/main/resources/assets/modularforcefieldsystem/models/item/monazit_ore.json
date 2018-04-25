@@ -1,5 +1,5 @@
 {
-  "parent":"modularforcefieldsystem:block/monazitOre",
+  "parent":"modularforcefieldsystem:block/monazit_ore",
   "display": {
     "thirdperson": {
       "rotation": [ 10, -45, 170 ],
