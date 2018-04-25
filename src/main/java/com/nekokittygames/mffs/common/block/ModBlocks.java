@@ -1,6 +1,7 @@
 package com.nekokittygames.mffs.common.block;
 
 import com.google.common.base.Preconditions;
+import com.nekokittygames.mffs.common.MFFSMaschines;
 import com.nekokittygames.mffs.common.ModularForceFieldSystem;
 import com.nekokittygames.mffs.common.tileentity.*;
 import com.nekokittygames.mffs.libs.LibBlockNames;
@@ -10,6 +11,7 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemBlock;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ResourceLocation;
+import net.minecraftforge.client.event.ModelRegistryEvent;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
@@ -76,6 +78,19 @@ public class ModBlocks {
                 registry.register(item.setRegistryName(registryName));
                 ITEM_BLOCKS.add(item);
             }
+        }
+        
+        @SubscribeEvent
+        public static void registerTextures(ModelRegistryEvent event) {
+        	ModularForceFieldSystem.proxy.setupClientBlock(MONAZIT_ORE, MONAZIT_ORE.getRegistryName().getResourcePath());
+        	for (MFFSMaschines mach : MFFSMaschines.values()) {
+        		ModularForceFieldSystem.proxy.setupClientMachine((BlockMFFSBase) mach.block, mach.block.getRegistryName().getResourcePath());
+        	}
+        	ModularForceFieldSystem.proxy.setupClientFieldBlock(FORCE_FIELD, FORCE_FIELD.getRegistryName().getResourcePath());
+        	
+        	for (Item item : ITEM_BLOCKS) {
+        		ModularForceFieldSystem.proxy.setupClientItem(item, item.getRegistryName().getResourcePath());
+        	}
         }
     }
     private static void registerTileEntities() {

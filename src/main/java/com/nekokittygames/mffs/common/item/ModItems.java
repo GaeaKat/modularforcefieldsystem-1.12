@@ -5,6 +5,7 @@ import com.nekokittygames.mffs.common.modules.*;
 import com.nekokittygames.mffs.common.multitool.*;
 import com.nekokittygames.mffs.common.options.*;
 import net.minecraft.item.Item;
+import net.minecraftforge.client.event.ModelRegistryEvent;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
@@ -112,6 +113,12 @@ public class ModItems {
                 ITEMS.add(item);
             }
         }
+        
+        @SubscribeEvent
+        public static void registerTextures(ModelRegistryEvent event) {
+        	for (Item item : ITEMS) {
+        		ModularForceFieldSystem.proxy.setupClientItem(item, item.getRegistryName().getResourcePath());
+        	}
         }
-
     }
+}
