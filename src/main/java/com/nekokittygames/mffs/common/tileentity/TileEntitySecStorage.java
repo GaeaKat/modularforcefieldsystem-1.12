@@ -31,23 +31,17 @@ import net.minecraft.inventory.Container;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.ISidedInventory;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.nbt.NBTTagList;
-import net.minecraft.util.EnumFacing;
-import net.minecraftforge.common.util.Constants;
 
 public class TileEntitySecStorage extends TileEntityMachines implements
 		ISidedInventory, IInventory {
 
-	private ItemStack inventory[];
-
 	public TileEntitySecStorage() {
-		inventory = new ItemStack[60];
+		super(60);
 	}
 
 	@Override
 	public void dropPlugins() {
-		for (int a = 0; a < this.inventory.length; a++) {
+		for (int a = 0; a < this.inventory.size(); a++) {
 			dropplugins(a, this);
 		}
 	}
@@ -83,8 +77,8 @@ public class TileEntitySecStorage extends TileEntityMachines implements
 	public int getfreeslotcount() {
 		int count = 0;
 
-		for (int a = 1; a < this.inventory.length; a++) {
-			if (getStackInSlot(a) == null)
+		for (int a = 1; a < this.inventory.size(); a++) {
+			if (getStackInSlot(a).isEmpty())
 				count++;
 		}
 
@@ -105,43 +99,6 @@ public class TileEntitySecStorage extends TileEntityMachines implements
 		super.update();
 	}
 
-	@Override
-	public void readFromNBT(NBTTagCompound nbttagcompound) {
-		super.readFromNBT(nbttagcompound);
-		NBTTagList nbttaglist = nbttagcompound.getTagList("Items", Constants.NBT.TAG_COMPOUND);
-		inventory = new ItemStack[getSizeInventory()];
-		for (int i = 0; i < nbttaglist.tagCount(); i++) {
-			NBTTagCompound nbttagcompound1 = (NBTTagCompound) nbttaglist
-					.getCompoundTagAt(i);
-			byte byte0 = nbttagcompound1.getByte("Slot");
-			if (byte0 >= 0 && byte0 < inventory.length) {
-				inventory[byte0] = new ItemStack(nbttagcompound1);
-			}
-		}
-	}
-
-	@Override
-	public NBTTagCompound writeToNBT(NBTTagCompound nbttagcompound) {
-		super.writeToNBT(nbttagcompound);
-		NBTTagList nbttaglist = new NBTTagList();
-		for (int i = 0; i < inventory.length; i++) {
-			if (inventory[i] != null) {
-				NBTTagCompound nbttagcompound1 = new NBTTagCompound();
-				nbttagcompound1.setByte("Slot", (byte) i);
-				inventory[i].writeToNBT(nbttagcompound1);
-				nbttaglist.appendTag(nbttagcompound1);
-			}
-		}
-
-		nbttagcompound.setTag("Items", nbttaglist);
-		return nbttagcompound;
-	}
-
-	@Override
-	public ItemStack getStackInSlot(int i) {
-		return inventory[i];
-	}
-
 
 	@Override
 	public String getName() {
@@ -151,41 +108,6 @@ public class TileEntitySecStorage extends TileEntityMachines implements
 	@Override
 	public boolean hasCustomName() {
 		return false;
-	}
-
-	@Override
-	public int getSizeInventory() {
-		return inventory.length;
-	}
-
-	@Override
-	public void setInventorySlotContents(int par1, ItemStack par2ItemStack) {
-		this.inventory[par1] = par2ItemStack;
-
-		if (par2ItemStack != null
-				&& par2ItemStack.getCount() > this.getInventoryStackLimit()) {
-			par2ItemStack.setCount(this.getInventoryStackLimit());
-		}
-
-		this.markDirty();
-	}
-
-	@Override
-	public ItemStack decrStackSize(int i, int j) {
-		if (inventory[i] != null) {
-			if (inventory[i].getCount() <= j) {
-				ItemStack itemstack = inventory[i];
-				inventory[i] = null;
-				return itemstack;
-			}
-			ItemStack itemstack1 = inventory[i].splitStack(j);
-			if (inventory[i].getCount() == 0) {
-				inventory[i] = null;
-			}
-			return itemstack1;
-		} else {
-			return null;
-		}
 	}
 
 	@Override
@@ -210,55 +132,5 @@ public class TileEntitySecStorage extends TileEntityMachines implements
 		if (slt == 0)
 			return 1;
 		return 64;
-	}
-
-
-
-	@Override
-	public boolean isItemValidForSlot(int i, ItemStack itemstack) {
-		return true;
-	}
-
-	@Override
-	public int[] getSlotsForFace(EnumFacing side) {
-		return new int[0];
-	}
-
-	@Override
-	public boolean canInsertItem(int index, ItemStack itemStackIn, EnumFacing direction) {
-		return false;
-	}
-
-	@Override
-	public boolean canExtractItem(int index, ItemStack stack, EnumFacing direction) {
-		return false;
-	}
-
-	@Override
-	public ItemStack removeStackFromSlot(int index) {
-		ItemStack item=inventory[index];
-		inventory[index]=null;
-		this.markDirty();
-		return item;
-	}
-
-	@Override
-	public int getField(int id) {
-		return 0;
-	}
-
-	@Override
-	public void setField(int id, int value) {
-
-	}
-
-	@Override
-	public int getFieldCount() {
-		return 0;
-	}
-
-	@Override
-	public void clear() {
-
 	}
 }

@@ -42,17 +42,20 @@ import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.ISidedInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.nbt.NBTTagList;
 import net.minecraft.network.NetworkManager;
 import net.minecraft.network.play.server.SPacketUpdateTileEntity;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.ITickable;
+import net.minecraft.util.NonNullList;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.ChunkPos;
 import net.minecraft.world.World;
 import net.minecraftforge.common.ForgeChunkManager;
 import net.minecraftforge.common.ForgeChunkManager.Ticket;
 import net.minecraftforge.common.ForgeChunkManager.Type;
+import net.minecraftforge.common.util.Constants;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
@@ -75,13 +78,14 @@ public abstract class TileEntityMachines extends TileEntity implements
 	protected boolean SwitchValue;
 	protected Random random = new Random();
 	protected Ticket chunkTicket;
+	protected NonNullList<ItemStack> inventory;
 
 	@Override
 	public boolean shouldRefresh(World world, BlockPos pos, IBlockState oldState, IBlockState newSate) {
 		return (oldState.getBlock()!=newSate.getBlock());
 	}
 
-	public TileEntityMachines() {
+	public TileEntityMachines(int slots) {
 		Active = false;
 		SwitchValue = false;
 		init = true;
@@ -90,6 +94,7 @@ public abstract class TileEntityMachines extends TileEntity implements
 		ticker = 0;
 		DeviceID = 0;
 		DeviceName = "Please set Name";
+		inventory = NonNullList.withSize(slots, ItemStack.EMPTY);
 	}
 
 	public int getPercentageCapacity() {
@@ -294,6 +299,16 @@ public abstract class TileEntityMachines extends TileEntity implements
 		DeviceID = nbttagcompound.getInteger("DeviceID");
 		DeviceName = nbttagcompound.getString("DeviceName");
 		SwitchModi = nbttagcompound.getShort("SwitchModi");
+		
+		NBTTagList itemTags = nbttagcompound.getTagList("Items", Constants.NBT.TAG_COMPOUND);
+		inventory = NonNullList.withSize(inventory.size(), ItemStack.EMPTY);
+		for (int i = 0; i < itemTags.tagCount(); i++) {
+			NBTTagCompound nbt = (NBTTagCompound) itemTags.getCompoundTagAt(i);
+			byte slot = nbt.getByte("Slot");
+			if (slot >= 0 && slot < inventory.size()) {
+				inventory.set(slot, new ItemStack(nbt));
+			}
+		}
 	}
 
 	@Override
@@ -311,6 +326,17 @@ public abstract class TileEntityMachines extends TileEntity implements
 		nbttagcompound.setBoolean("SwitchValue", SwitchValue);
 		nbttagcompound.setInteger("DeviceID", DeviceID);
 		nbttagcompound.setString("DeviceName", DeviceName);
+		
+		NBTTagList itemTags = new NBTTagList();
+		for (int i = 0; i < inventory.size(); i++) {
+			if (!inventory.get(i).isEmpty()) {
+				NBTTagCompound nbt = new NBTTagCompound();
+				nbt.setByte("Slot", (byte) i);
+				inventory.get(i).writeToNBT(nbt);
+				itemTags.appendTag(nbt);
+			}
+		}
+		nbttagcompound.setTag("Items", itemTags);
 	}
 
 	@Override
@@ -450,18 +476,100 @@ public abstract class TileEntityMachines extends TileEntity implements
 
 
 	@Override
+	public int getSizeInventory() {
+		return inventory.size();
+	}
+
+	@Override
+	public ItemStack getStackInSlot(int slot) {
+		return inventory.get(slot);
+	}
+	
+	@Override
 	public int getInventoryStackLimit() {
 		return 64;
 	}
+	
+	@Override
+	public ItemStack decrStackSize(int slot, int amount) {
+		if (!inventory.get(slot).isEmpty()) {
+			if (inventory.get(slot).getCount() <= amount) {
+				ItemStack stack = inventory.get(slot);
+				inventory.set(slot, ItemStack.EMPTY);
+				return stack;
+			}
+			
+			return inventory.get(slot).splitStack(amount);
+		} else {
+			return ItemStack.EMPTY;
+		}
+	}
+
+	@Override
+	public ItemStack removeStackFromSlot(int slot) {
+		ItemStack stack = inventory.get(slot);
+		
+		inventory.set(slot, ItemStack.EMPTY);
+		markDirty();
+		
+		return stack;
+	}
+
+	@Override
+	public void setInventorySlotContents(int slot, ItemStack stack) {
+		inventory.set(slot, stack);
+		
+		if (!stack.isEmpty() && stack.getCount() > getInventoryStackLimit()) {
+			stack.setCount(getInventoryStackLimit());
+		}
+	}
 
 	public int countItemsInSlot(Slots slt) {
-		if (this.getStackInSlot(slt.slot) != ItemStack.EMPTY)
+		if (!getStackInSlot(slt.slot).isEmpty())
 			return this.getStackInSlot(slt.slot).getCount();
 		return 0;
 	}
 
 	@Override
 	public boolean isEmpty() {
+		return false;
+	}
+	
+	@Override
+	public boolean isItemValidForSlot(int slot, ItemStack stack) {
+		return true;
+	}
+
+	@Override
+	public int getField(int id) {
+		return 0;
+	}
+
+	@Override
+	public void setField(int id, int value) {
+	}
+
+	@Override
+	public int getFieldCount() {
+		return 0;
+	}
+
+	@Override
+	public void clear() {
+	}
+
+	@Override
+	public int[] getSlotsForFace(EnumFacing side) {
+		return new int[0];
+	}
+
+	@Override
+	public boolean canInsertItem(int slot, ItemStack stack, EnumFacing side) {
+		return false;
+	}
+
+	@Override
+	public boolean canExtractItem(int slot, ItemStack stack, EnumFacing side) {
 		return false;
 	}
 }

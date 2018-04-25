@@ -39,11 +39,9 @@ import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.Container;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.nbt.NBTTagList;
 import net.minecraft.util.EnumFacing;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.capabilities.Capability;
-import net.minecraftforge.common.util.Constants;
 import net.minecraftforge.fml.common.Loader;
 import net.minecraftforge.fml.common.Optional;
 
@@ -55,8 +53,6 @@ import java.util.List;
 							@Optional.Interface(modid = "ic2",iface = "ic2.api.energy.tile.IEnergyEmitter")})
 public class TileEntityExtractor extends TileEntityFEPoweredMachine implements
 		IEnergySink, IEnergyReceiver {
-	private ItemStack inventory[];
-
 	private int workmode = 0;
 
 	protected int WorkEnergy;
@@ -74,7 +70,7 @@ public class TileEntityExtractor extends TileEntityFEPoweredMachine implements
 	private TeslaCap cap;
 
 	public TileEntityExtractor() {
-		inventory = new ItemStack[5];
+		super(5);
 		WorkEnergy = 0;
 		MaxWorkEnergy = 4000;
 		ForceEnergybuffer = 0;
@@ -189,7 +185,7 @@ public class TileEntityExtractor extends TileEntityFEPoweredMachine implements
 
 	@Override
 	public void dropPlugins() {
-		for (int a = 0; a < this.inventory.length; a++) {
+		for (int a = 0; a < this.inventory.size(); a++) {
 			dropplugins(a, this);
 		}
 	}
@@ -198,7 +194,7 @@ public class TileEntityExtractor extends TileEntityFEPoweredMachine implements
 
 	public void checkslots(boolean init) {
 
-		if (getStackInSlot(2) != null) {
+		if (!getStackInSlot(2).isEmpty()) {
 			if (getStackInSlot(2).getItem() == ModItems.UPGRADE_CAPACITY) {
 				setMaxForceEnergyBuffer(1000000 + (getStackInSlot(2).getCount() * 100000));
 			} else {
@@ -208,7 +204,7 @@ public class TileEntityExtractor extends TileEntityFEPoweredMachine implements
 			setMaxForceEnergyBuffer(1000000);
 		}
 
-		if (getStackInSlot(3) != null) {
+		if (!getStackInSlot(3).isEmpty()) {
 			if (getStackInSlot(3).getItem() == ModItems.EXTRACTOR_UPGRADE_BOOSTER) {
 				setWorkTicker(20 - getStackInSlot(3).getCount());
 			} else {
@@ -218,7 +214,7 @@ public class TileEntityExtractor extends TileEntityFEPoweredMachine implements
 			setWorkTicker(20);
 		}
 
-		if (getStackInSlot(4) != null) {
+		if (!getStackInSlot(4).isEmpty()) {
 			if (getStackInSlot(4).getItem() == ModItems.FORCICIUM_CELL) {
 				workmode = 1;
 				setMaxWorkEnergy(200000);
@@ -253,7 +249,7 @@ public class TileEntityExtractor extends TileEntityFEPoweredMachine implements
 				return true;
 			}
 
-			if (getStackInSlot(0) != null) {
+			if (!getStackInSlot(0).isEmpty()) {
 				if (getStackInSlot(0).getItem() == ModItems.FORCICIUM) {
 					setMaxworkcylce(ModularForceFieldSystem.ForciciumWorkCycle);
 					setWorkCylce(getMaxworkcylce());
@@ -432,30 +428,11 @@ public class TileEntityExtractor extends TileEntityFEPoweredMachine implements
 	}
 
 	@Override
-	public void readFromNBT(NBTTagCompound nbttagcompound) {
-		super.readFromNBT(nbttagcompound);
-
-
-	}
-
-	@Override
 	public void readExtraNBT(NBTTagCompound nbttagcompound) {
 		super.readExtraNBT(nbttagcompound);
 		ForceEnergybuffer = nbttagcompound.getInteger("ForceEnergybuffer");
 		WorkEnergy = nbttagcompound.getInteger("WorkEnergy");
 		WorkCylce = nbttagcompound.getInteger("WorkCylce");
-
-		NBTTagList nbttaglist = nbttagcompound.getTagList("Items", Constants.NBT.TAG_COMPOUND);
-		inventory = new ItemStack[getSizeInventory()];
-		for (int i = 0; i < nbttaglist.tagCount(); i++) {
-			NBTTagCompound nbttagcompound1 = (NBTTagCompound) nbttaglist
-					.getCompoundTagAt(i);
-			byte byte0 = nbttagcompound1.getByte("Slot");
-			inventory[byte0] = new ItemStack(nbttagcompound1);
-			if (byte0 >= 0 && byte0 < inventory.length) {
-
-			}
-		}
 	}
 
 	@Override
@@ -464,31 +441,6 @@ public class TileEntityExtractor extends TileEntityFEPoweredMachine implements
 		nbttagcompound.setInteger("WorkCylce", WorkCylce);
 		nbttagcompound.setInteger("WorkEnergy", WorkEnergy);
 		nbttagcompound.setInteger("ForceEnergybuffer", ForceEnergybuffer);
-
-		NBTTagList nbttaglist = new NBTTagList();
-		for (int i = 0; i < inventory.length; i++) {
-			if (inventory[i] != null) {
-				NBTTagCompound nbttagcompound1 = new NBTTagCompound();
-				nbttagcompound1.setByte("Slot", (byte) i);
-				inventory[i].writeToNBT(nbttagcompound1);
-				nbttaglist.appendTag(nbttagcompound1);
-			}
-		}
-
-		nbttagcompound.setTag("Items", nbttaglist);
-	}
-
-	@Override
-	public NBTTagCompound writeToNBT(NBTTagCompound nbttagcompound) {
-		super.writeToNBT(nbttagcompound);
-
-
-		return nbttagcompound;
-	}
-
-	@Override
-	public ItemStack getStackInSlot(int i) {
-		return inventory[i];
 	}
 
 	@Override
@@ -499,37 +451,6 @@ public class TileEntityExtractor extends TileEntityFEPoweredMachine implements
 	@Override
 	public boolean hasCustomName() {
 		return false;
-	}
-
-	@Override
-	public int getSizeInventory() {
-		return inventory.length;
-	}
-
-	@Override
-	public void setInventorySlotContents(int i, ItemStack itemstack) {
-		inventory[i] = itemstack;
-		if (itemstack != null && itemstack.getCount() > getInventoryStackLimit()) {
-			itemstack.setCount(getInventoryStackLimit());
-		}
-	}
-
-	@Override
-	public ItemStack decrStackSize(int i, int j) {
-		if (inventory[i] != null) {
-			if (inventory[i].getCount() <= j) {
-				ItemStack itemstack = inventory[i];
-				inventory[i] = null;
-				return itemstack;
-			}
-			ItemStack itemstack1 = inventory[i].splitStack(j);
-			if (inventory[i].getCount()== 0) {
-				inventory[i] = null;
-			}
-			return itemstack1;
-		} else {
-			return null;
-		}
 	}
 
 	@Override
@@ -552,7 +473,7 @@ public class TileEntityExtractor extends TileEntityFEPoweredMachine implements
 		case 0:
 			if ((par1ItemStack.getItem() instanceof ItemForcicium || par1ItemStack
 					.getItem() instanceof ItemForcicumCell)
-					&& getStackInSlot(4) == null)
+					&& getStackInSlot(4).isEmpty())
 				return true;
 			break;
 
@@ -573,7 +494,7 @@ public class TileEntityExtractor extends TileEntityFEPoweredMachine implements
 
 		case 4:
 			if (par1ItemStack.getItem() instanceof ItemForcicumCell
-					&& getStackInSlot(0) == null)
+					&& getStackInSlot(0).isEmpty())
 				return true;
 			break;
 		}
@@ -673,12 +594,6 @@ public class TileEntityExtractor extends TileEntityFEPoweredMachine implements
 
 
 	@Override
-	public boolean isItemValidForSlot(int i, ItemStack itemstack) {
-		return true;
-	}
-
-
-	@Override
 	@Optional.Method(modid = "CoFHAPI|energy")
 	public boolean canConnectEnergy(EnumFacing from) {
 		return true;
@@ -715,49 +630,6 @@ public class TileEntityExtractor extends TileEntityFEPoweredMachine implements
 				setWorkEnergy(getMaxWorkEnergy());
 			return (int)(freeSpace);
 		}
-	}
-
-	@Override
-	public int[] getSlotsForFace(EnumFacing side) {
-		return new int[0];
-	}
-
-	@Override
-	public boolean canInsertItem(int index, ItemStack itemStackIn, EnumFacing direction) {
-		return false;
-	}
-
-	@Override
-	public boolean canExtractItem(int index, ItemStack stack, EnumFacing direction) {
-		return false;
-	}
-
-	@Override
-	public ItemStack removeStackFromSlot(int index) {
-		ItemStack item=inventory[index];
-		inventory[index]=null;
-		this.markDirty();
-		return item;
-	}
-
-	@Override
-	public int getField(int id) {
-		return 0;
-	}
-
-	@Override
-	public void setField(int id, int value) {
-
-	}
-
-	@Override
-	public int getFieldCount() {
-		return 0;
-	}
-
-	@Override
-	public void clear() {
-
 	}
 
 	@Override

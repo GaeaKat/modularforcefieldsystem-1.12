@@ -15,10 +15,6 @@ import net.minecraft.inventory.Container;
 import net.minecraft.inventory.ISidedInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.nbt.NBTTagList;
-import net.minecraft.util.EnumFacing;
-import net.minecraft.util.NonNullList;
-import net.minecraftforge.common.util.Constants;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -41,10 +37,9 @@ public class TileEntityControlSystem extends TileEntityMachines implements
 	protected boolean RemoteGUIinRange = false;
 	protected int RemotePowerleft = 0;
 	// ------------------------------
-	private NonNullList<ItemStack> inventory=NonNullList.withSize(40,ItemStack.EMPTY);
 
 	public TileEntityControlSystem() {
-
+		super(40);
 	}
 
 	@Override
@@ -115,107 +110,8 @@ public class TileEntityControlSystem extends TileEntityMachines implements
 	}
 
 	@Override
-	public void readFromNBT(NBTTagCompound nbttagcompound) {
-		super.readFromNBT(nbttagcompound);
-		readExtraNBT(nbttagcompound);
-	}
-
-	@Override
-	public NBTTagCompound writeToNBT(NBTTagCompound nbttagcompound) {
-		super.writeToNBT(nbttagcompound);
-		writeExtraNBT(nbttagcompound);
-		return nbttagcompound;
-	}
-
-	@Override
-	public void readExtraNBT(NBTTagCompound nbttagcompound) {
-		super.readExtraNBT(nbttagcompound);
-		NBTTagList nbttaglist = nbttagcompound.getTagList("Items", Constants.NBT.TAG_COMPOUND);
-		inventory = NonNullList.withSize(40,ItemStack.EMPTY);
-		for (int i = 0; i < nbttaglist.tagCount(); i++) {
-			NBTTagCompound nbttagcompound1 = (NBTTagCompound) nbttaglist
-					.getCompoundTagAt(i);
-			byte byte0 = nbttagcompound1.getByte("Slot");
-			if (byte0 >= 0 && byte0 < inventory.size()) {
-				inventory.set(byte0, new ItemStack(nbttagcompound1));
-			}
-		}
-	}
-
-	@Override
-	public void writeExtraNBT(NBTTagCompound nbttagcompound) {
-		super.writeExtraNBT(nbttagcompound);
-		NBTTagList nbttaglist = new NBTTagList();
-		for (int i = 0; i < inventory.size(); i++) {
-			if (!inventory.get(i).isEmpty()) {
-				NBTTagCompound nbttagcompound1 = new NBTTagCompound();
-				nbttagcompound1.setByte("Slot", (byte) i);
-				inventory.get(i).writeToNBT(nbttagcompound1);
-				nbttaglist.appendTag(nbttagcompound1);
-			}
-		}
-
-		nbttagcompound.setTag("Items", nbttaglist);
-	}
-
-	@Override
-	public NBTTagCompound getUpdateTag() {
-		NBTTagCompound cmp=super.getUpdateTag();
-		writeExtraNBT(cmp);
-		return cmp;
-
-	}
-
-	@Override
-	public void handleUpdateTag(NBTTagCompound tag) {
-		super.handleUpdateTag(tag);
-		readExtraNBT(tag);
-	}
-
-	@Override
-	public int getSizeInventory() {
-		return inventory.size();
-	}
-
-	@Override
-	public ItemStack getStackInSlot(int i) {
-		return inventory.get(i);
-	}
-
-	@Override
 	public int getInventoryStackLimit() {
 		return 1;
-	}
-
-	@Override
-	public ItemStack decrStackSize(int i, int j) {
-		if (!inventory.get(i).isEmpty()) {
-			if (inventory.get(i).getCount() <= j) {
-				ItemStack itemstack = inventory.get(i);
-				inventory.set(i, ItemStack.EMPTY);
-				return itemstack;
-			}
-			ItemStack itemstack1 = inventory.get(i).splitStack(j);
-			return itemstack1;
-		} else {
-			return null;
-		}
-	}
-
-	@Override
-	public ItemStack removeStackFromSlot(int index) {
-		ItemStack item=inventory.get(index);
-		inventory.set(index, ItemStack.EMPTY);
-		this.markDirty();
-		return item;
-	}
-
-	@Override
-	public void setInventorySlotContents(int i, ItemStack itemstack) {
-		inventory.set(i, itemstack);
-		if (!itemstack.isEmpty() && itemstack.getCount()> getInventoryStackLimit()) {
-			itemstack.setCount(getInventoryStackLimit());
-		}
 	}
 
 	@Override
@@ -457,48 +353,5 @@ public class TileEntityControlSystem extends TileEntityMachines implements
 	public void setRemoteDeviceName(String s) {
 		RemoteDeviceName = s;
 
-	}
-
-
-	@Override
-	public boolean isItemValidForSlot(int i, ItemStack itemstack) {
-		return true;
-	}
-
-	@Override
-	public int getField(int id) {
-		return 0;
-	}
-
-	@Override
-	public void setField(int id, int value) {
-
-	}
-
-	@Override
-	public int getFieldCount() {
-		return 0;
-	}
-
-	@Override
-	public void clear() {
-
-	}
-
-
-
-	@Override
-	public int[] getSlotsForFace(EnumFacing side) {
-		return new int[0];
-	}
-
-	@Override
-	public boolean canInsertItem(int index, ItemStack itemStackIn, EnumFacing direction) {
-		return false;
-	}
-
-	@Override
-	public boolean canExtractItem(int index, ItemStack stack, EnumFacing direction) {
-		return false;
 	}
 }
