@@ -141,7 +141,7 @@ public enum MFFSMaschines {
 		}
 	}
 
-	@Optional.Method(modid = "IC2")
+	@Optional.Method(modid = "ic2")
 	private static void AddWhitelist(Block block) {
 		ExplosionWhitelist.addWhitelistedBlock(block);
 	}

@@ -51,8 +51,8 @@ import java.util.LinkedList;
 import java.util.List;
 
 @Optional.InterfaceList({	@Optional.Interface(modid = "CoFHAPI|energy",iface = "cofh.api.energy.IEnergyReceiver"),
-							@Optional.Interface(modid = "IC2",iface = "ic2.api.energy.tile.IEnergySink"),
-							@Optional.Interface(modid = "IC2",iface = "ic2.api.energy.tile.IEnergyEmitter")})
+							@Optional.Interface(modid = "ic2",iface = "ic2.api.energy.tile.IEnergySink"),
+							@Optional.Interface(modid = "ic2",iface = "ic2.api.energy.tile.IEnergyEmitter")})
 public class TileEntityExtractor extends TileEntityFEPoweredMachine implements
 		IEnergySink, IEnergyReceiver {
 	private ItemStack inventory[];
@@ -417,7 +417,7 @@ public class TileEntityExtractor extends TileEntityFEPoweredMachine implements
 		super.update();
 	}
 
-	@Optional.Method(modid = "IC2")
+	@Optional.Method(modid = "ic2")
 	private void AddToIC2EnergyNet() {
 		if (!getWorld().isRemote) {
 			EnergyTileLoadEvent event = new EnergyTileLoadEvent(this);
@@ -785,7 +785,7 @@ public class TileEntityExtractor extends TileEntityFEPoweredMachine implements
 
 
 	@Override
-	@Optional.Method(modid = "IC2")
+	@Optional.Method(modid = "ic2")
 	public double getDemandedEnergy() {
 
 		if(!this.isActive())
@@ -794,13 +794,13 @@ public class TileEntityExtractor extends TileEntityFEPoweredMachine implements
 	}
 
 	@Override
-	@Optional.Method(modid = "IC2")
+	@Optional.Method(modid = "ic2")
 	public int getSinkTier() {
 		return 3;
 	}
 
 	@Override
-	@Optional.Method(modid = "IC2")
+	@Optional.Method(modid = "ic2")
 	public double injectEnergy(EnumFacing enumFacing, double v, double v1) {
 		double freeSpace = (double) (getMaxWorkEnergy() - getWorkEnergy());
 		if(getDemandedEnergy()<=0)
@@ -816,7 +816,7 @@ public class TileEntityExtractor extends TileEntityFEPoweredMachine implements
 	}
 
 	@Override
-	@Optional.Method(modid = "IC2")
+	@Optional.Method(modid = "ic2")
 	public boolean acceptsEnergyFrom(IEnergyEmitter iEnergyEmitter, EnumFacing enumFacing) {
 		return true;
 	}
