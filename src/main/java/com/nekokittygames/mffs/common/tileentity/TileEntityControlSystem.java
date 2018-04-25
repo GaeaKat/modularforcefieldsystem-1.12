@@ -146,11 +146,11 @@ public class TileEntityControlSystem extends TileEntityMachines implements
 	public void writeExtraNBT(NBTTagCompound nbttagcompound) {
 		super.writeExtraNBT(nbttagcompound);
 		NBTTagList nbttaglist = new NBTTagList();
-		for (int i = 0; i < inventory.length; i++) {
-			if (inventory[i] != null) {
+		for (int i = 0; i < inventory.size(); i++) {
+			if (!inventory.get(i).isEmpty()) {
 				NBTTagCompound nbttagcompound1 = new NBTTagCompound();
 				nbttagcompound1.setByte("Slot", (byte) i);
-				inventory[i].writeToNBT(nbttagcompound1);
+				inventory.get(i).writeToNBT(nbttagcompound1);
 				nbttaglist.appendTag(nbttagcompound1);
 			}
 		}
@@ -174,12 +174,12 @@ public class TileEntityControlSystem extends TileEntityMachines implements
 
 	@Override
 	public int getSizeInventory() {
-		return inventory.length;
+		return inventory.size();
 	}
 
 	@Override
 	public ItemStack getStackInSlot(int i) {
-		return inventory[i];
+		return inventory.get(i);
 	}
 
 	@Override
@@ -189,16 +189,13 @@ public class TileEntityControlSystem extends TileEntityMachines implements
 
 	@Override
 	public ItemStack decrStackSize(int i, int j) {
-		if (inventory[i] != null) {
-			if (inventory[i].getCount() <= j) {
-				ItemStack itemstack = inventory[i];
-				inventory[i] = null;
+		if (!inventory.get(i).isEmpty()) {
+			if (inventory.get(i).getCount() <= j) {
+				ItemStack itemstack = inventory.get(i);
+				inventory.set(i, ItemStack.EMPTY);
 				return itemstack;
 			}
-			ItemStack itemstack1 = inventory[i].splitStack(j);
-			if (inventory[i].getCount() == 0) {
-				inventory[i] = null;
-			}
+			ItemStack itemstack1 = inventory.get(i).splitStack(j);
 			return itemstack1;
 		} else {
 			return null;
@@ -207,16 +204,16 @@ public class TileEntityControlSystem extends TileEntityMachines implements
 
 	@Override
 	public ItemStack removeStackFromSlot(int index) {
-		ItemStack item=inventory[index];
-		inventory[index]=null;
+		ItemStack item=inventory.get(index);
+		inventory.set(index, ItemStack.EMPTY);
 		this.markDirty();
 		return item;
 	}
 
 	@Override
 	public void setInventorySlotContents(int i, ItemStack itemstack) {
-		inventory[i] = itemstack;
-		if (itemstack != null && itemstack.getCount()> getInventoryStackLimit()) {
+		inventory.set(i, itemstack);
+		if (!itemstack.isEmpty() && itemstack.getCount()> getInventoryStackLimit()) {
 			itemstack.setCount(getInventoryStackLimit());
 		}
 	}
