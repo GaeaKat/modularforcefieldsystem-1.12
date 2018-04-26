@@ -25,15 +25,12 @@ package com.nekokittygames.mffs.common.item;
 
 import com.nekokittygames.mffs.libs.LibItemNames;
 import com.nekokittygames.mffs.libs.LibMisc;
-import com.nekokittygames.mffs.common.ModularForceFieldSystem;
 import com.nekokittygames.mffs.common.NBTTagCompoundHelper;
-import net.minecraft.client.resources.I18n;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.Slot;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.ActionResult;
@@ -89,7 +86,7 @@ public class ItemForcicumCell extends ItemMFFSBase {
 
 						List<Slot> slots = ((EntityPlayer) entity).inventoryContainer.inventorySlots;
 						for (Slot slot : slots) {
-							if (slot.getStack() != null) {
+							if (!slot.getStack().isEmpty()) {
 								if (slot.getStack().getItem() == ModItems.FORCICIUM) {
 
 									setForceciumlevel(itemStack,
@@ -184,6 +181,7 @@ public class ItemForcicumCell extends ItemMFFSBase {
 
 	@Override
 	public void getSubItems(CreativeTabs tab, NonNullList<ItemStack> subItems) {
+		if (!isInCreativeTab(tab)) return;
 		ItemStack charged = new ItemStack(this, 1);
 		charged.setItemDamage(1);
 		setForceciumlevel(charged, getMaxForceciumlevel());
