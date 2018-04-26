@@ -54,7 +54,7 @@ public class ModItems {
     public static final ItemProjectorOptionFieldFusion OPTION_FIELD_FUSION=Null();
     public static final ItemProjectorOptionFieldManipulator OPTION_FIELD_MANIPULATOR=Null();
     public static final ItemProjectorOptionForceFieldJammer OPTION_FIELD_JAMMER=Null();
-    public static final ItemProjectorOptionMobDefence OPTION_MOB_DEFENCE=Null();
+    public static final ItemProjectorOptionMobDefence OPTION_MOB_DEFENSE=Null();
     public static final ItemProjectorOptionSponge OPTION_SPONGE=Null();
     public static final ItemProjectorOptionTouchDamage OPTION_TOUCH_DAMAGE=Null();
     public static final ItemProjectorOptionLight OPTION_LIGHT=Null();

@@ -474,7 +474,7 @@ public class TileEntityProjector extends TileEntityFEPoweredMachine implements
 					FieldGenerate(false);
 
 					if (hasOption(
-							ModItems.OPTION_MOB_DEFENCE,
+							ModItems.OPTION_MOB_DEFENSE,
 							true))
 						ItemProjectorOptionMobDefence.ProjectorNPCDefence(this,
 								world);

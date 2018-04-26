@@ -171,10 +171,10 @@ public class LightGuideBook implements IGuideBook{
         EntryItemStack entryJammer=new EntryItemStack(fieldJammerPages,"mffs.guide.options.jammer",new ItemStack(ModItems.OPTION_FIELD_JAMMER));
 
         ArrayList<IPage> mobDefensePages=new ArrayList<IPage>();
-        mobDefensePages.add(new PageItemStack("mffs.guide.options.mobDefense.1",ModItems.OPTION_MOB_DEFENCE));
-        worksWith(mobDefensePages, (ItemProjectorOptionBase)ModItems.OPTION_MOB_DEFENCE);
-        addRecipes(mobDefensePages,ModItems.OPTION_MOB_DEFENCE);
-        EntryItemStack entryMobDefense=new EntryItemStack(mobDefensePages,"mffs.guide.options.mobDefense",new ItemStack(ModItems.OPTION_MOB_DEFENCE));
+        mobDefensePages.add(new PageItemStack("mffs.guide.options.mobDefense.1",ModItems.OPTION_MOB_DEFENSE));
+        worksWith(mobDefensePages, (ItemProjectorOptionBase)ModItems.OPTION_MOB_DEFENSE);
+        addRecipes(mobDefensePages,ModItems.OPTION_MOB_DEFENSE);
+        EntryItemStack entryMobDefense=new EntryItemStack(mobDefensePages,"mffs.guide.options.mobDefense",new ItemStack(ModItems.OPTION_MOB_DEFENSE));
 
         ArrayList<IPage> spongePages=new ArrayList<IPage>();
         spongePages.add(new PageItemStack("mffs.guide.options.sponge.1",ModItems.OPTION_SPONGE));

@@ -25,7 +25,6 @@ package com.nekokittygames.mffs.common;
 
 import com.nekokittygames.mffs.common.item.ModItems;
 import net.minecraft.item.Item;
-import net.minecraftforge.fml.common.Mod;
 
 public enum ProjectorOptions {
 
@@ -43,7 +42,7 @@ public enum ProjectorOptions {
 			" K KRK K ", " C CKC C "),
 	FieldFusion("<Field Fusion>", ModItems.OPTION_FIELD_FUSION,
 			" K KDK K ", " C CDC C "),
-	MoobEx("<NPC Defense>", ModItems.OPTION_MOB_DEFENCE,
+	MoobEx("<NPC Defense>", ModItems.OPTION_MOB_DEFENSE,
 			"fgfhQhjgj", "fgfhdhjgj"),
 	DefenceStation("<Defense Station>", ModItems.OPTION_DEFENSE_STATION,
 			" z CQC z ", " z EdE z "),
