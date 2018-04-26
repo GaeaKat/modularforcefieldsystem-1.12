@@ -359,7 +359,7 @@ public class ModularForceFieldSystem {
 	public void load(FMLInitializationEvent evt) {
 
 		NetworkRegistry.INSTANCE.registerGuiHandler(instance,proxy);
-		//GameRegistry.registerWorldGenerator(new MFFSWorldGenerator(),0);
+		GameRegistry.registerWorldGenerator(new MFFSWorldGenerator(), 0);
 
 		OreDictionary.registerOre("dustMonazit",
 				ModItems.FORCICIUM);
