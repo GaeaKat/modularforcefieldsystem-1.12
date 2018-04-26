@@ -343,7 +343,7 @@ public class ModularForceFieldSystem {
 		//GameRegistry.registerTileEntity(TileEntityForceField.class,
 				//"MFFSForceField");
 		//proxy.setupClientBlock(MFFSFieldblock, LibBlockNames.FORCE_FIELD);
-		//MFFSMaschines.preInit();
+
 		LightGuideBook.MakeBook();
 		proxy.registerTileEntitySpecialRenderer();
 

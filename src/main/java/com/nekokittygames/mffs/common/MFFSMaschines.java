@@ -115,17 +115,7 @@ public enum MFFSMaschines {
 		}
 		return null;
 	}
-	public static void preInit()
-	{
-		for (MFFSMaschines mach : MFFSMaschines.values()) {
 
-			//GameRegistry.register(mach.block);
-			//GameRegistry.register(new ItemBlock(mach.block),mach.block.getRegistryName());
-			//ModularForceFieldSystem.proxy.setupClientMachine((BlockMFFSBase) mach.block,mach.block.getRegistryName().getResourcePath());
-
-
-		}
-	}
 	public static void initialize() {
 
 		for (MFFSMaschines mach : MFFSMaschines.values()) {
