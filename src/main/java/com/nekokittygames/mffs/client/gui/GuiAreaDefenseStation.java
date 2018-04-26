@@ -214,6 +214,12 @@ public class GuiAreaDefenseStation extends GuiContainer {
 				0x404040);
 
 		fontRenderer.drawString("inventory ", 180, 195, 0x404040);
-
+	}
+	
+	@Override
+	public void drawScreen(int mouseX, int mouseY, float partialTicks) {
+		drawDefaultBackground();
+		super.drawScreen(mouseX, mouseY, partialTicks);
+		renderHoveredToolTip(mouseX, mouseY);
 	}
 }

@@ -111,6 +111,12 @@ public class GuiSecStorage extends GuiContainer {
 	protected void drawGuiContainerForegroundLayer(int par1, int par2) {
 		fontRenderer.drawString(SecStorage.getDeviceName(), 12, 9, 0x404040);
 		fontRenderer.drawString("MFFS Security Storage", 38, 28, 0x404040);
-
+	}
+	
+	@Override
+	public void drawScreen(int mouseX, int mouseY, float partialTicks) {
+		drawDefaultBackground();
+		super.drawScreen(mouseX, mouseY, partialTicks);
+		renderHoveredToolTip(mouseX, mouseY);
 	}
 }

@@ -196,7 +196,7 @@ public class GuiAdvSecurityStation extends GuiContainer {
 		fontRenderer.drawString("validity", 31, 106, 0x404040);
 
 		if (hoverSR != null) {
-			List list = new ArrayList();
+			List<String> list = new ArrayList<String>();
 			list.add(hoverSR.name);
 			if (list.size() > 0) {
 				GL11.glDisable(GL12.GL_RESCALE_NORMAL);
@@ -263,6 +263,12 @@ public class GuiAdvSecurityStation extends GuiContainer {
 				GL11.glEnable(GL11.GL_DEPTH_TEST);
 			}
 		}
-
+	}
+	
+	@Override
+	public void drawScreen(int mouseX, int mouseY, float partialTicks) {
+		drawDefaultBackground();
+		super.drawScreen(mouseX, mouseY, partialTicks);
+		renderHoveredToolTip(mouseX, mouseY);
 	}
 }
