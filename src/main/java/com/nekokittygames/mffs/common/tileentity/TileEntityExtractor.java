@@ -32,6 +32,7 @@ import com.nekokittygames.mffs.common.compat.TeslaCap;
 import com.nekokittygames.mffs.common.container.ContainerForceEnergyExtractor;
 import com.nekokittygames.mffs.common.item.*;
 import ic2.api.energy.event.EnergyTileLoadEvent;
+import ic2.api.energy.event.EnergyTileUnloadEvent;
 import ic2.api.energy.tile.IEnergyEmitter;
 import ic2.api.energy.tile.IEnergySink;
 import net.darkhax.tesla.capability.TeslaCapabilities;
@@ -323,7 +324,7 @@ public class TileEntityExtractor extends TileEntityFEPoweredMachine implements
 				checkslots(true);
 				if(addedToEnergyNet==false)
 				{
-					if(Loader.isModLoaded("IC2"))
+					if (ModularForceFieldSystem.ic2Found)
 						AddToIC2EnergyNet();
 					else
 						addedToEnergyNet=true;
@@ -419,6 +420,14 @@ public class TileEntityExtractor extends TileEntityFEPoweredMachine implements
 			EnergyTileLoadEvent event = new EnergyTileLoadEvent(this);
 			MinecraftForge.EVENT_BUS.post(event);
 			addedToEnergyNet=true;
+		}
+	}
+	
+	@Optional.Method(modid = "ic2")
+	private void RemoveFromIC2EnergyNet() {
+		if (!getWorld().isRemote) {
+			MinecraftForge.EVENT_BUS.post(new EnergyTileUnloadEvent(this));
+			addedToEnergyNet = false;
 		}
 	}
 
@@ -523,11 +532,21 @@ public class TileEntityExtractor extends TileEntityFEPoweredMachine implements
 
 	@Override
 	public void invalidate() {
-
-
+		if (addedToEnergyNet && ModularForceFieldSystem.ic2Found) {
+			RemoveFromIC2EnergyNet();
+		}
 		Linkgrid.getWorldMap(getWorld()).getExtractor().remove(getDeviceID());
 
 		super.invalidate();
+	}
+	
+	@Override
+	public void onChunkUnload() {
+		if (addedToEnergyNet && ModularForceFieldSystem.ic2Found) {
+			RemoveFromIC2EnergyNet();
+		}
+		
+		super.onChunkUnload();
 	}
 
 	public void converMJtoWorkEnergy() {
