@@ -500,9 +500,12 @@ public class BlockForceField extends Block implements IForceFieldBlock ,ITileEnt
 						switch (projector.getaccesstyp()) {
 							case 0:
 								passtrue = false;
-								if (ModularForceFieldSystem.Admin
-										.equals(((EntityPlayer) entity).getUniqueID()))
-									passtrue = true;
+								for (String op : ModularForceFieldSystem.Admin.split(";")) {
+									if (entity.getUniqueID().toString().equalsIgnoreCase(op)) {
+										passtrue = true;
+										break;
+									}
+								}
 								break;
 							case 1:
 								passtrue = true;
