@@ -23,18 +23,15 @@ package com.nekokittygames.mffs.common.container;
 import com.nekokittygames.mffs.common.SlotHelper;
 import com.nekokittygames.mffs.common.tileentity.TileEntityAdvSecurityStation;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.inventory.Container;
 import net.minecraft.inventory.Slot;
-import net.minecraft.item.ItemStack;
 
-public class ContainerAdvSecurityStation extends Container {
+public class ContainerAdvSecurityStation extends ContainerMachine {
 	private TileEntityAdvSecurityStation SecStation;
-	private EntityPlayer player;
 
 	public ContainerAdvSecurityStation(EntityPlayer player,
 			TileEntityAdvSecurityStation tileentity) {
+		super(player, tileentity);
 		SecStation = tileentity;
-		this.player = player;
 
 		addSlotToContainer(new SlotHelper(SecStation, 0, 177, 33)); // MasterCard
 		addSlotToContainer(new SlotHelper(SecStation, 1, 15, 30)); // Coder
@@ -64,35 +61,4 @@ public class ContainerAdvSecurityStation extends Container {
 					8 + var3 * 18, 192));
 		}
 	}
-
-	public EntityPlayer getPlayer() {
-		return player;
-	}
-
-	@Override
-	public boolean canInteractWith(EntityPlayer entityplayer) {
-		return SecStation.isUsableByPlayer(entityplayer);
-	}
-
-	@Override
-	public ItemStack transferStackInSlot(EntityPlayer p, int i) {
-		ItemStack itemstack = null;
-		Slot slot = (Slot) inventorySlots.get(i);
-		if (slot != null && slot.getHasStack()) {
-			ItemStack itemstack1 = slot.getStack();
-			itemstack = itemstack1.copy();
-			if (itemstack1.getCount() == 0) {
-				slot.putStack(null);
-			} else {
-				slot.onSlotChanged();
-			}
-			if (itemstack1.getCount()!= itemstack.getCount()) {
-				slot.onSlotChanged();
-			} else {
-				return null;
-			}
-		}
-		return itemstack;
-	}
-
 }

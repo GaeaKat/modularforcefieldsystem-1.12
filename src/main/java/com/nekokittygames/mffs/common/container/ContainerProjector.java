@@ -23,22 +23,19 @@ package com.nekokittygames.mffs.common.container;
 import com.nekokittygames.mffs.common.SlotHelper;
 import com.nekokittygames.mffs.common.tileentity.TileEntityProjector;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.inventory.Container;
 import net.minecraft.inventory.IContainerListener;
 import net.minecraft.inventory.Slot;
-import net.minecraft.item.ItemStack;
 
-public class ContainerProjector extends Container {
+public class ContainerProjector extends ContainerMachine {
 	private TileEntityProjector projectorentity;
 	private int linkPower;
 	private int maxlinkPower;
 	private int accesstyp;
 	private int capacity;
-	private EntityPlayer player;
 
 	public ContainerProjector(EntityPlayer player,
 			TileEntityProjector tileentity) {
-		this.player = player;
+		super(player, tileentity);
 		projectorentity = tileentity;
 		linkPower = -1;
 		maxlinkPower = -1;
@@ -82,36 +79,6 @@ public class ContainerProjector extends Container {
 			this.addSlotToContainer(new Slot(player.inventory, var3,
 					8 + var3 * 18, 162));
 		}
-	}
-
-	public EntityPlayer getPlayer() {
-		return player;
-	}
-
-	@Override
-	public boolean canInteractWith(EntityPlayer entityplayer) {
-		return projectorentity.isUsableByPlayer(entityplayer);
-	}
-
-	@Override
-	public ItemStack transferStackInSlot(EntityPlayer p, int i) {
-		ItemStack itemstack = null;
-		Slot slot = (Slot) inventorySlots.get(i);
-		if (slot != null && slot.getHasStack()) {
-			ItemStack itemstack1 = slot.getStack();
-			itemstack = itemstack1.copy();
-			if (itemstack1.getCount() == 0) {
-				slot.putStack(null);
-			} else {
-				slot.onSlotChanged();
-			}
-			if (itemstack1.getCount() != itemstack.getCount()) {
-				slot.onSlotChanged();
-			} else {
-				return null;
-			}
-		}
-		return itemstack;
 	}
 
 	@Override
