@@ -29,9 +29,7 @@ import com.nekokittygames.mffs.common.item.ModItems;
 import ic2.api.item.IC2Items;
 import ic2.api.recipe.Recipes;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.crafting.CraftingManager;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.Optional;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 
@@ -148,29 +146,22 @@ public class MFFSRecipes {
 		RecipesFactory.addRecipe("vvv   vvv", 1, 0, null,
 				ModItems.PROJECTOR_DISTANCE);
 
-//		CraftingManager
-//				.getInstance()
-//				.addShapelessRecipe(
-//						new ItemStack(ModularForceFieldSystem.MFFSitemcardempty),
-//						new Object[] { new ItemStack(
-//								ModularForceFieldSystem.MFFSitemfc) });
-//		CraftingManager.getInstance().addShapelessRecipe(
-//				new ItemStack(ModularForceFieldSystem.MFFSitemcardempty),
-//				new Object[] { new ItemStack(
-//						ModularForceFieldSystem.MFFSItemIDCard) });
-//		CraftingManager.getInstance().addShapelessRecipe(
-//				new ItemStack(ModularForceFieldSystem.MFFSitemcardempty),
-//				new Object[] { new ItemStack(
-//						ModularForceFieldSystem.MFFSItemSecLinkCard) });
-//		CraftingManager.getInstance().addShapelessRecipe(
-//				new ItemStack(ModularForceFieldSystem.MFFSitemcardempty),
-//				new Object[] { new ItemStack(
-//						ModularForceFieldSystem.MFFSAccessCard) });
-//		CraftingManager.getInstance().addShapelessRecipe(
-//				new ItemStack(ModularForceFieldSystem.MFFSitemcardempty),
-//				new Object[] { new ItemStack(
-//						ModularForceFieldSystem.MFFSitemDataLinkCard) });
-//
+		RecipesFactory.addShapelessRecipe(
+						ModItems.EMPTY_CARD,
+						ModItems.POWERLINK_CARD);
+		RecipesFactory.addShapelessRecipe(
+				ModItems.EMPTY_CARD,
+				ModItems.PERSONAL_ID);
+		RecipesFactory.addShapelessRecipe(
+				ModItems.EMPTY_CARD,
+				ModItems.SECURITYLINK_CARD);
+		RecipesFactory.addShapelessRecipe(
+				ModItems.EMPTY_CARD,
+				ModItems.ACCESS_CARD);
+		RecipesFactory.addShapelessRecipe(
+				ModItems.EMPTY_CARD,
+				ModItems.DATALINK_CARD);
+
 		GameRegistry.addSmelting(
 				ModBlocks.MONAZIT_ORE, new ItemStack(
 						ModItems.FORCICIUM, ModularForceFieldSystem.MonazitOreSmeltAmount), 0.5F);

@@ -24,17 +24,29 @@
 package com.nekokittygames.mffs.common;
 
 import com.nekokittygames.mffs.common.compat.EnderIOCompat;
+import com.nekokittygames.mffs.common.item.ModItems;
+
+import gnu.trove.map.TCharObjectMap;
+import gnu.trove.map.hash.TCharObjectHashMap;
 import ic2.api.item.IC2Items;
-import ic2.api.item.IItemAPI;
 import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipe;
+import net.minecraft.item.crafting.Ingredient;
+import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.Tuple;
+import net.minecraftforge.common.crafting.CraftingHelper;
+import net.minecraftforge.fml.common.registry.ForgeRegistries;
 import net.minecraftforge.fml.common.registry.GameRegistry;
+import net.minecraftforge.oredict.OreDictionary;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public final class RecipesFactory {
@@ -64,12 +76,13 @@ public final class RecipesFactory {
 			Block block, Item item) {
 
 
-		/*if ((forMod >= 4 || forMod < 0) || (count < 0)
+		if ((forMod >= 4 || forMod < 0) || (count < 0)
 				|| (block == null && item == null)
 				|| (block != null && item != null) || (Recipe.length() != 9)) {
 			System.out
 					.println("[ModularForceFieldSystem] Recipes generating Fail for :"
 							+ block + "/" + item);
+			Thread.dumpStack(); //Try find what's given us a bad recipe request
 			return false;
 		}
 
@@ -88,13 +101,15 @@ public final class RecipesFactory {
 		String[] recipeSplit = new String[] { Recipe.substring(0, 3),
 				Recipe.substring(3, 6), Recipe.substring(6, 9) };
 
+		//Replace all the colons in the path because Forge splits on the last instead of the first to get the domain
+		//(Having already turned it into a domain:path String via ResourceLocation#toString)
+		//Which will then make it get confused and shout in the logs
+		ResourceLocation key = new ResourceLocation(ModularForceFieldSystem.MODID,
+						(Arrays.toString(recipeSplit) + " => "+itemstack).replace(':', '.'));
 		switch (forMod) {
 		case 0: // Independent
-
-
-			IndRecipes.put(result,GameRegistry.addShapedRecipe(itemstack, recipeSplit,
-
-			'a', Items.ENDER_PEARL, 'b',
+			GameRegistry.addShapedRecipe(key, null, itemstack, extractParams(recipeSplit,
+					'a', Items.ENDER_PEARL, 'b',
 					Items.IRON_PICKAXE,
 					'c',
 					Items.BUCKET,
@@ -109,26 +124,28 @@ public final class RecipesFactory {
 					'l', Blocks.GLASS, 'm', Items.REDSTONE, 'n', Blocks.LEVER,
 					'o', Items.PAPER,
 					'p',Blocks.GLOWSTONE,
-					'u', ModularForceFieldSystem.MFFSitemForcicium, 'v',
-					ModularForceFieldSystem.MFFSitemFocusmatix, 'w',
-					ModularForceFieldSystem.MFFSProjectorTypCube,
+					'u', ModItems.FORCICIUM, 'v',
+					ModItems.PROJECTOR_FOCUS_MATRIX, 'w',
+					ModItems.MODULE_CUBE,
 					'x',
 					new ItemStack(
-							ModularForceFieldSystem.MFFSitemForcePowerCrystal,
-							1, -1), // MFFs Stuff z--
-					'y', ModularForceFieldSystem.MFFSitemFocusmatix, 'z',
-					ModularForceFieldSystem.MFFSItemIDCard
+							ModItems.FORCEPOWER_CRYSTAL,
+							1, OreDictionary.WILDCARD_VALUE), // MFFs Stuff z--
+					'y', ModItems.PROJECTOR_FOCUS_MATRIX, 'z',
+					ModItems.PERSONAL_ID
 
 			));
+			IndRecipes.put(result, ForgeRegistries.RECIPES.getValue(key));
 			return true;
 
 		case 1: // IndustrialCraft 2
 			if (ModularForceFieldSystem.ic2Found
 					&& ModularForceFieldSystem.enableIC2Recipes) {
-
-				Ic2Recipes.put(result,GameRegistry
-						.addShapedRecipe(
+				GameRegistry.addShapedRecipe(
+								key,
+								null,
 								itemstack,
+								extractParams(
 								recipeSplit,
 
 								'a',
@@ -163,18 +180,18 @@ public final class RecipesFactory {
 								Items.PAPER,
 								'p',Blocks.GLOWSTONE,
 								'u',
-								ModularForceFieldSystem.MFFSitemForcicium,
+								ModItems.FORCICIUM,
 								'v',
-								ModularForceFieldSystem.MFFSitemFocusmatix,
+								ModItems.PROJECTOR_FOCUS_MATRIX,
 								'w',
-								ModularForceFieldSystem.MFFSProjectorTypCube,
+								ModItems.MODULE_CUBE,
 								'x',
 								new ItemStack(
-										ModularForceFieldSystem.MFFSitemForcePowerCrystal,
-										1, -1), // MFFs Stuff z--
+										ModItems.FORCEPOWER_CRYSTAL,
+										1, OreDictionary.WILDCARD_VALUE), // MFFs Stuff z--
 								'y',
-								ModularForceFieldSystem.MFFSitemFocusmatix,
-								'z', ModularForceFieldSystem.MFFSItemIDCard,
+								ModItems.PROJECTOR_FOCUS_MATRIX,
+								'z', ModItems.PERSONAL_ID,
 
 								'A', IC2Items.getItem("plate","iron"),
 								'B', IC2Items.getItem("upgrade","overclocker"),
@@ -196,11 +213,12 @@ public final class RecipesFactory {
 								'S', IC2Items.getItem("wrench")
 
 						));
+					Ic2Recipes.put(result, ForgeRegistries.RECIPES.getValue(key));
 				return true;
 			}
 			break;
 
-			*//*case 2: // Thermal Expansion
+			/*case 2: // Thermal Expansion
 				if (ModularForceFieldSystem.thermalExpansionFound
 						&& ModularForceFieldSystem.enableTERecipes) {
 					GameRegistry
@@ -285,10 +303,60 @@ public final class RecipesFactory {
                     return true;
                 }
                 break;
+            */
 		}
 
-		//return false;*/
-		return true;
+		return false;
 	}
 
+	public static void addShapelessRecipe(Item output, Object... objects) {
+		GameRegistry.addShapelessRecipe(new ResourceLocation(ModularForceFieldSystem.MODID,
+				(Arrays.toString(objects)+" => "+output.getUnlocalizedName()).replace(':', '.')),
+				null, new ItemStack(output),
+				//Turn all the objects into ingredients using Forge's helper method
+				Arrays.stream(objects).map(CraftingHelper::getIngredient).toArray(Ingredient[]::new));
+	}
+
+	/**
+	 * Returns only the options that are used so {@link GameRegistry} doesn't crash
+	 * 
+	 * @param split The recipe to extract characters from
+	 * @param options The various pairs of character - object options
+	 * 
+	 * @return An array of the split and the used pairs
+	 */
+	private static Object[] extractParams(String[] split, Object... options) {
+		TCharObjectMap<Tuple<Character, Object>> choices = new TCharObjectHashMap<>();
+		
+		char last = 0;
+		for (Object option : options) {
+			if (option instanceof Character) {
+				if (last != 0) {//We expect Character - Object pairs, a second Character is therefore bad
+					throw new IllegalArgumentException("Duplicate character definitions! "+option+" and "+last);
+				}
+
+				last = (Character) option;
+			} else {
+				choices.put(last, new Tuple<>(last, option));
+				last = 0;
+			}
+		}
+		
+		List<Object> used = new ArrayList<>(12);
+		for (String part : split) used.add(part);
+		
+		for (String part : split) {
+			for (char c : part.toCharArray()) {
+				if (c == ' ') continue; //Skip over checking empty spaces
+				
+				Tuple<Character, Object> pair = choices.get(c); //There shouldn't be any misses
+				if (pair == null) throw new IllegalStateException("Unable to find "+c+" in "+choices);
+				
+				used.add(pair.getFirst()); //Add the character
+				used.add(pair.getSecond()); //Then the associated input
+			}
+		}
+		
+		return used.toArray();
+	}
 }

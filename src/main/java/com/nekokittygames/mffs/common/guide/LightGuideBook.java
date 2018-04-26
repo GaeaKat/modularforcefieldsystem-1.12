@@ -15,6 +15,7 @@ import amerifrance.guideapi.page.PageIRecipe;
 import amerifrance.guideapi.page.PageItemStack;
 import amerifrance.guideapi.page.PageText;
 import amerifrance.guideapi.page.reciperenderer.ShapedRecipesRenderer;
+
 import com.nekokittygames.mffs.common.ModularForceFieldSystem;
 import com.nekokittygames.mffs.common.ProjectorTyp;
 import com.nekokittygames.mffs.common.RecipesFactory;
@@ -28,7 +29,10 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.item.crafting.ShapedRecipes;
+import net.minecraft.item.crafting.ShapelessRecipes;
+import net.minecraft.util.NonNullList;
 import net.minecraft.util.ResourceLocation;
+import net.minecraftforge.common.crafting.CraftingHelper;
 import net.minecraftforge.fml.common.FMLCommonHandler;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.registry.GameRegistry;
@@ -41,8 +45,11 @@ import javax.annotation.Nullable;
 import java.awt.*;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.LinkedHashMap;
 import java.util.Map;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import static com.nekokittygames.mffs.common.guide.GuideUtils.addRecipes;
 
@@ -334,10 +341,6 @@ public class LightGuideBook implements IGuideBook{
         book.setColor(Color.BLUE);
         book.setRegistryName(new ResourceLocation("mffsGuide"));
 
-
-        //GameRegistry.addShapelessRecipe(GuideAPI.getStackFromBook(book),new ItemStack(Items.BOOK),new ItemStack(ModularForceFieldSystem.MFFSitemForcicium));
-
-
         return book;
     }
 
@@ -350,6 +353,8 @@ public class LightGuideBook implements IGuideBook{
     @Nullable
     @Override
     public IRecipe getRecipe(@Nonnull ItemStack bookStack) {
-        return null;
+        return new ShapelessRecipes("", bookStack, Stream.of(new ItemStack(Items.BOOK), new ItemStack(ModItems.FORCICIUM))
+        		.map(CraftingHelper::getIngredient).collect(Collectors.toCollection(NonNullList::create))
+        		).setRegistryName(new ResourceLocation("guideapi", ("[???] => "+bookStack).replace(':', '.')));
     }
 }
