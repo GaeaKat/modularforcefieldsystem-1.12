@@ -899,7 +899,7 @@ public class TileEntityProjector extends TileEntityFEPoweredMachine implements
 
 				if (par1ItemStack.getItem() instanceof ItemProjectorOptionTouchDamage) {
 					for (int spot = 2; spot <= 4; spot++) {
-						if (getStackInSlot(spot) != null) {
+						if (!getStackInSlot(spot).isEmpty()) {
 							if (getStackInSlot(spot).getItem() instanceof ItemProjectorOptionCamoflage)
 								return false;
 						}
@@ -908,7 +908,7 @@ public class TileEntityProjector extends TileEntityFEPoweredMachine implements
 
 				if (par1ItemStack.getItem() instanceof ItemProjectorOptionCamoflage) {
 					for (int spot = 2; spot <= 4; spot++) {
-						if (getStackInSlot(spot) != null) {
+						if (!getStackInSlot(spot).isEmpty()) {
 							if (getStackInSlot(spot).getItem() instanceof ItemProjectorOptionTouchDamage)
 								return false;
 						}
@@ -960,7 +960,7 @@ public class TileEntityProjector extends TileEntityFEPoweredMachine implements
 
 	public boolean hasValidTypeMod() {
 
-		if (this.getStackInSlot(1) != null
+		if (!getStackInSlot(1).isEmpty()
 				&& getStackInSlot(1).getItem() instanceof ModuleBase)
 			return true;
 		return false;
@@ -1016,7 +1016,7 @@ public class TileEntityProjector extends TileEntityFEPoweredMachine implements
 	public List<ItemProjectorOptionBase> getOptions(boolean includecheckall) {
 		List<ItemProjectorOptionBase> ret = new ArrayList<ItemProjectorOptionBase>();
 		for (int place = 2; place < 5; place++) {
-			if (getStackInSlot(place) != null) {
+			if (!getStackInSlot(place).isEmpty()) {
 				if (getStackInSlot(place).getItem() instanceof ItemProjectorOptionBase)
 					ret.add((ItemProjectorOptionBase) (getStackInSlot(place)
 							.getItem()));
