@@ -306,7 +306,7 @@ public class TileEntityCapacitor extends TileEntityFEPoweredMachine implements
 	@Override
 	public void dropPlugins() {
 		for (int a = 0; a < this.inventory.size(); a++) {
-			dropplugins(a, this);
+			dropPlugins(a);
 		}
 	}
 

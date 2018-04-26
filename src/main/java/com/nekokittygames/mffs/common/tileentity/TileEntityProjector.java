@@ -196,7 +196,7 @@ public class TileEntityProjector extends TileEntityFEPoweredMachine implements
 	@Override
 	public void dropPlugins() {
 		for (int a = 0; a < this.inventory.size(); a++) {
-			dropplugins(a, this);
+			dropPlugins(a);
 		}
 	}
 
@@ -246,7 +246,7 @@ public class TileEntityProjector extends TileEntityFEPoweredMachine implements
 								break;
 						}
 					} else {
-						dropplugins(place, this);
+						dropPlugins(place);
 					}
 				} else {
 					switch (ProjectorTyp.TypfromItem(get_type()).ProTyp) {
@@ -328,41 +328,41 @@ public class TileEntityProjector extends TileEntityFEPoweredMachine implements
 			ModuleBase modTyp = get_type();
 
 			if (!modTyp.supportsStrength())
-				dropplugins(6, this);
+				dropPlugins(6);
 			if (!modTyp.supportsDistance())
-				dropplugins(5, this);
+				dropPlugins(5);
 
 			if (!modTyp.supportsMatrix()) {
-				dropplugins(7, this);
-				dropplugins(8, this);
-				dropplugins(9, this);
-				dropplugins(10, this);
+				dropPlugins(7);
+				dropPlugins(8);
+				dropPlugins(9);
+				dropPlugins(10);
 			}
 
 			for (int spot = 2; spot <= 4; spot++) {
 				if (!getStackInSlot(spot).isEmpty()) {
 					if (!modTyp.supportsOption(getStackInSlot(spot).getItem())) {
-						dropplugins(spot, this);
+						dropPlugins(spot);
 					}
 				}
 				if (!getStackInSlot(spot).isEmpty()) {
 					if (getStackInSlot(spot).getItem() instanceof ItemProjectorOptionForceFieldJammer
 							&& isPowersourceItem()) {
-						dropplugins(spot, this);
+						dropPlugins(spot);
 					}
 				}
 
 				if (!getStackInSlot(spot).isEmpty()) {
 					if (getStackInSlot(spot).getItem() instanceof ItemProjectorOptionFieldFusion
 							&& isPowersourceItem()) {
-						dropplugins(spot, this);
+						dropPlugins(spot);
 					}
 				}
 
 				if (!getStackInSlot(spot).isEmpty()) {
 					if (getStackInSlot(spot).getItem() instanceof ItemProjectorOptionDefenseStation
 							&& isPowersourceItem()) {
-						dropplugins(spot, this);
+						dropPlugins(spot);
 					}
 				}
 
@@ -371,7 +371,7 @@ public class TileEntityProjector extends TileEntityFEPoweredMachine implements
 			if (!getStackInSlot(12).isEmpty()) {
 				if (getStackInSlot(12).getItem() instanceof ItemCardSecurityLink
 						&& isPowersourceItem()) {
-					dropplugins(12, this);
+					dropPlugins(12);
 				}
 			}
 
@@ -379,11 +379,11 @@ public class TileEntityProjector extends TileEntityFEPoweredMachine implements
 					.hasOption(
 							ModItems.OPTION_CAMOFLAGE,
 							true))
-				dropplugins(11, this);
+				dropPlugins(11);
 
 		} else {
 			for (int spot = 2; spot <= 10; spot++) {
-				dropplugins(spot, this);
+				dropPlugins(spot);
 			}
 		}
 	}

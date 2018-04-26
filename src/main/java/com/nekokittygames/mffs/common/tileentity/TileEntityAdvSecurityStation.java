@@ -27,7 +27,6 @@ import com.nekokittygames.mffs.common.SecurityRight;
 import com.nekokittygames.mffs.common.container.ContainerAdvSecurityStation;
 import com.nekokittygames.mffs.common.item.*;
 import com.nekokittygames.mffs.common.multitool.ItemDebugger;
-import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.Container;
@@ -63,26 +62,6 @@ public class TileEntityAdvSecurityStation extends TileEntityMachines {
 		if (!MainUser.equals(s)) {
 			this.MainUser = s;
 			markDirty();
-		}
-	}
-
-	public void dropPlugins(int slot) {
-		if (getStackInSlot(slot) != null) {
-			if (getStackInSlot(slot).getItem() instanceof ItemCardSecurityLink
-					|| getStackInSlot(slot).getItem() instanceof ItemCardPowerLink
-					|| getStackInSlot(slot).getItem() instanceof ItemCardPersonalID) {
-				world.spawnEntity(new EntityItem(world,
-						this.pos.getX(), this.pos.getY(),
-						this.pos.getZ(), new ItemStack(
-								ModItems.EMPTY_CARD, 1)));
-			} else {
-				world.spawnEntity(new EntityItem(world,
-						this.pos.getX(), this.pos.getY(),
-						this.pos.getZ(), this.getStackInSlot(slot)));
-			}
-
-			this.setInventorySlotContents(slot, null);
-			this.markDirty();
 		}
 	}
 

@@ -38,7 +38,6 @@ import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.Container;
-import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.ISidedInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
@@ -252,28 +251,28 @@ public abstract class TileEntityMachines extends TileEntity implements
 
 	public abstract void dropPlugins();
 
-	public void dropplugins(int slot, IInventory inventory) {
+	public void dropPlugins(int slot) {
 
 		if (world.isRemote) {
-			this.setInventorySlotContents(slot, null);
+			this.setInventorySlotContents(slot, ItemStack.EMPTY);
 			return;
 		}
 
-		if (inventory.getStackInSlot(slot) != null) {
-			if (inventory.getStackInSlot(slot).getItem() instanceof ItemCardSecurityLink
-					|| inventory.getStackInSlot(slot).getItem() instanceof ItemCardPowerLink
-					|| inventory.getStackInSlot(slot).getItem() instanceof ItemCardPersonalID
-					|| inventory.getStackInSlot(slot).getItem() instanceof ItemCardDataLink) {
+		if (!getStackInSlot(slot).isEmpty()) {
+			ItemStack stack = getStackInSlot(slot);
+			if (stack.getItem() instanceof ItemCardSecurityLink
+					|| stack.getItem() instanceof ItemCardPowerLink
+					|| stack.getItem() instanceof ItemCardPersonalID
+					|| stack.getItem() instanceof ItemCardDataLink) {
 				world.spawnEntity(new EntityItem(world,
 						this.pos.getX(), this.pos.getY(), this.pos.getZ(), new ItemStack(
 						ModItems.EMPTY_CARD, 1)));
 			} else {
 				world.spawnEntity(new EntityItem(world,
-						this.pos.getX(), this.pos.getY(), this.pos.getZ(), inventory
-								.getStackInSlot(slot)));
+						this.pos.getX(), this.pos.getY(), this.pos.getZ(), stack));
 			}
 
-			inventory.setInventorySlotContents(slot, null);
+			setInventorySlotContents(slot, ItemStack.EMPTY);
 			this.markDirty();
 		}
 	}
