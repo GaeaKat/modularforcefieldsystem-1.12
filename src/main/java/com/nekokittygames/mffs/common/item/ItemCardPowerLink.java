@@ -102,9 +102,8 @@ public class ItemCardPowerLink extends ItemCard implements IPowerLinkItem {
 				if (SecurityHelper.isAccessGranted(tileEntity, player,
 						world, SecurityRight.EB)) {
 
-					if (((TileEntityExtractor) tileEntity).getStackInSlot(1) == ItemStack.EMPTY) {
-						((TileEntityExtractor) tileEntity)
-								.setInventorySlotContents(1, stack);
+					if (((TileEntityExtractor) tileEntity).getStackInSlot(1).isEmpty()) {
+						((TileEntityExtractor) tileEntity).setInventorySlotContents(1, stack.copy());
 						player.inventory.mainInventory.get(player.inventory.currentItem).setCount(0);
 						Functions.ChattoPlayer(player, "linkCard.installed");
 						return EnumActionResult.SUCCESS;

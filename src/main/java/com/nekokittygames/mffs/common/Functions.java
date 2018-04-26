@@ -54,8 +54,8 @@ public class Functions {
 	public static boolean setIteminSlot(ItemStack itemstack,
 			EntityPlayer entityplayer, TileEntity tileEntity, int Slot,
 			String Cardname) {
-		if (((IInventory) tileEntity).getStackInSlot(Slot) == ItemStack.EMPTY) {
-			((IInventory) tileEntity).setInventorySlotContents(Slot, itemstack);
+		if (((IInventory) tileEntity).getStackInSlot(Slot).isEmpty()) {
+			((IInventory) tileEntity).setInventorySlotContents(Slot, itemstack.copy());
 			entityplayer.inventory.mainInventory.get(entityplayer.inventory.currentItem).setCount(0);
 			Functions.ChattoPlayer(entityplayer, "generic.card.installed", Cardname);
 			((IInventory) tileEntity).markDirty();
