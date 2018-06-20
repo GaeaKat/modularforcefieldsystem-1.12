@@ -1,0 +1,263 @@
+itemGroup.MFFS=MFFS Classic
+
+// Blocks: Machines
+tile.modularforcefieldsystem.extractor.name=Ekstraktor MFFS
+tile.modularforcefieldsystem.capacitor.name=Kondensator MFFS
+tile.modularforcefieldsystem.projector.name=Projektor pola
+tile.modularforcefieldsystem.advSecurity.name=Stacja bezpieczeñstwa MFFS
+tile.modularforcefieldsystem.areaDefense.name=Stacja defensywy MFFS
+tile.modularforcefieldsystem.controlSystem.name=System kontroli MFFS
+tile.modularforcefieldsystem.converter.name=Konwerter energii
+tile.modularforcefieldsystem.securityStorage.name=Bezpieczny magazyn MFFS
+tile.modularforcefieldsystem.forceField.name=Pole si³owe
+
+// Blocks: Misc
+tile.modularforcefieldsystem.monazitOre.name=Ruda Monazytu
+
+// Items: Cards
+item.modularforcefieldsystem.accessCard.name=Karta: Dostêp
+item.modularforcefieldsystem.dataLinkCard.name=Karta: Link danych
+item.modularforcefieldsystem.emptyCard.name=Karta: Pusta
+item.modularforcefieldsystem.personalId.name=Identyfikator
+item.modularforcefieldsystem.powerCard.name=Karta: Nieskoñczona energia
+item.modularforcefieldsystem.powerLinkCard.name=Karta: Link energii
+item.modularforcefieldsystem.securityLinkCard.name=Karta: Link bezpieczeñstwa
+
+// Items: Projector Modules
+item.modularforcefieldsystem.moduleAdvCube.name=Modu³ Projektora: Zaawansowany szeœcian
+item.modularforcefieldsystem.moduleContainment.name=Modu³ Projektora: Ograniczenie
+item.modularforcefieldsystem.moduleCube.name=Modu³ Projektora: Szeœcian
+item.modularforcefieldsystem.moduleDeflector.name=Modu³ Projektora: Deflector
+item.modularforcefieldsystem.moduleSphere.name=Modu³ Projektora: Sfera
+item.modularforcefieldsystem.moduleTube.name=Modu³ Projektora: Tuba
+item.modularforcefieldsystem.moduleWall.name=Modu³ Projektora: Œciana
+item.modularforcefieldsystem.moduleDiagonalWall.name=Diagnonal Wall Module
+
+
+// Items: Projector Options
+item.modularforcefieldsystem.optionBlockBreaker.name=Tryb Projektora: Przecinacz
+item.modularforcefieldsystem.optionCamoflage.name=Tryb Projektora: Kamufla¿
+item.modularforcefieldsystem.optionDefenseStation.name=Tryb Projektora: Stacja defensywy
+item.modularforcefieldsystem.optionFieldFusion.name=Tryb Projektora: Fuzja pól
+item.modularforcefieldsystem.optionFieldManipulator.name=Tryb Projektora: Dome
+item.modularforcefieldsystem.optionFieldJammer.name=Tryb Projektora: Zag³uszacz pola si³owego
+item.modularforcefieldsystem.optionMobDefense.name=Tryb Projektora: Zabójca mobów
+item.modularforcefieldsystem.optionSponge.name=Tryb Projektora: G¹bka
+item.modularforcefieldsystem.optionTouchDamage.name=Tryb Projektora: Wysokie napiêcie
+item.modularforcefieldsystem.optionLight.name=Tryb Projektora: Œwiat³o
+
+// Items: Projector Upgrades
+item.modularforcefieldsystem.projectorDistance.name=Ulepszenie Projektora: Dystans pola
+item.modularforcefieldsystem.projectorStrength.name=Ulepszenie Projektora: Si³a pola
+item.modularforcefieldsystem.projectorFocusMatrix.name=Ulepszenie Projektora: Focus Matrix
+
+// Items: MultiTool
+item.modularforcefieldsystem.multitoolDebugger.name=Narzêdzie wielofunkcyjne: Debuger
+item.modularforcefieldsystem.multitoolTransporter.name=Narzêdzie wielofunkcyjne: Transporter pola
+item.modularforcefieldsystem.multitoolManual.name=Narzêdzie wielofunkcyjne: Podrêcznik
+item.modularforcefieldsystem.multitoolIdWriter.name=Narzêdzie wielofunkcyjne: Enkoder ID
+item.modularforcefieldsystem.multitoolSwitch.name=Narzêdzie wielofunkcyjne: Prze³¹cznik
+item.modularforcefieldsystem.multitoolWrench.name=Narzêdzie wielofunkcyjne: Klucz
+
+// Items: Extractor Upgrades
+item.modularforcefieldsystem.extractorUpgradeBooster.name=Ulepszenie Ekstraktora: Booster
+
+// Items: Capacitor Upgrades
+item.modularforcefieldsystem.upgradeCapacity.name=Ulepszenie Kondensatora: Pojemnoœæ
+item.modularforcefieldsystem.upgradeRange.name=Ulepszenie Kondensatora: Zasiêg
+
+// Items: Misc
+item.modularforcefieldsystem.forcicium.name=Forcicium
+item.modularforcefieldsystem.forciciumCell.name=Kapsu³a Forcicium
+item.modularforcefieldsystem.forcePowerCrystal.name=Kryszta³ energii Force
+
+
+
+// Field Messages
+field.highEnergyField=[Pole Si³owe] Uwaga: Pole wysokiego napiêcia.
+
+// Field Security Messages
+fieldSecurity.accessDenied=[Bezpieczeñstwo Pola] Problem: Odmowa Dostêpu.
+fieldSecurity.accessGranted=[Bezpieczeñstwo Pola] Sukces: Dostêp przyznany.
+fieldSecurity.voidNotAllowed=[Bezpieczeñstwo Pola] Problem: Transmission into Void not allowed.
+fieldSecurity.detectedObstacle=[Bezpieczeñstwo Pola] Problem: Wykryto przeszkodê.
+fieldSecurity.fieldTooString=[Bezpieczeñstwo Pola] Problem: Zbyt du¿e napiêcie pola.
+fieldSecurity.invalidItemInPowerLink=[Bezpieczeñstwo Pola] Problem: Invalid item in Power Link Slot.
+fieldSecurity.transmissionComplete=[Bezpieczeñstwo Pola] Sukces: Transmisja ukoñczona.
+fieldSecurity.notEnoughFE=[Bezpieczeñstwo Pola] Problem: Deficyt energii Force, proszê na³adowaæ.
+
+// Multi Tool Messages
+multitool.idCardCreated=[Narzêdzie wielofunkcyjne] Sukces: Karta identyfikatora utworzona.
+multitool.notEnoughFE=[Narzêdzie wielofunkcyjne] Problem: Deficyt energii Force, proszê na³adowaæ.
+multitool.needBlankCard=[Narzêdzie wielofunkcyjne] Sukces: Wymagana jest pusta karta MFFS w ekwipunku.
+multitool.dataLinkCreated=[Narzêdzie wielofunkcyjne] Sukces: Karta linku danych utworzona.
+multitool.notInSwitchMode=[Narzêdzie wielofunkcyjne] Problem: Obiekt nie jest w trybie prze³¹czalnym.
+multitool.projectorRepaired=[Narzêdzie wielofunkcyjne] Projektor naprawiony.
+
+// Link card messages
+securityStation.cardCreated=[Stacja bezpieczeñstwa] Sukces: Karta Linku Bezpieczeñstwa zosta³a utworzona.
+securityStation.mustBeActive=[Stacja bezpieczeñstwa] Problem: Stacja zabezpieczeñ musi byæ aktywna aby mog³a utworzyæ Kartê Linku Bezpieczeñstwa.
+capacitor.cardCreated=[Kondensator] Sukces: Karta Linku Energii utworzona.
+linkCard.installed=Sukces: Karta Linku Energii zainstalowana.
+linkCard.copied=Sukces: Karta Linku Energii skopiowana.
+linkCard.notEmpty=Problem: Slot nie jest pusty.
+
+// Projector Module messages
+projectorModule.installed=[Projektor] Sukces: Zainstalowano modu³ projektora: '%s'.
+projectorModule.notEmpty=[Projektor] Problem: Slot nie jest pusty.
+
+// Item Info
+itemInfo.securityArea=Area Bezpieczeñstwa: %s
+itemInfo.periodOfValidity=Okres wa¿noœci: %s min.
+itemInfo.rightsHoldShift=Uprawnienia: (Przytrzymaj Shift)
+itemInfo.rights=Rights:
+itemInfo.compatibleWith=Kompatybilny z:
+itemInfo.compatibleWithHoldShift=Kompatybilny z: (Przytrzymaj Shift)
+itemInfo.deviceType=Typ urz¹dzenia:
+itemInfo.deviceName=Nazwa urz¹dzenia:
+itemInfo.infinitePower.lineOne=Karta Administratora do zasilania urz¹dzeñ
+itemInfo.infinitePower.lineTwo=b¹dŸ nieskoñczonego ³adowania Kondensatora.
+itemInfo.forciciumCellActive=[Kapsu³ka Forcicium] Aktywne.
+itemInfo.forciciumCellInactive=[Kapsu³ka Forcicium] Nieaktywne.
+
+// Misc Warning Messages
+securityStation.expiredValidity=[Stacja Zabezpieczeñ] Licensja dostêpu straci³a swój termin przydatnoœci.
+securityStation.scanningRange=!!!! [Stacja Zabezpieczeñ][%s] Uwaga: Jesteœ w zasiêgu skanowania !!!!
+areaDefense.getOut=!!!! [Defensywa] Oddal siê natychmiast, nie posiadasz praw dostêpu !!!!
+areaDefense.beenWarned=!!!! [Defensywa] Zosta³eœ(aœ) ostrze¿ony(a). !!!!
+areaDefense.illegalItems=!!!! [Defensywa] Posiadasz nielegalne przedmioty. %s Zostan¹ skonfiskowane !!!!
+
+// Generic card messages
+generic.card.installed=Sukces: %s Karta zainstalowana.
+generic.card.copied=Sukces: %s Dane karty skopiowane.
+generic.card.fail=Problem: Slot nie jest pusty.
+
+// Misc Strings
+death.attack.areaDefense=%1$s Pomin¹³ ostrze¿enia i zosta³ usma¿ony!
+death.attack.fieldShock=%1$s zosta³ usma¿ony przez pole si³owe!
+death.attack.fieldDefense=%1$s zosta³ usma¿ony!
+warning.areaDefense=!!!! [Defensywa] OdejdŸ albo zgiñ !!!!
+
+itemInfo.compatibleWithHoldShift=Kompatybilne z: (Przytrzymaj Shift)
+itemInfo.compatibleWith=Kompatybilne z:
+itemInfo.infinitePower.lineOne=Karta Administratora do zasilania urz¹dzeñ
+itemInfo.infinitePower.lineTwo=b¹dŸ nieskoñczonego ³adowania Kondensatora.
+
+// Guide
+
+// Light
+mffs.guide.general.forciumEntry=Forcium
+mffs.guide.general.forcium.1=Forcium jest podstawowym paliwem dla wszystkich maszyn MFFS. Jest to krystaliczny materia³, który mo¿e posiadaæ bardziej konwencjonaln¹ energiê oraz emitowaæ j¹ w postaci pola si³owego.
+
+mffs.guide.general.forcefieldEntry=Pola si³owe
+mffs.guide.general.forcefield.1=Forcefields are harnessed energy projected into space. This energy can take many different forms, and shapes. The usual form is a completely solid block, however with alterations to the projector, forms that leak energy, shock living creatures, forms that are strong enough to cut through
+mffs.guide.general.forcefield.2=solid matter or even just give off light can be created. Shape wise, there are spheres, tubes, and different interactions between two fields. The projector can also alter the energy to allow certain people through, depending on their identity.
+
+mffs.guide.general.machinesEntry=Maszyny generalne
+mffs.guide.general.machines.1=Most machines in MFFS are similar in several ways. They can be named, they can be turned on or off in similar ways, and more.
+mffs.guide.general.machines.2=The different ways to turn a machine on in MFFS can be toggled through the button in the top right corner, the choices are Redstone controlled, Multi-tool controlled, disabled, remotely, or computer controlled.
+
+
+// General
+mffs.guide.general.category=Generalne
+
+// About
+mffs.guide.general.about=Witaj w MFFS, Ten mod pozwala tworzyæ niezniszczalne pola si³owe dla Ciebie, pola te powstaj¹ z energii Forcicium, któr¹ mo¿na z ³atwoœci¹ wykopaæ ¿elaznym kilofem.
+
+mffs.guide.general.aboutEntry=Informacje o MFFS
+
+// Modules
+mffs.guide.modules=Modu³y projektora
+
+// Advanced Cube
+mffs.guide.modules.advCube=Zaawansowany Szeœcian
+mffs.guide.modules.advCube.1=This Projector module allows you to project a custom sized cube shaped module around the projector.
+mffs.guide.modules.advCube.2=The projector will always be one block inside the center of one of face of the cube, depending on the orientation of the projector. When using the advanced cube, strength upgrades and focus matrix upgrades are used to determine the dimensions of the cube.
+mffs.guide.modules.advCube.3=The strength upgrade determines how far from the projector the opposite face will be. The Focus Matrix within the four slots around the projector will determine how far from the projector each of the four side faces will be.
+// Containment
+
+mffs.guide.modules.containment=Ograniczenie
+mffs.guide.modules.containment.1=This Projector module allows you to project a custom sized cube shaped module in front of the projector.
+mffs.guide.modules.containment.2=The projector will always be one block in front, depending on the orientation of the projector. When using the containment, strength upgrades and focus matrix upgrades are used to determine the dimensions of the cube.
+mffs.guide.modules.containment.3=The strength upgrade determines how far from the projector the opposite face will be. The Focus Matrix within the four slots around the projector will determine how far from the projector each of the four side faces will be.
+mffs.guide.modules.containment.4=The distance upgrade determines how far from the projector the centre of the field will be.
+
+mffs.guide.modules.cube=Szeœcian
+mffs.guide.modules.cube.1=Ten modu³ projektora formuje pole w szeœcian. Ulepszenie dystansu wyznacza wielkoœæ pola si³owego.
+
+mffs.guide.modules.deflector=Deflector
+mffs.guide.modules.deflector.1=This Projector module allows you to project a flat plane in front of the projector.
+mffs.guide.modules.deflector.2=The Focus matrix within the four slots around the projector will determine how far from the projector each side of the field will be.
+mffs.guide.modules.deflector.3=The Distrance upgrade determines how far from the projector the centre of the field will be.
+
+mffs.guide.modules.wall=Œciana
+mffs.guide.modules.wall.1=This Projector module allows you to project 4 walls in front of the projector.
+mffs.guide.modules.wall.2=The focus matrix within the four slots around the projector will determine how far from the projector each axis of the walls will be.
+mffs.guide.modules.wall.3=The Distance upgrade determines how far from the projector the centre of the field will be. The strength upgrade determines how far from the start point the field will extend.
+
+mffs.guide.modules.diagWall=Diagonal Wall
+mffs.guide.modules.diagWall.1=This Projector module allows you to project 4 walls in front of the projector like the wall module,but diagonal instead of vertical.
+mffs.guide.modules.diagWall.2=The focus matrix within the four slots around the projector will determine how far from the projector each axis of the walls will be.
+mffs.guide.modules.diagWall.3=The Distance upgrade determines how far from the projector the centre of the field will be. The strength upgrade determines how far from the start point the field will extend.
+
+mffs.guide.modules.sphere=Sfera
+mffs.guide.modules.sphere.1=This projector module allows you to project a sphere around the projector.
+mffs.guide.modules.sphere.2=The Distance upgrade determines the diameter of the sphere, while the strength upgrade determnes how thick the field will be.
+
+mffs.guide.modules.tube=Tuba
+mffs.guide.modules.tube.1=This projector module allows you to project a tube around the projector.
+mffs.guide.modules.tube.2=The Distance upgrade alters the length of the tube, while the Strength upgrade altars the size of the tube
+
+mffs.guide.options=Opcje
+mffs.guide.options.worksWith=This module works with:
+mffs.guide.options.blockBreaker=Block Breaker
+mffs.guide.options.blockBreaker.1=This projector option allows the forcefield to break existing blocks without drops.
+
+mffs.guide.options.camoflage=Kamufla¿
+mffs.guide.options.camoflage.1=This projector option allows you to place any simple block in the centre slot on the projector. This will make the field look like that block.
+
+
+mffs.guide.options.defenceStation=Stacja defensywy
+mffs.guide.options.defenceStation.1=This projector option allows you to protect the inside of the forcefield with a defence station.
+
+mffs.guide.options.fieldFusion=Fuzja pól
+mffs.guide.options.fieldFusion.1=This projector option allows you to meld two fields together.
+
+mffs.guide.options.dome=Dome
+mffs.guide.options.dome.1=This projector option allows you to cut the force field at the projector level, forming a dome
+
+mffs.guide.options.jammer=Zag³uszacz pola
+mffs.guide.options.jammer.1=This projector option makes any forcefield inside the force field jammed.
+
+mffs.guide.options.mobDefense=Defensywa mobów
+mffs.guide.options.mobDefense.1=This projector option kills any mob inside the forcefield.
+
+mffs.guide.options.sponge=G¹bka
+mffs.guide.options.sponge.1=This projector option removes any liquid inside the force field.
+
+mffs.guide.options.zap=Wysokie napiêcie
+mffs.guide.options.zap.1=This projector option makes the forcefields do damage on touch.
+
+mffs.guide.options.light=Œwiat³o
+mffs.guide.options.light.1=This projector option makes the forcefields emit light (Not compatible with zap or camoflage options)
+
+
+
+mffs.guide.machines=Maszyny
+
+mffs.guide.machines.extractor=Ekstraktor
+mffs.guide.machines.extractor.1=This machine converts power and forcium into Force Energy. It can take Tesla, RF, or IC2. and infuses the power into the forcium.
+mffs.guide.machines.extractor.2=The power can be applied via any of the usual wires. Without a Capacitor attached, it has a relatively small internal buffer, and will stop converting when full. This internal buffer can be increased with the Capacity plugin. The Booster plugin increases the speed of the machine's operation.
+
+mffs.guide.machines.capacitor=Kondensator
+mffs.guide.machines.capacitor.1=This machine stores, and also allocates Force Energy to machines on it's network. It has a small range, though plugins can be used.
+mffs.guide.machines.capacitor.2=This capacitor can also be used to empty, or fill Force Power Crystals. The capacitor accepts Booster plugin to increase it's range, or Capacity to increase the Force Energy it can store.
+mffs.guide.machines.capacitor.3=The capacitor is the linchpin to a MFFS power network. right click on it with an empty card to create a power link card, which can be used to add any powered, or power producing MFFS machine into the network.
+mffs.guide.machines.projector=Projektor
+mffs.guide.machines.projector.1=This machine projects Force Energy out in the form of a force field, the size, shape, and even type of energy depending on the plugins used.
+mffs.guide.machines.projector.2=The projector accepts a projector module, to control the shape of the produced field, and depending on the shape, can take one or more option plugins to control the behaviour of the fields it produces.
+
+
+
+mffs.guide.recipes.enderio=Przepis Ender IO.
+mffs.guide.recipes.ic2=Przepis IC2.
