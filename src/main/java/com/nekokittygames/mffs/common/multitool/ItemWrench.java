@@ -40,6 +40,7 @@ import net.minecraft.util.EnumActionResult;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.common.Optional;
 
@@ -54,35 +55,8 @@ public class ItemWrench extends ItemMultitool  implements IToolWrench {
 
 
 
-	@Override
-	@Optional.Method(modid = "BuildCraftAPI|core")
-	public boolean canWrench(EntityPlayer player, BlockPos blockPos) {
-		if (this.consumePower(player.inventory.getCurrentItem(), 1000, true)) {
-			return true;
-		}
-		return false;
-	}
 
-	@Override
-	@Optional.Method(modid = "BuildCraftAPI|core")
-	public void wrenchUsed(EntityPlayer player, BlockPos blockPos) {
-		this.consumePower(player.inventory.getCurrentItem(), 1000, false);
-	}
 
-	@Override
-	@Optional.Method(modid = "BuildCraftAPI|core")
-	public boolean canWrench(EntityPlayer player, Entity entity) {
-		if (this.consumePower(player.inventory.getCurrentItem(), 1000, true)) {
-			return true;
-		}
-		return false;
-	}
-
-	@Override
-	@Optional.Method(modid = "BuildCraftAPI|core")
-	public void wrenchUsed(EntityPlayer player, Entity entity) {
-		this.consumePower(player.inventory.getCurrentItem(), 1000, false);
-	}
 
 	@Override
 	public EnumActionResult onItemUseFirst(EntityPlayer player, World world, BlockPos pos, EnumFacing side, float hitX, float hitY, float hitZ, EnumHand hand) {
@@ -159,6 +133,22 @@ public class ItemWrench extends ItemMultitool  implements IToolWrench {
 		}
 
 		return EnumActionResult.PASS;
+	}
+
+	@Override
+	@Optional.Method(modid = "BuildCraftAPI|core")
+	public boolean canWrench(EntityPlayer player, EnumHand enumHand, ItemStack itemStack, RayTraceResult rayTraceResult) {
+		if (this.consumePower(player.getHeldItem(enumHand), 1000, true)) {
+			return true;
+		}
+		return false;
+	}
+
+	@Override
+	@Optional.Method(modid = "BuildCraftAPI|core")
+	public void wrenchUsed(EntityPlayer player, EnumHand enumHand, ItemStack itemStack, RayTraceResult rayTraceResult)
+	{
+		this.consumePower(player.getHeldItem(enumHand), 1000, false);
 	}
 
 
