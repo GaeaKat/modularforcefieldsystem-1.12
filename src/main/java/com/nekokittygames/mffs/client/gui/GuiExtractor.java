@@ -133,4 +133,11 @@ public class GuiExtractor extends GuiContainer {
 				String.valueOf(Extractor.getWorkdone()).concat("%"), 23, 89,
 				0x404040);
 	}
+	
+	@Override
+	public void drawScreen(int mouseX, int mouseY, float partialTicks) {
+		drawDefaultBackground();
+		super.drawScreen(mouseX, mouseY, partialTicks);
+		renderHoveredToolTip(mouseX, mouseY);
+	}
 }

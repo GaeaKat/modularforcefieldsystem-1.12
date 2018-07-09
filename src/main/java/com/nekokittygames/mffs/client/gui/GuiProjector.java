@@ -21,7 +21,6 @@
 package com.nekokittygames.mffs.client.gui;
 
 import com.nekokittygames.mffs.client.GraphicButton;
-import com.nekokittygames.mffs.common.ModularForceFieldSystem;
 import com.nekokittygames.mffs.common.ProjectorTyp;
 import com.nekokittygames.mffs.common.container.ContainerProjector;
 import com.nekokittygames.mffs.common.item.ModItems;
@@ -161,5 +160,12 @@ public class GuiProjector extends GuiContainer {
 		} else {
 			fontRenderer.drawString("No Link/OOR", 30, 80, 0x404040);
 		}
+	}
+	
+	@Override
+	public void drawScreen(int mouseX, int mouseY, float partialTicks) {
+		drawDefaultBackground();
+		super.drawScreen(mouseX, mouseY, partialTicks);
+		renderHoveredToolTip(mouseX, mouseY);
 	}
 }

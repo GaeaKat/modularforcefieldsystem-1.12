@@ -41,20 +41,13 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.nbt.NBTTagList;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.EnumFacing;
-import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
-import net.minecraftforge.common.util.Constants;
-import net.minecraftforge.fml.common.Mod;
 
 import java.util.*;
 
 public class TileEntityProjector extends TileEntityFEPoweredMachine implements
 		IModularProjector {
-	private ItemStack ProjektorItemStacks[];
-
 	private final int[] focusmatrix = { 0, 0, 0, 0 }; // Up 7,Down 8,Right
 														// 9,Left 10
 	private String ForceFieldTexturids = "-76/-76/-76/-76/-76/-76";
@@ -75,9 +68,8 @@ public class TileEntityProjector extends TileEntityFEPoweredMachine implements
 	protected Set<PointXYZ> field_def = new HashSet<PointXYZ>();
 
 	public TileEntityProjector() {
-		Random random = new Random();
+		super(13);
 
-		ProjektorItemStacks = new ItemStack[13];
 		linkPower = 0;
 		forcefieldblock_meta = ForceFieldTyps.Default;
 		ProjektorTyp = 0;
@@ -180,12 +172,6 @@ public class TileEntityProjector extends TileEntityFEPoweredMachine implements
 	// End Getter AND Setter
 
 	// Start NBT Read/ Save
-
-	@Override
-	public void readFromNBT(NBTTagCompound nbttagcompound) {
-		super.readFromNBT(nbttagcompound);
-	}
-
 	@Override
 	public void readExtraNBT(NBTTagCompound nbttagcompound) {
 		super.readExtraNBT(nbttagcompound);
@@ -193,17 +179,6 @@ public class TileEntityProjector extends TileEntityFEPoweredMachine implements
 		burnout = nbttagcompound.getBoolean("burnout");
 		ProjektorTyp = nbttagcompound.getInteger("Projektor_Typ");
 		forcefieldblock_meta = ForceFieldTyps.values()[nbttagcompound.getShort("forcefieldblockmeta")];
-
-		NBTTagList nbttaglist = nbttagcompound.getTagList("Items", Constants.NBT.TAG_COMPOUND);
-		ProjektorItemStacks = new ItemStack[getSizeInventory()];
-		for (int i = 0; i < nbttaglist.tagCount(); i++) {
-			NBTTagCompound nbttagcompound1 = (NBTTagCompound) nbttaglist
-					.getCompoundTagAt(i);
-			byte byte0 = nbttagcompound1.getByte("Slot");
-			if (byte0 >= 0 && byte0 < ProjektorItemStacks.length) {
-				ProjektorItemStacks[byte0] = new ItemStack(nbttagcompound1);
-			}
-		}
 	}
 
 	@Override
@@ -213,36 +188,15 @@ public class TileEntityProjector extends TileEntityFEPoweredMachine implements
 		nbttagcompound.setBoolean("burnout", burnout);
 		nbttagcompound.setInteger("Projektor_Typ", ProjektorTyp);
 		nbttagcompound.setShort("forcefieldblockmeta", (short) forcefieldblock_meta.ordinal());
-
-		NBTTagList nbttaglist = new NBTTagList();
-		for (int i = 0; i < ProjektorItemStacks.length; i++) {
-			if (ProjektorItemStacks[i] != null) {
-				NBTTagCompound nbttagcompound1 = new NBTTagCompound();
-				nbttagcompound1.setByte("Slot", (byte) i);
-				ProjektorItemStacks[i].writeToNBT(nbttagcompound1);
-				nbttaglist.appendTag(nbttagcompound1);
-			}
-		}
-
-		nbttagcompound.setTag("Items", nbttaglist);
 	}
-
-	@Override
-	public NBTTagCompound writeToNBT(NBTTagCompound nbttagcompound) {
-		super.writeToNBT(nbttagcompound);
-
-
-		return nbttagcompound;
-	}
-
 	// Stop NBT Read/ Save
 
 	// Start Slot / Upgrades System
 
 	@Override
 	public void dropPlugins() {
-		for (int a = 0; a < this.ProjektorItemStacks.length; a++) {
-			dropplugins(a, this);
+		for (int a = 0; a < this.inventory.size(); a++) {
+			dropPlugins(a);
 		}
 	}
 
@@ -278,7 +232,7 @@ public class TileEntityProjector extends TileEntityFEPoweredMachine implements
 
 		if (hasValidTypeMod()) {
 			for (int place = 7; place < 11; place++) {
-				if (getStackInSlot(place) != null) {
+				if (!getStackInSlot(place).isEmpty()) {
 					if (getStackInSlot(place).getItem() == ModItems.PROJECTOR_FOCUS_MATRIX) {
 						switch (ProjectorTyp.TypfromItem(get_type()).ProTyp) {
 							case 6:
@@ -292,7 +246,7 @@ public class TileEntityProjector extends TileEntityFEPoweredMachine implements
 								break;
 						}
 					} else {
-						dropplugins(place, this);
+						dropPlugins(place);
 					}
 				} else {
 					switch (ProjectorTyp.TypfromItem(get_type()).ProTyp) {
@@ -310,7 +264,7 @@ public class TileEntityProjector extends TileEntityFEPoweredMachine implements
 			}
 		}
 
-		if (getStackInSlot(11) != null) {
+		if (!getStackInSlot(11).isEmpty()) {
 
 
 
@@ -374,50 +328,50 @@ public class TileEntityProjector extends TileEntityFEPoweredMachine implements
 			ModuleBase modTyp = get_type();
 
 			if (!modTyp.supportsStrength())
-				dropplugins(6, this);
+				dropPlugins(6);
 			if (!modTyp.supportsDistance())
-				dropplugins(5, this);
+				dropPlugins(5);
 
 			if (!modTyp.supportsMatrix()) {
-				dropplugins(7, this);
-				dropplugins(8, this);
-				dropplugins(9, this);
-				dropplugins(10, this);
+				dropPlugins(7);
+				dropPlugins(8);
+				dropPlugins(9);
+				dropPlugins(10);
 			}
 
 			for (int spot = 2; spot <= 4; spot++) {
-				if (getStackInSlot(spot) != null) {
+				if (!getStackInSlot(spot).isEmpty()) {
 					if (!modTyp.supportsOption(getStackInSlot(spot).getItem())) {
-						dropplugins(spot, this);
+						dropPlugins(spot);
 					}
 				}
-				if (getStackInSlot(spot) != null) {
+				if (!getStackInSlot(spot).isEmpty()) {
 					if (getStackInSlot(spot).getItem() instanceof ItemProjectorOptionForceFieldJammer
 							&& isPowersourceItem()) {
-						dropplugins(spot, this);
+						dropPlugins(spot);
 					}
 				}
 
-				if (getStackInSlot(spot) != null) {
+				if (!getStackInSlot(spot).isEmpty()) {
 					if (getStackInSlot(spot).getItem() instanceof ItemProjectorOptionFieldFusion
 							&& isPowersourceItem()) {
-						dropplugins(spot, this);
+						dropPlugins(spot);
 					}
 				}
 
-				if (getStackInSlot(spot) != null) {
+				if (!getStackInSlot(spot).isEmpty()) {
 					if (getStackInSlot(spot).getItem() instanceof ItemProjectorOptionDefenseStation
 							&& isPowersourceItem()) {
-						dropplugins(spot, this);
+						dropPlugins(spot);
 					}
 				}
 
 			}
 
-			if (getStackInSlot(12) != null) {
+			if (!getStackInSlot(12).isEmpty()) {
 				if (getStackInSlot(12).getItem() instanceof ItemCardSecurityLink
 						&& isPowersourceItem()) {
-					dropplugins(12, this);
+					dropPlugins(12);
 				}
 			}
 
@@ -425,11 +379,11 @@ public class TileEntityProjector extends TileEntityFEPoweredMachine implements
 					.hasOption(
 							ModItems.OPTION_CAMOFLAGE,
 							true))
-				dropplugins(11, this);
+				dropPlugins(11);
 
 		} else {
 			for (int spot = 2; spot <= 10; spot++) {
-				dropplugins(spot, this);
+				dropPlugins(spot);
 			}
 		}
 	}
@@ -520,7 +474,7 @@ public class TileEntityProjector extends TileEntityFEPoweredMachine implements
 					FieldGenerate(false);
 
 					if (hasOption(
-							ModItems.OPTION_MOB_DEFENCE,
+							ModItems.OPTION_MOB_DEFENSE,
 							true))
 						ItemProjectorOptionMobDefence.ProjectorNPCDefence(this,
 								world);
@@ -830,37 +784,6 @@ public class TileEntityProjector extends TileEntityFEPoweredMachine implements
 	}
 
 	@Override
-	public ItemStack decrStackSize(int i, int j) {
-		if (ProjektorItemStacks[i] != null) {
-			if (ProjektorItemStacks[i].getCount() <= j) {
-				ItemStack itemstack = ProjektorItemStacks[i];
-				ProjektorItemStacks[i] = null;
-				return itemstack;
-			}
-			ItemStack itemstack1 = ProjektorItemStacks[i].splitStack(j);
-			if (ProjektorItemStacks[i].getCount() == 0) {
-				ProjektorItemStacks[i] = null;
-			}
-			return itemstack1;
-		} else {
-			return null;
-		}
-	}
-
-	@Override
-	public void setInventorySlotContents(int i, ItemStack itemstack) {
-		ProjektorItemStacks[i] = itemstack;
-		if (itemstack.getCount() > getInventoryStackLimit()) {
-			itemstack.setCount(getInventoryStackLimit());
-		}
-	}
-
-	@Override
-	public ItemStack getStackInSlot(int i) {
-		return ProjektorItemStacks[i];
-	}
-
-	@Override
 	public String getName() {
 		return "Projektor";
 	}
@@ -868,11 +791,6 @@ public class TileEntityProjector extends TileEntityFEPoweredMachine implements
 	@Override
 	public boolean hasCustomName() {
 		return false;
-	}
-
-	@Override
-	public int getSizeInventory() {
-		return ProjektorItemStacks.length;
 	}
 
 	@Override
@@ -981,7 +899,7 @@ public class TileEntityProjector extends TileEntityFEPoweredMachine implements
 
 				if (par1ItemStack.getItem() instanceof ItemProjectorOptionTouchDamage) {
 					for (int spot = 2; spot <= 4; spot++) {
-						if (getStackInSlot(spot) != null) {
+						if (!getStackInSlot(spot).isEmpty()) {
 							if (getStackInSlot(spot).getItem() instanceof ItemProjectorOptionCamoflage)
 								return false;
 						}
@@ -990,7 +908,7 @@ public class TileEntityProjector extends TileEntityFEPoweredMachine implements
 
 				if (par1ItemStack.getItem() instanceof ItemProjectorOptionCamoflage) {
 					for (int spot = 2; spot <= 4; spot++) {
-						if (getStackInSlot(spot) != null) {
+						if (!getStackInSlot(spot).isEmpty()) {
 							if (getStackInSlot(spot).getItem() instanceof ItemProjectorOptionTouchDamage)
 								return false;
 						}
@@ -1042,7 +960,7 @@ public class TileEntityProjector extends TileEntityFEPoweredMachine implements
 
 	public boolean hasValidTypeMod() {
 
-		if (this.getStackInSlot(1) != null
+		if (!getStackInSlot(1).isEmpty()
 				&& getStackInSlot(1).getItem() instanceof ModuleBase)
 			return true;
 		return false;
@@ -1098,7 +1016,7 @@ public class TileEntityProjector extends TileEntityFEPoweredMachine implements
 	public List<ItemProjectorOptionBase> getOptions(boolean includecheckall) {
 		List<ItemProjectorOptionBase> ret = new ArrayList<ItemProjectorOptionBase>();
 		for (int place = 2; place < 5; place++) {
-			if (getStackInSlot(place) != null) {
+			if (!getStackInSlot(place).isEmpty()) {
 				if (getStackInSlot(place).getItem() instanceof ItemProjectorOptionBase)
 					ret.add((ItemProjectorOptionBase) (getStackInSlot(place)
 							.getItem()));
@@ -1139,65 +1057,7 @@ public class TileEntityProjector extends TileEntityFEPoweredMachine implements
 
 
 	@Override
-	public boolean isItemValidForSlot(int i, ItemStack itemstack) {
-		return true;
-	}
-
-	@Override
 	public World getWorldObj() {
 		return world;
-	}
-
-	@Override
-	public int[] getSlotsForFace(EnumFacing side) {
-		return new int[0];
-	}
-
-	@Override
-	public boolean canInsertItem(int index, ItemStack itemStackIn, EnumFacing direction) {
-		return false;
-	}
-
-	@Override
-	public boolean canExtractItem(int index, ItemStack stack, EnumFacing direction) {
-		return false;
-	}
-
-	@Override
-	public ItemStack removeStackFromSlot(int index) {
-		return null;
-	}
-
-	@Override
-	public int getField(int id) {
-		return 0;
-	}
-
-	@Override
-	public void setField(int id, int value) {
-
-	}
-
-	@Override
-	public int getFieldCount() {
-		return 0;
-	}
-
-	@Override
-	public void clear() {
-
-	}
-
-	@Override
-	public NBTTagCompound getUpdateTag() {
-		NBTTagCompound cmp=super.getUpdateTag();
-		writeExtraNBT(cmp);
-		return cmp;
-	}
-
-	@Override
-	public void handleUpdateTag(NBTTagCompound tag) {
-		super.handleUpdateTag(tag);
-		readExtraNBT(tag);
 	}
 }

@@ -15,6 +15,7 @@ import amerifrance.guideapi.page.PageIRecipe;
 import amerifrance.guideapi.page.PageItemStack;
 import amerifrance.guideapi.page.PageText;
 import amerifrance.guideapi.page.reciperenderer.ShapedRecipesRenderer;
+
 import com.nekokittygames.mffs.common.ModularForceFieldSystem;
 import com.nekokittygames.mffs.common.ProjectorTyp;
 import com.nekokittygames.mffs.common.RecipesFactory;
@@ -28,7 +29,10 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.item.crafting.ShapedRecipes;
+import net.minecraft.item.crafting.ShapelessRecipes;
+import net.minecraft.util.NonNullList;
 import net.minecraft.util.ResourceLocation;
+import net.minecraftforge.common.crafting.CraftingHelper;
 import net.minecraftforge.fml.common.FMLCommonHandler;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.registry.GameRegistry;
@@ -41,8 +45,11 @@ import javax.annotation.Nullable;
 import java.awt.*;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.LinkedHashMap;
 import java.util.Map;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import static com.nekokittygames.mffs.common.guide.GuideUtils.addRecipes;
 
@@ -171,10 +178,10 @@ public class LightGuideBook implements IGuideBook{
         EntryItemStack entryJammer=new EntryItemStack(fieldJammerPages,"mffs.guide.options.jammer",new ItemStack(ModItems.OPTION_FIELD_JAMMER));
 
         ArrayList<IPage> mobDefensePages=new ArrayList<IPage>();
-        mobDefensePages.add(new PageItemStack("mffs.guide.options.mobDefense.1",ModItems.OPTION_MOB_DEFENCE));
-        worksWith(mobDefensePages, (ItemProjectorOptionBase)ModItems.OPTION_MOB_DEFENCE);
-        addRecipes(mobDefensePages,ModItems.OPTION_MOB_DEFENCE);
-        EntryItemStack entryMobDefense=new EntryItemStack(mobDefensePages,"mffs.guide.options.mobDefense",new ItemStack(ModItems.OPTION_MOB_DEFENCE));
+        mobDefensePages.add(new PageItemStack("mffs.guide.options.mobDefense.1",ModItems.OPTION_MOB_DEFENSE));
+        worksWith(mobDefensePages, (ItemProjectorOptionBase)ModItems.OPTION_MOB_DEFENSE);
+        addRecipes(mobDefensePages,ModItems.OPTION_MOB_DEFENSE);
+        EntryItemStack entryMobDefense=new EntryItemStack(mobDefensePages,"mffs.guide.options.mobDefense",new ItemStack(ModItems.OPTION_MOB_DEFENSE));
 
         ArrayList<IPage> spongePages=new ArrayList<IPage>();
         spongePages.add(new PageItemStack("mffs.guide.options.sponge.1",ModItems.OPTION_SPONGE));
@@ -334,10 +341,6 @@ public class LightGuideBook implements IGuideBook{
         book.setColor(Color.BLUE);
         book.setRegistryName(new ResourceLocation("mffsGuide"));
 
-
-        //GameRegistry.addShapelessRecipe(GuideAPI.getStackFromBook(book),new ItemStack(Items.BOOK),new ItemStack(ModularForceFieldSystem.MFFSitemForcicium));
-
-
         return book;
     }
 
@@ -350,6 +353,8 @@ public class LightGuideBook implements IGuideBook{
     @Nullable
     @Override
     public IRecipe getRecipe(@Nonnull ItemStack bookStack) {
-        return null;
+        return new ShapelessRecipes("", bookStack, Stream.of(new ItemStack(Items.BOOK), new ItemStack(ModItems.FORCICIUM))
+        		.map(CraftingHelper::getIngredient).collect(Collectors.toCollection(NonNullList::create))
+        		).setRegistryName(new ResourceLocation("guideapi", ("[???] => "+bookStack).replace(':', '.')));
     }
 }

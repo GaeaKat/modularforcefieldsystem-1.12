@@ -113,7 +113,7 @@ public abstract class BlockMFFSBase extends Block implements ITileEntityProvider
 
 		TileEntityMachines tileentity = (TileEntityMachines) world.getTileEntity(pos);
 
-		Item equipped = (entityplayer.getHeldItemMainhand() != null ? entityplayer.getHeldItemMainhand().getItem
+		Item equipped = (!entityplayer.getHeldItemMainhand().isEmpty() ? entityplayer.getHeldItemMainhand().getItem
 				() : null);
 		if(equipped != null) {
 			// These items will handle their code.

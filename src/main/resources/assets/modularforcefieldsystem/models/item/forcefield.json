@@ -1,5 +1,5 @@
 {
-  "parent":"modularforcefieldsystem:block/forceField",
+  "parent":"modularforcefieldsystem:block/force_field",
   "display": {
     "thirdperson": {
       "rotation": [ 10, -45, 170 ],

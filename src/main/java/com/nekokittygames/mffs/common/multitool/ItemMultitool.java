@@ -27,7 +27,6 @@ import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.*;
 import net.minecraft.util.math.BlockPos;
@@ -133,6 +132,7 @@ public abstract class ItemMultitool extends ForceEnergyItems implements
 
 	@Override
 	public void getSubItems(CreativeTabs tab, NonNullList<ItemStack> items) {
+		if (!isInCreativeTab(tab)) return;
 		super.getSubItems(tab, items);
 		ItemStack charged = new ItemStack(this, 1);
 		charged.setItemDamage(1);

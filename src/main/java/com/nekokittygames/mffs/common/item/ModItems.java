@@ -5,6 +5,7 @@ import com.nekokittygames.mffs.common.modules.*;
 import com.nekokittygames.mffs.common.multitool.*;
 import com.nekokittygames.mffs.common.options.*;
 import net.minecraft.item.Item;
+import net.minecraftforge.client.event.ModelRegistryEvent;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
@@ -53,7 +54,7 @@ public class ModItems {
     public static final ItemProjectorOptionFieldFusion OPTION_FIELD_FUSION=Null();
     public static final ItemProjectorOptionFieldManipulator OPTION_FIELD_MANIPULATOR=Null();
     public static final ItemProjectorOptionForceFieldJammer OPTION_FIELD_JAMMER=Null();
-    public static final ItemProjectorOptionMobDefence OPTION_MOB_DEFENCE=Null();
+    public static final ItemProjectorOptionMobDefence OPTION_MOB_DEFENSE=Null();
     public static final ItemProjectorOptionSponge OPTION_SPONGE=Null();
     public static final ItemProjectorOptionTouchDamage OPTION_TOUCH_DAMAGE=Null();
     public static final ItemProjectorOptionLight OPTION_LIGHT=Null();
@@ -112,6 +113,12 @@ public class ModItems {
                 ITEMS.add(item);
             }
         }
+        
+        @SubscribeEvent
+        public static void registerTextures(ModelRegistryEvent event) {
+        	for (Item item : ITEMS) {
+        		ModularForceFieldSystem.proxy.setupClientItem(item, item.getRegistryName().getResourcePath());
+        	}
         }
-
     }
+}

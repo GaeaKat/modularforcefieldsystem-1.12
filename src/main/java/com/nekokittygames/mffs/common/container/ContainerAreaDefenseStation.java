@@ -23,12 +23,11 @@ package com.nekokittygames.mffs.common.container;
 import com.nekokittygames.mffs.common.SlotHelper;
 import com.nekokittygames.mffs.common.tileentity.TileEntityAreaDefenseStation;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.inventory.Container;
 import net.minecraft.inventory.IContainerListener;
 import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
 
-public class ContainerAreaDefenseStation extends Container {
+public class ContainerAreaDefenseStation extends ContainerMachine {
 	private TileEntityAreaDefenseStation defstation;
 
 	private int capacity;
@@ -36,10 +35,10 @@ public class ContainerAreaDefenseStation extends Container {
 	private int contratyp;
 	private int actionmode;
 	private int scanmode;
-	private EntityPlayer player;
 
 	public ContainerAreaDefenseStation(EntityPlayer player,
 			TileEntityAreaDefenseStation tileentity) {
+		super(player, tileentity);
 		capacity = -1;
 		SwitchTyp = -1;
 		contratyp = -1;
@@ -47,7 +46,6 @@ public class ContainerAreaDefenseStation extends Container {
 		scanmode = -1;
 
 		defstation = tileentity;
-		this.player = player;
 
 		addSlotToContainer(new SlotHelper(defstation, 0, 13, 27)); // Power Link
 		addSlotToContainer(new SlotHelper(defstation, 1, 97, 27)); // Security
@@ -88,10 +86,6 @@ public class ContainerAreaDefenseStation extends Container {
 			this.addSlotToContainer(new Slot(player.inventory, var3,
 					8 + var3 * 18, 192));
 		}
-	}
-
-	public EntityPlayer getPlayer() {
-		return player;
 	}
 
 	@Override
@@ -145,13 +139,8 @@ public class ContainerAreaDefenseStation extends Container {
 	}
 
 	@Override
-	public boolean canInteractWith(EntityPlayer entityplayer) {
-		return defstation.isUsableByPlayer(entityplayer);
-	}
-
-	@Override
 	public ItemStack transferStackInSlot(EntityPlayer p, int i) {
-		return null;
+		return ItemStack.EMPTY;
 	}
 
 }

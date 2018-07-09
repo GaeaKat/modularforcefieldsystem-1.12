@@ -27,13 +27,10 @@ import com.google.common.collect.MapMaker;
 
 import com.nekokittygames.mffs.api.PointXYZ;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.ChunkCache;
-import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
-import net.minecraftforge.fml.relauncher.ReflectionHelper;
 
 public final class WorldMap {
-	private static Map ForceFieldWorlds = new MapMaker().weakKeys().makeMap();
+	private static Map<World, ForceFieldWorld> ForceFieldWorlds = new MapMaker().weakKeys().makeMap();
 
 	public static class ForceFieldWorld {
 		private static Map<Integer, ForceFieldBlockStack> ForceFieldStackMap = new Hashtable<Integer, ForceFieldBlockStack>();

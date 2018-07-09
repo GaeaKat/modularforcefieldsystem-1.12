@@ -30,8 +30,6 @@ import com.nekokittygames.mffs.libs.LibItemNames;
 import com.nekokittygames.mffs.libs.LibMisc;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.creativetab.CreativeTabs;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.NonNullList;
@@ -95,6 +93,7 @@ public class ItemForcePowerCrystal extends ItemMFFSBase implements
 
 	@Override
 	public void getSubItems(CreativeTabs tab, NonNullList<ItemStack> subItems) {
+		if (!isInCreativeTab(tab)) return;
 		ItemStack charged = new ItemStack(this, 1);
 		charged.setItemDamage(1);
 		setAvailablePower(charged, getMaximumPower(null));

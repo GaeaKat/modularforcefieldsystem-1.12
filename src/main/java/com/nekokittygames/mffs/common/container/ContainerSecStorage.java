@@ -23,18 +23,15 @@ package com.nekokittygames.mffs.common.container;
 import com.nekokittygames.mffs.common.SlotHelper;
 import com.nekokittygames.mffs.common.tileentity.TileEntitySecStorage;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.inventory.Container;
 import net.minecraft.inventory.Slot;
-import net.minecraft.item.ItemStack;
 
-public class ContainerSecStorage extends Container {
-	private EntityPlayer player;
+public class ContainerSecStorage extends ContainerMachine {
 	private TileEntitySecStorage SecStorage;
 
 	public ContainerSecStorage(EntityPlayer player,
 			TileEntitySecStorage tileentity) {
+		super(player, tileentity);
 		SecStorage = tileentity;
-		this.player = player;
 
 		addSlotToContainer(new SlotHelper(SecStorage, 0, 12, 24)); // Security
 																	// link
@@ -61,39 +58,4 @@ public class ContainerSecStorage extends Container {
 					12 + var3 * 18, 213));
 		}
 	}
-
-	public EntityPlayer getPlayer() {
-		return player;
-	}
-
-	@Override
-	public boolean canInteractWith(EntityPlayer entityplayer) {
-		return SecStorage.isUsableByPlayer(entityplayer);
-	}
-
-	@Override
-	public ItemStack transferStackInSlot(EntityPlayer p, int i) {
-		ItemStack itemstack = null;
-		Slot slot = (Slot) inventorySlots.get(i);
-		if (slot != null && slot.getHasStack()) {
-			ItemStack itemstack1 = slot.getStack();
-			itemstack = itemstack1.copy();
-			if (i < SecStorage.getSizeInventory()) {
-				if (!mergeItemStack(itemstack1, SecStorage.getSizeInventory(),
-						inventorySlots.size(), true)) {
-					return null;
-				}
-			} else if (!mergeItemStack(itemstack1, 0,
-					SecStorage.getSizeInventory(), false)) {
-				return null;
-			}
-			if (itemstack1.getCount() == 0) {
-				slot.putStack(null);
-			} else {
-				slot.onSlotChanged();
-			}
-		}
-		return itemstack;
-	}
-
 }

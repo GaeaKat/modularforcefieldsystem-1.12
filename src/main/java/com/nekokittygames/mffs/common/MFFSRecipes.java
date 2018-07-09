@@ -27,58 +27,47 @@ package com.nekokittygames.mffs.common;
 import com.nekokittygames.mffs.common.block.ModBlocks;
 import com.nekokittygames.mffs.common.item.ModItems;
 import ic2.api.item.IC2Items;
-import ic2.api.recipe.RecipeInputItemStack;
 import ic2.api.recipe.Recipes;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.crafting.CraftingManager;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.Optional;
 import net.minecraftforge.fml.common.registry.GameRegistry;
-
-import java.lang.reflect.Method;
 
 public class MFFSRecipes {
 	public static final int MONAZIT_MACERATION_OUTPUT = 8;
 
-	@Optional.Method(modid = "IC2")
+	@Optional.Method(modid = "ic2")
 	public static void AddIC2Recipes() {
-		Method addMaceratorRecipe = null;
-		Method addMatterAmplifier = null;
-
-		Recipes.macerator.addRecipe(new RecipeInputItemStack(new ItemStack(
+		Recipes.macerator.addRecipe(Recipes.inputFactory.forStack(new ItemStack(
 				ModBlocks.MONAZIT_ORE, 1)),new NBTTagCompound(),false,new ItemStack(ModItems.FORCICIUM, MONAZIT_MACERATION_OUTPUT));
 
-		//		));
-        NBTTagCompound tag=new NBTTagCompound();
-        tag.setInteger("amplification",5000);
-        Recipes.matterAmplifier.addRecipe(new RecipeInputItemStack(new ItemStack(ModItems.FORCICIUM)),tag,false);
+        Recipes.matterAmplifier.addRecipe(Recipes.inputFactory.forStack(new ItemStack(ModItems.FORCICIUM)),5000,new NBTTagCompound(),false);
 		//Recipes.matterAmplifier.addRecipe(new ItemStack(
 		//		ModularForceFieldSystem.MFFSitemForcicium, 1), 5000);
 
-		//if (ModularForceFieldSystem.enableUUMatterForcicium)
-		//	Recipes.advRecipes.addRecipe(
-		//			new ItemStack(
-		//					ModularForceFieldSystem.MFFSitemForcicium,
-		//					8),
-		//			new Object[] { " RR", "R  ", " R ",
-		//					Character.valueOf('R'),
-		//					IC2Items.getItem("misc_resource","matter") });
+		if (ModularForceFieldSystem.enableUUMatterForcicium)
+			Recipes.advRecipes.addRecipe(
+					new ItemStack(
+							ModItems.FORCICIUM,
+							8),
+					new Object[] { " RR", "R  ", " R ",
+							Character.valueOf('R'),
+							IC2Items.getItem("misc_resource","matter") });
 
-		//RecipesFactory.addRecipe("AAAAxAADA", 1, 1, null,
-		//		ModularForceFieldSystem.MFFSitemForcicumCell);
-		//RecipesFactory.addRecipe(" E EBE E ", 4, 1, null,
-		//		ModularForceFieldSystem.MFFSitemupgradeexctractorboost);
-		//RecipesFactory.addRecipe(" E ExE E ", 1, 1, null,
-		//		ModularForceFieldSystem.MFFSitemupgradecapcap);
-		//RecipesFactory.addRecipe("HHHEIEEDE", 1, 1, null,
-		//		ModularForceFieldSystem.MFFSitemupgradecaprange);
-		//RecipesFactory.addRecipe("AlAlilAlA", 64, 1, null,
-		//		ModularForceFieldSystem.MFFSitemFocusmatix);
-		//RecipesFactory.addRecipe("ooooCoooo", 1, 1, null,
-		//		ModularForceFieldSystem.MFFSitemcardempty);
-		//RecipesFactory.addRecipe("mSnExEEDE", 1, 1, null,
-		//		ModularForceFieldSystem.MFFSitemWrench);
+		RecipesFactory.addRecipe("AAAAxAADA", 1, 1, null,
+				ModItems.FORCICIUM_CELL);
+		RecipesFactory.addRecipe(" E EBE E ", 4, 1, null,
+				ModItems.EXTRACTOR_UPGRADE_BOOSTER);
+		RecipesFactory.addRecipe(" E ExE E ", 1, 1, null,
+				ModItems.UPGRADE_CAPACITY);
+		RecipesFactory.addRecipe("HHHEIEEDE", 1, 1, null,
+				ModItems.UPGRADE_RANGE);
+		RecipesFactory.addRecipe("AlAlilAlA", 64, 1, null,
+				ModItems.PROJECTOR_FOCUS_MATRIX);
+		RecipesFactory.addRecipe("ooooCoooo", 1, 1, null,
+				ModItems.EMPTY_CARD);
+		RecipesFactory.addRecipe("mSnExEEDE", 1, 1, null,
+				ModItems.MULTITOOL_WRENCH);
 	}
 
 	public static void AddEIRecipes()
@@ -157,29 +146,22 @@ public class MFFSRecipes {
 		RecipesFactory.addRecipe("vvv   vvv", 1, 0, null,
 				ModItems.PROJECTOR_DISTANCE);
 
-//		CraftingManager
-//				.getInstance()
-//				.addShapelessRecipe(
-//						new ItemStack(ModularForceFieldSystem.MFFSitemcardempty),
-//						new Object[] { new ItemStack(
-//								ModularForceFieldSystem.MFFSitemfc) });
-//		CraftingManager.getInstance().addShapelessRecipe(
-//				new ItemStack(ModularForceFieldSystem.MFFSitemcardempty),
-//				new Object[] { new ItemStack(
-//						ModularForceFieldSystem.MFFSItemIDCard) });
-//		CraftingManager.getInstance().addShapelessRecipe(
-//				new ItemStack(ModularForceFieldSystem.MFFSitemcardempty),
-//				new Object[] { new ItemStack(
-//						ModularForceFieldSystem.MFFSItemSecLinkCard) });
-//		CraftingManager.getInstance().addShapelessRecipe(
-//				new ItemStack(ModularForceFieldSystem.MFFSitemcardempty),
-//				new Object[] { new ItemStack(
-//						ModularForceFieldSystem.MFFSAccessCard) });
-//		CraftingManager.getInstance().addShapelessRecipe(
-//				new ItemStack(ModularForceFieldSystem.MFFSitemcardempty),
-//				new Object[] { new ItemStack(
-//						ModularForceFieldSystem.MFFSitemDataLinkCard) });
-//
+		RecipesFactory.addShapelessRecipe(
+						ModItems.EMPTY_CARD,
+						ModItems.POWERLINK_CARD);
+		RecipesFactory.addShapelessRecipe(
+				ModItems.EMPTY_CARD,
+				ModItems.PERSONAL_ID);
+		RecipesFactory.addShapelessRecipe(
+				ModItems.EMPTY_CARD,
+				ModItems.SECURITYLINK_CARD);
+		RecipesFactory.addShapelessRecipe(
+				ModItems.EMPTY_CARD,
+				ModItems.ACCESS_CARD);
+		RecipesFactory.addShapelessRecipe(
+				ModItems.EMPTY_CARD,
+				ModItems.DATALINK_CARD);
+
 		GameRegistry.addSmelting(
 				ModBlocks.MONAZIT_ORE, new ItemStack(
 						ModItems.FORCICIUM, ModularForceFieldSystem.MonazitOreSmeltAmount), 0.5F);

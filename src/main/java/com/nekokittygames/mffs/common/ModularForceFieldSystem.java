@@ -61,7 +61,7 @@ import java.util.List;
 
 import static com.nekokittygames.mffs.common.ModularForceFieldSystem.MODID;
 
-@Mod(modid = MODID, name = "Modular ForceField System", version = "3.0.1", dependencies = "after:EnderIO;after:IC2")
+@Mod(modid = MODID, name = "Modular ForceField System", version = "3.0.1", dependencies = "after:EnderIO;after:ic2")
 public class ModularForceFieldSystem {
 
 	public static final String MODID="modularforcefieldsystem";
@@ -343,7 +343,7 @@ public class ModularForceFieldSystem {
 		//GameRegistry.registerTileEntity(TileEntityForceField.class,
 				//"MFFSForceField");
 		//proxy.setupClientBlock(MFFSFieldblock, LibBlockNames.FORCE_FIELD);
-		MFFSMaschines.preInit();
+
 		LightGuideBook.MakeBook();
 		proxy.registerTileEntitySpecialRenderer();
 
@@ -359,7 +359,7 @@ public class ModularForceFieldSystem {
 	public void load(FMLInitializationEvent evt) {
 
 		NetworkRegistry.INSTANCE.registerGuiHandler(instance,proxy);
-		//GameRegistry.registerWorldGenerator(new MFFSWorldGenerator(),0);
+		GameRegistry.registerWorldGenerator(new MFFSWorldGenerator(), 0);
 
 		OreDictionary.registerOre("dustMonazit",
 				ModItems.FORCICIUM);

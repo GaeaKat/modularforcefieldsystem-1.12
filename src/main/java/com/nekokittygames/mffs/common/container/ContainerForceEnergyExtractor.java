@@ -23,22 +23,19 @@ package com.nekokittygames.mffs.common.container;
 import com.nekokittygames.mffs.common.SlotHelper;
 import com.nekokittygames.mffs.common.tileentity.TileEntityExtractor;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.inventory.Container;
 import net.minecraft.inventory.IContainerListener;
 import net.minecraft.inventory.Slot;
-import net.minecraft.item.ItemStack;
 
-public class ContainerForceEnergyExtractor extends Container {
+public class ContainerForceEnergyExtractor extends ContainerMachine {
 	private TileEntityExtractor ForceEnergyExtractor;
-	private EntityPlayer player;
 	private int WorkCylce;
 	private int workdone;
 	private int ForceEnergybuffer;
 
 	public ContainerForceEnergyExtractor(EntityPlayer player,
 			TileEntityExtractor tileentity) {
+		super(player, tileentity);
 		ForceEnergyExtractor = tileentity;
-		this.player = player;
 		WorkCylce = -1;
 		workdone = -1;
 		ForceEnergybuffer = -1;
@@ -65,36 +62,6 @@ public class ContainerForceEnergyExtractor extends Container {
 			this.addSlotToContainer(new Slot(player.inventory, var3,
 					8 + var3 * 18, 162));
 		}
-	}
-
-	public EntityPlayer getPlayer() {
-		return player;
-	}
-
-	@Override
-	public boolean canInteractWith(EntityPlayer entityplayer) {
-		return ForceEnergyExtractor.isUsableByPlayer(entityplayer);
-	}
-
-	@Override
-	public ItemStack transferStackInSlot(EntityPlayer p, int i) {
-		ItemStack itemstack = null;
-		Slot slot = (Slot) inventorySlots.get(i);
-		if (slot != null && slot.getHasStack()) {
-			ItemStack itemstack1 = slot.getStack();
-			itemstack = itemstack1.copy();
-			if (itemstack1.getCount() == 0) {
-				slot.putStack(null);
-			} else {
-				slot.onSlotChanged();
-			}
-			if (itemstack1.getCount() != itemstack.getCount()) {
-				slot.onSlotChanged();
-			} else {
-				return null;
-			}
-		}
-		return itemstack;
 	}
 
 	@Override

@@ -23,18 +23,16 @@ package com.nekokittygames.mffs.common.container;
 import com.nekokittygames.mffs.common.SlotHelper;
 import com.nekokittygames.mffs.common.tileentity.TileEntityControlSystem;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.inventory.Container;
 import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
 
-public class ContainerControlSystem extends Container {
-	private EntityPlayer player;
+public class ContainerControlSystem extends ContainerMachine {
 	private TileEntityControlSystem Control;
 
 	public ContainerControlSystem(EntityPlayer player,
 			TileEntityControlSystem tileentity) {
+		super(player, tileentity);
 		Control = tileentity;
-		this.player = player;
 
 		addSlotToContainer(new SlotHelper(Control, 0, 236, 4)); // Security Link
 		addSlotToContainer(new SlotHelper(Control, 1, 203, 30)); // Reader
@@ -62,18 +60,9 @@ public class ContainerControlSystem extends Container {
 		}
 	}
 
-	public EntityPlayer getPlayer() {
-		return player;
-	}
-
-	@Override
-	public boolean canInteractWith(EntityPlayer entityplayer) {
-		return Control.isUsableByPlayer(entityplayer);
-	}
-
 	@Override
 	public ItemStack transferStackInSlot(EntityPlayer p, int i) {
-		return null;
+		return ItemStack.EMPTY;
 	}
 
 }

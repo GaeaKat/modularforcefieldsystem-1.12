@@ -28,7 +28,6 @@ import com.nekokittygames.mffs.common.container.ContainerAreaDefenseStation;
 import com.nekokittygames.mffs.common.item.ItemCardSecurityLink;
 import com.nekokittygames.mffs.common.item.ItemProjectorFieldModulatorDistance;
 import com.nekokittygames.mffs.common.item.ModItems;
-import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.monster.IMob;
 import net.minecraft.entity.passive.IAnimals;
@@ -40,19 +39,14 @@ import net.minecraft.inventory.ISidedInventory;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.nbt.NBTTagList;
-import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.text.TextComponentTranslation;
-import net.minecraftforge.common.util.Constants;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 
 public class TileEntityAreaDefenseStation extends TileEntityFEPoweredMachine
 		implements ISidedInventory {
-	private ItemStack Inventory[];
 	private int capacity;
 	private int distance;
 	private int contratyp;
@@ -62,12 +56,11 @@ public class TileEntityAreaDefenseStation extends TileEntityFEPoweredMachine
 	protected List<EntityPlayer> warnlist = new ArrayList<EntityPlayer>();
 	protected List<EntityPlayer> actionlist = new ArrayList<EntityPlayer>();
 	protected List<EntityLivingBase> NPClist = new ArrayList<EntityLivingBase>();
-	private final ArrayList<Item> ContraList = new ArrayList();
+	private final ArrayList<Item> ContraList = new ArrayList<Item>();
 
 	public TileEntityAreaDefenseStation() {
-		Random random = new Random();
+		super(36);
 
-		Inventory = new ItemStack[36];
 		capacity = 0;
 		contratyp = 1;
 		actionmode = 0;
@@ -109,7 +102,7 @@ public class TileEntityAreaDefenseStation extends TileEntityFEPoweredMachine
 	}
 
 	public int getActionDistance() {
-		if (getStackInSlot(3) != null) {
+		if (!getStackInSlot(3).isEmpty()) {
 			if (getStackInSlot(3).getItem() == ModItems.PROJECTOR_DISTANCE) {
 				return (getStackInSlot(3).getCount());
 			}
@@ -119,7 +112,7 @@ public class TileEntityAreaDefenseStation extends TileEntityFEPoweredMachine
 	}
 
 	public int getInfoDistance() {
-		if (getStackInSlot(2) != null) {
+		if (!getStackInSlot(2).isEmpty()) {
 			if (getStackInSlot(2).getItem() == ModItems.PROJECTOR_DISTANCE) {
 				return getActionDistance() + (getStackInSlot(2).getCount()+ 3);
 			}
@@ -128,7 +121,7 @@ public class TileEntityAreaDefenseStation extends TileEntityFEPoweredMachine
 	}
 
 	public boolean hasSecurityCard() {
-		if (getStackInSlot(1) != null) {
+		if (!getStackInSlot(1).isEmpty()) {
 			if (getStackInSlot(1).getItem() == ModItems.SECURITYLINK_CARD) {
 				return true;
 			}
@@ -148,43 +141,13 @@ public class TileEntityAreaDefenseStation extends TileEntityFEPoweredMachine
 	}
 
 	// Start NBT Read/ Save
-	@Override
-	public void readFromNBT(NBTTagCompound nbttagcompound) {
-		super.readFromNBT(nbttagcompound);
-        readExtraNBT(nbttagcompound);
-
-	}
-
     @Override
     public void readExtraNBT(NBTTagCompound nbttagcompound) {
         super.readExtraNBT(nbttagcompound);
         contratyp = nbttagcompound.getInteger("contratyp");
         actionmode = nbttagcompound.getInteger("actionmode");
         scanmode = nbttagcompound.getInteger("scanmode");
-        NBTTagList nbttaglist = nbttagcompound.getTagList("Items", Constants.NBT.TAG_COMPOUND);
-        Inventory = new ItemStack[getSizeInventory()];
-        for (int i = 0; i < nbttaglist.tagCount(); i++) {
-            NBTTagCompound nbttagcompound1 = (NBTTagCompound) nbttaglist
-                    .getCompoundTagAt(i);
-            byte byte0 = nbttagcompound1.getByte("Slot");
-            if (byte0 >= 0 && byte0 < Inventory.length) {
-                Inventory[byte0] = new ItemStack(nbttagcompound1);
-            }
-        }
     }
-
-    @Override
-    public void handleUpdateTag(NBTTagCompound tag) {
-        super.handleUpdateTag(tag);
-        readExtraNBT(tag);
-    }
-
-    @Override
-	public NBTTagCompound writeToNBT(NBTTagCompound nbttagcompound) {
-		super.writeToNBT(nbttagcompound);
-		writeExtraNBT(nbttagcompound);
-		return nbttagcompound;
-	}
 
     @Override
     public void writeExtraNBT(NBTTagCompound nbttagcompound) {
@@ -192,30 +155,12 @@ public class TileEntityAreaDefenseStation extends TileEntityFEPoweredMachine
         nbttagcompound.setInteger("contratyp", contratyp);
         nbttagcompound.setInteger("actionmode", actionmode);
         nbttagcompound.setInteger("scanmode", scanmode);
-        NBTTagList nbttaglist = new NBTTagList();
-        for (int i = 0; i < Inventory.length; i++) {
-            if (Inventory[i] != null) {
-                NBTTagCompound nbttagcompound1 = new NBTTagCompound();
-                nbttagcompound1.setByte("Slot", (byte) i);
-                Inventory[i].writeToNBT(nbttagcompound1);
-                nbttaglist.appendTag(nbttagcompound1);
-            }
-        }
-
-        nbttagcompound.setTag("Items", nbttaglist);
-    }
-
-    @Override
-    public NBTTagCompound getUpdateTag() {
-        NBTTagCompound cmp=super.getUpdateTag();
-        writeExtraNBT(cmp);
-        return cmp;
     }
 
     @Override
 	public void dropPlugins() {
-		for (int a = 0; a < this.Inventory.length; a++) {
-			dropplugins(a, this);
+		for (int a = 0; a < this.inventory.size(); a++) {
+			dropPlugins(a);
 		}
 	}
 
@@ -496,7 +441,7 @@ public class TileEntityAreaDefenseStation extends TileEntityFEPoweredMachine
 							ContraList.clear();
 
 							for (int place = 5; place < 15; place++) {
-								if (getStackInSlot(place) != null) {
+								if (!getStackInSlot(place).isEmpty()) {
 									ContraList.add(getStackInSlot(place)
 											.getItem());
 								}
@@ -647,46 +592,6 @@ public class TileEntityAreaDefenseStation extends TileEntityFEPoweredMachine
 	}
 
 	@Override
-	public ItemStack decrStackSize(int i, int j) {
-		if (Inventory[i] != null) {
-			if (Inventory[i].getCount() <= j) {
-				ItemStack itemstack = Inventory[i];
-				Inventory[i] = null;
-				return itemstack;
-			}
-			ItemStack itemstack1 = Inventory[i].splitStack(j);
-			if (Inventory[i].getCount() == 0) {
-				Inventory[i] = null;
-			}
-			return itemstack1;
-		} else {
-			return null;
-		}
-	}
-
-	@Override
-	public ItemStack removeStackFromSlot(int index) {
-		ItemStack item=Inventory[index];
-		Inventory[index]=null;
-		this.markDirty();
-		return item;
-	}
-
-	@Override
-	public void setInventorySlotContents(int i, ItemStack itemstack) {
-		Inventory[i] = itemstack;
-		if (itemstack != null && itemstack.getCount()> getInventoryStackLimit()) {
-			itemstack.setCount(getInventoryStackLimit());
-
-		}
-	}
-
-	@Override
-	public ItemStack getStackInSlot(int i) {
-		return Inventory[i];
-	}
-
-	@Override
 	public String getName() {
 		return "Defstation";
 	}
@@ -694,11 +599,6 @@ public class TileEntityAreaDefenseStation extends TileEntityFEPoweredMachine
 	@Override
 	public boolean hasCustomName() {
 		return false;
-	}
-
-	@Override
-	public int getSizeInventory() {
-		return Inventory.length;
 	}
 
 	@Override
@@ -807,48 +707,5 @@ public class TileEntityAreaDefenseStation extends TileEntityFEPoweredMachine
 	@Override
 	public int getPowerlinkSlot() {
 		return 0;
-	}
-
-
-
-	@Override
-	public boolean isItemValidForSlot(int i, ItemStack itemstack) {
-		return true;
-	}
-
-	@Override
-	public int getField(int id) {
-		return 0;
-	}
-
-	@Override
-	public void setField(int id, int value) {
-
-	}
-
-	@Override
-	public int getFieldCount() {
-		return 0;
-	}
-
-	@Override
-	public void clear() {
-
-	}
-
-
-	@Override
-	public int[] getSlotsForFace(EnumFacing side) {
-		return new int[0];
-	}
-
-	@Override
-	public boolean canInsertItem(int index, ItemStack itemStackIn, EnumFacing direction) {
-		return false;
-	}
-
-	@Override
-	public boolean canExtractItem(int index, ItemStack stack, EnumFacing direction) {
-		return false;
 	}
 }

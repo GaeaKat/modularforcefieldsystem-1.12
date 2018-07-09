@@ -25,7 +25,6 @@ import com.nekokittygames.mffs.api.IForceEnergyItems;
 import com.nekokittygames.mffs.api.IForceEnergyStorageBlock;
 import com.nekokittygames.mffs.api.IPowerLinkItem;
 import com.nekokittygames.mffs.common.Linkgrid;
-import com.nekokittygames.mffs.common.ModularForceFieldSystem;
 import com.nekokittygames.mffs.common.container.ContainerCapacitor;
 import com.nekokittygames.mffs.common.item.ItemCapacitorUpgradeCapacity;
 import com.nekokittygames.mffs.common.item.ItemCapacitorUpgradeRange;
@@ -36,16 +35,12 @@ import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.Container;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.nbt.NBTTagList;
-import net.minecraft.util.EnumFacing;
-import net.minecraftforge.common.util.Constants;
 
 import java.util.LinkedList;
 import java.util.List;
 
 public class TileEntityCapacitor extends TileEntityFEPoweredMachine implements
 		INetworkHandlerEventListener, IForceEnergyStorageBlock {
-	private ItemStack inventory[];
 	private int forcePower;
 	private short linketprojektor;
 	private int capacity;
@@ -53,7 +48,7 @@ public class TileEntityCapacitor extends TileEntityFEPoweredMachine implements
 	private int TransmitRange;
 
 	public TileEntityCapacitor() {
-		inventory = new ItemStack[5];
+		super(5);
 		forcePower = 0;
 		linketprojektor = 0;
 		TransmitRange = 8;
@@ -123,11 +118,6 @@ public class TileEntityCapacitor extends TileEntityFEPoweredMachine implements
 	}
 
 	@Override
-	public int getSizeInventory() {
-		return inventory.length;
-	}
-
-	@Override
 	public TileEntityAdvSecurityStation getLinkedSecurityStation() {
 		return ItemCardSecurityLink.getLinkedSecurityStation(this, 4, getWorld());
 	}
@@ -142,7 +132,7 @@ public class TileEntityCapacitor extends TileEntityFEPoweredMachine implements
 	@Override
 	public int getStorageMaxPower() {
 
-		if (getStackInSlot(0) != null) {
+		if (!getStackInSlot(0).isEmpty()) {
 			if (getStackInSlot(0).getItem() == ModItems.UPGRADE_CAPACITY) {
 
 				if (this.forcePower > 10000000 + (2000000 * getStackInSlot(0).getCount()))
@@ -158,7 +148,7 @@ public class TileEntityCapacitor extends TileEntityFEPoweredMachine implements
 
 	private void checkslots(boolean init) {
 
-		if (getStackInSlot(1) != null) {
+		if (!getStackInSlot(1).isEmpty()) {
 			if (getStackInSlot(1).getItem() == ModItems.UPGRADE_RANGE) {
 
 				setTransmitRange(8 * (getStackInSlot(1).getCount() + 1));
@@ -168,7 +158,7 @@ public class TileEntityCapacitor extends TileEntityFEPoweredMachine implements
 			setTransmitRange(8);
 		}
 
-		if (getStackInSlot(2) != null) {
+		if (!getStackInSlot(2).isEmpty()) {
 			if (getStackInSlot(2).getItem() instanceof IForceEnergyItems) {
 				if (this.getPowerlinkmode() != 3
 						&& this.getPowerlinkmode() != 4)
@@ -315,8 +305,8 @@ public class TileEntityCapacitor extends TileEntityFEPoweredMachine implements
 
 	@Override
 	public void dropPlugins() {
-		for (int a = 0; a < this.inventory.length; a++) {
-			dropplugins(a, this);
+		for (int a = 0; a < this.inventory.size(); a++) {
+			dropPlugins(a);
 		}
 	}
 
@@ -327,28 +317,10 @@ public class TileEntityCapacitor extends TileEntityFEPoweredMachine implements
 	}
 
 	@Override
-	public void readFromNBT(NBTTagCompound nbttagcompound) {
-		super.readFromNBT(nbttagcompound);
-
-		readExtraNBT(nbttagcompound);
-	}
-
-	@Override
 	public void readExtraNBT(NBTTagCompound nbttagcompound) {
 		super.readExtraNBT(nbttagcompound);
 		forcePower = nbttagcompound.getInteger("forcepower");
 		Powerlinkmode = nbttagcompound.getInteger("Powerlinkmode");
-
-		NBTTagList nbttaglist = nbttagcompound.getTagList("Items", Constants.NBT.TAG_COMPOUND);
-		inventory = new ItemStack[getSizeInventory()];
-		for (int i = 0; i < nbttaglist.tagCount(); i++) {
-			NBTTagCompound nbttagcompound1 = (NBTTagCompound) nbttaglist
-					.getCompoundTagAt(i);
-			byte byte0 = nbttagcompound1.getByte("Slot");
-			if (byte0 >= 0 && byte0 < inventory.length) {
-				inventory[byte0] = new ItemStack(nbttagcompound1);
-			}
-		}
 	}
 
 	@Override
@@ -356,39 +328,6 @@ public class TileEntityCapacitor extends TileEntityFEPoweredMachine implements
 		super.writeExtraNBT(nbttagcompound);
 		nbttagcompound.setInteger("forcepower", forcePower);
 		nbttagcompound.setInteger("Powerlinkmode", Powerlinkmode);
-
-		NBTTagList nbttaglist = new NBTTagList();
-		for (int i = 0; i < inventory.length; i++) {
-			if (inventory[i] != null) {
-				NBTTagCompound nbttagcompound1 = new NBTTagCompound();
-				nbttagcompound1.setByte("Slot", (byte) i);
-				inventory[i].writeToNBT(nbttagcompound1);
-				nbttaglist.appendTag(nbttagcompound1);
-			}
-		}
-
-		nbttagcompound.setTag("Items", nbttaglist);
-	}
-
-	@Override
-	public NBTTagCompound writeToNBT(NBTTagCompound nbttagcompound) {
-		super.writeToNBT(nbttagcompound);
-
-		writeExtraNBT(nbttagcompound);
-		return nbttagcompound;
-	}
-
-	@Override
-	public NBTTagCompound getUpdateTag() {
-		NBTTagCompound cmp= super.getUpdateTag();
-		writeExtraNBT(cmp);
-		return cmp;
-	}
-
-	@Override
-	public void handleUpdateTag(NBTTagCompound tag) {
-		super.handleUpdateTag(tag);
-		readExtraNBT(tag);
 	}
 
 	@Override
@@ -507,45 +446,6 @@ public class TileEntityCapacitor extends TileEntityFEPoweredMachine implements
 	}
 
 	@Override
-	public ItemStack getStackInSlot(int i) {
-		return inventory[i];
-	}
-
-	@Override
-	public ItemStack decrStackSize(int i, int j) {
-		if (inventory[i] != null) {
-			if (inventory[i].getCount() <= j) {
-				ItemStack itemstack = inventory[i];
-				inventory[i] = null;
-				return itemstack;
-			}
-			ItemStack itemstack1 = inventory[i].splitStack(j);
-			if (inventory[i].getCount() == 0) {
-				inventory[i] = null;
-			}
-			return itemstack1;
-		} else {
-			return null;
-		}
-	}
-
-	@Override
-	public ItemStack removeStackFromSlot(int index) {
-		ItemStack item=inventory[index];
-		inventory[index]=null;
-		this.markDirty();
-		return item;
-	}
-
-	@Override
-	public void setInventorySlotContents(int i, ItemStack itemstack) {
-		inventory[i] = itemstack;
-		if (itemstack != null && itemstack.getCount() > getInventoryStackLimit()) {
-			itemstack.setCount(getInventoryStackLimit());
-		}
-	}
-
-	@Override
 	public String getName() {
 		return "Generator";
 	}
@@ -560,7 +460,7 @@ public class TileEntityCapacitor extends TileEntityFEPoweredMachine implements
 
 		switch (key) {
 		case 1:
-			if (getStackInSlot(2) != null) {
+			if (!getStackInSlot(2).isEmpty()) {
 
 				if (getStackInSlot(2).getItem() instanceof IForceEnergyItems) {
 					if (this.getPowerlinkmode() == 4) {
@@ -700,47 +600,5 @@ public class TileEntityCapacitor extends TileEntityFEPoweredMachine implements
 	@Override
 	public int getPowerlinkSlot() {
 		return 2;
-	}
-
-
-	@Override
-	public boolean isItemValidForSlot(int i, ItemStack itemstack) {
-		return true;
-	}
-
-	@Override
-	public int getField(int id) {
-		return 0;
-	}
-
-	@Override
-	public void setField(int id, int value) {
-
-	}
-
-	@Override
-	public int getFieldCount() {
-		return 0;
-	}
-
-	@Override
-	public void clear() {
-
-	}
-
-
-	@Override
-	public int[] getSlotsForFace(EnumFacing side) {
-		return new int[0];
-	}
-
-	@Override
-	public boolean canInsertItem(int index, ItemStack itemStackIn, EnumFacing direction) {
-		return false;
-	}
-
-	@Override
-	public boolean canExtractItem(int index, ItemStack stack, EnumFacing direction) {
-		return false;
 	}
 }

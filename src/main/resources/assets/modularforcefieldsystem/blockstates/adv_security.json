@@ -2,12 +2,12 @@
   "forge_marker": 1,
   "defaults": {
     "textures": {
-      "inactiveSide": "modularforcefieldsystem:blocks/areaDefense/inactive",
-      "inactiveTop": "modularforcefieldsystem:blocks/areaDefense/inactive",
-      "inactiveFace": "modularforcefieldsystem:blocks/areaDefense/inactive",
-      "activeSide": "modularforcefieldsystem:blocks/areaDefense/active",
-      "activeTop": "modularforcefieldsystem:blocks/areaDefense/active",
-      "activeFace": "modularforcefieldsystem:blocks/areaDefense/active",
+      "inactiveSide": "modularforcefieldsystem:blocks/adv_security/inactive",
+      "inactiveTop": "modularforcefieldsystem:blocks/adv_security/inactive",
+      "inactiveFace": "modularforcefieldsystem:blocks/adv_security/inactive",
+      "activeSide": "modularforcefieldsystem:blocks/adv_security/active",
+      "activeTop": "modularforcefieldsystem:blocks/adv_security/active",
+      "activeFace": "modularforcefieldsystem:blocks/adv_security/active",
       "north": "#inactiveSide",
       "south": "#inactiveSide",
       "east": "#inactiveSide",

@@ -27,6 +27,9 @@ import com.nekokittygames.mffs.api.IPowerLinkItem;
 import net.minecraft.item.ItemStack;
 
 public abstract class TileEntityFEPoweredMachine extends TileEntityMachines {
+	public TileEntityFEPoweredMachine(int slots) {
+		super(slots);
+	}
 
 	public abstract ItemStack getPowerLinkStack();
 
@@ -45,7 +48,7 @@ public abstract class TileEntityFEPoweredMachine extends TileEntityMachines {
 	@Override
 	public boolean hasPowerSource() {
 		ItemStack linkCard = getPowerLinkStack();
-		if (linkCard != null && linkCard.getItem() instanceof IPowerLinkItem)
+		if (linkCard.getItem() instanceof IPowerLinkItem)
 			return true;
 		return false;
 	}

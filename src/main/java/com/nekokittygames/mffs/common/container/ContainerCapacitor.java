@@ -23,28 +23,25 @@ package com.nekokittygames.mffs.common.container;
 import com.nekokittygames.mffs.common.SlotHelper;
 import com.nekokittygames.mffs.common.tileentity.TileEntityCapacitor;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.inventory.Container;
 import net.minecraft.inventory.IContainerListener;
 import net.minecraft.inventory.Slot;
-import net.minecraft.item.ItemStack;
 
-public class ContainerCapacitor extends Container {
+public class ContainerCapacitor extends ContainerMachine {
 	private TileEntityCapacitor generatorentity;
 
 	private int capacity;
 	private int forcepower;
 	private int Powerlinkmode;
 	private short linketprojektor;
-	private EntityPlayer player;
 
 	public ContainerCapacitor(EntityPlayer player,
 			TileEntityCapacitor tileentity) {
+		super(player, tileentity);
 		forcepower = -1;
 		linketprojektor = -1;
 		capacity = -1;
 		Powerlinkmode = -1;
 		generatorentity = tileentity;
-		this.player = player;
 
 		addSlotToContainer(new SlotHelper(generatorentity, 4, 154, 88)); // Security
 																			// Link
@@ -69,10 +66,6 @@ public class ContainerCapacitor extends Container {
 			this.addSlotToContainer(new Slot(player.inventory, var3,
 					8 + var3 * 18, 183));
 		}
-	}
-
-	public EntityPlayer getPlayer() {
-		return player;
 	}
 
 	@Override
@@ -134,31 +127,5 @@ public class ContainerCapacitor extends Container {
 			generatorentity.setPowerlinkmode(j);
 			break;
 		}
-	}
-
-	@Override
-	public boolean canInteractWith(EntityPlayer entityplayer) {
-		return generatorentity.isUsableByPlayer(entityplayer);
-	}
-
-	@Override
-	public ItemStack transferStackInSlot(EntityPlayer p, int i) {
-		ItemStack itemstack = null;
-		Slot slot = (Slot) inventorySlots.get(i);
-		if (slot != null && slot.getHasStack()) {
-			ItemStack itemstack1 = slot.getStack();
-			itemstack = itemstack1.copy();
-			if (itemstack1.getCount() == 0) {
-				slot.putStack(null);
-			} else {
-				slot.onSlotChanged();
-			}
-			if (itemstack1.getCount() != itemstack.getCount()) {
-				slot.onSlotChanged();
-			} else {
-				return null;
-			}
-		}
-		return itemstack;
 	}
 }

@@ -27,36 +27,29 @@ import com.nekokittygames.mffs.common.SecurityRight;
 import com.nekokittygames.mffs.common.container.ContainerAdvSecurityStation;
 import com.nekokittygames.mffs.common.item.*;
 import com.nekokittygames.mffs.common.multitool.ItemDebugger;
-import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.Container;
-import net.minecraft.inventory.ItemStackHelper;
 import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.nbt.NBTTagList;
-import net.minecraft.util.EnumFacing;
-import net.minecraftforge.common.util.Constants;
 
 import java.util.LinkedList;
 import java.util.List;
 
 public class TileEntityAdvSecurityStation extends TileEntityMachines {
 	private String MainUser;
-	private ItemStack inventory[];
 	private boolean securityEstablished = false;
 
 	public TileEntityAdvSecurityStation() {
+		super(40);
 
-		inventory = new ItemStack[40];
 		MainUser = "";
 
 	}
 
 	@Override
 	public void dropPlugins() {
-		for (int a = 0; a < this.inventory.length; a++) {
+		for (int a = 0; a < this.inventory.size(); a++) {
 			dropPlugins(a);
 		}
 	}
@@ -72,26 +65,6 @@ public class TileEntityAdvSecurityStation extends TileEntityMachines {
 		}
 	}
 
-	public void dropPlugins(int slot) {
-		if (getStackInSlot(slot) != null) {
-			if (getStackInSlot(slot).getItem() instanceof ItemCardSecurityLink
-					|| getStackInSlot(slot).getItem() instanceof ItemCardPowerLink
-					|| getStackInSlot(slot).getItem() instanceof ItemCardPersonalID) {
-				world.spawnEntity(new EntityItem(world,
-						this.pos.getX(), this.pos.getY(),
-						this.pos.getZ(), new ItemStack(
-								ModItems.EMPTY_CARD, 1)));
-			} else {
-				world.spawnEntity(new EntityItem(world,
-						this.pos.getX(), this.pos.getY(),
-						this.pos.getZ(), this.getStackInSlot(slot)));
-			}
-
-			this.setInventorySlotContents(slot, null);
-			this.markDirty();
-		}
-	}
-
 	@Override
 	public Container getContainer(InventoryPlayer inventoryplayer) {
 		return new ContainerAdvSecurityStation(inventoryplayer.player, this);
@@ -101,63 +74,6 @@ public class TileEntityAdvSecurityStation extends TileEntityMachines {
 	public void invalidate() {
 		Linkgrid.getWorldMap(world).getSecStation().remove(getDeviceID());
 		super.invalidate();
-	}
-
-	@Override
-	public void readFromNBT(NBTTagCompound nbttagcompound) {
-		super.readFromNBT(nbttagcompound);
-	}
-
-	@Override
-	public void readExtraNBT(NBTTagCompound nbttagcompound) {
-		super.readExtraNBT(nbttagcompound);
-		NBTTagList nbttaglist = nbttagcompound.getTagList("Items", Constants.NBT.TAG_COMPOUND);
-		inventory = new ItemStack[getSizeInventory()];
-		for (int i = 0; i < nbttaglist.tagCount(); i++) {
-			NBTTagCompound nbttagcompound1 = (NBTTagCompound) nbttaglist
-					.getCompoundTagAt(i);
-			byte byte0 = nbttagcompound1.getByte("Slot");
-			if (byte0 >= 0 && byte0 < inventory.length) {
-				inventory[byte0] = new ItemStack(nbttagcompound1);
-			}
-		}
-	}
-
-	@Override
-	public void writeExtraNBT(NBTTagCompound nbttagcompound) {
-		super.writeExtraNBT(nbttagcompound);
-		NBTTagList nbttaglist = new NBTTagList();
-		for (int i = 0; i < inventory.length; i++) {
-			if (inventory[i] != null) {
-				NBTTagCompound nbttagcompound1 = new NBTTagCompound();
-				nbttagcompound1.setByte("Slot", (byte) i);
-				inventory[i].writeToNBT(nbttagcompound1);
-				nbttaglist.appendTag(nbttagcompound1);
-			}
-		}
-
-		nbttagcompound.setTag("Items", nbttaglist);
-	}
-
-	@Override
-	public void handleUpdateTag(NBTTagCompound tag) {
-		super.handleUpdateTag(tag);
-		readExtraNBT(tag);
-	}
-
-	@Override
-	public NBTTagCompound getUpdateTag() {
-		NBTTagCompound cmp= super.getUpdateTag();
-		writeExtraNBT(cmp);
-		return cmp;
-	}
-
-	@Override
-	public NBTTagCompound writeToNBT(NBTTagCompound nbttagcompound) {
-		super.writeToNBT(nbttagcompound);
-
-		writeExtraNBT(nbttagcompound);
-		return nbttagcompound;
 	}
 
 	@Override
@@ -226,52 +142,8 @@ public class TileEntityAdvSecurityStation extends TileEntityMachines {
 	}
 
 	@Override
-	public int getSizeInventory() {
-		return inventory.length;
-	}
-
-	@Override
-	public ItemStack getStackInSlot(int i) {
-		return inventory[i];
-	}
-
-	@Override
 	public int getInventoryStackLimit() {
 		return 1;
-	}
-
-	@Override
-	public ItemStack decrStackSize(int i, int j) {
-		if (inventory[i] != null) {
-			if (inventory[i].getCount() <= j) {
-				ItemStack itemstack = inventory[i];
-				inventory[i] = null;
-				return itemstack;
-			}
-			ItemStack itemstack1 = inventory[i].splitStack(j);
-			if (inventory[i].getCount() == 0) {
-				inventory[i] = null;
-			}
-			return itemstack1;
-		} else {
-			return null;
-		}
-	}
-
-	@Override
-	public ItemStack removeStackFromSlot(int index) {
-		ItemStack item=inventory[index];
-		inventory[index]=null;
-		this.markDirty();
-		return item;
-	}
-
-	@Override
-	public void setInventorySlotContents(int i, ItemStack itemstack) {
-		inventory[i] = itemstack;
-		if (itemstack != null && itemstack.getCount()> getInventoryStackLimit()) {
-			itemstack.setCount( getInventoryStackLimit());
-		}
 	}
 
 	@Override
@@ -287,24 +159,21 @@ public class TileEntityAdvSecurityStation extends TileEntityMachines {
 	public boolean RemoteInventory(String username, SecurityRight right) {
 
 		for (int a = 35; a >= 1; a--) {
-			if (getStackInSlot(a) != null) {
-				if (getStackInSlot(a).getItem() == ModItems.PERSONAL_ID) {
-					String username_invtory = NBTTagCompoundHelper
-							.getTAGfromItemstack(getStackInSlot(a)).getString(
-									"name");
+			ItemStack stack = getStackInSlot(a);
+			
+			if (!stack.isEmpty() && stack.getItem() == ModItems.PERSONAL_ID) {
+				String username_invtory = NBTTagCompoundHelper
+						.getTAGfromItemstack(stack).getString("name");
 
-					ItemCardPersonalID Card = (ItemCardPersonalID) getStackInSlot(
-							a).getItem();
+				ItemCardPersonalID Card = (ItemCardPersonalID) stack.getItem();
 
-					boolean access = ItemCardPersonalID.hasRight(
-							getStackInSlot(a), right);
+				boolean access = ItemCardPersonalID.hasRight(stack, right);
 
-					if (username_invtory.equals(username)) {
-						if (access) {
-							return true;
-						} else {
-							return false;
-						}
+				if (username_invtory.equals(username)) {
+					if (access) {
+						return true;
+					} else {
+						return false;
 					}
 				}
 			}
@@ -319,7 +188,7 @@ public class TileEntityAdvSecurityStation extends TileEntityMachines {
 			List<Slot> slots = player.inventoryContainer.inventorySlots;
 			for (Slot slot : slots) {
 				ItemStack stack = slot.getStack();
-				if (stack != ItemStack.EMPTY) {
+				if (!stack.isEmpty()) {
 					if (stack.getItem() instanceof ItemAccessCard) {
 						if (ItemAccessCard
 								.getvalidity(stack) > 0) {
@@ -387,10 +256,6 @@ public class TileEntityAdvSecurityStation extends TileEntityMachines {
 		return false;
 	}
 
-	public ItemStack[] getContents() {
-		return inventory;
-	}
-
 	@Override
 	public List<String> getFieldsforUpdate() {
 
@@ -433,7 +298,7 @@ public class TileEntityAdvSecurityStation extends TileEntityMachines {
 		switch (key) {
 		case 100:
 
-			if (getStackInSlot(1) != null) {
+			if (!getStackInSlot(1).isEmpty()) {
 				SecurityRight sr = SecurityRight.rights.get(value);
 				if (sr != null
 						&& getStackInSlot(1).getItem() instanceof ItemCardPersonalID) {
@@ -445,7 +310,7 @@ public class TileEntityAdvSecurityStation extends TileEntityMachines {
 				}
 			break;
 		case 101:
-			if (getStackInSlot(1) != null) {
+			if (!getStackInSlot(1).isEmpty()) {
 				if (getStackInSlot(1).getItem() instanceof ItemAccessCard) {
 					if (ItemAccessCard.getvalidity(getStackInSlot(1)) <= 5) {
 						this.setInventorySlotContents(1, new ItemStack(
@@ -459,7 +324,7 @@ public class TileEntityAdvSecurityStation extends TileEntityMachines {
 			}
 			break;
 		case 102:
-			if (getStackInSlot(1) != null) {
+			if (!getStackInSlot(1).isEmpty()) {
 				if (getStackInSlot(1).getItem() instanceof ItemCardEmpty) {
 					setInventorySlotContents(1, new ItemStack(
 							ModItems.ACCESS_CARD, 1));
@@ -483,7 +348,7 @@ public class TileEntityAdvSecurityStation extends TileEntityMachines {
 	}
 
 	public ItemStack getModCardStack() {
-		if (getStackInSlot(1) != null) {
+		if (!getStackInSlot(1).isEmpty()) {
 			return getStackInSlot(1);
 		}
 		return null;
@@ -497,47 +362,5 @@ public class TileEntityAdvSecurityStation extends TileEntityMachines {
 	@Override
 	public TileEntityAdvSecurityStation getLinkedSecurityStation() {
 		return this;
-	}
-
-
-	@Override
-	public boolean isItemValidForSlot(int i, ItemStack itemstack) {
-		return true;
-	}
-
-	@Override
-	public int getField(int id) {
-		return 0;
-	}
-
-	@Override
-	public void setField(int id, int value) {
-
-	}
-
-	@Override
-	public int getFieldCount() {
-		return 0;
-	}
-
-	@Override
-	public void clear() {
-
-	}
-
-
-	@Override
-	public int[] getSlotsForFace(EnumFacing side) {
-		return new int[0];
-	}
-
-	@Override
-	public boolean canInsertItem(int index, ItemStack itemStackIn, EnumFacing direction) {
-		return false;
-	}
-
-	@Override
-	public boolean canExtractItem(int index, ItemStack stack, EnumFacing direction) {
-		return false;
 	}
 }
