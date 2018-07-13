@@ -31,9 +31,7 @@ import net.minecraft.world.World;
 public class ItemProjectorOptionSponge extends ItemProjectorOptionBase
 		implements IInteriorCheck {
 	public ItemProjectorOptionSponge() {
-		super();
-		setUnlocalizedName(LibMisc.UNLOCALIZED_PREFIX+ LibItemNames.OPTION_SPONGE);
-		setRegistryName(LibItemNames.OPTION_SPONGE);
+		super(LibItemNames.OPTION_SPONGE);
 	}
 
 	@Override

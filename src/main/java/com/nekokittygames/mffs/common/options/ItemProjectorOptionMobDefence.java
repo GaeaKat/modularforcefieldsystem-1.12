@@ -39,9 +39,7 @@ import net.minecraft.world.World;
 public class ItemProjectorOptionMobDefence extends ItemProjectorOptionBase {
 
 	public ItemProjectorOptionMobDefence() {
-		super();
-		setUnlocalizedName(LibMisc.UNLOCALIZED_PREFIX+ LibItemNames.OPTION_MOB_DEFENSE);
-		setRegistryName(LibItemNames.OPTION_MOB_DEFENSE);
+		super(LibItemNames.OPTION_MOB_DEFENSE);
 	}
 
 

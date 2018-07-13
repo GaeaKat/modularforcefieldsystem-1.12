@@ -39,9 +39,7 @@ public class ItemDebugger extends ItemMultitool {
 	protected StringBuffer info = new StringBuffer();
 
 	public ItemDebugger() {
-		super(3, false);
-		setUnlocalizedName(LibMisc.UNLOCALIZED_PREFIX+ LibItemNames.MULTITOOL_DEBUGGER);
-		setRegistryName(LibItemNames.MULTITOOL_DEBUGGER);
+		super(3, false,LibItemNames.MULTITOOL_DEBUGGER);
 	}
 
 

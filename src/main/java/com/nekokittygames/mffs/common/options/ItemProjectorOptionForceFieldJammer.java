@@ -32,9 +32,7 @@ import net.minecraft.world.World;
 public class ItemProjectorOptionForceFieldJammer extends
 		ItemProjectorOptionBase implements IChecksOnAll {
 	public ItemProjectorOptionForceFieldJammer() {
-		super();
-		setUnlocalizedName(LibMisc.UNLOCALIZED_PREFIX+ LibItemNames.OPTION_FIELD_JAMMER);
-		setRegistryName(LibItemNames.OPTION_FIELD_JAMMER);
+		super(LibItemNames.OPTION_FIELD_JAMMER);
 	}
 
 

@@ -34,7 +34,7 @@ else {
 
 group = "com.nekokittygames.mffs"
 archivesBaseName = "MFFS"
-version = "1.10.2-3.0.1.${buildnumber}"
+version = "1.12.2-4.0.1.${buildnumber}"
 
 boolean dev = System.getenv("RELEASE") == null || System.getenv("RELEASE").equalsIgnoreCase("false")
 
@@ -120,19 +120,27 @@ repositories {
 
 
 dependencies {
-    deobfCompile "mcp.mobius.waila:Hwyla:1.8.20-B35_1.12"
-    
+    deobfCompile "hwyla:Hwyla:1.8.26:B41_1.12.2"
+
     compile "net.darkhax.tesla:Tesla-1.12:1.0.61"
     //deobfCompile "com.enderio.core:EnderCore:1.10.2-0.4.1.58-beta"
     //deobfCompile "com.enderio:EnderIO:1.10.2-3.0.1.131_beta"
-    deobfCompile "info.amerifrance.guideapi:Guide-API:1.12-2.1.4-57"
-	deobfCompile "mezz.jei:jei_1.12.2:4.7.+:api"
+    deobfCompile "info.amerifrance.guideapi:Guide-API:1.12-2.1.5-60"
+    deobfCompile "jei:jei_1.12.2:4.11.0.204"
 
-	compile "cofh:ThermalExpansion:1.12-5.+:deobf"
-    compile "cofh:ThermalDynamics:1.12-2.+:deobf"
+
     compile "org.joml:joml:1.9.4"
     deobfCompile "industrial-craft:industrialcraft-2:2.8.91:ex112"
-    deobfCompile "buildcraft:buildcraft:7.99.17"
+    deobfCompile "codechicken-lib-1-8:CodeChickenLib-1.12.2:3.2.0.345:universal"
+    deobfCompile "redstone-flux:RedstoneFlux-1.12:2.0.2.3:universal"
+    deobfCompile "cofhcore:CoFHCore-1.12.2:4.5.2.19:universal"
+    deobfCompile "cofh-world:CoFHWorld-1.12.2:1.2.0.5:universal"
+    deobfCompile "thermal-foundation:ThermalFoundation-1.12.2:2.5.0.19:universal"
+    deobfCompile "thermalexpansion:ThermalExpansion-1.12.2:5.5.0.29:universal"
+    deobfCompile "thermal-dynamics:ThermalDynamics-1.12.2:2.5.1.14:universal"
+    deobfCompile "endercore:EnderCore:1.12.2:0.5.35"
+    deobfCompile "ender-io:EnderIO:1.12.2:5.0.29"
+    //deobfCompile "buildcraft:buildcraft:7.99.17"
 
 
     //deobfCompile "mcp.mobius.waila:Hwyla:${config.hwyla_version}"

@@ -49,9 +49,7 @@ import java.util.List;
 
 public class ItemPersonalIDWriter extends ItemMultitool {
 	public ItemPersonalIDWriter() {
-		super( 2);
-		setUnlocalizedName(LibMisc.UNLOCALIZED_PREFIX+LibItemNames.MULTITOOL_ID_WRITER);
-		setRegistryName(LibItemNames.MULTITOOL_ID_WRITER);
+		super( 2,LibItemNames.MULTITOOL_ID_WRITER);
 	}
 
 	@Override

@@ -26,8 +26,6 @@ import com.nekokittygames.mffs.libs.LibMisc;
 
 public class ItemProjectorOptionTouchDamage extends ItemProjectorOptionBase {
 	public ItemProjectorOptionTouchDamage() {
-		super();
-		setUnlocalizedName(LibMisc.UNLOCALIZED_PREFIX+ LibItemNames.OPTION_TOUCH_DAMAGE);
-		setRegistryName(LibItemNames.OPTION_TOUCH_DAMAGE);
+		super(LibItemNames.OPTION_TOUCH_DAMAGE);
 	}
 }

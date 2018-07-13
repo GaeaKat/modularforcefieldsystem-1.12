@@ -9,8 +9,8 @@ import com.nekokittygames.mffs.common.IModularProjector;
 
 public abstract class Module3DBase extends ModuleBase {
 
-	public Module3DBase() {
-		super();
+	public Module3DBase(final String itemName) {
+		super(itemName);
 	}
 
 	@Override

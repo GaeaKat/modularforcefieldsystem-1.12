@@ -41,8 +41,8 @@ public abstract class ItemMultitool extends ForceEnergyItems implements
 	private int typ;
 
 
-	protected ItemMultitool( int typ, boolean addToList) {
-		super();
+	protected ItemMultitool( int typ, boolean addToList,final String itemName) {
+		super(itemName);
 		this.typ = typ;
 		setMaxStackSize(1);
 		setMaxDamage(100);
@@ -51,8 +51,8 @@ public abstract class ItemMultitool extends ForceEnergyItems implements
 			MTTypes.add(this);
 	}
 
-	protected ItemMultitool( int typ) {
-		this(typ, true);
+	protected ItemMultitool( int typ,final String itemName) {
+		this(typ, true,itemName);
 	}
 
 

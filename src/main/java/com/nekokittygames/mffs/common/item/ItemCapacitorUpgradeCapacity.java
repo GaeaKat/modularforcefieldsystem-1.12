@@ -36,10 +36,8 @@ import java.util.List;
 
 public class ItemCapacitorUpgradeCapacity extends ItemMFFSBase {
 	public ItemCapacitorUpgradeCapacity() {
-		super();
+		super(LibItemNames.UPGRADE_CAPACITY);
 		setMaxStackSize(9);
-		setUnlocalizedName(LibMisc.UNLOCALIZED_PREFIX+ LibItemNames.UPGRADE_CAPACITY);
-		setRegistryName(LibItemNames.UPGRADE_CAPACITY);
 	}
 
 

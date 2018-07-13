@@ -33,13 +33,13 @@ import net.minecraftforge.common.DimensionManager;
 import javax.annotation.Nullable;
 import java.util.List;
 
-public abstract class ItemCard extends Item {
+public abstract class ItemCard extends ItemMFFSBase {
 
 	private StringBuffer info = new StringBuffer();
 	protected int Tick;
 
-	public ItemCard() {
-		super();
+	public ItemCard(final String itemName) {
+		super(itemName);
 		setMaxStackSize(1);
 		Tick = 0;
 	}

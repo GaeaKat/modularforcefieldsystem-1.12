@@ -48,9 +48,7 @@ import net.minecraft.world.World;
 public class ItemCardSecurityLink extends ItemCard {
 
 	public ItemCardSecurityLink() {
-		super();
-		setUnlocalizedName(LibMisc.UNLOCALIZED_PREFIX+ LibItemNames.SECURITY_LINK_CARD);
-		setRegistryName(LibItemNames.SECURITY_LINK_CARD);
+		super(LibItemNames.SECURITY_LINK_CARD);
 	}
 
 	@Override

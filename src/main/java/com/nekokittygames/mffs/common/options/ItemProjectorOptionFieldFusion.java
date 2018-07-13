@@ -38,9 +38,7 @@ import net.minecraft.world.World;
 public class ItemProjectorOptionFieldFusion extends ItemProjectorOptionBase
 		implements IInteriorCheck {
 	public ItemProjectorOptionFieldFusion() {
-		super();
-		setUnlocalizedName(LibMisc.UNLOCALIZED_PREFIX+ LibItemNames.OPTION_FIELD_FUSION);
-		setRegistryName(LibItemNames.OPTION_FIELD_FUSION);
+		super(LibItemNames.OPTION_FIELD_FUSION);
 	}
 
 

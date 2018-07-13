@@ -36,10 +36,9 @@ import java.util.List;
 
 public class ItemProjectorFieldModulatorStrength extends ItemMFFSBase {
 	public ItemProjectorFieldModulatorStrength() {
-		super();
+		super(LibItemNames.PROJECTOR_STENGTH_MODULATOR);
 		setMaxStackSize(64);
-		setUnlocalizedName(LibMisc.UNLOCALIZED_PREFIX+ LibItemNames.PROJECTOR_STENGTH_MODULATOR);
-		setRegistryName(LibItemNames.PROJECTOR_STENGTH_MODULATOR);
+
 	}
 
 

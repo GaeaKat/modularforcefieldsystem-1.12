@@ -51,9 +51,7 @@ public class ItemCardPowerLink extends ItemCard implements IPowerLinkItem {
 
 	public ItemCardPowerLink()
 	{
-		super();
-		setUnlocalizedName(LibMisc.UNLOCALIZED_PREFIX+LibItemNames.POWER_LINK_CARD);
-		setRegistryName(LibItemNames.POWER_LINK_CARD);
+		super(LibItemNames.POWER_LINK_CARD);
 	}
 
 

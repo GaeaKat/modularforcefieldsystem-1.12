@@ -26,8 +26,6 @@ import com.nekokittygames.mffs.libs.LibMisc;
 public class ItemProjectorOptionFieldManipulator extends
 		ItemProjectorOptionBase {
 	public ItemProjectorOptionFieldManipulator() {
-		super();
-		setUnlocalizedName(LibMisc.UNLOCALIZED_PREFIX+ LibItemNames.OPTION_FIELD_MANIPULATOR);
-		setRegistryName(LibItemNames.OPTION_FIELD_MANIPULATOR);
+		super(LibItemNames.OPTION_FIELD_MANIPULATOR);
 	}
 }

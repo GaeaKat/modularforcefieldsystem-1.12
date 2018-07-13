@@ -26,10 +26,8 @@ import com.nekokittygames.mffs.libs.LibMisc;
 
 public class ItemForcicium extends ItemMFFSBase {
 	public ItemForcicium() {
-		super();
+		super(LibItemNames.FORCICIUM);
 		setMaxStackSize(64);
-		setUnlocalizedName(LibMisc.UNLOCALIZED_PREFIX+ LibItemNames.FORCICIUM);
-		setRegistryName(LibItemNames.FORCICIUM);
 	}
 
 	@Override

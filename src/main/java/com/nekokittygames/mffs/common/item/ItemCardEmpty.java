@@ -42,10 +42,8 @@ import net.minecraft.world.World;
 
 public class ItemCardEmpty extends ItemMFFSBase {
 	public ItemCardEmpty() {
-		super();
+		super(LibItemNames.EMPTY_CARD);
 		setMaxStackSize(16);
-		setUnlocalizedName(LibMisc.UNLOCALIZED_PREFIX+ LibItemNames.EMPTY_CARD);
-		setRegistryName(LibItemNames.EMPTY_CARD);
 
 	}
 

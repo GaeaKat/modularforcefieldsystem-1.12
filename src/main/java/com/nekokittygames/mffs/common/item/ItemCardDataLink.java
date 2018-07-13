@@ -22,10 +22,8 @@ import java.util.List;
 public class ItemCardDataLink extends ItemCard {
 
 	public ItemCardDataLink() {
-		super();
+		super(LibItemNames.DATA_LINK_CARD);
 		setMaxStackSize(1);
-		setUnlocalizedName(LibMisc.UNLOCALIZED_PREFIX+LibItemNames.DATA_LINK_CARD);
-		setRegistryName(LibItemNames.DATA_LINK_CARD);
 	}
 
 

@@ -37,9 +37,7 @@ import java.util.Set;
 
 public class ItemProjectorModuleTube extends Module3DBase {
 	public ItemProjectorModuleTube() {
-		super();
-		setUnlocalizedName(LibMisc.UNLOCALIZED_PREFIX+ LibItemNames.MODULE_TUBE);
-		setRegistryName(LibItemNames.MODULE_TUBE);
+		super(LibItemNames.MODULE_TUBE);
 		this.setForceFieldModuleType(2);
 	}
 

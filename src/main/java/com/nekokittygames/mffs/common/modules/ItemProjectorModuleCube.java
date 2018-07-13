@@ -38,9 +38,7 @@ import java.util.Set;
 public class ItemProjectorModuleCube extends Module3DBase {
 	public ItemProjectorModuleCube() {
 
-		super();
-		setUnlocalizedName(LibMisc.UNLOCALIZED_PREFIX+ LibItemNames.MODULE_CUBE);
-		setRegistryName(LibItemNames.MODULE_CUBE);
+		super(LibItemNames.MODULE_CUBE);
 		this.setForceFieldModuleType(6);
 	}
 

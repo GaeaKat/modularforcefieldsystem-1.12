@@ -20,7 +20,6 @@
 
 package com.nekokittygames.mffs.common.multitool;
 
-import buildcraft.api.tools.IToolWrench;
 import com.nekokittygames.mffs.libs.LibItemNames;
 import com.nekokittygames.mffs.libs.LibMisc;
 import com.nekokittygames.mffs.api.IMFFS_Wrench;
@@ -45,12 +44,10 @@ import net.minecraft.world.World;
 import net.minecraftforge.fml.common.Optional;
 
 @Optional.InterfaceList({ @Optional.Interface(iface = "buildcraft.api.tools.IToolWrench", modid = "BuildCraftAPI|core") })
-public class ItemWrench extends ItemMultitool  implements IToolWrench {
+public class ItemWrench extends ItemMultitool  { // implements IToolWrench {
 
 	public ItemWrench() {
-		super(0);
-		setUnlocalizedName(LibMisc.UNLOCALIZED_PREFIX+ LibItemNames.MULTITOOL_WRENCH);
-		setRegistryName(LibItemNames.MULTITOOL_WRENCH);
+		super(0,LibItemNames.MULTITOOL_WRENCH);
 	}
 
 
@@ -135,7 +132,7 @@ public class ItemWrench extends ItemMultitool  implements IToolWrench {
 		return EnumActionResult.PASS;
 	}
 
-	@Override
+	//@Override
 	@Optional.Method(modid = "BuildCraftAPI|core")
 	public boolean canWrench(EntityPlayer player, EnumHand enumHand, ItemStack itemStack, RayTraceResult rayTraceResult) {
 		if (this.consumePower(player.getHeldItem(enumHand), 1000, true)) {
@@ -144,7 +141,7 @@ public class ItemWrench extends ItemMultitool  implements IToolWrench {
 		return false;
 	}
 
-	@Override
+	//@Override
 	@Optional.Method(modid = "BuildCraftAPI|core")
 	public void wrenchUsed(EntityPlayer player, EnumHand enumHand, ItemStack itemStack, RayTraceResult rayTraceResult)
 	{

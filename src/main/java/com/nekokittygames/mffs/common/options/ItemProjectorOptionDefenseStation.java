@@ -43,9 +43,7 @@ import java.util.List;
 public class ItemProjectorOptionDefenseStation extends ItemProjectorOptionBase {
 
 	public ItemProjectorOptionDefenseStation() {
-		super();
-		setUnlocalizedName(LibMisc.UNLOCALIZED_PREFIX+ LibItemNames.OPTION_DEFENSE_STATION);
-		setRegistryName(LibItemNames.OPTION_DEFENSE_STATION);
+		super(LibItemNames.OPTION_DEFENSE_STATION);
 	}
 
 

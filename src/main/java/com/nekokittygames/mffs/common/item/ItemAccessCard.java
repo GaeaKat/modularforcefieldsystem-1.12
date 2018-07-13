@@ -44,10 +44,8 @@ public class ItemAccessCard extends ItemCardPersonalID {
 	private int Tick;
 
 	public ItemAccessCard() {
-		super(true);
+		super(LibItemNames.ACCESS_CARD);
 		setMaxStackSize(1);
-		setUnlocalizedName(LibMisc.UNLOCALIZED_PREFIX+ LibItemNames.ACCESS_CARD);
-		setRegistryName(LibItemNames.ACCESS_CARD);
 
 	}
 

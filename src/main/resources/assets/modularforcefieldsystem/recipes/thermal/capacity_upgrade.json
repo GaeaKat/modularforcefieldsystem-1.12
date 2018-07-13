@@ -1,0 +1,27 @@
+{
+  "conditions": [
+    {
+      "type": "forge:mod_loaded",
+      "modid": "thermalfoundation"
+    }
+  ],
+  "type": "forge:ore_shaped",
+  "pattern": [
+    " E ",
+    "ExE",
+    " E "
+  ],
+  "key": {
+    "E": {
+      "item": "#ELECTRUM_INGOT"
+    },
+    "x": {
+      "item": "#FORCEPOWER_CRYSTAL"
+    }
+  },
+  "result": {
+    "item": "modularforcefieldsystem:upgrade_capacity",
+    "data": 0,
+    "count": 1
+  }
+}

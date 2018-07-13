@@ -40,16 +40,15 @@ import java.util.List;
 import java.util.UUID;
 
 
-public class ItemCardPersonalID extends Item {
+public class ItemCardPersonalID extends ItemMFFSBase {
 	public ItemCardPersonalID() {
-		super();
+		super(LibItemNames.PERSONAL_ID);
 		setMaxStackSize(1);
-		setUnlocalizedName(LibMisc.UNLOCALIZED_PREFIX+ LibItemNames.PERSONAL_ID);
-		setRegistryName(LibItemNames.PERSONAL_ID);
+
 	}
 
-	public ItemCardPersonalID(boolean unused) {
-		super();
+	public ItemCardPersonalID(final String itemName) {
+		super(itemName);
 		setMaxStackSize(1);
 	}
 

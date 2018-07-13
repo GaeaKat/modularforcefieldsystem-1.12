@@ -27,9 +27,7 @@ import com.nekokittygames.mffs.libs.LibMisc;
 
 public class ItemProjectorOptionBlockBreaker extends ItemProjectorOptionBase {
 	public ItemProjectorOptionBlockBreaker() {
-		super();
-		setUnlocalizedName(LibMisc.UNLOCALIZED_PREFIX+ LibItemNames.OPTION_BLOCK_BREAKER);
-		setRegistryName(LibItemNames.OPTION_BLOCK_BREAKER);
+		super(LibItemNames.OPTION_BLOCK_BREAKER);
 	}
 
 

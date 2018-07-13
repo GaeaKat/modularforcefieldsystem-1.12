@@ -36,10 +36,8 @@ import java.util.List;
 
 public class ItemProjectorFieldModulatorDistance extends ItemMFFSBase {
 	public ItemProjectorFieldModulatorDistance() {
-		super();
+		super(LibItemNames.PROJECTOR_DISTANCE_MODULATOR);
 		setMaxStackSize(64);
-		setUnlocalizedName(LibMisc.UNLOCALIZED_PREFIX+ LibItemNames.PROJECTOR_DISTANCE_MODULATOR);
-		setRegistryName(LibItemNames.PROJECTOR_DISTANCE_MODULATOR);
 	}
 
 

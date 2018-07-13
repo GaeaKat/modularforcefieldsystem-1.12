@@ -2,6 +2,7 @@ package com.nekokittygames.mffs.common.options;
 
 import com.nekokittygames.mffs.common.ModularForceFieldSystem;
 import com.nekokittygames.mffs.common.ProjectorTyp;
+import com.nekokittygames.mffs.common.item.ItemMFFSBase;
 import com.nekokittygames.mffs.common.modules.*;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.client.util.ITooltipFlag;
@@ -18,11 +19,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public abstract class ItemProjectorOptionBase extends Item {
-	public ItemProjectorOptionBase() {
-		super();
+public abstract class ItemProjectorOptionBase extends ItemMFFSBase {
+	public ItemProjectorOptionBase(final String itemName) {
+		super(itemName);
 		setMaxStackSize(8);
-		setCreativeTab(ModularForceFieldSystem.MFFSTab);
 		instances.add(this);
 	}
 

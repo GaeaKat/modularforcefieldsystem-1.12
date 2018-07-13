@@ -34,9 +34,7 @@ import net.minecraft.util.math.BlockPos;
 
 public class ItemProjectorModuleDeflector extends ModuleBase {
 	public ItemProjectorModuleDeflector() {
-		super();
-		setUnlocalizedName(LibMisc.UNLOCALIZED_PREFIX+ LibItemNames.MODULE_DEFLECTOR);
-		setRegistryName(LibItemNames.MODULE_DEFLECTOR);
+		super(LibItemNames.MODULE_DEFLECTOR);
 		this.setForceFieldModuleType(5);
 	}
 
