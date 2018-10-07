@@ -25,12 +25,28 @@ package com.nekokittygames.mffs.common.item;
 
 import com.nekokittygames.mffs.common.ModularForceFieldSystem;
 import net.minecraft.item.Item;
+import net.minecraft.util.ResourceLocation;
+
+import java.util.Objects;
 
 public class ItemMFFSBase extends Item {
 
-	public ItemMFFSBase() {
+	public String baseName;
+	public ItemMFFSBase(final String itemName) {
 		super();
-		setCreativeTab(ModularForceFieldSystem.MFFSTab);
+		baseName=itemName;
+		setItemName(this,itemName);
+		if(isInCreativeTab())
+			setCreativeTab(ModularForceFieldSystem.MFFSTab);
+	}
+	public static void setItemName(ItemMFFSBase item, String itemName) {
+		item.setRegistryName(ModularForceFieldSystem.MODID,itemName);
+		final ResourceLocation regName= Objects.requireNonNull(item.getRegistryName());
+		item.setUnlocalizedName(regName.toString());
+	}
+
+	private boolean isInCreativeTab() {
+		return true;
 	}
 
 }

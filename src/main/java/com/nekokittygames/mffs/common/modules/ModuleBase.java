@@ -22,6 +22,7 @@ package com.nekokittygames.mffs.common.modules;
 
 import com.nekokittygames.mffs.api.PointXYZ;
 import com.nekokittygames.mffs.common.*;
+import com.nekokittygames.mffs.common.item.ItemMFFSBase;
 import com.nekokittygames.mffs.common.tileentity.TileEntityProjector;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
@@ -37,7 +38,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
-public abstract class ModuleBase extends Item {
+public abstract class ModuleBase extends ItemMFFSBase {
 
 	private static List<ModuleBase> instances = new ArrayList<ModuleBase>();
 
@@ -55,11 +56,10 @@ public abstract class ModuleBase extends Item {
 
 	int forceFieldModuleType;
 
-	public ModuleBase() {
-		super();
+	public ModuleBase(final String itemName) {
+		super(itemName);
 		setMaxStackSize(8);
 		instances.add(this);
-		setCreativeTab(ModularForceFieldSystem.MFFSTab);
 	}
 
 	@Override

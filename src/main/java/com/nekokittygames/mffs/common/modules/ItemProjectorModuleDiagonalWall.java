@@ -32,9 +32,7 @@ import net.minecraft.util.math.BlockPos;
 
 public class ItemProjectorModuleDiagonalWall extends ItemProjectorModuleWall {
 	public ItemProjectorModuleDiagonalWall() {
-		super(true);
-		setUnlocalizedName(LibMisc.UNLOCALIZED_PREFIX+ LibItemNames.MODULE_DIAGONAL_WALL);
-		setRegistryName(LibItemNames.MODULE_DIAGONAL_WALL);
+		super(LibItemNames.MODULE_DIAGONAL_WALL);
 		this.setForceFieldModuleType(4);
 	}
 

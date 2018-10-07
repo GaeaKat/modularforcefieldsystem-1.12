@@ -53,15 +53,6 @@ public class MFFSRecipes {
 					new Object[] { " RR", "R  ", " R ",
 							Character.valueOf('R'),
 							IC2Items.getItem("misc_resource","matter") });
-
-		RecipesFactory.addRecipe("AAAAxAADA", 1, 1, null,
-				ModItems.FORCICIUM_CELL);
-		RecipesFactory.addRecipe(" E EBE E ", 4, 1, null,
-				ModItems.EXTRACTOR_UPGRADE_BOOSTER);
-		RecipesFactory.addRecipe(" E ExE E ", 1, 1, null,
-				ModItems.UPGRADE_CAPACITY);
-		RecipesFactory.addRecipe("HHHEIEEDE", 1, 1, null,
-				ModItems.UPGRADE_RANGE);
 		RecipesFactory.addRecipe("AlAlilAlA", 64, 1, null,
 				ModItems.PROJECTOR_FOCUS_MATRIX);
 		RecipesFactory.addRecipe("ooooCoooo", 1, 1, null,

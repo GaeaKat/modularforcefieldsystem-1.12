@@ -15,61 +15,61 @@ tile.modularforcefieldsystem:force_field.name=MFFS Field
 tile.modularforcefieldsystem:monazit_ore.name=Monazit Ore
 
 // Items: Cards
-item.modularforcefieldsystem.access_card.name=MFFS Card: Access
-item.modularforcefieldsystem.datalink_card.name=MFFS Card: Data-Link
-item.modularforcefieldsystem.empty_card.name=MFFS Card: Empty
-item.modularforcefieldsystem.personal_id.name=MFFS Card: ID
-item.modularforcefieldsystem.power_card.name=MFFS Card: Infinite Power
-item.modularforcefieldsystem.powerlink_card.name=MFFS Card: Power Link
-item.modularforcefieldsystem.securitylink_card.name=MFFS Card: Security Link
+item.modularforcefieldsystem:access_card.name=MFFS Card: Access
+item.modularforcefieldsystem:datalink_card.name=MFFS Card: Data-Link
+item.modularforcefieldsystem:empty_card.name=MFFS Card: Empty
+item.modularforcefieldsystem:personal_id.name=MFFS Card: ID
+item.modularforcefieldsystem:power_card.name=MFFS Card: Infinite Power
+item.modularforcefieldsystem:powerlink_card.name=MFFS Card: Power Link
+item.modularforcefieldsystem:securitylink_card.name=MFFS Card: Security Link
 
 // Items: Projector Modules
-item.modularforcefieldsystem.module_advcube.name=Projector Module: Advanced Cube
-item.modularforcefieldsystem.module_containment.name=Projector Module: Containment
-item.modularforcefieldsystem.module_cube.name=Projector Module: Cube
-item.modularforcefieldsystem.module_deflector.name=Projector Module: Deflector
-item.modularforcefieldsystem.module_sphere.name=Projector Module: Sphere
-item.modularforcefieldsystem.module_tube.name=Projector Module: Tube
-item.modularforcefieldsystem.module_wall.name=Projector Module: Wall
-item.modularforcefieldsystem.module_diagonal_wall.name=Diagnonal Wall Module
+item.modularforcefieldsystem:module_advcube.name=Projector Module: Advanced Cube
+item.modularforcefieldsystem:module_containment.name=Projector Module: Containment
+item.modularforcefieldsystem:module_cube.name=Projector Module: Cube
+item.modularforcefieldsystem:module_deflector.name=Projector Module: Deflector
+item.modularforcefieldsystem:module_sphere.name=Projector Module: Sphere
+item.modularforcefieldsystem:module_tube.name=Projector Module: Tube
+item.modularforcefieldsystem:module_wall.name=Projector Module: Wall
+item.modularforcefieldsystem:module_diagonal_wall.name=Diagnonal Wall Module
 
 
 // Items: Projector Options
-item.modularforcefieldsystem.option_block_breaker.name=Projector Option: Cutter
-item.modularforcefieldsystem.option_camoflage.name=Projector Option: Camoflage
-item.modularforcefieldsystem.option_defense_station.name=Projector Option: Defence Station
-item.modularforcefieldsystem.option_field_fusion.name=Projector Option: Field Fusion
-item.modularforcefieldsystem.option_field_manipulator.name=Projector Option: Dome
-item.modularforcefieldsystem.option_field_jammer.name=Projector Option: Forcefield Jammer
-item.modularforcefieldsystem.option_mob_defense.name=Projector Option: Mob Killer
-item.modularforcefieldsystem.option_sponge.name=Projector Option: Sponge
-item.modularforcefieldsystem.option_touch_damage.name=Projector Option: Zapper
-item.modularforcefieldsystem.option_light.name=Projector Option: Light
+item.modularforcefieldsystem:option_block_breaker.name=Projector Option: Cutter
+item.modularforcefieldsystem:option_camoflage.name=Projector Option: Camoflage
+item.modularforcefieldsystem:option_defense_station.name=Projector Option: Defence Station
+item.modularforcefieldsystem:option_field_fusion.name=Projector Option: Field Fusion
+item.modularforcefieldsystem:option_field_manipulator.name=Projector Option: Dome
+item.modularforcefieldsystem:option_field_jammer.name=Projector Option: Forcefield Jammer
+item.modularforcefieldsystem:option_mob_defense.name=Projector Option: Mob Killer
+item.modularforcefieldsystem:option_sponge.name=Projector Option: Sponge
+item.modularforcefieldsystem:option_touch_damage.name=Projector Option: Zapper
+item.modularforcefieldsystem:option_light.name=Projector Option: Light
 
 // Items: Projector Upgrades
-item.modularforcefieldsystem.projector_distance.name=Projector Upgrade: Field Distance
-item.modularforcefieldsystem.projector_strength.name=Projector Upgrade: Field Strength
-item.modularforcefieldsystem.projector_focus_matrix.name=Projector Upgrade: Focus Matrix
+item.modularforcefieldsystem:projector_distance.name=Projector Upgrade: Field Distance
+item.modularforcefieldsystem:projector_strength.name=Projector Upgrade: Field Strength
+item.modularforcefieldsystem:projector_focus_matrix.name=Projector Upgrade: Focus Matrix
 
 // Items: MultiTool
-item.modularforcefieldsystem.multitool_debugger.name=Multi-Tool: Debugger
-item.modularforcefieldsystem.multitool_transporter.name=Multi-Tool: Field Transporter
-item.modularforcefieldsystem.multitool_manual.name=Multi-Tool: Manual
-item.modularforcefieldsystem.multitool_id_writer.name=Multi-Tool: ID Writer
-item.modularforcefieldsystem.multitool_switch.name=Multi-Tool: Switch
-item.modularforcefieldsystem.multitool_wrench.name=Multi-Tool: Wrench
+item.modularforcefieldsystem:multitool_debugger.name=Multi-Tool: Debugger
+item.modularforcefieldsystem:multitool_transporter.name=Multi-Tool: Field Transporter
+item.modularforcefieldsystem:multitool_manual.name=Multi-Tool: Manual
+item.modularforcefieldsystem:multitool_id_writer.name=Multi-Tool: ID Writer
+item.modularforcefieldsystem:multitool_switch.name=Multi-Tool: Switch
+item.modularforcefieldsystem:multitool_wrench.name=Multi-Tool: Wrench
 
 // Items: Extractor Upgrades
-item.modularforcefieldsystem.extractor_upgrade_booster.name=Extractor Upgrade: Booster
+item.modularforcefieldsystem:extractor_upgrade_booster.name=Extractor Upgrade: Booster
 
 // Items: Capacitor Upgrades
-item.modularforcefieldsystem.upgrade_capacity.name=Capacitor Upgrade: Capacity
-item.modularforcefieldsystem.upgrade_range.name=Capacitor Upgrade: Range
+item.modularforcefieldsystem:upgrade_capacity.name=Capacitor Upgrade: Capacity
+item.modularforcefieldsystem:upgrade_range.name=Capacitor Upgrade: Range
 
 // Items: Misc
-item.modularforcefieldsystem.forcicium.name=Forcicium
-item.modularforcefieldsystem.forcicium_cell.name=Forcicium Cell
-item.modularforcefieldsystem.forcepower_crystal.name=Force Power Crystal
+item.modularforcefieldsystem:forcicium.name=Forcicium
+item.modularforcefieldsystem:forcicium_cell.name=Forcicium Cell
+item.modularforcefieldsystem:forcepower_crystal.name=Force Power Crystal
 
 
 

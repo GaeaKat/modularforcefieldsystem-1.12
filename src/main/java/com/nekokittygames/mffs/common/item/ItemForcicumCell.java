@@ -48,12 +48,10 @@ public class ItemForcicumCell extends ItemMFFSBase {
 	private boolean aktiv = false;
 
 	public ItemForcicumCell() {
-		super();
+		super(LibItemNames.FORCICIUM_CELL);
 		setMaxStackSize(1);
 		setMaxDamage(100);
 		setHasSubtypes(true);
-		setUnlocalizedName(LibMisc.UNLOCALIZED_PREFIX+ LibItemNames.FORCICIUM_CELL);
-		setRegistryName(LibItemNames.FORCICIUM_CELL);
 	}
 
 	@Override

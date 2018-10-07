@@ -31,8 +31,8 @@ import net.minecraft.nbt.NBTTagCompound;
 public abstract class ForceEnergyItems extends ItemMFFSBase implements
 		IForceEnergyItems {
 
-	public ForceEnergyItems() {
-
+	public ForceEnergyItems(final String itemName) {
+		super(itemName);
 	}
 
 	@Override

@@ -36,9 +36,7 @@ public class ItemFieldtransporter extends ItemMultitool implements
 		IFieldTeleporter {
 
 	public ItemFieldtransporter() {
-		super(4);
-		setUnlocalizedName(LibMisc.UNLOCALIZED_PREFIX+ LibItemNames.MULTITOOL_TRANSPORTER);
-		setRegistryName(LibItemNames.MULTITOOL_TRANSPORTER);
+		super(4,LibItemNames.MULTITOOL_TRANSPORTER);
 
 	}
 

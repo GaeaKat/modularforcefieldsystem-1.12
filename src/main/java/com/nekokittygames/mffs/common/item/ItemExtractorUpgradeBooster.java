@@ -36,10 +36,8 @@ import java.util.List;
 
 public class ItemExtractorUpgradeBooster extends ItemMFFSBase {
 	public ItemExtractorUpgradeBooster() {
-		super();
+		super(LibItemNames.EXTRACTOR_UPGRADE_BOOSTER);
 		setMaxStackSize(19);
-		setUnlocalizedName(LibMisc.UNLOCALIZED_PREFIX+ LibItemNames.EXTRACTOR_UPGRADE_BOOSTER);
-		setRegistryName(LibItemNames.EXTRACTOR_UPGRADE_BOOSTER);
 	}
 
 

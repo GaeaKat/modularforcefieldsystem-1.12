@@ -8,8 +8,6 @@ import com.nekokittygames.mffs.libs.LibMisc;
  */
 public class ItemProjectorOptionLight extends ItemProjectorOptionBase {
     public ItemProjectorOptionLight() {
-        super();
-        setUnlocalizedName(LibMisc.UNLOCALIZED_PREFIX+ LibItemNames.OPTION_LIGHT);
-        setRegistryName(LibItemNames.OPTION_LIGHT);
+        super(LibItemNames.OPTION_LIGHT);
     }
 }

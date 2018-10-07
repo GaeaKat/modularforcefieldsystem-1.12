@@ -38,9 +38,7 @@ import net.minecraft.world.World;
 public class ItemSwitch extends ItemMultitool {
 
 	public ItemSwitch() {
-		super(1);
-		setUnlocalizedName(LibMisc.UNLOCALIZED_PREFIX+ LibItemNames.MULTITOOL_SWITCH);
-		setRegistryName(LibItemNames.MULTITOOL_SWITCH);
+		super(1,LibItemNames.MULTITOOL_SWITCH);
 
 	}
 

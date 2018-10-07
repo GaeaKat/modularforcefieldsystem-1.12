@@ -41,11 +41,9 @@ public class ItemForcePowerCrystal extends ItemMFFSBase implements
 		IPowerLinkItem, IForceEnergyItems {
 
 	public ItemForcePowerCrystal() {
-		super();
+		super(LibItemNames.FORCE_POWER_CRYSTAL);
 		setMaxStackSize(1);
 		setMaxDamage(100);
-		setUnlocalizedName(LibMisc.UNLOCALIZED_PREFIX+ LibItemNames.FORCE_POWER_CRYSTAL);
-		setRegistryName(LibItemNames.FORCE_POWER_CRYSTAL);
 		setHasSubtypes(true);
 
 	}

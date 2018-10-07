@@ -1,0 +1,33 @@
+{
+  "conditions": [
+    {
+      "type": "forge:mod_loaded",
+      "modid": "ic2"
+    }
+  ],
+  "type": "forge:ore_shaped",
+  "pattern": [
+    "HHH",
+    "EIE",
+    "EDE"
+  ],
+  "key": {
+    "E": {
+      "item": "#CARBON_PLATE"
+    },
+    "H": {
+      "item": "#COPPER_NUDE_CABLE"
+    },
+    "I": {
+      "item": "#COPPER_ONE_CABLE"
+    },
+    "D": {
+      "item": "#ADVANCED_CIRCUIT"
+    }
+  },
+  "result": {
+    "item": "modularforcefieldsystem:upgrade_range",
+    "data": 0,
+    "count": 1
+  }
+}

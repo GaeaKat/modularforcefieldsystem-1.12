@@ -38,10 +38,8 @@ import java.util.List;
 
 public class ItemProjectorFocusMatrix extends ItemMFFSBase {
 	public ItemProjectorFocusMatrix() {
-		super();
+		super(LibItemNames.PROJECTOR_FOCUS_MATRIX);
 		setMaxStackSize(64);
-		setUnlocalizedName(LibMisc.UNLOCALIZED_PREFIX+ LibItemNames.PROJECTOR_FOCUS_MATRIX);
-		setRegistryName(LibItemNames.PROJECTOR_FOCUS_MATRIX);
 	}
 
 

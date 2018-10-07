@@ -34,14 +34,12 @@ import net.minecraft.util.math.BlockPos;
 
 public class ItemProjectorModuleWall extends ModuleBase {
 	public ItemProjectorModuleWall() {
-		super();
-		setUnlocalizedName(LibMisc.UNLOCALIZED_PREFIX+ LibItemNames.MODULE_WALL);
-		setRegistryName(LibItemNames.MODULE_WALL);
+		super(LibItemNames.MODULE_WALL);
 		this.setForceFieldModuleType(1);
 	}
-	public ItemProjectorModuleWall(boolean unused)
+	public ItemProjectorModuleWall(final String itemName)
 	{
-		super();
+		super(itemName);
 		this.setForceFieldModuleType(1);
 	}
 

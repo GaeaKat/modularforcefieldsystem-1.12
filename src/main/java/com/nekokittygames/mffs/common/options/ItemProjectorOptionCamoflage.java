@@ -26,9 +26,7 @@ import com.nekokittygames.mffs.libs.LibMisc;
 
 public class ItemProjectorOptionCamoflage extends ItemProjectorOptionBase {
 	public ItemProjectorOptionCamoflage() {
-		super();
-		setUnlocalizedName(LibMisc.UNLOCALIZED_PREFIX+LibItemNames.OPTION_CAMOFLAGE);
-		setRegistryName(LibItemNames.OPTION_CAMOFLAGE);
+		super(LibItemNames.OPTION_CAMOFLAGE);
 	}
 
 }

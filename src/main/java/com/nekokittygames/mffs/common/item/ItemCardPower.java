@@ -18,10 +18,9 @@ public class ItemCardPower extends ItemMFFSBase implements IPowerLinkItem,
 		IForceEnergyItems {
 
 	public ItemCardPower() {
-		super();
+		super(LibItemNames.POWER_CARD);
 		setMaxStackSize(1);
-		setUnlocalizedName(LibMisc.UNLOCALIZED_PREFIX+ LibItemNames.POWER_CARD);
-		setRegistryName(LibItemNames.POWER_CARD);
+
 	}
 
 
