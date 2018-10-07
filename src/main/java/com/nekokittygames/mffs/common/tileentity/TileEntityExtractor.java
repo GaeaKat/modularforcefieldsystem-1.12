@@ -25,6 +25,7 @@ package com.nekokittygames.mffs.common.tileentity;
 
 
 
+import cofh.redstoneflux.RedstoneFluxProps;
 import cofh.redstoneflux.api.IEnergyReceiver;
 import com.nekokittygames.mffs.api.IPowerLinkItem;
 import com.nekokittygames.mffs.common.Linkgrid;
@@ -50,7 +51,8 @@ import net.minecraftforge.fml.common.Optional;
 import java.util.LinkedList;
 import java.util.List;
 
-@Optional.InterfaceList({@Optional.Interface(modid = "ic2",iface = "ic2.api.energy.tile.IEnergySink"),
+@Optional.InterfaceList({@Optional.Interface(modid = RedstoneFluxProps.MOD_ID, iface = "cofh.redstoneflux.api.IEnergyReceiver"),
+							@Optional.Interface(modid = "ic2",iface = "ic2.api.energy.tile.IEnergySink"),
 							@Optional.Interface(modid = "ic2",iface = "ic2.api.energy.tile.IEnergyEmitter")})
 public class TileEntityExtractor extends TileEntityFEPoweredMachine implements
 		IEnergySink, IEnergyReceiver {
@@ -613,25 +615,25 @@ public class TileEntityExtractor extends TileEntityFEPoweredMachine implements
 
 
 	@Override
-	@Optional.Method(modid = "redstoneflux")
+	@Optional.Method(modid = RedstoneFluxProps.MOD_ID)
 	public boolean canConnectEnergy(EnumFacing from) {
 		return true;
 	}
 
 	@Override
-	@Optional.Method(modid = "redstoneflux")
+	@Optional.Method(modid = RedstoneFluxProps.MOD_ID)
 	public int getEnergyStored(EnumFacing from) {
 		return 0;
 	}
 
 	@Override
-	@Optional.Method(modid = "redstoneflux")
+	@Optional.Method(modid = RedstoneFluxProps.MOD_ID)
 	public int getMaxEnergyStored(EnumFacing from) {
 		return 9999;
 	}
 
 	@Override
-	@Optional.Method(modid = "redstoneflux")
+	@Optional.Method(modid = RedstoneFluxProps.MOD_ID)
 	public int receiveEnergy(EnumFacing from, int maxReceive, boolean simulate) {
 
 		double freeSpace = (double)(getMaxWorkEnergy() - getWorkEnergy());
