@@ -670,7 +670,7 @@ public class TileEntityExtractor extends TileEntityFEPoweredMachine implements
 	public <T> T getCapability(Capability<T> capability, EnumFacing facing) {
 		if(Loader.isModLoaded("tesla"))
 			if (hasTeslaCapability(capability))
-				return (T) cap;
+				return TeslaCapabilities.CAPABILITY_CONSUMER.cast(cap);
 		return super.getCapability(capability, facing);
 	}
 
