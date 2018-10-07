@@ -56,61 +56,38 @@ def props = new Properties()
 file("local.properties").withInputStream { props.load(it) }
 repositories {
     mavenCentral()
-    maven { url = "http://mobiusstrip.eu/maven" }
-    maven { url = "http://dl.tsr.me/artifactory/libs-release-local" }
-    maven { url = "http://maven.tterrag.com" }
-    maven { url = "http://dvs1.progwml6.com/files/maven" }
-    maven { url = "http://files.minecraftforge.net/maven" }
-    maven { url = "http://maven.cil.li/" }
-    maven { url = "http://maven.ic2.player.to" }
-    maven { url 'http://maven.epoxide.org' }
-    repositories {
-        maven { url 'http://tehnut.info/maven/' }
-    }
     mavenLocal()
-	maven {
-        name 'DVS1 Maven FS'
-        url 'http://dvs1.progwml6.com/files/maven'
-    }
     maven { // TOP
         name 'tterrag maven'
         url "http://maven.tterrag.com/"
-    }
-    maven { // compatlayer
-        name 'K-4u maven'
-        url "http://maven.k-4u.nl/"
     }
     maven {
         name 'forge'
         url 'http://files.minecraftforge.net/maven'
     }
     maven {
+    	name "IC2"
+    	url = "http://maven.ic2.player.to"
+    }
+    maven {
+        name "BuildCraft"
+        url = "https://mod-buildcraft.com/maven"
+    }
+    maven {
          name "Tehnut Maven FS"
          url "http://tehnut.info/maven"
     }
     maven {
-        name = "CoFH Maven"
+        name = "CoFH/Covers Maven"
         url = "http://maven.covers1624.net"
-    }
-    maven {
-        name = "bdew"
-        url = "https://jenkins.bdew.net/maven"
-    }
-    maven {
-        name "MCMultipart"
-        url "http://maven.amadornes.com/"
-    }
-	maven {
-        name = "Chickenbones Repo."
-        url = "http://chickenbones.net/maven/"
     }
     maven {
         name = "JEI Maven."
         url = "http://dvs1.progwml6.com/files/maven"
     }
     maven {
-        name = "Covers Maven"
-        url = "http://maven.covers1624.net"
+      	name = "Tesla"
+        url 'http://maven.mcmoddev.com'
     }
     maven {
         name = "CurseForge"
@@ -123,32 +100,23 @@ dependencies {
     deobfCompile "hwyla:Hwyla:1.8.26:B41_1.12.2"
 
     compile "net.darkhax.tesla:Tesla-1.12:1.0.61"
-    //deobfCompile "com.enderio.core:EnderCore:1.10.2-0.4.1.58-beta"
-    //deobfCompile "com.enderio:EnderIO:1.10.2-3.0.1.131_beta"
     deobfCompile "info.amerifrance.guideapi:Guide-API:1.12-2.1.5-60"
     deobfCompile "jei:jei_1.12.2:4.11.0.204"
 
-
-    compile "org.joml:joml:1.9.4"
     deobfCompile "industrial-craft:industrialcraft-2:2.8.91:ex112"
-    deobfCompile "codechicken-lib-1-8:CodeChickenLib-1.12.2:3.2.0.345:universal"
+
     deobfCompile "redstone-flux:RedstoneFlux-1.12:2.0.2.3:universal"
+    deobfCompile "codechicken-lib-1-8:CodeChickenLib-1.12.2:3.2.0.345:universal"
     deobfCompile "cofhcore:CoFHCore-1.12.2:4.5.2.19:universal"
     deobfCompile "cofh-world:CoFHWorld-1.12.2:1.2.0.5:universal"
     deobfCompile "thermal-foundation:ThermalFoundation-1.12.2:2.5.0.19:universal"
     deobfCompile "thermalexpansion:ThermalExpansion-1.12.2:5.5.0.29:universal"
     deobfCompile "thermal-dynamics:ThermalDynamics-1.12.2:2.5.1.14:universal"
+
     deobfCompile "endercore:EnderCore:1.12.2:0.5.35"
     deobfCompile "ender-io:EnderIO:1.12.2:5.0.29"
-    //deobfCompile "buildcraft:buildcraft:7.99.17"
 
-
-    //deobfCompile "mcp.mobius.waila:Hwyla:${config.hwyla_version}"
-    //deobfCompile("mcjty.theoneprobe:TheOneProbe-1.12:1.12-2.0.0.+"){
-//excluding a particular transitive dependency:
-
-     //       exclude module: 'RedstoneFlux' //by artifact name
-    //}
+    deobfCompile "buildcraft:buildcraft:7.99.17"
 }
 
 processResources
