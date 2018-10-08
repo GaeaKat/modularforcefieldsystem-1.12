@@ -14,38 +14,31 @@ import amerifrance.guideapi.page.PageFurnaceRecipe;
 import amerifrance.guideapi.page.PageIRecipe;
 import amerifrance.guideapi.page.PageItemStack;
 import amerifrance.guideapi.page.PageText;
-import amerifrance.guideapi.page.reciperenderer.ShapedRecipesRenderer;
 
-import com.nekokittygames.mffs.common.ModularForceFieldSystem;
-import com.nekokittygames.mffs.common.ProjectorTyp;
 import com.nekokittygames.mffs.common.RecipesFactory;
 import com.nekokittygames.mffs.common.block.ModBlocks;
 import com.nekokittygames.mffs.common.item.ModItems;
 import com.nekokittygames.mffs.common.modules.*;
 import com.nekokittygames.mffs.common.options.ItemProjectorOptionBase;
+
 import net.minecraft.client.resources.I18n;
 import net.minecraft.init.Items;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipe;
-import net.minecraft.item.crafting.ShapedRecipes;
 import net.minecraft.item.crafting.ShapelessRecipes;
+
 import net.minecraft.util.NonNullList;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.common.crafting.CraftingHelper;
-import net.minecraftforge.fml.common.FMLCommonHandler;
-import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
-import java.awt.*;
-import java.lang.reflect.Array;
+
+import java.awt.Color;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -61,10 +54,7 @@ import static com.nekokittygames.mffs.common.guide.GuideUtils.addRecipes;
 public class LightGuideBook implements IGuideBook{
 
     public static Book book;
-    public static void MakeBook()
-    {
 
-    }
 @SideOnly(Side.CLIENT)
     public static void AddPages() {
         ArrayList<IPage> generalAboutPages = new ArrayList<IPage>();

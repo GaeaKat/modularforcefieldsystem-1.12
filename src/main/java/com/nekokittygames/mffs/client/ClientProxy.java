@@ -30,6 +30,7 @@ import com.nekokittygames.mffs.common.guide.LightGuideBook;
 import com.nekokittygames.mffs.common.tileentity.TileEntityCapacitor;
 import com.nekokittygames.mffs.common.tileentity.TileEntityExtractor;
 import com.nekokittygames.mffs.common.tileentity.TileEntityForceField;
+
 import net.minecraft.block.Block;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.item.Item;
@@ -37,6 +38,7 @@ import net.minecraft.world.World;
 import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.fml.client.FMLClientHandler;
 import net.minecraftforge.fml.client.registry.ClientRegistry;
+import net.minecraftforge.fml.common.Loader;
 
 public class ClientProxy extends CommonProxy {
 	@Override
@@ -50,7 +52,9 @@ public class ClientProxy extends CommonProxy {
 
 	@Override
 	public void addBookPages() {
-		LightGuideBook.AddPages();
+		if (Loader.isModLoaded("guideapi")) {
+			LightGuideBook.AddPages();
+		}
 	}
 
 	@Override

@@ -344,7 +344,6 @@ public class ModularForceFieldSystem {
 				//"MFFSForceField");
 		//proxy.setupClientBlock(MFFSFieldblock, LibBlockNames.FORCE_FIELD);
 
-		LightGuideBook.MakeBook();
 		proxy.registerTileEntitySpecialRenderer();
 
 
