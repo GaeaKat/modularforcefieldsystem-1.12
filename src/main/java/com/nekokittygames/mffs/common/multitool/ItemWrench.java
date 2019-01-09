@@ -20,16 +20,7 @@
 
 package com.nekokittygames.mffs.common.multitool;
 
-import com.nekokittygames.mffs.libs.LibItemNames;
-import com.nekokittygames.mffs.libs.LibMisc;
-import com.nekokittygames.mffs.api.IMFFS_Wrench;
-import com.nekokittygames.mffs.common.Functions;
-import com.nekokittygames.mffs.common.tileentity.TileEntityAdvSecurityStation;
-import com.nekokittygames.mffs.common.tileentity.TileEntityAreaDefenseStation;
-import com.nekokittygames.mffs.common.tileentity.TileEntityMachines;
-import com.nekokittygames.mffs.common.tileentity.TileEntityProjector;
 import net.minecraft.client.resources.I18n;
-import net.minecraft.entity.Entity;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
@@ -43,8 +34,18 @@ import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.common.Optional;
 
+import buildcraft.api.tools.IToolWrench;
+
+import com.nekokittygames.mffs.api.IMFFS_Wrench;
+import com.nekokittygames.mffs.common.Functions;
+import com.nekokittygames.mffs.common.tileentity.TileEntityAdvSecurityStation;
+import com.nekokittygames.mffs.common.tileentity.TileEntityAreaDefenseStation;
+import com.nekokittygames.mffs.common.tileentity.TileEntityMachines;
+import com.nekokittygames.mffs.common.tileentity.TileEntityProjector;
+import com.nekokittygames.mffs.libs.LibItemNames;
+
 @Optional.InterfaceList({ @Optional.Interface(iface = "buildcraft.api.tools.IToolWrench", modid = "BuildCraftAPI|core") })
-public class ItemWrench extends ItemMultitool  { // implements IToolWrench {
+public class ItemWrench extends ItemMultitool implements IToolWrench {
 
 	public ItemWrench() {
 		super(0,LibItemNames.MULTITOOL_WRENCH);
@@ -132,7 +133,7 @@ public class ItemWrench extends ItemMultitool  { // implements IToolWrench {
 		return EnumActionResult.PASS;
 	}
 
-	//@Override
+	@Override
 	@Optional.Method(modid = "BuildCraftAPI|core")
 	public boolean canWrench(EntityPlayer player, EnumHand enumHand, ItemStack itemStack, RayTraceResult rayTraceResult) {
 		if (this.consumePower(player.getHeldItem(enumHand), 1000, true)) {
@@ -141,7 +142,7 @@ public class ItemWrench extends ItemMultitool  { // implements IToolWrench {
 		return false;
 	}
 
-	//@Override
+	@Override
 	@Optional.Method(modid = "BuildCraftAPI|core")
 	public void wrenchUsed(EntityPlayer player, EnumHand enumHand, ItemStack itemStack, RayTraceResult rayTraceResult)
 	{

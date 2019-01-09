@@ -184,8 +184,8 @@ public class TileEntityAreaDefenseStation extends TileEntityFEPoweredMachine
 				int zminaction = pos.getZ() - getActionDistance();
 				int zmaxaction = pos.getZ() + getActionDistance() + 1;
 
-				List<EntityLivingBase> infoLivinglist = world
-						.getEntitiesWithinAABB(EntityLivingBase.class,
+				List<EntityPlayer> infoLivinglist = world
+						.getEntitiesWithinAABB(EntityPlayer.class,
 								new AxisAlignedBB(xmininfo,
 										ymininfo, zmininfo, xmaxinfo, ymaxinfo,
 										zmaxinfo));
@@ -195,30 +195,27 @@ public class TileEntityAreaDefenseStation extends TileEntityFEPoweredMachine
 										yminaction, zminaction, xmaxaction,
 										ymaxaction, zmaxaction));
 
-				for (EntityLivingBase Living : infoLivinglist) {
-					if (Living instanceof EntityPlayer) {
-						EntityPlayer player = (EntityPlayer) Living;
-						int distance = (int) PointXYZ.distance(
-								getMaschinePoint(), new PointXYZ(Living.getPosition(),world));
+				for (EntityPlayer player : infoLivinglist) {
+					int distance = (int) PointXYZ.distance(
+							getMaschinePoint(), new PointXYZ(player.getPosition(), world));
 
-						if (distance > getInfoDistance()
-								&& this.getScanmode() == 1) {
-							continue;
-						}
+					if (distance > getInfoDistance()
+							&& this.getScanmode() == 1) {
+						continue;
+					}
 
-						if (!warnlist.contains(player)) {
-							warnlist.add(player);
-							if (!sec.isAccessGranted(player.getUniqueID().toString(),
-									SecurityRight.SR)) {
-								if (!(ModularForceFieldSystem.DefenceStationNPCScannsuppressnotification &&
-										getActionmode() < 3)) {
+					if (!warnlist.contains(player)) {
+						warnlist.add(player);
+						if (!sec.isAccessGranted(player.getUniqueID().toString(),
+								SecurityRight.SR)) {
+							if (!(ModularForceFieldSystem.DefenceStationNPCScannsuppressnotification &&
+									getActionmode() < 3)) {
 
-									player.sendMessage(new TextComponentTranslation("securityStation.scanningRange",
-											sec.getDeviceName()));
+								player.sendMessage(new TextComponentTranslation("securityStation.scanningRange",
+										sec.getDeviceName()));
 
-									if(getActionmode() == 1)
-										player.attackEntityFrom(MFFSDamageSource.areaDefense, 1);
-								}
+								if(getActionmode() == 1)
+									player.attackEntityFrom(MFFSDamageSource.areaDefense, 1);
 							}
 						}
 					}
@@ -294,7 +291,7 @@ public class TileEntityAreaDefenseStation extends TileEntityFEPoweredMachine
 			count = 15;
 
 		for (int a = count; a <= inventory.getSizeInventory() - 1; a++) {
-			if (inventory.getStackInSlot(a) == null) {
+			if (inventory.getStackInSlot(a).isEmpty()) {
 				inventory.setInventorySlotContents(a, itemstacks);
 				return true;
 			} else {
