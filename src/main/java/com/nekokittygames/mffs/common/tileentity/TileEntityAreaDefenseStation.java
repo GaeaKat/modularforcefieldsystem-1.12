@@ -294,7 +294,7 @@ public class TileEntityAreaDefenseStation extends TileEntityFEPoweredMachine
 			count = 15;
 
 		for (int a = count; a <= inventory.getSizeInventory() - 1; a++) {
-			if (inventory.getStackInSlot(a) == null) {
+			if (inventory.getStackInSlot(a).isEmpty()) {
 				inventory.setInventorySlotContents(a, itemstacks);
 				return true;
 			} else {
