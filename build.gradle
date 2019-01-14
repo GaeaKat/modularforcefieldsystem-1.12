@@ -41,7 +41,7 @@ boolean dev = System.getenv("RELEASE") == null || System.getenv("RELEASE").equal
 
 
 minecraft {
-    version = "1.12.2-14.23.4.2730"
+    version = "1.12.2-14.23.5.2807"
     runDir = "run"
     
     // the mappings can be changed at any time, and must be in the following format.
@@ -60,6 +60,10 @@ repositories {
     maven { // TOP
         name 'tterrag maven'
         url "http://maven.tterrag.com/"
+    }
+    maven { // TOP
+        name 'tterrag maven2'
+        url "http://maven2.tterrag.com/"
     }
     maven {
         name 'forge'
@@ -99,24 +103,25 @@ repositories {
 dependencies {
     deobfCompile "hwyla:Hwyla:1.8.26:B41_1.12.2"
 
-    compile "net.darkhax.tesla:Tesla-1.12:1.0.61"
-    deobfCompile "info.amerifrance.guideapi:Guide-API:1.12-2.1.5-60"
-    deobfCompile "jei:jei_1.12.2:4.11.0.204"
+    compile "net.darkhax.tesla:Tesla-1.12.2:1.0.63"
+    deobfCompile "info.amerifrance.guideapi:Guide-API:1.12-2.1.8-63"
+    deobfCompile "jei:jei_1.12.2:4.13.1.225"
 
-    deobfCompile "industrial-craft:industrialcraft-2:2.8.91:ex112"
+    deobfCompile "industrial-craft:industrialcraft-2:2.8.108:ex112"
 
-    deobfCompile "redstone-flux:RedstoneFlux-1.12:2.0.2.3:universal"
-    deobfCompile "codechicken-lib-1-8:CodeChickenLib-1.12.2:3.2.0.345:universal"
-    deobfCompile "cofhcore:CoFHCore-1.12.2:4.5.2.19:universal"
-    deobfCompile "cofh-world:CoFHWorld-1.12.2:1.2.0.5:universal"
-    deobfCompile "thermal-foundation:ThermalFoundation-1.12.2:2.5.0.19:universal"
-    deobfCompile "thermalexpansion:ThermalExpansion-1.12.2:5.5.0.29:universal"
-    deobfCompile "thermal-dynamics:ThermalDynamics-1.12.2:2.5.1.14:universal"
+    deobfCompile "redstone-flux:RedstoneFlux-1.12:2.1.0.6:universal"
+    deobfCompile "codechicken-lib-1-8:CodeChickenLib-1.12.2:3.2.2.353:universal"
+    deobfCompile "cofhcore:CoFHCore-1.12.2:4.6.1.22:universal"
+    deobfCompile "cofh-world:CoFHWorld-1.12.2:1.3.0.6:universal"
+    deobfCompile "thermal-foundation:ThermalFoundation-1.12.2:2.6.1.22:universal"
+    deobfCompile "thermalexpansion:ThermalExpansion-1.12.2:5.5.2.39:universal"
+    deobfCompile "thermal-dynamics:ThermalDynamics-1.12.2:2.5.3.16:universal"
+    deobfCompile "info.loenwind.autoconfig:AutoConfig:1.12.2-1.0.1"
+    deobfCompile "info.loenwind.autosave:AutoSave:1.12.2-1.0.9"
+    deobfCompile "endercore:EnderCore:1.12.2:0.5.44"
+    deobfCompile "ender-io:EnderIO:1.12.2:5.0.39"
 
-    deobfCompile "endercore:EnderCore:1.12.2:0.5.35"
-    deobfCompile "ender-io:EnderIO:1.12.2:5.0.29"
-
-    deobfCompile "buildcraft:buildcraft:7.99.17"
+    deobfCompile "buildcraft:buildcraft:7.99.19"
 }
 
 processResources
