@@ -1,8 +1,20 @@
 {
   "conditions": [
     {
-      "type": "forge:mod_loaded",
-      "modid": "ic2"
+      "type": "forge:and",
+      "values":[
+        {
+          "type": "forge:mod_loaded",
+          "modid": "ic2"
+        },
+        {
+          "type": "forge:not",
+          "value": {
+            "type": "forge:mod_loaded",
+            "modid": "ic2-classic-spmod"
+          }
+        }
+      ]
     }
   ],
   "type": "forge:ore_shaped",
@@ -13,10 +25,12 @@
   ],
   "key": {
     "E": {
-      "item": "#CARBON_PLATE"
+      "item": "ic2:crafting",
+      "data": 15
     },
     "B": {
-      "item": "#OVERCLOCKER"
+      "item": "ic2:upgrade",
+      "data": 0
     }
   },
   "result": {

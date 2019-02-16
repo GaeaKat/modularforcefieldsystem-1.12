@@ -1,0 +1,36 @@
+{
+  "conditions": [
+    {
+      "type": "forge:mod_loaded",
+      "modid": "ic2-classic-spmod"
+    }
+  ],
+  "type": "forge:ore_shaped",
+  "pattern": [
+    "HHH",
+    "EIE",
+    "EDE"
+  ],
+  "key": {
+    "E": {
+      "item": "ic2:itemmisc",
+      "data": 256
+    },
+    "H": {
+      "item": "ic2:itemcable",
+      "data": 0
+    },
+    "I": {
+      "item": "ic2:itemcable",
+      "data": 1
+    },
+    "D": {
+      "item": "#ADVANCED_CIRCUIT"
+    }
+  },
+  "result": {
+    "item": "modularforcefieldsystem:upgrade_range",
+    "data": 0,
+    "count": 1
+  }
+}
