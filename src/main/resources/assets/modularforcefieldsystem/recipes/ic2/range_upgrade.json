@@ -1,20 +1,8 @@
 {
   "conditions": [
     {
-      "type": "forge:and",
-      "values":[
-        {
-          "type": "forge:mod_loaded",
-          "modid": "ic2"
-        },
-        {
-          "type": "forge:not",
-          "value": {
-            "type": "forge:mod_loaded",
-            "modid": "ic2-classic-spmod"
-          }
-        }
-      ]
+      "type": "forge:mod_loaded",
+      "modid": "ic2"
     }
   ],
   "type": "forge:ore_shaped",
@@ -25,24 +13,13 @@
   ],
   "key": {
     "E": {
-      "item": "ic2:crafting",
-      "data": 15
+      "item": "#CARBON_PLATE"
     },
     "H": {
-      "item": "ic2:cable",
-      "data": 0,
-      "nbt": {
-        "type": 0,
-        "insulation": 0
-      }
+      "item": "#COPPER_NUDE_CABLE"
     },
     "I": {
-      "item": "ic2:cable",
-      "data": 0,
-      "nbt": {
-        "type": 0,
-        "insulation": 1
-      }
+      "item": "#COPPER_ONE_CABLE"
     },
     "D": {
       "item": "#ADVANCED_CIRCUIT"
