@@ -42,9 +42,7 @@ public class MFFSRecipes {
 		Recipes.macerator.addRecipe(Recipes.inputFactory.forStack(new ItemStack(
 				ModBlocks.MONAZIT_ORE, 1)),new NBTTagCompound(),false,new ItemStack(ModItems.FORCICIUM, MONAZIT_MACERATION_OUTPUT));
 
-		if (!Loader.isModLoaded("ic2-classic-spmod")){
-			Recipes.matterAmplifier.addRecipe(Recipes.inputFactory.forStack(new ItemStack(ModItems.FORCICIUM)),5000,new NBTTagCompound(),false);
-		}
+		Recipes.matterAmplifier.addRecipe(Recipes.inputFactory.forStack(new ItemStack(ModItems.FORCICIUM)),5000,new NBTTagCompound(),false);
 		//Recipes.matterAmplifier.addRecipe(new ItemStack(
 		//		ModularForceFieldSystem.MFFSitemForcicium, 1), 5000);
 
