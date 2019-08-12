@@ -1,6 +1,6 @@
 {
   "parent": "block/cube_all",
   "textures": {
-    "all": "modularforcefieldsystem:blocks/monazitOre"
+    "all": "modularforcefieldsystem:block/monazit_ore"
   }
 }

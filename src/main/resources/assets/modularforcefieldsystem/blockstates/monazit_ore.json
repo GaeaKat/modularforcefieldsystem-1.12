@@ -1,5 +1,5 @@
 {
   "variants": {
-    "normal": { "model": "modularforcefieldsystem:monazit_ore" }
+    "": { "model": "modularforcefieldsystem:block/monazit_ore" }
   }
 }

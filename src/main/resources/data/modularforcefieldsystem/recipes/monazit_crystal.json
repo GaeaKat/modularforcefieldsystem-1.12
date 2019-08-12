@@ -1,0 +1,9 @@
+{
+  "type": "minecraft:smelting",
+  "ingredient": {
+    "item": "modularforcefieldsystem:monazit_ore"
+  },
+  "result": "modularforcefieldsystem:monazit_crystal",
+  "experience": 0.7,
+  "cookingtime": 200
+}
