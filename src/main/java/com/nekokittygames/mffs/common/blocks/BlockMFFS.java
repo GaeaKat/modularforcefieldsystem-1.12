@@ -13,14 +13,6 @@ public abstract class BlockMFFS extends Block {
     public BlockMFFS(Properties properties) {
         super(properties);
     }
-    public boolean onBlockActivated(BlockState state, World worldIn, BlockPos pos, PlayerEntity player, Hand handIn, BlockRayTraceResult hit) {
-        if (!worldIn.isRemote) {
-            this.interactWith(worldIn, pos, player);
-        }
 
-        return true;
-    }
-
-    public abstract void interactWith(World worldIn, BlockPos pos, PlayerEntity player);
 
 }

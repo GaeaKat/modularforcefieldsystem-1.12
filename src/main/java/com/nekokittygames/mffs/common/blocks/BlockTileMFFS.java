@@ -2,9 +2,12 @@ package com.nekokittygames.mffs.common.blocks;
 
 import net.minecraft.block.BlockState;
 import net.minecraft.block.ITileEntityProvider;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.inventory.container.INamedContainerProvider;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.Hand;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.BlockRayTraceResult;
 import net.minecraft.world.IBlockReader;
 import net.minecraft.world.World;
 
@@ -27,4 +30,13 @@ public abstract class BlockTileMFFS<T extends TileEntity> extends BlockMFFS impl
         TileEntity tileentity = worldIn.getTileEntity(pos);
         return tileentity instanceof INamedContainerProvider ? (INamedContainerProvider)tileentity : null;
     }
+    public boolean onBlockActivated(BlockState state, World worldIn, BlockPos pos, PlayerEntity player, Hand handIn, BlockRayTraceResult hit) {
+        if (!worldIn.isRemote) {
+            return this.interactWith(worldIn, pos, player);
+        }
+
+        return super.onBlockActivated(state, worldIn, pos, player, handIn, hit);
+    }
+
+    public abstract boolean interactWith(World worldIn, BlockPos pos, PlayerEntity player);
 }

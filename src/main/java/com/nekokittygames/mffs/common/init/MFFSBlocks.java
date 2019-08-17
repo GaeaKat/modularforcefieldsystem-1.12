@@ -10,7 +10,10 @@ import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
+import net.minecraft.tileentity.TileEntity;
+import net.minecraft.tileentity.TileEntityType;
 import net.minecraft.util.ResourceLocation;
+import net.minecraftforge.common.extensions.IForgeBlockState;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
@@ -48,6 +51,12 @@ public class MFFSBlocks {
 
         }
 
+        @SubscribeEvent
+        public static void registerTileEtntities(final RegistryEvent.Register<TileEntityType<?>> event)
+        {
+            final IForgeRegistry<TileEntityType<?>> registry=event.getRegistry();
+
+        }
         @SubscribeEvent
         public static void registerBlockItems(final RegistryEvent.Register<Item> event) {
             final BlockItem[] items = {

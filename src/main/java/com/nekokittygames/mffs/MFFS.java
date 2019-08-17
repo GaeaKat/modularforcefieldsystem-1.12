@@ -1,7 +1,11 @@
 package com.nekokittygames.mffs;
 
+import com.nekokittygames.mffs.client.proxy.ClientProxy;
+import com.nekokittygames.mffs.common.config.MFFSSetup;
 import com.nekokittygames.mffs.common.init.MFFSBlocks;
 import com.nekokittygames.mffs.common.libs.LibMisc;
+import com.nekokittygames.mffs.common.proxy.IProxy;
+import com.nekokittygames.mffs.common.proxy.ServerProxy;
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
 import net.minecraft.world.biome.Biome;
@@ -14,6 +18,7 @@ import net.minecraftforge.common.BiomeManager;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
+import net.minecraftforge.fml.DistExecutor;
 import net.minecraftforge.fml.InterModComms;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
@@ -32,8 +37,16 @@ import java.util.stream.Collectors;
 @Mod(LibMisc.MOD_ID)
 public class MFFS
 {
+    public static Logger getLOGGER() {
+        return LOGGER;
+    }
+
     // Directly reference a log4j logger.
     private static final Logger LOGGER = LogManager.getLogger();
+
+    public static IProxy proxy = DistExecutor.runForDist(() -> () -> new ClientProxy(), () -> () -> new ServerProxy());
+
+    public static MFFSSetup setup = new MFFSSetup();
 
     public MFFS() {
         // Register the setup method for modloading
@@ -51,6 +64,7 @@ public class MFFS
 
     private void setup(final FMLCommonSetupEvent event)
     {
+        proxy.init();
         // some preinit code
         LOGGER.info("HELLO FROM PREINIT");
         LOGGER.info("DIRT BLOCK >> {}", Blocks.DIRT.getRegistryName());

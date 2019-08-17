@@ -5,6 +5,7 @@ import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.HorizontalBlock;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.inventory.container.INamedContainerProvider;
 import net.minecraft.item.BlockItemUseContext;
 import net.minecraft.state.DirectionProperty;
@@ -18,6 +19,7 @@ import net.minecraft.util.Rotation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockReader;
 import net.minecraft.world.World;
+import net.minecraftforge.fml.network.NetworkHooks;
 
 import javax.annotation.Nullable;
 
@@ -36,12 +38,14 @@ public class BlockGenerator extends BlockTileMFFS {
     }
 
     @Override
-    public void interactWith(World worldIn, BlockPos pos, PlayerEntity player) {
-        TileEntity tileentity = worldIn.getTileEntity(pos);
-        if (tileentity instanceof TileGenerator) {
-            player.openContainer((INamedContainerProvider)tileentity);
-            player.addStat(Stats.INTERACT_WITH_FURNACE);
+    public boolean interactWith(World world, BlockPos pos, PlayerEntity player) {
+        TileEntity tileEntity = world.getTileEntity(pos);
+        if (tileEntity instanceof INamedContainerProvider) {
+            NetworkHooks.openGui((ServerPlayerEntity) player, (INamedContainerProvider) tileEntity, tileEntity.getPos());
+        } else {
+            throw new IllegalStateException("Our named container provider is missing!");
         }
+        return true;
 
     }
     @Override
