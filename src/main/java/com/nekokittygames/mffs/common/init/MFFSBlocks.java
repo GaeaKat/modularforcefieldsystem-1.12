@@ -7,6 +7,7 @@ import com.nekokittygames.mffs.common.libs.LibBlocks;
 import com.nekokittygames.mffs.common.libs.LibMisc;
 import com.nekokittygames.mffs.common.misc.ItemGroupMFFS;
 import net.minecraft.block.Block;
+import net.minecraft.block.Blocks;
 import net.minecraft.block.material.Material;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
@@ -38,10 +39,9 @@ public class MFFSBlocks {
         @SubscribeEvent
         public static void registerBlocks(final RegistryEvent.Register<Block> event) {
             final IForgeRegistry<Block> registry = event.getRegistry();
-
             final Block[] blocks = {
-                    (Block)new BlockMonazitOre(Block.Properties.create(Material.ROCK)).setRegistryName(LibBlocks.MONAZIT_ORE),
-                    (Block)new BlockGenerator(Block.Properties.create(Material.IRON)).setRegistryName(LibBlocks.GENERATOR)
+                    (Block)new BlockMonazitOre(Block.Properties.create(Material.ROCK).hardnessAndResistance(3.0F, 3.0F)).setRegistryName(LibBlocks.MONAZIT_ORE),
+                    (Block)new BlockGenerator(Block.Properties.create(Material.IRON).hardnessAndResistance(3.0F, 3.0F)).setRegistryName(LibBlocks.GENERATOR)
             };
 
             for (final Block block : blocks) {
