@@ -3,6 +3,7 @@ package com.nekokittygames.mffs.common.inventory;
 import com.nekokittygames.mffs.common.init.MFFSBlocks;
 import com.nekokittygames.mffs.common.init.MFFSContainers;
 import com.nekokittygames.mffs.common.init.MFFSItems;
+import com.nekokittygames.mffs.common.storage.MFFSEnergyStorage;
 import com.nekokittygames.mffs.common.tileentities.TileGenerator;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
@@ -14,8 +15,13 @@ import net.minecraft.item.Items;
 import net.minecraft.tileentity.AbstractFurnaceTileEntity;
 import net.minecraft.util.Direction;
 import net.minecraft.util.IWorldPosCallable;
+import net.minecraft.util.IntReferenceHolder;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
+import net.minecraftforge.energy.CapabilityEnergy;
+import net.minecraftforge.energy.IEnergyStorage;
 import net.minecraftforge.items.CapabilityItemHandler;
 import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.SlotItemHandler;
@@ -42,6 +48,66 @@ public class GeneratorContainer extends Container {
             addSlot(new SlotItemHandler(h, 0, 56, 53));
         });
         layoutPlayerInventorySlots(8, 84);
+
+        trackInt(new IntReferenceHolder() {
+            @Override
+            public int get() {
+                return getEnergy();
+            }
+
+            @Override
+            public void set(int p_221494_1_) {
+                tileEntity.getCapability(CapabilityEnergy.ENERGY).ifPresent(h->((MFFSEnergyStorage)h).setEnergy(p_221494_1_));
+            }
+        });
+
+        trackInt(new IntReferenceHolder() {
+            @Override
+            public int get() {
+                return getCookTime();
+            }
+
+            @Override
+            public void set(int p_221494_1_) {
+                tileEntity.setCookTime(p_221494_1_);
+            }
+        });
+
+        trackInt(new IntReferenceHolder() {
+            @Override
+            public int get() {
+                return getBurnTime();
+            }
+
+            @Override
+            public void set(int p_221494_1_) {
+                tileEntity.setBurnTime(p_221494_1_);
+            }
+        });
+
+        trackInt(new IntReferenceHolder() {
+            @Override
+            public int get() {
+                return getCookTimeTotal();
+            }
+
+            @Override
+            public void set(int p_221494_1_) {
+                tileEntity.setCookTimeTotal(p_221494_1_);
+            }
+        });
+
+        trackInt(new IntReferenceHolder() {
+            @Override
+            public int get() {
+                return getRecipesUsed();
+            }
+
+            @Override
+            public void set(int p_221494_1_) {
+                tileEntity.setRecipesUsed(p_221494_1_);
+            }
+        });
     }
 
     @Override
@@ -73,6 +139,61 @@ public class GeneratorContainer extends Container {
         // Hotbar
         topRow += 58;
         addSlotRange(playerInventory, 0, leftCol, topRow, 9, 18);
+    }
+
+
+    public int getEnergy()
+    {
+        return tileEntity.getCapability(CapabilityEnergy.ENERGY).map(IEnergyStorage::getEnergyStored).orElse(0);
+    }
+
+//case 0:
+//        return AbstractFurnaceTileEntity.this.burnTime; === getBurnTime()
+//         case 1:
+//                 return AbstractFurnaceTileEntity.this.recipesUsed; == 200;
+//         case 2:
+//                 return AbstractFurnaceTileEntity.this.cookTime; ======= getCounter()
+//         case 3:
+//                 return AbstractFurnaceTileEntity.this.cookTimeTotal;  ======= getBurnTIme
+    public int getBurnTime()
+    {
+        return tileEntity.getBurnTime();
+    }
+
+    public int getCookTime()
+    {
+        return tileEntity.getCookTime();
+    }
+
+    public int getCookTimeTotal()
+    {
+        return tileEntity.getCookTimeTotal();
+    }
+    public int getRecipesUsed()
+    {
+        return tileEntity.getRecipesUsed();
+    }
+
+    @OnlyIn(Dist.CLIENT)
+    public int getCookProgressionScaled() {
+        int i = this.getCookTime();
+        int j = this.getCookTimeTotal();
+        return j != 0 && i != 0 ? i * 24 / j : 0;
+    }
+
+    @OnlyIn(Dist.CLIENT)
+    public int getBurnLeftScaled() {
+        int i = this.getRecipesUsed();
+        if (i == 0) {
+            i = 200;
+        }
+
+        return this.getBurnTime() * 13 / i;
+    }
+
+    @OnlyIn(Dist.CLIENT)
+    public boolean func_217061_l() {
+        return this.getBurnTime() > 0;
     }
 
     @Override

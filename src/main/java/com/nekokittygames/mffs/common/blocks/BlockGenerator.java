@@ -1,5 +1,6 @@
 package com.nekokittygames.mffs.common.blocks;
 
+import com.nekokittygames.mffs.common.config.MFFSConfig;
 import com.nekokittygames.mffs.common.tileentities.TileGenerator;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
@@ -64,5 +65,10 @@ public class BlockGenerator extends BlockTileMFFS {
     }
     protected void fillStateContainer(StateContainer.Builder<Block, BlockState> builder) {
         builder.add(FACING);
+    }
+
+    @Override
+    public boolean activated() {
+        return MFFSConfig.GENERATOR_ENABLED.get();
     }
 }

@@ -15,4 +15,9 @@ public abstract class BlockMFFS extends Block {
     }
 
 
+    public  boolean activated(){
+        return true;
+    }
+
+
 }
