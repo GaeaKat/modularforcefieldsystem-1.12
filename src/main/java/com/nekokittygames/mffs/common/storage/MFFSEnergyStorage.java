@@ -21,6 +21,13 @@ public class MFFSEnergyStorage extends EnergyStorage implements INBTSerializable
         }
     }
 
+    public void consumeEnergy(int energy)
+    {
+        this.energy-=energy;
+        if(this.energy<0)
+            this.energy=0;
+    }
+
     @Override
     public INBT serializeNBT() {
         CompoundNBT tag = new CompoundNBT();

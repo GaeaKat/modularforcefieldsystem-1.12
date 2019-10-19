@@ -15,6 +15,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.tileentity.AbstractFurnaceTileEntity;
 import net.minecraft.tileentity.ITickableTileEntity;
+import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.Direction;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.text.ITextComponent;
@@ -35,6 +36,7 @@ import net.minecraftforge.items.wrapper.CombinedInvWrapper;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
+import java.util.concurrent.atomic.AtomicInteger;
 
 public class TileGenerator extends TileMFFS implements  ITickableTileEntity,INamedContainerProvider {
 
@@ -115,6 +117,12 @@ public class TileGenerator extends TileMFFS implements  ITickableTileEntity,INam
 
                 return super.insertItem(slot, stack, simulate);
             }
+
+            @Override
+            protected void onContentsChanged(int slot) {
+                super.onContentsChanged(slot);
+                markDirty();
+            }
         };
     }
 
@@ -132,6 +140,12 @@ public class TileGenerator extends TileMFFS implements  ITickableTileEntity,INam
                     return stack;
 
                 return super.insertItem(slot, stack, simulate);
+            }
+
+            @Override
+            protected void onContentsChanged(int slot) {
+                super.onContentsChanged(slot);
+                markDirty();
             }
         };
     }
@@ -199,8 +213,10 @@ public class TileGenerator extends TileMFFS implements  ITickableTileEntity,INam
                                 }
                             }
                             if (this.isBurning()) {
-                                energy.ifPresent(e -> ((MFFSEnergyStorage) e).addEnergy(MFFSConfig.GENERATOR_GENERATE.get() / 200));
-                                ++this.cookTime;
+                                if(iMonazitHandler.getStackInSlot(0).getItem()==MFFSItems.MONAZIT_CRYSTAL) {
+                                    energy.ifPresent(e -> ((MFFSEnergyStorage) e).addEnergy(MFFSConfig.GENERATOR_GENERATE.get() / 200));
+                                    ++this.cookTime;
+                                }
                                 if (this.cookTime == this.cookTimeTotal) {
                                     this.cookTime = 0;
                                     this.cookTimeTotal = 200;
@@ -231,8 +247,42 @@ public class TileGenerator extends TileMFFS implements  ITickableTileEntity,INam
                     } });
                 });
             });
+            sendOutPower();
         }
 
+    }
+
+    private void sendOutPower() {
+        energy.ifPresent(energy-> {
+            AtomicInteger capacity=new AtomicInteger(energy.getEnergyStored());
+            if(capacity.get()>0)
+            {
+                for(Direction direction : Direction.values())
+                {
+                    TileEntity te=world.getTileEntity(pos.offset(direction));
+                    if(te!=null)
+                    {
+                        boolean doContinue=te.getCapability(CapabilityEnergy.ENERGY,direction).map(handler ->
+                        {
+                            if (handler.canReceive())
+                            {
+                                int recieved = handler.receiveEnergy(Math.min(capacity.get(),100),false);
+                                capacity.addAndGet(-recieved);
+                                ((MFFSEnergyStorage)energy).consumeEnergy(recieved);
+                                markDirty();
+                                return capacity.get()>0;
+
+                            } else {
+                                return true;
+                            }
+                        }).orElse(true);
+                        if(!doContinue) {
+                            return;
+                        }
+                    }
+                }
+            }
+        });
     }
 
     public boolean canOpen(PlayerEntity p_213904_1_) {
