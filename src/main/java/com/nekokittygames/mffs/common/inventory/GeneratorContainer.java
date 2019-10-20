@@ -142,6 +142,10 @@ public class GeneratorContainer extends Container {
     {
         return tileEntity.getCapability(CapabilityEnergy.ENERGY).map(IEnergyStorage::getEnergyStored).orElse(0);
     }
+    public int getMaxEnergy()
+    {
+        return tileEntity.getCapability(CapabilityEnergy.ENERGY).map(IEnergyStorage::getMaxEnergyStored).orElse(0);
+    }
 
 //case 0:
 //        return AbstractFurnaceTileEntity.this.burnTime; === getBurnTime()

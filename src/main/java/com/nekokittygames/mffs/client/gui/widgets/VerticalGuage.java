@@ -86,15 +86,15 @@ public class VerticalGuage extends AbstractGui implements IRenderable {
 
     @Override
     public void render(int p_render_1_, int p_render_2_, float p_render_3_) {
+
+        int bar2height = (int) (1 + getPercent() * (this.height - 2));
+        int bar1height = this.height - bar2height;
         Minecraft minecraft = Minecraft.getInstance();
         minecraft.getTextureManager().bindTexture(this.guageImage);
         GlStateManager.disableDepthTest();
-        int i = this.yTexStart;
-        //if (this.isHovered()) {
-        //    i += this.yDiffText;
-        //}
 
-        blit(this.x, this.y, this.xTexStart, i,this.width, this.height,this.texWidth,this.texHeight);
+        blit(this.x, this.y, this.xTexStart, this.yTexStart,this.width,bar1height, 32,64);
+        blit(this.x, this.y+bar1height, this.xGuageStart, this.yGuageStart,this.width,bar2height, 32,64);
         GlStateManager.enableDepthTest();
     }
 }

@@ -27,7 +27,8 @@ public class GeneratorScreen extends ContainerScreen<GeneratorContainer> {
     @Override
     protected void init() {
         super.init();
-        guage=new VerticalGuage(this.guiLeft+110,this.guiTop+14,14,42,1,0,16,0,14,42,FORGE_GUAGE);
+        guage=new VerticalGuage(this.guiLeft+110,this.guiTop+20,14,42,1,0,16,0,14,42,FORGE_GUAGE);
+        guage.setMax(this.container.getMaxEnergy()).setCurrent(this.container.getEnergy());
     }
 
     @Override
@@ -50,7 +51,7 @@ public class GeneratorScreen extends ContainerScreen<GeneratorContainer> {
 
         int l = this.container.getCookProgressionScaled();
         this.blit(i + 79, j + 34, 176, 14, l + 1, 16);
-
+        guage.setCurrent(this.container.getEnergy());
         guage.render(1,1,1);
     }
 }
