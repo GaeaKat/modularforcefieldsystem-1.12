@@ -38,6 +38,7 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.util.concurrent.atomic.AtomicInteger;
 
+@SuppressWarnings("unchecked")
 public class TileGenerator extends TileMFFS implements  ITickableTileEntity,INamedContainerProvider {
 
     private LazyOptional<IItemHandler> fuelHandler = LazyOptional.of(this::createFuelHandler);
@@ -188,64 +189,62 @@ public class TileGenerator extends TileMFFS implements  ITickableTileEntity,INam
         if (!this.world.isRemote) {
             energy.ifPresent(iEnergyStorage -> {
 //
-                fuelHandler.ifPresent(iFuelHandler -> {
-                    monazitHandler.ifPresent(iMonazitHandler-> {
-                        boolean flag = isBurning();
-                        boolean flag1 = false;
-                        ItemStack itemstack = iFuelHandler.getStackInSlot(0);
-                        if (this.isBurning() || !itemstack.isEmpty() && !iMonazitHandler.getStackInSlot(0).isEmpty()) {
-                            if (!this.isBurning() && iMonazitHandler.getStackInSlot(0).getItem() == MFFSItems.MONAZIT_CRYSTAL) {
-                                this.burnTime = ForgeHooks.getBurnTime(itemstack);
-                                this.recipesUsed = this.burnTime;
-                                if (this.isBurning()) {
-                                    flag1 = true;
-
-                                    if (itemstack.hasContainerItem())
-                                        ((ItemStackHandler) iFuelHandler).setStackInSlot(0, itemstack.getContainerItem());
-                                    else if (!itemstack.isEmpty()) {
-                                        Item item = itemstack.getItem();
-                                        itemstack.shrink(1);
-                                        if (itemstack.isEmpty()) {
-                                            ((ItemStackHandler) iFuelHandler).setStackInSlot(0, itemstack.getContainerItem());
-                                        }
-                                    }
-
-                                }
-                            }
+                fuelHandler.ifPresent(iFuelHandler -> monazitHandler.ifPresent(iMonazitHandler-> {
+                    boolean flag = isBurning();
+                    boolean flag1 = false;
+                    ItemStack itemstack = iFuelHandler.getStackInSlot(0);
+                    if (this.isBurning() || !itemstack.isEmpty() && !iMonazitHandler.getStackInSlot(0).isEmpty()) {
+                        if (!this.isBurning() && iMonazitHandler.getStackInSlot(0).getItem() == MFFSItems.MONAZIT_CRYSTAL) {
+                            this.burnTime = ForgeHooks.getBurnTime(itemstack);
+                            this.recipesUsed = this.burnTime;
                             if (this.isBurning()) {
-                                if(iMonazitHandler.getStackInSlot(0).getItem()==MFFSItems.MONAZIT_CRYSTAL) {
-                                    energy.ifPresent(e -> ((MFFSEnergyStorage) e).addEnergy(MFFSConfig.GENERATOR_GENERATE.get() / 200));
-                                    ++this.cookTime;
-                                }
-                                if (this.cookTime == this.cookTimeTotal) {
-                                    this.cookTime = 0;
-                                    this.cookTimeTotal = 200;
-                                    flag1 = true;
-                                    ItemStack monazit=iMonazitHandler.getStackInSlot(0);
-                                    if(!monazit.isEmpty())
-                                    {
-                                        monazit.shrink(1);
-                                        if (monazit.isEmpty()) {
-                                            ((ItemStackHandler) iMonazitHandler).setStackInSlot(0, itemstack.getContainerItem());
-                                        }
+                                flag1 = true;
+
+                                if (itemstack.hasContainerItem())
+                                    ((ItemStackHandler) iFuelHandler).setStackInSlot(0, itemstack.getContainerItem());
+                                else if (!itemstack.isEmpty()) {
+                                    Item item = itemstack.getItem();
+                                    itemstack.shrink(1);
+                                    if (itemstack.isEmpty()) {
+                                        ((ItemStackHandler) iFuelHandler).setStackInSlot(0, itemstack.getContainerItem());
                                     }
                                 }
-                            } else {
-                                this.cookTime = 0;
+
                             }
                         }
-                        else if (!this.isBurning() && this.cookTime > 0) {
-                            this.cookTime = MathHelper.clamp(this.cookTime - 2, 0, this.cookTimeTotal);
+                        if (this.isBurning()) {
+                            if(iMonazitHandler.getStackInSlot(0).getItem()==MFFSItems.MONAZIT_CRYSTAL) {
+                                energy.ifPresent(e -> ((MFFSEnergyStorage) e).addEnergy(MFFSConfig.GENERATOR_GENERATE.get() / 200));
+                                ++this.cookTime;
+                            }
+                            if (this.cookTime == this.cookTimeTotal) {
+                                this.cookTime = 0;
+                                this.cookTimeTotal = 200;
+                                flag1 = true;
+                                ItemStack monazit=iMonazitHandler.getStackInSlot(0);
+                                if(!monazit.isEmpty())
+                                {
+                                    monazit.shrink(1);
+                                    if (monazit.isEmpty()) {
+                                        ((ItemStackHandler) iMonazitHandler).setStackInSlot(0, itemstack.getContainerItem());
+                                    }
+                                }
+                            }
+                        } else {
+                            this.cookTime = 0;
                         }
+                    }
+                    else if (!this.isBurning() && this.cookTime > 0) {
+                        this.cookTime = MathHelper.clamp(this.cookTime - 2, 0, this.cookTimeTotal);
+                    }
 
-                        if (flag != this.isBurning()) {
-                            flag1 = true;
-                        }
+                    if (flag != this.isBurning()) {
+                        flag1 = true;
+                    }
 
-                    if (flag1) {
-                        this.markDirty();
-                    } });
-                });
+                if (flag1) {
+                    this.markDirty();
+                } }));
             });
             sendOutPower();
         }

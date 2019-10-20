@@ -12,7 +12,7 @@ public class InjectionUtils {
      * @param <T> The field's type.
      * @return null
      */
-    @SuppressWarnings({"ConstantConditions", "SameReturnValue"})
+    @SuppressWarnings({"SameReturnValue"})
     public static <T> T Null() {
         return null;
     }

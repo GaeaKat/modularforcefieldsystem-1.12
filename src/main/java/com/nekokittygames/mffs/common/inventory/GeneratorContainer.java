@@ -41,12 +41,8 @@ public class GeneratorContainer extends Container {
         tileEntity= (TileGenerator) world.getTileEntity(pos);
         this.playerEntity=player;
         this.playerInventory=new InvWrapper(player.inventory);
-        tileEntity.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, Direction.UP).ifPresent(h -> {
-            addSlot(new SlotItemHandler(h, 0, 56, 17));
-        });
-        tileEntity.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, Direction.DOWN).ifPresent(h -> {
-            addSlot(new SlotItemHandler(h, 0, 56, 53));
-        });
+        tileEntity.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, Direction.UP).ifPresent(h -> addSlot(new SlotItemHandler(h, 0, 56, 17)));
+        tileEntity.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, Direction.DOWN).ifPresent(h -> addSlot(new SlotItemHandler(h, 0, 56, 53)));
         layoutPlayerInventorySlots(8, 84);
 
         trackInt(new IntReferenceHolder() {

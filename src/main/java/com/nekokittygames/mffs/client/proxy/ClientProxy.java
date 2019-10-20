@@ -1,6 +1,6 @@
 package com.nekokittygames.mffs.client.proxy;
 
-import com.nekokittygames.mffs.client.screens.GeneratorScreen;
+import com.nekokittygames.mffs.client.gui.screens.GeneratorScreen;
 import com.nekokittygames.mffs.common.init.MFFSContainers;
 import com.nekokittygames.mffs.common.proxy.IProxy;
 import net.minecraft.client.Minecraft;

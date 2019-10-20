@@ -1,16 +1,18 @@
-package com.nekokittygames.mffs.client.screens;
+package com.nekokittygames.mffs.client.gui.screens;
 
 import com.mojang.blaze3d.platform.GlStateManager;
+import com.nekokittygames.mffs.client.gui.widgets.VerticalGuage;
 import com.nekokittygames.mffs.common.inventory.GeneratorContainer;
 import com.nekokittygames.mffs.common.libs.LibMisc;
 import net.minecraft.client.gui.screen.inventory.ContainerScreen;
 import net.minecraft.entity.player.PlayerInventory;
-import net.minecraft.inventory.container.AbstractFurnaceContainer;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.ITextComponent;
 
 public class GeneratorScreen extends ContainerScreen<GeneratorContainer> {
     private ResourceLocation GUI = new ResourceLocation(LibMisc.MOD_ID, "textures/gui/generator.png");
+    private ResourceLocation FORGE_GUAGE=new ResourceLocation(LibMisc.MOD_ID,"textures/gui/widgets/forge_guage.png");
+    private VerticalGuage guage;
     public GeneratorScreen(GeneratorContainer screenContainer, PlayerInventory inv, ITextComponent titleIn) {
         super(screenContainer, inv, titleIn);
     }
@@ -20,6 +22,12 @@ public class GeneratorScreen extends ContainerScreen<GeneratorContainer> {
         this.renderBackground();
         super.render(mouseX, mouseY, partialTicks);
         this.renderHoveredToolTip(mouseX, mouseY);
+    }
+
+    @Override
+    protected void init() {
+        super.init();
+        guage=new VerticalGuage(this.guiLeft+110,this.guiTop+14,14,42,1,0,16,0,14,42,FORGE_GUAGE);
     }
 
     @Override
@@ -42,5 +50,7 @@ public class GeneratorScreen extends ContainerScreen<GeneratorContainer> {
 
         int l = this.container.getCookProgressionScaled();
         this.blit(i + 79, j + 34, 176, 14, l + 1, 16);
+
+        guage.render(1,1,1);
     }
 }

@@ -1,5 +1,7 @@
 {
     "itemGroup.modularforcefieldsystem": "Modular Forcefield System",
     "block.modularforcefieldsystem.monazit_ore":"Monazit ore",
-    "item.modularforcefieldsystem.monazit_crystal":"Monazit Crystal"
+    "block.modularforcefieldsystem.generator": "Power Generator",
+    "item.modularforcefieldsystem.monazit_crystal":"Monazit Crystal",
+    "gui.narrate.forge_percent": "Forge Power at %s percent",
 }
