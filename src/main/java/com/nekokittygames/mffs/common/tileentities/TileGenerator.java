@@ -163,32 +163,8 @@ public class TileGenerator extends TileMFFS implements  ITickableTileEntity,INam
         if (this.isBurning()) {
             --this.burnTime;
         }
-
-        //if (!(iEnergyStorage.getEnergyStored() >= iEnergyStorage.getMaxEnergyStored())) {
-//                    if (counter > 0) {
-//                        counter--;
-//
-//                    } else {
-//                        fuelHandler.ifPresent(iItemHandler ->
-//                        {
-//                            ItemStack fuel = iItemHandler.getStackInSlot(0);
-//                            if (AbstractFurnaceTileEntity.isFuel(fuel)) {
-//                                monazitHandler.ifPresent(iItemHandler1 -> {
-//                                    ItemStack monazit = iItemHandler1.getStackInSlot(0);
-//                                    if (monazit.getItem() == MFFSItems.MONAZIT_CRYSTAL && monazit.getCount() > 0) {
-//                                        iItemHandler1.extractItem(0, 1, false);
-//                                        iItemHandler.extractItem(0, 1, false);
-//                                        burnTime = ForgeHooks.getBurnTime(fuel);
-//                                        counter = burnTime;
-//                                    }
-//                                });
-//                            }
-//                        });
-//                    }
-//                }
         if (!this.world.isRemote) {
             energy.ifPresent(iEnergyStorage -> {
-//
                 fuelHandler.ifPresent(iFuelHandler -> monazitHandler.ifPresent(iMonazitHandler-> {
                     boolean flag = isBurning();
                     boolean flag1 = false;
@@ -214,8 +190,11 @@ public class TileGenerator extends TileMFFS implements  ITickableTileEntity,INam
                         }
                         if (this.isBurning()) {
                             if(iMonazitHandler.getStackInSlot(0).getItem()==MFFSItems.MONAZIT_CRYSTAL) {
-                                energy.ifPresent(e -> ((MFFSEnergyStorage) e).addEnergy(MFFSConfig.GENERATOR_GENERATE.get() / 200));
-                                ++this.cookTime;
+                                energy.ifPresent(e -> {
+                                    ((MFFSEnergyStorage) e).addEnergy(MFFSConfig.GENERATOR_GENERATE.get() / 200);
+                                    if(e.getEnergyStored()<e.getMaxEnergyStored())
+                                        ++this.cookTime;
+                                });
                             }
                             if (this.cookTime == this.cookTimeTotal) {
                                 this.cookTime = 0;
