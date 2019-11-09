@@ -11,8 +11,18 @@ public class MFFSDataGen {
     @SubscribeEvent
     public static void gatherData(GatherDataEvent event) {
         DataGenerator generator=event.getGenerator();
-        generator.addProvider(new MFFSRecipes(generator));
+        if(event.includeClient())
+        {
+            generator.addProvider(new MFFSLanguageEnUS(generator));
+            //generator.addProvider(new MFFSBlockStates(generator,event.getExistingFileHelper()));
+        }
+        if(event.includeServer())
+        {
+            generator.addProvider(new MFFSRecipes(generator));
+        }
+
         generator.addProvider(new MFFSTags(generator));
         generator.addProvider(new MFFSLootTables(generator));
+
     }
 }

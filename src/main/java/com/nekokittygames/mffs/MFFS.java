@@ -5,11 +5,13 @@ import com.nekokittygames.mffs.common.config.MFFSConfig;
 import com.nekokittygames.mffs.common.config.MFFSSetup;
 import com.nekokittygames.mffs.common.init.MFFSBlocks;
 import com.nekokittygames.mffs.common.libs.LibMisc;
+import com.nekokittygames.mffs.common.network.UpdateForceNetworks;
 import com.nekokittygames.mffs.common.proxy.IProxy;
 import com.nekokittygames.mffs.common.proxy.ServerProxy;
 import com.nekokittygames.mffs.datagen.conditions.GeneratorEnabled;
 import net.minecraft.block.Block;
 import net.minecraft.item.crafting.IRecipeSerializer;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.gen.GenerationStage;
 import net.minecraft.world.gen.feature.Feature;
@@ -32,6 +34,8 @@ import net.minecraftforge.fml.event.lifecycle.InterModProcessEvent;
 import net.minecraftforge.fml.event.server.FMLServerStartingEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.minecraftforge.fml.loading.FMLPaths;
+import net.minecraftforge.fml.network.NetworkRegistry;
+import net.minecraftforge.fml.network.simple.SimpleChannel;
 import net.minecraftforge.registries.ForgeRegistries;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -46,6 +50,14 @@ public class MFFS
 
     // Directly reference a log4j logger.
     private static final Logger LOGGER = LogManager.getLogger();
+    public static final String CHANNEL = LibMisc.MOD_ID;
+    private static final String PROTOCOL_VERSION = "1.0";
+    public static SimpleChannel channel = NetworkRegistry.ChannelBuilder
+            .named(new ResourceLocation(LibMisc.MOD_ID, CHANNEL))
+            .clientAcceptedVersions(PROTOCOL_VERSION::equals)
+            .serverAcceptedVersions(PROTOCOL_VERSION::equals)
+            .networkProtocolVersion(() -> PROTOCOL_VERSION)
+            .simpleChannel();
 
     public static IProxy proxy = DistExecutor.runForDist(() -> ClientProxy::new, () -> ServerProxy::new);
 
@@ -80,7 +92,8 @@ public class MFFS
     {
         proxy.init();
         // some preinit code
-
+        int messageNum=0;
+        channel.registerMessage(messageNum++, UpdateForceNetworks.class,UpdateForceNetworks::encode,UpdateForceNetworks::new,UpdateForceNetworks::handle);
         registerOre();
     }
 
