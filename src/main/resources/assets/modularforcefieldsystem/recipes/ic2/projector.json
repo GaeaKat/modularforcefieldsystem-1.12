@@ -1,0 +1,33 @@
+{
+  "conditions": [
+    {
+      "type": "isValid",
+      "modid": "ic2"
+    }
+  ],
+  "type": "forge:ore_shaped",
+  "pattern": [
+    "KyK",
+    "yFy",
+    "KJK"
+  ],
+  "key": {
+    "y": {
+      "item": "#FOCUS_MATRIX"
+    },
+    "K": {
+      "item": "#ADVANCED_ALLOY"
+    },
+    "F": {
+      "item": "#ADV_MACHINE_CASING"
+    },
+    "J": {
+      "item": "ic2:frequency_transmitter"
+    }
+  },
+  "result": {
+    "item": "modularforcefieldsystem:projector",
+    "data": 0,
+    "count": 1
+  }
+}

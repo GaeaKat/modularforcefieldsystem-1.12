@@ -1,0 +1,33 @@
+{
+  "conditions": [
+    {
+      "type": "isValid",
+      "modid": "ic2"
+    }
+  ],
+  "type": "forge:ore_shaped",
+  "pattern": [
+    "aCa",
+    "AFA",
+    "ACA"
+  ],
+  "key": {
+    "C": {
+      "item": "#CIRCUIT"
+    },
+    "a": {
+      "item": "minecraft:ender_pearl"
+    },
+    "F": {
+      "item": "#ADV_MACHINE_CASING"
+    },
+    "A": {
+      "item": "#IRON_PLATE"
+    }
+  },
+  "result": {
+    "item": "modularforcefieldsystem:control_system",
+    "data": 0,
+    "count": 1
+  }
+}

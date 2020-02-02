@@ -7,21 +7,21 @@
   ],
   "type": "forge:ore_shaped",
   "pattern": [
-    " E ",
-    "EBE",
-    " E "
+    " K ",
+    "KpK",
+    " K "
   ],
   "key": {
-    "E": {
-      "item": "#CARBON_PLATE"
+    "p": {
+      "item": "minecraft:glowstone"
     },
-    "B": {
-      "item": "#OVERCLOCKER"
+    "K": {
+      "item": "#ADVANCED_ALLOY"
     }
   },
   "result": {
-    "item": "modularforcefieldsystem:extractor_upgrade_booster",
+    "item": "modularforcefieldsystem:option_light",
     "data": 0,
-    "count": 4
+    "count": 1
   }
 }

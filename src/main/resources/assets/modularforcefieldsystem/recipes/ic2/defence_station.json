@@ -7,26 +7,27 @@
   ],
   "type": "forge:ore_shaped",
   "pattern": [
-    "HHH",
-    "EIE",
-    "EDE"
+    " J ",
+    "aFa",
+    " E "
   ],
   "key": {
+    "a": {
+      "item": "minecraft:ender_pearl"
+    },
     "E": {
       "item": "#CARBON_PLATE"
     },
-    "H": {
-      "item": "#COPPER_NUDE_CABLE"
+    "F": {
+      "item": "#ADV_MACHINE_CASING"
     },
-    "I": {
-      "item": "#COPPER_ONE_CABLE"
-    },
-    "D": {
-      "item": "#ADVANCED_CIRCUIT"
+    "J": {
+      "item": "ic2:frequency_transmitter",
+      "data": 0
     }
   },
   "result": {
-    "item": "modularforcefieldsystem:upgrade_range",
+    "item": "modularforcefieldsystem:area_defense",
     "data": 0,
     "count": 1
   }

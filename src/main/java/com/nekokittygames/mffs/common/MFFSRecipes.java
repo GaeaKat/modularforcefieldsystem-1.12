@@ -26,8 +26,16 @@ package com.nekokittygames.mffs.common;
 
 import com.nekokittygames.mffs.common.block.ModBlocks;
 import com.nekokittygames.mffs.common.item.ModItems;
+
+import crazypants.enderio.base.recipe.sagmill.SagMillRecipeManager;
+import crazypants.enderio.base.recipe.IRecipeInput;
+import crazypants.enderio.base.recipe.Recipe;
+import crazypants.enderio.base.recipe.RecipeBonusType;
+import crazypants.enderio.base.recipe.RecipeInput;
+import crazypants.enderio.base.recipe.RecipeOutput;
 import ic2.api.item.IC2Items;
 import ic2.api.recipe.Recipes;
+import cofh.thermalexpansion.util.managers.machine.PulverizerManager;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraftforge.fml.common.Optional;
@@ -45,24 +53,28 @@ public class MFFSRecipes {
 		//Recipes.matterAmplifier.addRecipe(new ItemStack(
 		//		ModularForceFieldSystem.MFFSitemForcicium, 1), 5000);
 
-		if (ModularForceFieldSystem.enableUUMatterForcicium)
+		/*if (ModularForceFieldSystem.enableUUMatterForcicium)
 			Recipes.advRecipes.addRecipe(
 					new ItemStack(
 							ModItems.FORCICIUM,
 							8),
 					new Object[] { " RR", "R  ", " R ",
 							Character.valueOf('R'),
-							IC2Items.getItem("misc_resource","matter") });
-		RecipesFactory.addRecipe("AlAlilAlA", 64, 1, null,
+							IC2Items.getItem("misc_resource","matter") });*/
+		/*RecipesFactory.addRecipe("AlAlilAlA", 64, 1, null,
 				ModItems.PROJECTOR_FOCUS_MATRIX);
 		RecipesFactory.addRecipe("ooooCoooo", 1, 1, null,
 				ModItems.EMPTY_CARD);
 		RecipesFactory.addRecipe("mSnExEEDE", 1, 1, null,
-				ModItems.MULTITOOL_WRENCH);
+				ModItems.MULTITOOL_WRENCH);*/
 	}
 
 	public static void AddEIRecipes()
 	{
+		IRecipeInput[] recout = new IRecipeInput[1];
+		recout[0]=new RecipeInput(new ItemStack(ModBlocks.MONAZIT_ORE, 1));
+		Recipe recipe=new Recipe(new RecipeOutput(new ItemStack(ModItems.FORCICIUM, MONAZIT_MACERATION_OUTPUT)), 3600, RecipeBonusType.CHANCE_ONLY, recout);
+		SagMillRecipeManager.getInstance().addRecipe(recipe);
 		////RecipesFactory.addRecipe("AAAAxAADA", 1, 3, null,
 		//		ModularForceFieldSystem.MFFSitemForcicumCell);
 		//RecipesFactory.addRecipe(" E EBE E ", 4, 3, null,
@@ -79,10 +91,10 @@ public class MFFSRecipes {
 		//		ModularForceFieldSystem.MFFSitemWrench);
 	}
 	public static void AddTERecipes() {
-		/*CraftingManagers.pulverizerManager.addRecipe(400, new ItemStack(
-				ModularForceFieldSystem.MFFSMonazitOre, 1), new ItemStack(
-				ModularForceFieldSystem.MFFSitemForcicium, MONAZIT_MACERATION_OUTPUT), false);
-
+		PulverizerManager.addRecipe(4000, new ItemStack(
+				ModBlocks.MONAZIT_ORE, 1), new ItemStack(
+				ModItems.FORCICIUM, MONAZIT_MACERATION_OUTPUT));
+		/*
 		RecipesFactory.addRecipe("AAAAxAADA", 1, 2, null,
 				ModularForceFieldSystem.MFFSitemForcicumCell);
 		RecipesFactory.addRecipe(" E EBE E ", 4, 2, null,
@@ -130,36 +142,12 @@ public class MFFSRecipes {
 
 	public static void init() {
 
-		RecipesFactory.addRecipe("uuuuiuuuu", 1, 0, null,
-				ModItems.FORCEPOWER_CRYSTAL);
-		RecipesFactory.addRecipe("vvvvvvvvv", 1, 0, null,
-				ModItems.PROJECTOR_STRENGTH);
-		RecipesFactory.addRecipe("vvv   vvv", 1, 0, null,
-				ModItems.PROJECTOR_DISTANCE);
-
-		RecipesFactory.addShapelessRecipe(
-						ModItems.EMPTY_CARD,
-						ModItems.POWERLINK_CARD);
-		RecipesFactory.addShapelessRecipe(
-				ModItems.EMPTY_CARD,
-				ModItems.PERSONAL_ID);
-		RecipesFactory.addShapelessRecipe(
-				ModItems.EMPTY_CARD,
-				ModItems.SECURITYLINK_CARD);
-		RecipesFactory.addShapelessRecipe(
-				ModItems.EMPTY_CARD,
-				ModItems.ACCESS_CARD);
-		RecipesFactory.addShapelessRecipe(
-				ModItems.EMPTY_CARD,
-				ModItems.DATALINK_CARD);
-
 		GameRegistry.addSmelting(
 				ModBlocks.MONAZIT_ORE, new ItemStack(
 						ModItems.FORCICIUM, ModularForceFieldSystem.MonazitOreSmeltAmount), 0.5F);
 
 		if (ModularForceFieldSystem.ic2Found && ModularForceFieldSystem.enableIC2Recipes)
 			AddIC2Recipes();
-
 		if (ModularForceFieldSystem.thermalExpansionFound && ModularForceFieldSystem.enableTERecipes)
 			AddTERecipes();
 

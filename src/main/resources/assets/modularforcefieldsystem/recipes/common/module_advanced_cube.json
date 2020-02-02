@@ -1,0 +1,21 @@
+{
+  "type": "forge:ore_shaped",
+  "pattern": [
+    "yyy",
+    "yzy",
+    "yyy"
+  ],
+  "key": {
+    "y": {
+      "item": "#FOCUS_MATRIX"
+    },
+    "z": {
+      "item": "modularforcefieldsystem:module_cube"
+    }
+  },
+  "result": {
+    "item": "modularforcefieldsystem:module_advcube",
+    "data": 0,
+    "count": 1
+  }
+}

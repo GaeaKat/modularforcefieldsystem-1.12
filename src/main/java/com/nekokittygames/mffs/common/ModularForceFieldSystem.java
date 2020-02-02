@@ -20,26 +20,24 @@
 
 package com.nekokittygames.mffs.common;
 
+import static com.nekokittygames.mffs.common.ModularForceFieldSystem.MODID;
+
+import java.util.List;
+
+import org.apache.logging.log4j.Logger;
+
 import com.google.common.collect.Lists;
-import com.nekokittygames.mffs.common.block.*;
-import com.nekokittygames.mffs.common.guide.LightGuideBook;
-import com.nekokittygames.mffs.common.item.*;
-import com.nekokittygames.mffs.common.modules.*;
-import com.nekokittygames.mffs.common.multitool.*;
-import com.nekokittygames.mffs.common.options.*;
+import com.nekokittygames.mffs.common.block.ModBlocks;
+import com.nekokittygames.mffs.common.item.ModItems;
 import com.nekokittygames.mffs.common.tileentity.TileEntityControlSystem;
-import com.nekokittygames.mffs.common.tileentity.TileEntityForceField;
 import com.nekokittygames.mffs.common.tileentity.TileEntityMachines;
-import com.nekokittygames.mffs.libs.LibBlockNames;
-import com.nekokittygames.mffs.libs.LibItemNames;
 import com.nekokittygames.mffs.network.PacketTileHandler;
-import net.minecraft.block.Block;
+
 import net.minecraft.creativetab.CreativeTabs;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemBlock;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
+import net.minecraftforge.client.model.ItemLayerModel.Loader;
 import net.minecraftforge.common.ForgeChunkManager;
 import net.minecraftforge.common.ForgeChunkManager.Ticket;
 import net.minecraftforge.common.MinecraftForge;
@@ -55,13 +53,8 @@ import net.minecraftforge.fml.common.network.simpleimpl.SimpleNetworkWrapper;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.oredict.OreDictionary;
-import org.apache.logging.log4j.Logger;
 
-import java.util.List;
-
-import static com.nekokittygames.mffs.common.ModularForceFieldSystem.MODID;
-
-@Mod(modid = MODID, name = "Modular ForceField System", version = "3.0.1", dependencies = "after:enderio;after:ic2")
+@Mod(modid = MODID, name = "Modular ForceField System", version = "4.2.0", dependencies = "after:enderio;after:ic2;after:thermalexpansion")
 public class ModularForceFieldSystem {
 
 	public static final String MODID="modularforcefieldsystem";
@@ -180,7 +173,7 @@ public class ModularForceFieldSystem {
 
 			Property uumatterForciciumprop = MFFSconfig.get(
 					Configuration.CATEGORY_GENERAL, "uumatterForcicium", true);
-			uumatterForciciumprop.setComment("Add IC2 UU-Matter Recipes for Forcicium");
+			uumatterForciciumprop.setComment("Add TechReborn UU-Matter Recipes for Forcicium");
 			enableUUMatterForcicium = uumatterForciciumprop.getBoolean(true);
 
 			Property monazitWorldAmount = MFFSconfig.get(
@@ -283,7 +276,7 @@ public class ModularForceFieldSystem {
 			enableIC2Recipes = ic2Recipes.getBoolean(true);
 
 			Property teRecipes = MFFSconfig.get(Configuration.CATEGORY_GENERAL,
-					"enableTERecipes", false);
+					"enableTERecipes", true);
 			teRecipes.setComment("Set to false to disable Thermal Expansion recipes for MFFS machines.");
 			enableTERecipes = teRecipes.getBoolean(true);
 
@@ -415,11 +408,10 @@ public class ModularForceFieldSystem {
 
 	public void initComputerCraftPlugin() {
 		log.info("Loading module for ComputerCraft");
-
-		try {
-			Class.forName("dan200.ComputerCraft");
+		
+		if(net.minecraftforge.fml.common.Loader.isModLoaded("computercraft")) {
 			computercraftFound = true;
-		} catch(Throwable t) {
+		} else {
 			log.info("Module not loaded: ComputerCraft not found");
 		}
 	}
@@ -428,12 +420,10 @@ public class ModularForceFieldSystem {
 
 		log.info("Loading module for Buildcraft");
 
-		try {
-
-			Class.forName("buildcraft.core.Version");
+		if(net.minecraftforge.fml.common.Loader.isModLoaded("buildcraft")) {
 			buildcraftFound = true;
 
-		} catch (Throwable t) {
+		} else {
 			log.info("Module not loaded: Buildcraft not found");
 
 		}
@@ -443,12 +433,10 @@ public class ModularForceFieldSystem {
 
 		log.info("Loading module for ThermalExpansion");
 
-		try {
-
-			Class.forName("thermalexpansion.ThermalExpansion");
+		if(net.minecraftforge.fml.common.Loader.isModLoaded("thermalexpansion")) {
 			thermalExpansionFound = true;
 
-		} catch (Throwable t) {
+		} else {
 			log.info("Module not loaded: ThermalExpansion not found");
 
 		}
@@ -458,12 +446,10 @@ public class ModularForceFieldSystem {
 
 		log.info("Loading module for EnderIo");
 
-		try {
-
-			Class.forName("crazypants.enderio.EnderIO");
+		if(net.minecraftforge.fml.common.Loader.isModLoaded("enderio")) {
 			enderIoFound = true;
 
-		} catch (Throwable t) {
+		} else {
 			log.info("Module not loaded: EnderIo not found");
 
 		}
@@ -472,12 +458,10 @@ public class ModularForceFieldSystem {
 
 		log.info("Loading module for EE3");
 
-		try {
-
-			Class.forName("com.pahimar.ee3.event.ActionRequestEvent");
+		if(net.minecraftforge.fml.common.Loader.isModLoaded("ee3")) {
 			ee3Found = true;
 
-		} catch (Throwable t) {
+		} else {
 			log.info("Module not loaded: EE3 not found");
 
 		}
@@ -487,12 +471,10 @@ public class ModularForceFieldSystem {
 
 		log.info("Loading module for IC2");
 
-		try {
-
-			Class.forName("ic2.core.IC2");
+		if(net.minecraftforge.fml.common.Loader.isModLoaded("ic2")) {
 			ic2Found = true;
 
-		} catch (Throwable t) {
+		} else {
 			log.info("Module not loaded: IC2 not found");
 
 		}
@@ -501,10 +483,9 @@ public class ModularForceFieldSystem {
 	public void initAEPlugin() {
 		log.info("Loading module for Applied Energistics");
 
-		try {
-			Class.forName("appeng.common.AppEng");
+		if(net.minecraftforge.fml.common.Loader.isModLoaded("appeng")) {
 			appliedEnergisticsFound = true;
-		} catch (Throwable t) {
+		} else {
 			log.info("Module not loaded: Applied Energistics not found");
 		}
 	}

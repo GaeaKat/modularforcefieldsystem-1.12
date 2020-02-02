@@ -1,0 +1,12 @@
+{
+        "type": "minecraft:crafting_shapeless",
+        "ingredients": [
+                {
+                                "item": "modularforcefieldsystem:powerlink_card"
+                }
+        ],
+        "result": {
+                "item": "modularforcefieldsystem:empty_card",
+                "count": 1
+        }
+}

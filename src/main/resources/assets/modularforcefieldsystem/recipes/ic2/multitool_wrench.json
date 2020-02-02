@@ -7,27 +7,36 @@
   ],
   "type": "forge:ore_shaped",
   "pattern": [
-    "AAA",
-    "AxA",
-    "ADA"
+    "mSn",
+    "ExE",
+    "EDE"
   ],
   "key": {
-    "A": {
-      "item": "#IRON_PLATE"
+    "E": {
+      "item": "#CARBON_PLATE"
     },
     "x": {
       "item": "#FORCEPOWER_CRYSTAL"
     },
     "D": {
       "item": "#ADVANCED_CIRCUIT"
+    },
+    "m": {
+      "item": "minecraft:redstone"
+    },
+    "S": {
+      "item": "ic2:wrench"
+    },
+    "n": {
+      "item": "minecraft:lever"
     }
   },
   "result": {
-    "item": "modularforcefieldsystem:forcicium_cell",
+    "item": "modularforcefieldsystem:multitool_wrench",
     "data": 101,
     "count": 1,
     "nbt": {
-      "Forceciumlevel": 0
+      "ForceEnergy": 0
     }
   }
 }

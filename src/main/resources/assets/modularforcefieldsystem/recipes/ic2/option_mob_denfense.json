@@ -1,0 +1,37 @@
+{
+  "conditions": [
+    {
+      "type": "isValid",
+      "modid": "ic2"
+    }
+  ],
+  "type": "forge:ore_shaped",
+  "pattern": [
+    "fgf",
+    "hQh",
+    "jgj"
+  ],
+  "key": {
+    "Q": {
+      "item": "ic2:te",
+      "data": 41
+    },
+    "f": {
+      "item": "minecraft:bone"
+    },
+    "g": {
+      "item": "minecraft:blaze_rod"
+    },
+    "h": {
+      "item": "minecraft:rotten_flesh"
+    },
+    "j": {
+      "item": "minecraft:spider_eye"
+    }
+  },
+  "result": {
+    "item": "modularforcefieldsystem:option_mob_defense",
+    "data": 0,
+    "count": 1
+  }
+}

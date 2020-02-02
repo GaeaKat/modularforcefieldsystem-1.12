@@ -7,21 +7,21 @@
   ],
   "type": "forge:ore_shaped",
   "pattern": [
-    " E ",
-    "EBE",
-    " E "
+    "ooo",
+    "oCo",
+    "ooo"
   ],
   "key": {
-    "E": {
-      "item": "#CARBON_PLATE"
+    "o": {
+      "item": "minecraft:paper"
     },
-    "B": {
-      "item": "#OVERCLOCKER"
+    "C": {
+      "item": "#CIRCUIT"
     }
   },
   "result": {
-    "item": "modularforcefieldsystem:extractor_upgrade_booster",
+    "item": "modularforcefieldsystem:empty_card",
     "data": 0,
-    "count": 4
+    "count": 1
   }
 }

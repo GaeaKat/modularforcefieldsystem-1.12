@@ -45,7 +45,7 @@ public abstract class ItemMultitool extends ForceEnergyItems implements
 		super(itemName);
 		this.typ = typ;
 		setMaxStackSize(1);
-		setMaxDamage(100);
+		setMaxDamage(101);
 		setHasSubtypes(true);
 		if (addToList)
 			MTTypes.add(this);
@@ -133,7 +133,12 @@ public abstract class ItemMultitool extends ForceEnergyItems implements
 	@Override
 	public void getSubItems(CreativeTabs tab, NonNullList<ItemStack> items) {
 		if (!isInCreativeTab(tab)) return;
-		super.getSubItems(tab, items);
+		
+		ItemStack empty = new ItemStack(this, 1);
+		empty.setItemDamage(101);
+		setAvailablePower(empty, 0);
+		items.add(empty);
+		
 		ItemStack charged = new ItemStack(this, 1);
 		charged.setItemDamage(1);
 		setAvailablePower(charged, getMaximumPower(null));

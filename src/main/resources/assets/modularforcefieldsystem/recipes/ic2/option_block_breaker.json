@@ -7,20 +7,20 @@
   ],
   "type": "forge:ore_shaped",
   "pattern": [
-    " E ",
-    "ExE",
-    " E "
+    " K ",
+    "KbK",
+    " K "
   ],
   "key": {
-    "E": {
-      "item": "#CARBON_PLATE"
+    "b": {
+      "item": "minecraft:iron_pickaxe"
     },
-    "x": {
-      "item": "#FORCEPOWER_CRYSTAL"
+    "K": {
+      "item": "#ADVANCED_ALLOY"
     }
   },
   "result": {
-    "item": "modularforcefieldsystem:upgrade_capacity",
+    "item": "modularforcefieldsystem:option_block_breaker",
     "data": 0,
     "count": 1
   }

@@ -1,0 +1,34 @@
+{
+  "conditions": [
+    {
+      "type": "isValid",
+      "modid": "ic2"
+    }
+  ],
+  "type": "forge:ore_shaped",
+  "pattern": [
+    "xJx",
+    "CFC",
+    "xJx"
+  ],
+  "key": {
+    "x": {
+      "item": "#FORCEPOWER_CRYSTAL"
+    },
+    "C": {
+      "item": "#CIRCUIT"
+    },
+    "F": {
+      "item": "#ADV_MACHINE_CASING"
+    },
+    "J": {
+      "item": "ic2:frequency_transmitter",
+      "data": 0
+    }
+  },
+  "result": {
+    "item": "modularforcefieldsystem:capacitor",
+    "data": 0,
+    "count": 1
+  }
+}

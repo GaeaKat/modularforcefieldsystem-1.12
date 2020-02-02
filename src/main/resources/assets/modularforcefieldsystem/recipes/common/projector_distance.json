@@ -1,0 +1,18 @@
+{
+  "type": "forge:ore_shaped",
+  "pattern": [
+    "vvv",
+    "   ",
+    "vvv"
+  ],
+  "key": {
+    "v": {
+      "item": "modularforcefieldsystem:projector_focus_matrix"
+    }
+  },
+  "result": {
+    "item": "modularforcefieldsystem:projector_distance",
+    "data": 0,
+    "count": 1
+  }
+}

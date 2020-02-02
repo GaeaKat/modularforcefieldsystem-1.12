@@ -1,0 +1,30 @@
+{
+  "conditions": [
+    {
+      "type": "isValid",
+      "modid": "ic2"
+    }
+  ],
+  "type": "forge:ore_shaped",
+  "pattern": [
+    "AlA",
+    "lil",
+    "AlA"
+  ],
+  "key": {
+    "A": {
+      "item": "#IRON_PLATE"
+    },
+    "i": {
+      "item": "minecraft:diamond"
+    },
+    "l": {
+      "item": "minecraft:glass"
+    }
+  },
+  "result": {
+    "item": "modularforcefieldsystem:projector_focus_matrix",
+    "data": 0,
+    "count": 64
+  }
+}

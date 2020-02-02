@@ -50,7 +50,7 @@ public class ItemForcicumCell extends ItemMFFSBase {
 	public ItemForcicumCell() {
 		super(LibItemNames.FORCICIUM_CELL);
 		setMaxStackSize(1);
-		setMaxDamage(100);
+		setMaxDamage(101);
 		setHasSubtypes(true);
 	}
 
@@ -180,16 +180,15 @@ public class ItemForcicumCell extends ItemMFFSBase {
 	@Override
 	public void getSubItems(CreativeTabs tab, NonNullList<ItemStack> subItems) {
 		if (!isInCreativeTab(tab)) return;
+		ItemStack empty = new ItemStack(this, 1);
+		empty.setItemDamage(101);
+		setForceciumlevel(empty, 0);
+		subItems.add(empty);
+		
 		ItemStack charged = new ItemStack(this, 1);
 		charged.setItemDamage(1);
 		setForceciumlevel(charged, getMaxForceciumlevel());
 		subItems.add(charged);
 
-		ItemStack empty = new ItemStack(this, 1);
-		empty.setItemDamage(100);
-		setForceciumlevel(empty, 0);
-		subItems.add(empty);
 	}
-
-
 }

@@ -7,20 +7,27 @@
   ],
   "type": "forge:ore_shaped",
   "pattern": [
-    " E ",
-    "ExE",
-    " E "
+    " C ",
+    "xFx",
+    " G "
   ],
   "key": {
-    "E": {
-      "item": "#CARBON_PLATE"
-    },
     "x": {
       "item": "#FORCEPOWER_CRYSTAL"
+    },
+    "C": {
+      "item": "#CIRCUIT"
+    },
+    "F": {
+      "item": "#ADV_MACHINE_CASING"
+    },
+    "G": {
+      "item": "ic2:te",
+      "data": 45
     }
   },
   "result": {
-    "item": "modularforcefieldsystem:upgrade_capacity",
+    "item": "modularforcefieldsystem:extractor",
     "data": 0,
     "count": 1
   }

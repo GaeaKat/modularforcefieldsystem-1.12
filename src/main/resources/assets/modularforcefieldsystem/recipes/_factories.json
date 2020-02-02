@@ -1,0 +1,5 @@
+{
+	"conditions": {
+		"isValid": "com.nekokittygames.mffs.common.CompactConditionFactory"
+	}
+}

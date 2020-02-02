@@ -1,0 +1,31 @@
+{
+  "conditions": [
+    {
+      "type": "isValid",
+      "modid": "ic2"
+    }
+  ],
+  "type": "forge:ore_shaped",
+  "pattern": [
+    " z ",
+    "CQC",
+    " z "
+  ],
+  "key": {
+    "Q": {
+      "item": "ic2:te",
+      "data": 41
+    },
+    "C": {
+      "item": "#CIRCUIT"
+    },
+    "z": {
+      "item": "modularforcefieldsystem:personal_id"
+    }
+  },
+  "result": {
+    "item": "modularforcefieldsystem:option_defense_station",
+    "data": 0,
+    "count": 1
+  }
+}

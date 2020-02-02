@@ -43,7 +43,7 @@ public class ItemForcePowerCrystal extends ItemMFFSBase implements
 	public ItemForcePowerCrystal() {
 		super(LibItemNames.FORCE_POWER_CRYSTAL);
 		setMaxStackSize(1);
-		setMaxDamage(100);
+		setMaxDamage(101);
 		setHasSubtypes(true);
 
 	}
@@ -92,15 +92,16 @@ public class ItemForcePowerCrystal extends ItemMFFSBase implements
 	@Override
 	public void getSubItems(CreativeTabs tab, NonNullList<ItemStack> subItems) {
 		if (!isInCreativeTab(tab)) return;
+
+		ItemStack empty = new ItemStack(this, 1);
+		empty.setItemDamage(101);
+		setAvailablePower(empty, 0);
+		subItems.add(empty);
+		
 		ItemStack charged = new ItemStack(this, 1);
 		charged.setItemDamage(1);
 		setAvailablePower(charged, getMaximumPower(null));
 		subItems.add(charged);
-
-		ItemStack empty = new ItemStack(this, 1);
-		empty.setItemDamage(100);
-		setAvailablePower(empty, 0);
-		subItems.add(empty);
 	}
 
 

@@ -1,0 +1,24 @@
+{
+  "type": "forge:ore_shaped",
+  "pattern": [
+    "AAA",
+    "AxA",
+    "AAA"
+  ],
+  "key": {
+    "A": {
+      "item": "modularforcefieldsystem:forcicium"
+    },
+    "x": {
+      "item": "minecraft:diamond"
+    }
+  },
+  "result": {
+    "item": "modularforcefieldsystem:forcepower_crystal",
+    "data": 101,
+    "count": 1,
+    "nbt": {
+      "ForceEnergy": 0
+    }
+  }
+}

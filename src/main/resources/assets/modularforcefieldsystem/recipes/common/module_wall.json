@@ -1,0 +1,21 @@
+{
+  "type": "forge:ore_shaped",
+  "pattern": [
+    "yy ",
+    "yy ",
+    "kk "
+  ],
+  "key": {
+    "y": {
+      "item": "#FOCUS_MATRIX"
+    },
+    "k": {
+      "item": "minecraft:obsidian"
+    }
+  },
+  "result": {
+    "item": "modularforcefieldsystem:module_wall",
+    "data": 0,
+    "count": 1
+  }
+}

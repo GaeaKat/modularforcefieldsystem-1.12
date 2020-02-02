@@ -115,6 +115,11 @@ public class BlockForceField extends Block implements IForceFieldBlock ,ITileEnt
 	public IBlockState getStateFromMeta(int meta) {
 		return getDefaultState().withProperty(FORCEFIELD_TYPE,ForceFieldTyps.values()[meta]);
 	}
+	
+	@Override
+	public EnumBlockRenderType getRenderType(IBlockState iBlockState) {
+	  return EnumBlockRenderType.MODEL;
+	}
 
 	public BlockForceField() {
 		super(Material.GLASS);

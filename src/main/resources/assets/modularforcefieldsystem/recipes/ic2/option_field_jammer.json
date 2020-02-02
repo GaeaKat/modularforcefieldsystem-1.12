@@ -7,20 +7,20 @@
   ],
   "type": "forge:ore_shaped",
   "pattern": [
-    " E ",
-    "ExE",
-    " E "
+    " J ",
+    "JvJ",
+    " J "
   ],
   "key": {
-    "E": {
-      "item": "#CARBON_PLATE"
+    "v": {
+      "item": "#FOCUS_MATRIX"
     },
-    "x": {
-      "item": "#FORCEPOWER_CRYSTAL"
+    "J": {
+      "item": "ic2:frequency_transmitter"
     }
   },
   "result": {
-    "item": "modularforcefieldsystem:upgrade_capacity",
+    "item": "modularforcefieldsystem:option_field_jammer",
     "data": 0,
     "count": 1
   }

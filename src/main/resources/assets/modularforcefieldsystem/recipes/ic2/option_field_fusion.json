@@ -7,26 +7,20 @@
   ],
   "type": "forge:ore_shaped",
   "pattern": [
-    "HHH",
-    "EIE",
-    "EDE"
+    " K ",
+    "KDK",
+    " K "
   ],
   "key": {
-    "E": {
-      "item": "#CARBON_PLATE"
-    },
-    "H": {
-      "item": "#COPPER_NUDE_CABLE"
-    },
-    "I": {
-      "item": "#COPPER_ONE_CABLE"
+    "K": {
+      "item": "#ADVANCED_ALLOY"
     },
     "D": {
       "item": "#ADVANCED_CIRCUIT"
     }
   },
   "result": {
-    "item": "modularforcefieldsystem:upgrade_range",
+    "item": "modularforcefieldsystem:option_field_fusion",
     "data": 0,
     "count": 1
   }

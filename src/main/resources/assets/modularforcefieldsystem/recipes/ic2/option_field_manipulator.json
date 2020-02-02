@@ -7,21 +7,21 @@
   ],
   "type": "forge:ore_shaped",
   "pattern": [
-    " E ",
-    "EBE",
-    " E "
+    " K ",
+    "KCK",
+    " K "
   ],
   "key": {
-    "E": {
-      "item": "#CARBON_PLATE"
+    "K": {
+      "item": "#ADVANCED_ALLOY"
     },
-    "B": {
-      "item": "#OVERCLOCKER"
+    "C": {
+      "item": "#CIRCUIT"
     }
   },
   "result": {
-    "item": "modularforcefieldsystem:extractor_upgrade_booster",
+    "item": "modularforcefieldsystem:option_field_manipulator",
     "data": 0,
-    "count": 4
+    "count": 1
   }
 }

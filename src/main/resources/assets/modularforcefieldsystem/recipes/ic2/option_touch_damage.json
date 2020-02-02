@@ -7,20 +7,21 @@
   ],
   "type": "forge:ore_shaped",
   "pattern": [
-    " E ",
-    "ExE",
-    " E "
+    " K ",
+    "KQK",
+    " K "
   ],
   "key": {
-    "E": {
-      "item": "#CARBON_PLATE"
+    "Q": {
+      "item": "ic2:te",
+      "data": 41
     },
-    "x": {
-      "item": "#FORCEPOWER_CRYSTAL"
+    "K": {
+      "item": "#ADVANCED_ALLOY"
     }
   },
   "result": {
-    "item": "modularforcefieldsystem:upgrade_capacity",
+    "item": "modularforcefieldsystem:option_touch_damage",
     "data": 0,
     "count": 1
   }

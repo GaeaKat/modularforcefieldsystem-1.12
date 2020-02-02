@@ -1,0 +1,12 @@
+{
+        "type": "minecraft:crafting_shapeless",
+        "ingredients": [
+                {
+                                "item": "modularforcefieldsystem:access_card"
+                }
+        ],
+        "result": {
+                "item": "modularforcefieldsystem:empty_card",
+                "count": 1
+        }
+}

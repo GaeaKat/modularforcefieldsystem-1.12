@@ -7,20 +7,21 @@
   ],
   "type": "forge:ore_shaped",
   "pattern": [
-    " E ",
-    "ExE",
-    " E "
+    " K ",
+    "KRK",
+    " K "
   ],
   "key": {
-    "E": {
-      "item": "#CARBON_PLATE"
+    "R": {
+      "item": "ic2:painter",
+      "data": 0
     },
-    "x": {
-      "item": "#FORCEPOWER_CRYSTAL"
+    "K": {
+      "item": "#ADVANCED_ALLOY"
     }
   },
   "result": {
-    "item": "modularforcefieldsystem:upgrade_capacity",
+    "item": "modularforcefieldsystem:option_camoflage",
     "data": 0,
     "count": 1
   }

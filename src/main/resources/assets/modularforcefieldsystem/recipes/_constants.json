@@ -8,6 +8,14 @@
     }
   },
   {
+    "name":"FOCUS_MATRIX",
+    "ingredient":
+    {
+      "item": "modularforcefieldsystem:projector_focus_matrix",
+      "data": 0
+    }
+  },
+  {
     "name":"ELECTRICAL_STEEL",
     "conditions": [{
       "type": "forge:mod_loaded",
@@ -101,6 +109,42 @@
     {
       "item": "ic2:crafting",
       "data": 2
+    }
+  },
+  {
+    "name":"ADVANCED_ALLOY",
+    "conditions": [{
+      "type": "forge:mod_loaded",
+      "modid": "ic2"
+    }],
+    "ingredient":
+    {
+      "item": "ic2:crafting",
+      "data": 3
+    }
+  },
+  {
+    "name":"ADV_MACHINE_CASING",
+    "conditions": [{
+      "type": "forge:mod_loaded",
+      "modid": "ic2"
+    }],
+    "ingredient":
+    {
+      "item": "ic2:resource",
+      "data": 13
+    }
+  },
+  {
+    "name":"CIRCUIT",
+    "conditions": [{
+      "type": "forge:mod_loaded",
+      "modid": "ic2"
+    }],
+    "ingredient":
+    {
+      "item": "ic2:crafting",
+      "data": 1
     }
   },
   {
