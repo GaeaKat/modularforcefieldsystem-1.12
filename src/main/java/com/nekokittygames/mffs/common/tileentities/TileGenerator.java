@@ -274,7 +274,7 @@ public class TileGenerator extends TileMFFS implements  ITickableTileEntity,INam
     }
 
     @Override
-    public void read(CompoundNBT compound) {
+    public void readExtra(CompoundNBT compound) {
         super.read(compound);
         if (compound.contains("fuel")) {
             CompoundNBT invTag = compound.getCompound("fuel");
@@ -300,7 +300,7 @@ public class TileGenerator extends TileMFFS implements  ITickableTileEntity,INam
     }
 
     @Override
-    public CompoundNBT write(CompoundNBT compound) {
+    public CompoundNBT writeExtra(CompoundNBT compound) {
 
         fuelHandler.ifPresent(h -> {
             CompoundNBT invTag = ((INBTSerializable<CompoundNBT>) h).serializeNBT();

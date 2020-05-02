@@ -85,7 +85,9 @@ public class MFFS
 
     private static void registerOre(Biome biome) {
         if (biome.getCategory() != Biome.Category.NETHER && biome.getCategory() != Biome.Category.THEEND)
-            biome.addFeature(GenerationStage.Decoration.UNDERGROUND_ORES, Biome.createDecoratedFeature(Feature.ORE, new OreFeatureConfig(OreFeatureConfig.FillerBlockType.NATURAL_STONE, MFFSBlocks.MONAZIT_ORE.getDefaultState(), 8), Placement.COUNT_RANGE, new CountRangeConfig(20, 0, 0, 64)));
+
+            //Biome.createDecoratedFeature(Feature.ORE, new OreFeatureConfig(OreFeatureConfig.FillerBlockType.NATURAL_STONE, ), Placement.COUNT_RANGE, new CountRangeConfig(20, 0, 0, 64)
+            biome.addFeature(GenerationStage.Decoration.UNDERGROUND_ORES,Feature.ORE.withConfiguration(new OreFeatureConfig(OreFeatureConfig.FillerBlockType.NATURAL_STONE,MFFSBlocks.MONAZIT_ORE.getDefaultState(), 8)) );
     }
 
     private void setup(final FMLCommonSetupEvent event)

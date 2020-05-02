@@ -39,7 +39,8 @@ public class ModelManager {
     }
 
     private void registerItemModels() {
-        OBJLoader.INSTANCE.addDomain(LibMisc.MOD_ID);
+
+        //OBJLoader.INSTANCE.addDomain(LibMisc.MOD_ID);
         MFFSBlocks.RegistrationHandler.ITEM_BLOCKS.stream().filter(item -> !itemsRegistered.contains(item)).forEach(this::registerItemModel);
     }
 

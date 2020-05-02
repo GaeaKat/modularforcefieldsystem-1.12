@@ -1,18 +1,15 @@
-package com.nekokittygames.mffs.common.blocks;
+package com.nekokittygames.mffs.common.blocks.powered;
 
+import com.nekokittygames.mffs.common.blocks.BlockTileMFFS;
 import com.nekokittygames.mffs.common.config.MFFSConfig;
-import com.nekokittygames.mffs.common.tileentities.TileGenerator;
+import com.nekokittygames.mffs.common.tileentities.TileCapacitor;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.HorizontalBlock;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.entity.player.ServerPlayerEntity;
-import net.minecraft.inventory.container.INamedContainerProvider;
 import net.minecraft.item.BlockItemUseContext;
 import net.minecraft.state.DirectionProperty;
 import net.minecraft.state.StateContainer;
-import net.minecraft.stats.Stats;
-import net.minecraft.tileentity.FurnaceTileEntity;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ActionResultType;
 import net.minecraft.util.Direction;
@@ -21,35 +18,28 @@ import net.minecraft.util.Rotation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockReader;
 import net.minecraft.world.World;
-import net.minecraftforge.fml.network.NetworkHooks;
 
 import javax.annotation.Nullable;
 
-public class BlockGenerator extends BlockTileMFFS {
+public class BlockCapacitor extends BlockTileMFFS {
     public static final DirectionProperty FACING = HorizontalBlock.HORIZONTAL_FACING;
 
-    public BlockGenerator(Properties properties) {
+    public BlockCapacitor(Properties properties) {
         super(properties);
         this.setDefaultState(this.stateContainer.getBaseState().with(FACING, Direction.NORTH));
+    }
+
+    @Override
+    public ActionResultType interactWith(World worldIn, BlockPos pos, PlayerEntity player) {
+        return null;
     }
 
     @Nullable
     @Override
     public TileEntity createNewTileEntity(IBlockReader worldIn) {
-        return new TileGenerator();
+        return new TileCapacitor();
     }
 
-    @Override
-    public ActionResultType interactWith(World world, BlockPos pos, PlayerEntity player) {
-        TileEntity tileEntity = world.getTileEntity(pos);
-        if (tileEntity instanceof INamedContainerProvider) {
-            NetworkHooks.openGui((ServerPlayerEntity) player, (INamedContainerProvider) tileEntity, tileEntity.getPos());
-        } else {
-            throw new IllegalStateException("Our named container provider is missing!");
-        }
-        return ActionResultType.SUCCESS;
-
-    }
     @Override
     public BlockState getStateForPlacement(BlockItemUseContext context) {
         return this.getDefaultState().with(FACING, context.getPlacementHorizontalFacing().getOpposite());
@@ -68,8 +58,4 @@ public class BlockGenerator extends BlockTileMFFS {
         builder.add(FACING);
     }
 
-    @Override
-    public boolean activated() {
-        return MFFSConfig.GENERATOR_ENABLED.get();
-    }
 }

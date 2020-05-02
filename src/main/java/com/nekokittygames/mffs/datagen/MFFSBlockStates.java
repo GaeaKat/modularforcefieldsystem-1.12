@@ -22,8 +22,10 @@ public class MFFSBlockStates extends BlockStateProvider {
 
     @Override
     protected void registerStatesAndModels() {
-        boolean happens=existingFileHelper.exists(modLoc("block/monazit_ore"), ResourcePackType.CLIENT_RESOURCES,".png", "textures");
-        ModelFile monazit =cubeAll("monazit",modLoc("block/monazit_ore"));
+
+        //boolean happens=existingFileHelper.exists(modLoc("block/monazit_ore"), ResourcePackType.CLIENT_RESOURCES,".png", "textures");
+        ModelFile monazit = cubeAll(MFFSBlocks.MONAZIT_ORE);
+        //ModelFile monazit =cubeAll("monazit",modLoc("block/monazit_ore"));
         simpleBlock(MFFSBlocks.MONAZIT_ORE,monazit);
     }
 }

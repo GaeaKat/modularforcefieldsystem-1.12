@@ -43,6 +43,16 @@ public class MFFSWorldSavedData extends WorldSavedData {
         return compound;
     }
 
+    public static void save(World world) {
+        if(! (world instanceof ServerWorld))
+        {
+            return;
+        }
+        ServerWorld overworld=world.getServer().getWorld(DimensionType.OVERWORLD);
+        DimensionSavedDataManager storage=overworld.getSavedData();
+        storage.save();
+
+    }
     public static MFFSWorldSavedData get(World world) {
         if(! (world instanceof ServerWorld))
         {

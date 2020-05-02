@@ -59,7 +59,4 @@ public class MFFSConfig {
 
     }
 
-    @SubscribeEvent
-    public static void onReload(final ModConfig.ConfigReloading configEvent) {
-    }
 }

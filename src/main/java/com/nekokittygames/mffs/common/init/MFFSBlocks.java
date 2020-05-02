@@ -3,6 +3,7 @@ package com.nekokittygames.mffs.common.init;
 import com.google.common.base.Preconditions;
 import com.nekokittygames.mffs.common.blocks.BlockGenerator;
 import com.nekokittygames.mffs.common.blocks.BlockMonazitOre;
+import com.nekokittygames.mffs.common.blocks.powered.BlockCapacitor;
 import com.nekokittygames.mffs.common.libs.LibBlocks;
 import com.nekokittygames.mffs.common.libs.LibMisc;
 import com.nekokittygames.mffs.common.misc.ItemGroupMFFS;
@@ -32,6 +33,7 @@ public class MFFSBlocks {
 
     public static final BlockMonazitOre MONAZIT_ORE=Null();
     public static final BlockGenerator GENERATOR=Null();
+    public static final BlockCapacitor CAPACITOR=Null();
     @Mod.EventBusSubscriber(modid = LibMisc.MOD_ID, bus = Mod.EventBusSubscriber.Bus.MOD)
     public static class RegistrationHandler {
         public static final Set<BlockItem> ITEM_BLOCKS = new HashSet<>();
@@ -41,7 +43,8 @@ public class MFFSBlocks {
             final IForgeRegistry<Block> registry = event.getRegistry();
             final Block[] blocks = {
                     (Block)new BlockMonazitOre(Block.Properties.create(Material.ROCK).hardnessAndResistance(3.0F, 3.0F)).setRegistryName(LibBlocks.MONAZIT_ORE),
-                    (Block)new BlockGenerator(Block.Properties.create(Material.IRON).hardnessAndResistance(3.0F, 3.0F)).setRegistryName(LibBlocks.GENERATOR)
+                    (Block)new BlockGenerator(Block.Properties.create(Material.IRON).hardnessAndResistance(3.0F, 3.0F)).setRegistryName(LibBlocks.GENERATOR),
+                    (Block)new BlockCapacitor(Block.Properties.create(Material.IRON).hardnessAndResistance(3.0f,3.0f)).setRegistryName(LibBlocks.CAPACITOR)
             };
 
             for (final Block block : blocks) {
@@ -61,7 +64,8 @@ public class MFFSBlocks {
         public static void registerBlockItems(final RegistryEvent.Register<Item> event) {
             final BlockItem[] items = {
                     new BlockItem(MONAZIT_ORE,getDefaultItemProperties()),
-                    new BlockItem(GENERATOR,getDefaultItemProperties())
+                    new BlockItem(GENERATOR,getDefaultItemProperties()),
+                    new BlockItem(CAPACITOR,getDefaultItemProperties())
             };
             final IForgeRegistry<Item> registry = event.getRegistry();
 

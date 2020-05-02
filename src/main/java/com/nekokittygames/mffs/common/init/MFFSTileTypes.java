@@ -2,6 +2,7 @@ package com.nekokittygames.mffs.common.init;
 
 import com.nekokittygames.mffs.common.libs.LibBlocks;
 import com.nekokittygames.mffs.common.libs.LibMisc;
+import com.nekokittygames.mffs.common.tileentities.TileCapacitor;
 import com.nekokittygames.mffs.common.tileentities.TileGenerator;
 import net.minecraft.item.Item;
 import net.minecraft.tileentity.TileEntityType;
@@ -19,11 +20,13 @@ import static com.nekokittygames.mffs.common.misc.InjectionUtils.Null;
 public class MFFSTileTypes {
 
     public static final TileEntityType<?> GENERATOR=Null();
+    public static final TileEntityType<?> CAPACITOR=Null();
 
     @SubscribeEvent
     public static void registerTileTypes(final RegistryEvent.Register<TileEntityType<?>> event) {
         event.getRegistry().registerAll(
-            TileEntityType.Builder.create(TileGenerator::new,MFFSBlocks.GENERATOR).build(null).setRegistryName(LibBlocks.GENERATOR)
+            TileEntityType.Builder.create(TileGenerator::new,MFFSBlocks.GENERATOR).build(null).setRegistryName(LibBlocks.GENERATOR),
+                TileEntityType.Builder.create(TileCapacitor::new,MFFSBlocks.CAPACITOR).build(null).setRegistryName(LibBlocks.CAPACITOR)
         );
     }
 }

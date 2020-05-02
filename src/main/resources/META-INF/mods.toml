@@ -49,6 +49,6 @@ Beyond simply force fields, this mod also adds a wealth of base security, includ
 [[dependencies.modularforcefieldsystem]]
     modId="minecraft"
     mandatory=true
-    versionRange="[1.14.4]"
+    versionRange="[1.15.2]"
     ordering="NONE"
     side="BOTH"

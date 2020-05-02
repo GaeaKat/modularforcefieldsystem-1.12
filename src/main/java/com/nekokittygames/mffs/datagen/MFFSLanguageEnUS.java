@@ -16,6 +16,7 @@ public class MFFSLanguageEnUS extends LanguageProvider {
         add(MFFSItems.MONAZIT_CRYSTAL,"Monazit Crystal");
         add(MFFSBlocks.MONAZIT_ORE,"Monazit Ore");
         add(MFFSBlocks.GENERATOR,"Power Generator");
+        add(MFFSBlocks.CAPACITOR,"Capacitor");
         add("itemGroup.modularforcefieldsystem","Modular Forcefield System");
         add("gui.narrate.forge_percent", "Forge Power at %s percent");
     }

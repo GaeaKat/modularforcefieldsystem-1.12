@@ -5,6 +5,7 @@ import net.minecraft.block.ITileEntityProvider;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.inventory.container.INamedContainerProvider;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.ActionResultType;
 import net.minecraft.util.Hand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.BlockRayTraceResult;
@@ -30,7 +31,9 @@ public abstract class BlockTileMFFS<T extends TileEntity> extends BlockMFFS impl
         TileEntity tileentity = worldIn.getTileEntity(pos);
         return tileentity instanceof INamedContainerProvider ? (INamedContainerProvider)tileentity : null;
     }
-    public boolean onBlockActivated(BlockState state, World worldIn, BlockPos pos, PlayerEntity player, Hand handIn, BlockRayTraceResult hit) {
+
+    @Override
+    public ActionResultType onBlockActivated(BlockState state, World worldIn, BlockPos pos, PlayerEntity player, Hand handIn, BlockRayTraceResult hit) {
         if (!worldIn.isRemote) {
             return this.interactWith(worldIn, pos, player);
         }
@@ -38,5 +41,5 @@ public abstract class BlockTileMFFS<T extends TileEntity> extends BlockMFFS impl
         return super.onBlockActivated(state, worldIn, pos, player, handIn, hit);
     }
 
-    public abstract boolean interactWith(World worldIn, BlockPos pos, PlayerEntity player);
+    public abstract ActionResultType interactWith(World worldIn, BlockPos pos, PlayerEntity player);
 }
