@@ -1,6 +1,7 @@
 package com.nekokittygames.mffs.client.model;
 
 import com.nekokittygames.mffs.common.init.MFFSBlocks;
+import com.nekokittygames.mffs.common.init.MFFSRegistration;
 import com.nekokittygames.mffs.common.libs.LibMisc;
 import net.minecraft.item.Item;
 import net.minecraft.util.ResourceLocation;
@@ -41,7 +42,8 @@ public class ModelManager {
     private void registerItemModels() {
 
         //OBJLoader.INSTANCE.addDomain(LibMisc.MOD_ID);
-        MFFSBlocks.RegistrationHandler.ITEM_BLOCKS.stream().filter(item -> !itemsRegistered.contains(item)).forEach(this::registerItemModel);
+//        MFFSBlocks.RegistrationHandler.ITEM_BLOCKS.stream().filter(item -> !itemsRegistered.contains(item)).forEach(this::registerItemModel);
+        MFFSRegistration.ITEMBLOCKS.getEntries().stream().filter(item -> itemsRegistered.contains(item.get())).forEach(item->registerItemModel(item.get()));
     }
 
 

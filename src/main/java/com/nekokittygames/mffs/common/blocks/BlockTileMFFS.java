@@ -14,7 +14,7 @@ import net.minecraft.world.World;
 
 import javax.annotation.Nullable;
 
-public abstract class BlockTileMFFS<T extends TileEntity> extends BlockMFFS implements ITileEntityProvider {
+public abstract class BlockTileMFFS extends BlockMFFS implements ITileEntityProvider {
     public BlockTileMFFS(Properties properties) {
         super(properties);
     }

@@ -1,7 +1,7 @@
 package com.nekokittygames.mffs.client.proxy;
 
 import com.nekokittygames.mffs.client.gui.screens.GeneratorScreen;
-import com.nekokittygames.mffs.common.init.MFFSContainers;
+import com.nekokittygames.mffs.common.init.MFFSRegistration;
 import com.nekokittygames.mffs.common.proxy.IProxy;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.ScreenManager;
@@ -12,7 +12,7 @@ public class ClientProxy implements IProxy {
 
     @Override
     public void init() {
-        ScreenManager.registerFactory(MFFSContainers.GENERATOR, GeneratorScreen::new);
+        ScreenManager.registerFactory(MFFSRegistration.Container.GENERATOR.get(), GeneratorScreen::new);
     }
 
     @Override

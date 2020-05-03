@@ -14,7 +14,9 @@ public class MFFSDataGen {
         if(event.includeClient())
         {
             generator.addProvider(new MFFSLanguageEnUS(generator));
-            //generator.addProvider(new MFFSBlockStates(generator,event.getExistingFileHelper()));
+            MFFSBlockStates blockstates=new MFFSBlockStates(generator,event.getExistingFileHelper());
+            generator.addProvider(blockstates);
+            generator.addProvider(new MFFSItemModels(generator,blockstates.getExistingFileHelper()));
         }
         if(event.includeServer())
         {

@@ -1,6 +1,7 @@
 package com.nekokittygames.mffs.common.misc;
 
 import com.nekokittygames.mffs.common.init.MFFSBlocks;
+import com.nekokittygames.mffs.common.init.MFFSRegistration;
 import net.minecraft.block.BlockState;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.gen.GenerationStage;
@@ -21,7 +22,7 @@ public class OreGen {
     public static int MONAZIT_MAXIMUM = 128;
 
     public static void registerOre() {
-        MONAZIT_FEATURE = getSimpleOreFeature(MFFSBlocks.MONAZIT_ORE.getDefaultState(), MONAZIT_MAX_VEIN_SIZE, (new CountRangeConfig(MONAZIT_COUNT_PER_CHUNK, MONAZIT_BOTTOM_OFFSET, MONAZIT_TOP_OFFSET, MONAZIT_MAXIMUM)));
+        MONAZIT_FEATURE = getSimpleOreFeature(MFFSRegistration.Blocks.MONAZIT_ORE.get().getDefaultState(), MONAZIT_MAX_VEIN_SIZE, (new CountRangeConfig(MONAZIT_COUNT_PER_CHUNK, MONAZIT_BOTTOM_OFFSET, MONAZIT_TOP_OFFSET, MONAZIT_MAXIMUM)));
         ForgeRegistries.BIOMES.forEach(biome -> {
             if(isValidBiome(biome)){
                 biome.addFeature(GenerationStage.Decoration.UNDERGROUND_ORES, MONAZIT_FEATURE);

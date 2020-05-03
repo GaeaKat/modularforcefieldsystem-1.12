@@ -20,15 +20,6 @@ import static com.nekokittygames.mffs.common.misc.InjectionUtils.Null;
 @Mod.EventBusSubscriber(modid = LibMisc.MOD_ID, bus = Mod.EventBusSubscriber.Bus.MOD)
 public class MFFSContainers {
 
-    public static final ContainerType<GeneratorContainer> GENERATOR=Null();
-
-    @SubscribeEvent
-    public static void registerContainers(final RegistryEvent.Register<ContainerType<?>> event) {
-        event.getRegistry().register(IForgeContainerType.create((windowId, inv, data) -> {
-            BlockPos pos = data.readBlockPos();
-            return new GeneratorContainer(windowId, MFFS.proxy.getClientWorld(), pos, inv, MFFS.proxy.getClientPlayer());
-        }).setRegistryName(LibBlocks.GENERATOR));
-    }
 
 
 }

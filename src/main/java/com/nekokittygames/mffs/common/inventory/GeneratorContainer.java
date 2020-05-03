@@ -1,17 +1,13 @@
 package com.nekokittygames.mffs.common.inventory;
 
-import com.nekokittygames.mffs.common.init.MFFSBlocks;
-import com.nekokittygames.mffs.common.init.MFFSContainers;
-import com.nekokittygames.mffs.common.init.MFFSItems;
+import com.nekokittygames.mffs.common.init.MFFSRegistration;
 import com.nekokittygames.mffs.common.storage.MFFSEnergyStorage;
 import com.nekokittygames.mffs.common.tileentities.TileGenerator;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.container.Container;
-import net.minecraft.inventory.container.ContainerType;
 import net.minecraft.inventory.container.Slot;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
 import net.minecraft.tileentity.AbstractFurnaceTileEntity;
 import net.minecraft.util.Direction;
 import net.minecraft.util.IWorldPosCallable;
@@ -27,8 +23,6 @@ import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.SlotItemHandler;
 import net.minecraftforge.items.wrapper.InvWrapper;
 
-import javax.annotation.Nullable;
-
 public class GeneratorContainer extends Container {
 
     private TileGenerator tileEntity;
@@ -37,7 +31,7 @@ public class GeneratorContainer extends Container {
 
 
     public GeneratorContainer(int windowId, World world, BlockPos pos, PlayerInventory playerInventory, PlayerEntity player) {
-        super(MFFSContainers.GENERATOR, windowId);
+        super(MFFSRegistration.Container.GENERATOR.get(), windowId);
         tileEntity= (TileGenerator) world.getTileEntity(pos);
         this.playerEntity=player;
         this.playerInventory=new InvWrapper(player.inventory);
@@ -108,7 +102,7 @@ public class GeneratorContainer extends Container {
 
     @Override
     public boolean canInteractWith(PlayerEntity playerIn) {
-        return isWithinUsableDistance(IWorldPosCallable.of(tileEntity.getWorld(), tileEntity.getPos()), playerEntity, MFFSBlocks.GENERATOR);
+        return isWithinUsableDistance(IWorldPosCallable.of(tileEntity.getWorld(), tileEntity.getPos()), playerEntity, MFFSRegistration.Blocks.GENERATOR.get());
     }
 
     private int addSlotRange(IItemHandler handler, int index, int x, int y, int amount, int dx) {
@@ -204,7 +198,7 @@ public class GeneratorContainer extends Container {
             ItemStack itemstack1 = slot.getStack();
             itemstack = itemstack1.copy();
             if (index != 1 && index != 0) {
-                if (itemstack1.getItem()== MFFSItems.MONAZIT_CRYSTAL) {
+                if (itemstack1.getItem()== MFFSRegistration.Items.MONAZIT_CRYSTAL.get()) {
                     if (!this.mergeItemStack(itemstack1, 0, 1, false)) {
                         return ItemStack.EMPTY;
                     }

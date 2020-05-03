@@ -15,18 +15,8 @@ import net.minecraftforge.registries.ObjectHolder;
 
 import static com.nekokittygames.mffs.common.misc.InjectionUtils.Null;
 
-@ObjectHolder(LibMisc.MOD_ID)
-@Mod.EventBusSubscriber(modid = LibMisc.MOD_ID, bus = Mod.EventBusSubscriber.Bus.MOD)
+
 public class MFFSTileTypes {
 
-    public static final TileEntityType<?> GENERATOR=Null();
-    public static final TileEntityType<?> CAPACITOR=Null();
 
-    @SubscribeEvent
-    public static void registerTileTypes(final RegistryEvent.Register<TileEntityType<?>> event) {
-        event.getRegistry().registerAll(
-            TileEntityType.Builder.create(TileGenerator::new,MFFSBlocks.GENERATOR).build(null).setRegistryName(LibBlocks.GENERATOR),
-                TileEntityType.Builder.create(TileCapacitor::new,MFFSBlocks.CAPACITOR).build(null).setRegistryName(LibBlocks.CAPACITOR)
-        );
-    }
 }

@@ -1,6 +1,7 @@
 package com.nekokittygames.mffs.common.misc;
 
 import com.nekokittygames.mffs.common.init.MFFSItems;
+import com.nekokittygames.mffs.common.init.MFFSRegistration;
 import com.nekokittygames.mffs.common.libs.LibMisc;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
@@ -21,6 +22,6 @@ public class ItemGroupMFFS extends ItemGroup {
 
     @Override
     public ItemStack createIcon() {
-        return new ItemStack(MFFSItems.MONAZIT_CRYSTAL);
+        return new ItemStack(MFFSRegistration.Items.MONAZIT_CRYSTAL.get());
     }
 }

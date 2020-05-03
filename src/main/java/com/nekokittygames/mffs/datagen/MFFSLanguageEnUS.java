@@ -2,6 +2,7 @@ package com.nekokittygames.mffs.datagen;
 
 import com.nekokittygames.mffs.common.init.MFFSBlocks;
 import com.nekokittygames.mffs.common.init.MFFSItems;
+import com.nekokittygames.mffs.common.init.MFFSRegistration;
 import com.nekokittygames.mffs.common.libs.LibMisc;
 import net.minecraft.data.DataGenerator;
 import net.minecraftforge.common.data.LanguageProvider;
@@ -13,10 +14,10 @@ public class MFFSLanguageEnUS extends LanguageProvider {
 
     @Override
     protected void addTranslations() {
-        add(MFFSItems.MONAZIT_CRYSTAL,"Monazit Crystal");
-        add(MFFSBlocks.MONAZIT_ORE,"Monazit Ore");
-        add(MFFSBlocks.GENERATOR,"Power Generator");
-        add(MFFSBlocks.CAPACITOR,"Capacitor");
+        add(MFFSRegistration.Items.MONAZIT_CRYSTAL.get(),"Monazit Crystal");
+        add(MFFSRegistration.Blocks.MONAZIT_ORE.get(),"Monazit Ore");
+        add(MFFSRegistration.Blocks.GENERATOR.get(),"Power Generator");
+        add(MFFSRegistration.Blocks.CAPACITOR.get(),"Capacitor");
         add("itemGroup.modularforcefieldsystem","Modular Forcefield System");
         add("gui.narrate.forge_percent", "Forge Power at %s percent");
     }

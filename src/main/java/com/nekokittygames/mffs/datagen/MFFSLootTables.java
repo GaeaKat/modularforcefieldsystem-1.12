@@ -1,6 +1,7 @@
 package com.nekokittygames.mffs.datagen;
 
 import com.nekokittygames.mffs.common.init.MFFSBlocks;
+import com.nekokittygames.mffs.common.init.MFFSRegistration;
 import com.nekokittygames.mffs.common.libs.LibBlocks;
 import net.minecraft.data.DataGenerator;
 
@@ -12,6 +13,6 @@ public class MFFSLootTables extends BaseLootTableProvider {
 
     @Override
     protected void addTables() {
-        lootTables.put(MFFSBlocks.MONAZIT_ORE,createStandardTable(LibBlocks.MONAZIT_ORE,MFFSBlocks.MONAZIT_ORE));
+        lootTables.put(MFFSRegistration.Blocks.MONAZIT_ORE.get(),createStandardTable(LibBlocks.MONAZIT_ORE,MFFSRegistration.Blocks.MONAZIT_ORE.get()));
     }
 }

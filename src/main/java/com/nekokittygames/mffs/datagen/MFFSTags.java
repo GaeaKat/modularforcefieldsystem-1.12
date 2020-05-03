@@ -1,6 +1,7 @@
 package com.nekokittygames.mffs.datagen;
 
 import com.nekokittygames.mffs.common.init.MFFSBlocks;
+import com.nekokittygames.mffs.common.init.MFFSRegistration;
 import net.minecraft.data.BlockTagsProvider;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.tags.BlockTags;
@@ -17,7 +18,7 @@ public class MFFSTags extends BlockTagsProvider {
 
     @Override
     protected void registerTags() {
-        this.getBuilder(Tags.Blocks.ORES).add(MFFSBlocks.MONAZIT_ORE);
+        this.getBuilder(Tags.Blocks.ORES).add(MFFSRegistration.Blocks.MONAZIT_ORE.get());
 
     }
 

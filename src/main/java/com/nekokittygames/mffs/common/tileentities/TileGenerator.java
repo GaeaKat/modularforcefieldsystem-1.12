@@ -1,11 +1,9 @@
 package com.nekokittygames.mffs.common.tileentities;
 
 import com.nekokittygames.mffs.common.config.MFFSConfig;
-import com.nekokittygames.mffs.common.init.MFFSItems;
-import com.nekokittygames.mffs.common.init.MFFSTileTypes;
+import com.nekokittygames.mffs.common.init.MFFSRegistration;
 import com.nekokittygames.mffs.common.inventory.GeneratorContainer;
 import com.nekokittygames.mffs.common.storage.MFFSEnergyStorage;
-import net.minecraft.block.AbstractFurnaceBlock;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.container.Container;
@@ -20,8 +18,6 @@ import net.minecraft.util.Direction;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.StringTextComponent;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.common.ForgeHooks;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.util.INBTSerializable;
@@ -94,7 +90,7 @@ public class TileGenerator extends TileMFFS implements  ITickableTileEntity,INam
 
 
     public TileGenerator() {
-        super(MFFSTileTypes.GENERATOR);
+        super(MFFSRegistration.TileEntity.GENERATOR.get());
     }
 
     @Override
@@ -107,13 +103,13 @@ public class TileGenerator extends TileMFFS implements  ITickableTileEntity,INam
         return new ItemStackHandler(1){
             @Override
             public boolean isItemValid(int slot, @Nonnull ItemStack stack) {
-                return stack.getItem() == MFFSItems.MONAZIT_CRYSTAL;
+                return stack.getItem() == MFFSRegistration.Items.MONAZIT_CRYSTAL.get();
             }
 
             @Nonnull
             @Override
             public ItemStack insertItem(int slot, @Nonnull ItemStack stack, boolean simulate) {
-                if(stack.getItem() != MFFSItems.MONAZIT_CRYSTAL)
+                if(stack.getItem() != MFFSRegistration.Items.MONAZIT_CRYSTAL.get())
                     return stack;
 
                 return super.insertItem(slot, stack, simulate);
@@ -170,7 +166,7 @@ public class TileGenerator extends TileMFFS implements  ITickableTileEntity,INam
                     boolean flag1 = false;
                     ItemStack itemstack = iFuelHandler.getStackInSlot(0);
                     if (this.isBurning() || !itemstack.isEmpty() && !iMonazitHandler.getStackInSlot(0).isEmpty()) {
-                        if (!this.isBurning() && iMonazitHandler.getStackInSlot(0).getItem() == MFFSItems.MONAZIT_CRYSTAL) {
+                        if (!this.isBurning() && iMonazitHandler.getStackInSlot(0).getItem() == MFFSRegistration.Items.MONAZIT_CRYSTAL.get()) {
                             this.burnTime = ForgeHooks.getBurnTime(itemstack);
                             this.recipesUsed = this.burnTime;
                             if (this.isBurning()) {
@@ -189,7 +185,7 @@ public class TileGenerator extends TileMFFS implements  ITickableTileEntity,INam
                             }
                         }
                         if (this.isBurning()) {
-                            if(iMonazitHandler.getStackInSlot(0).getItem()==MFFSItems.MONAZIT_CRYSTAL) {
+                            if(iMonazitHandler.getStackInSlot(0).getItem()==MFFSRegistration.Items.MONAZIT_CRYSTAL.get()) {
                                 energy.ifPresent(e -> {
                                     ((MFFSEnergyStorage) e).addEnergy(MFFSConfig.GENERATOR_GENERATE.get() / 200);
                                     if(e.getEnergyStored()<e.getMaxEnergyStored())
@@ -275,7 +271,6 @@ public class TileGenerator extends TileMFFS implements  ITickableTileEntity,INam
 
     @Override
     public void readExtra(CompoundNBT compound) {
-        super.read(compound);
         if (compound.contains("fuel")) {
             CompoundNBT invTag = compound.getCompound("fuel");
             fuelHandler.ifPresent(h -> ((INBTSerializable<CompoundNBT>) h).deserializeNBT(invTag));
@@ -318,7 +313,7 @@ public class TileGenerator extends TileMFFS implements  ITickableTileEntity,INam
         compound.putInt("burnTime",burnTime);
         compound.putInt("cookTime",cookTime);
         compound.putInt("cookTimeTotal",cookTimeTotal);
-        return super.write(compound);
+        return compound;
     }
 
     @Nonnull
