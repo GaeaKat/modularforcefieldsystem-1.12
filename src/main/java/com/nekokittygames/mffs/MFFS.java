@@ -4,6 +4,7 @@ import com.nekokittygames.mffs.client.proxy.ClientProxy;
 import com.nekokittygames.mffs.common.config.MFFSConfig;
 import com.nekokittygames.mffs.common.config.MFFSSetup;
 import com.nekokittygames.mffs.common.init.MFFSBlocks;
+import com.nekokittygames.mffs.common.init.MFFSRegistration;
 import com.nekokittygames.mffs.common.libs.LibMisc;
 import com.nekokittygames.mffs.common.network.UpdateForceNetworks;
 import com.nekokittygames.mffs.common.proxy.IProxy;
@@ -39,6 +40,8 @@ import net.minecraftforge.fml.network.simple.SimpleChannel;
 import net.minecraftforge.registries.ForgeRegistries;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+
+import static com.nekokittygames.mffs.common.misc.OreGen.registerOre;
 
 // The value here should match an entry in the META-INF/mods.toml file
 @Mod(LibMisc.MOD_ID)
@@ -81,14 +84,10 @@ public class MFFS
         MFFSConfig.loadConfig(MFFSConfig.COMMON_CONFIG, FMLPaths.CONFIGDIR.get().resolve("modularforcefieldsystem-common.toml"));
         // Register ourselves for server and other game events we are interested in
         MinecraftForge.EVENT_BUS.register(this);
+        MFFSRegistration.init();
     }
 
-    private static void registerOre(Biome biome) {
-        if (biome.getCategory() != Biome.Category.NETHER && biome.getCategory() != Biome.Category.THEEND)
 
-            //Biome.createDecoratedFeature(Feature.ORE, new OreFeatureConfig(OreFeatureConfig.FillerBlockType.NATURAL_STONE, ), Placement.COUNT_RANGE, new CountRangeConfig(20, 0, 0, 64)
-            biome.addFeature(GenerationStage.Decoration.UNDERGROUND_ORES,Feature.ORE.withConfiguration(new OreFeatureConfig(OreFeatureConfig.FillerBlockType.NATURAL_STONE,MFFSBlocks.MONAZIT_ORE.getDefaultState(), 8)) );
-    }
 
     private void setup(final FMLCommonSetupEvent event)
     {
@@ -97,12 +96,6 @@ public class MFFS
         int messageNum=0;
         channel.registerMessage(messageNum++, UpdateForceNetworks.class,UpdateForceNetworks::encode,UpdateForceNetworks::new,UpdateForceNetworks::handle);
         registerOre();
-    }
-
-    private void registerOre() {
-        ForgeRegistries.BIOMES.forEach(
-                MFFS::registerOre);
-
     }
 
     private void doClientStuff(final FMLClientSetupEvent event) {
