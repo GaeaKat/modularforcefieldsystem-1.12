@@ -24,8 +24,16 @@ public class MFFSItemModels extends ItemModelProvider {
                 //.wi
         blockItem(MFFSRegistration.Blocks.MONAZIT_ORE.get(),MFFSRegistration.Blocks.ItemBlocks.MONAZIT_ORE_ITEM.get());
         blockItem(MFFSRegistration.Blocks.GENERATOR.get(),MFFSRegistration.Blocks.ItemBlocks.GENERATOR_ITEM.get());
+        blockItem_model(MFFSRegistration.Blocks.ItemBlocks.CAPACITOR_ITEM.get(),name(MFFSRegistration.Blocks.CAPACITOR.get())+"_inactive");
+
+        defaultItem(MFFSRegistration.Items.MONAZIT_CRYSTAL.get(),modLoc("item/monazit_crystal"));
 
     }
+
+    private void defaultItem(Item item,ResourceLocation texture) {
+        withExistingParent(name(item),"item/generated").texture("layer0",texture);
+    }
+
     private ResourceLocation registryName(final Item item) {
         return Preconditions.checkNotNull(item.getRegistryName(), "Item %s has a null registry name", item);
     }
@@ -37,10 +45,17 @@ public class MFFSItemModels extends ItemModelProvider {
     private String name(final Item item) {
         return registryName(item).getPath();
     }
+    private String name(final Block block) {
+        return registryName(block).getPath();
+    }
 
     private void blockItem(Block block, Item item) {
 
         withExistingParent(name(item), modLoc("block/" + name(item)));
+    }
+    private void blockItem_model(Item item, String block) {
+
+        withExistingParent(name(item), modLoc("block/" + block));
     }
 
 

@@ -1,14 +1,12 @@
 package com.nekokittygames.mffs.datagen;
 
 import com.google.common.base.Preconditions;
-import com.nekokittygames.mffs.MFFS;
-import com.nekokittygames.mffs.common.init.MFFSBlocks;
 import com.nekokittygames.mffs.common.init.MFFSRegistration;
 import com.nekokittygames.mffs.common.libs.LibMisc;
 import net.minecraft.block.Block;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.item.Item;
-import net.minecraft.resources.ResourcePackType;
+import net.minecraft.state.properties.BlockStateProperties;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.model.generators.BlockStateProvider;
 import net.minecraftforge.client.model.generators.ExistingFileHelper;
@@ -42,14 +40,19 @@ public class MFFSBlockStates extends BlockStateProvider {
     protected void registerStatesAndModels() {
 
         ModelFile monazit_ore=models().cubeAll(name(MFFSRegistration.Blocks.MONAZIT_ORE.get()),modLoc("block/monazit_ore"));
-        ModelFile generator=models().orientable(name(MFFSRegistration.Blocks.GENERATOR.get()),mcLoc("block/furnace_side"),mcLoc("block/furnace_front"),mcLoc("block/furnace_top"));
-        //boolean happens=existingFileHelper.exists(modLoc("block/monazit_ore"), ResourcePackType.CLIENT_RESOURCES,".png", "textures");
-        //ModelFile monazit = cubeAll(MFFSRegistration.Blocks.MONAZIT_ORE.get());
-        //ModelFile monazit =cubeAll("monazit",modLoc("block/monazit_ore"));
         simpleBlock(MFFSRegistration.Blocks.MONAZIT_ORE.get(),monazit_ore);
+
+        ModelFile generator=models().orientable(name(MFFSRegistration.Blocks.GENERATOR.get()),mcLoc("block/furnace_side"),mcLoc("block/furnace_front"),mcLoc("block/furnace_top"));
         this.horizontalBlock(MFFSRegistration.Blocks.GENERATOR.get(),generator);
 
+        ModelFile capacitor_active= models().orientable(name(MFFSRegistration.Blocks.CAPACITOR.get())+"_active",modLoc("block/capacitor/side_active"),modLoc("block/capacitor/face_active"),modLoc("block/capacitor/side_active"));
+        ModelFile capacitor_inactive= models().orientable(name(MFFSRegistration.Blocks.CAPACITOR.get())+"_inactive",modLoc("block/capacitor/side_active"),modLoc("block/capacitor/face_active"),modLoc("block/capacitor/side_active"));
+        horizontalFaceBlock(MFFSRegistration.Blocks.CAPACITOR.get(),state -> state.get(BlockStateProperties.ENABLED)?capacitor_active:capacitor_inactive);
     }
+
+
+
+
 
     public ExistingFileHelper getExistingFileHelper() {
         return models().existingFileHelper;

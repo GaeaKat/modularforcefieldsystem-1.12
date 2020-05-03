@@ -16,7 +16,7 @@ public class MFFSWorldSavedData extends WorldSavedData {
     public static MFFSWorldSavedData getClientData() {
         return clientData;
     }
-    private ForcePowerNetworks networks;
+    private ForcePowerNetworks networks=new ForcePowerNetworks();
 
     public ForcePowerNetworks getNetworks() {
         return networks;

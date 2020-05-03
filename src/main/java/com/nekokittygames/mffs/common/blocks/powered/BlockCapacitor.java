@@ -1,5 +1,6 @@
 package com.nekokittygames.mffs.common.blocks.powered;
 
+import com.nekokittygames.mffs.common.blocks.BlockNetworkComponent;
 import com.nekokittygames.mffs.common.blocks.BlockTileMFFS;
 import com.nekokittygames.mffs.common.config.MFFSConfig;
 import com.nekokittygames.mffs.common.tileentities.TileCapacitor;
@@ -10,6 +11,7 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.BlockItemUseContext;
 import net.minecraft.state.DirectionProperty;
 import net.minecraft.state.StateContainer;
+import net.minecraft.state.properties.BlockStateProperties;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ActionResultType;
 import net.minecraft.util.Direction;
@@ -21,12 +23,17 @@ import net.minecraft.world.World;
 
 import javax.annotation.Nullable;
 
-public class BlockCapacitor extends BlockTileMFFS {
-    public static final DirectionProperty FACING = HorizontalBlock.HORIZONTAL_FACING;
+public class BlockCapacitor extends BlockNetworkComponent {
+    public static final DirectionProperty FACING = BlockStateProperties.HORIZONTAL_FACING;
 
     public BlockCapacitor(Properties properties) {
         super(properties);
-        this.setDefaultState(this.stateContainer.getBaseState().with(FACING, Direction.NORTH));
+
+    }
+
+    @Override
+    protected BlockState getMainBlockState(BlockState baseState) {
+        return baseState.with(FACING, Direction.NORTH);
     }
 
     @Override
@@ -54,7 +61,10 @@ public class BlockCapacitor extends BlockTileMFFS {
     public BlockState mirror(BlockState state, Mirror mirrorIn) {
         return state.rotate(mirrorIn.toRotation(state.get(FACING)));
     }
+
+    @Override
     protected void fillStateContainer(StateContainer.Builder<Block, BlockState> builder) {
+        super.fillStateContainer(builder);
         builder.add(FACING);
     }
 

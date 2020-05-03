@@ -10,8 +10,10 @@ import net.minecraft.world.World;
 
 public abstract class TileNetworkComponent extends TileMFFS{
 
-public static final String NETWORK_ID="NETWORKID";
+    public static final String NETWORK_ID="NETWORKID";
+    public static final String ACTIVE="ACTIVE";
     private int networkID=-1;
+    private boolean active=false;
 
     public TileNetworkComponent(TileEntityType<?> tileEntityTypeIn) {
         super(tileEntityTypeIn);
@@ -22,11 +24,14 @@ public static final String NETWORK_ID="NETWORKID";
     @Override
     public void readExtra(CompoundNBT compound) {
         networkID=compound.getInt(NETWORK_ID);
+        if(compound.hasUniqueId(ACTIVE))
+            active=compound.getBoolean(ACTIVE);
     }
 
     @Override
     public CompoundNBT writeExtra(CompoundNBT compound) {
         compound.putInt(NETWORK_ID,networkID);
+        compound.putBoolean(ACTIVE,active);
         return compound;
     }
 
