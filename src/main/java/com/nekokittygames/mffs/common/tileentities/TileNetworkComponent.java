@@ -38,8 +38,6 @@ public abstract class TileNetworkComponent extends TileMFFS{
     @Override
     public void onLoad() {
         super.onLoad();
-        ForcePowerNetwork network=getNetwork();
-        MFFS.getLOGGER().debug(network.getNetworkID());
     }
 
 

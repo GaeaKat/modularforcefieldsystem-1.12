@@ -109,7 +109,8 @@ public class ForcePowerNetwork implements INBTSerializable<CompoundNBT> {
     public CompoundNBT serializeNBT() {
         CompoundNBT nbt=new CompoundNBT();
         nbt.putInt(NETWORK_ID,networkID);
-        nbt.put(NETWORK_CAPACITOR,NBTUtil.writeBlockPos(capacitorPosition));
+        if(capacitorPosition!=null)
+            nbt.put(NETWORK_CAPACITOR,NBTUtil.writeBlockPos(capacitorPosition));
         nbt.putInt(NETWORK_RANGE,networkRange);
         ListNBT objects=new ListNBT();
         networkObjects.forEach((key, value) -> {
@@ -133,7 +134,8 @@ public class ForcePowerNetwork implements INBTSerializable<CompoundNBT> {
     @Override
     public void deserializeNBT(CompoundNBT nbt) {
         networkID=nbt.getInt(NETWORK_ID);
-        capacitorPosition=NBTUtil.readBlockPos(nbt.getCompound(NETWORK_CAPACITOR));
+        if(nbt.hasUniqueId(NETWORK_CAPACITOR))
+            capacitorPosition=NBTUtil.readBlockPos(nbt.getCompound(NETWORK_CAPACITOR));
         networkRange=nbt.getInt(NETWORK_RANGE);
         networkObjects.clear();
         ListNBT objects=nbt.getList(NETWORK_OBJECTS, Constants.NBT.TAG_COMPOUND);

@@ -44,12 +44,14 @@ public class MFFSWorldSavedData extends WorldSavedData {
     }
 
     public static void save(World world) {
+
         if(! (world instanceof ServerWorld))
         {
             return;
         }
         ServerWorld overworld=world.getServer().getWorld(DimensionType.OVERWORLD);
         DimensionSavedDataManager storage=overworld.getSavedData();
+        storage.get(MFFSWorldSavedData::new,DATA_NAME).markDirty();
         storage.save();
 
     }
