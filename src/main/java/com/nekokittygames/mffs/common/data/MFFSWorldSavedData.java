@@ -3,7 +3,7 @@ package com.nekokittygames.mffs.common.data;
 import com.nekokittygames.mffs.common.libs.LibMisc;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.world.World;
-import net.minecraft.world.dimension.DimensionType;
+
 import net.minecraft.world.server.ServerWorld;
 import net.minecraft.world.storage.DimensionSavedDataManager;
 import net.minecraft.world.storage.WorldSavedData;
