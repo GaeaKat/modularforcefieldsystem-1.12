@@ -1,0 +1,34 @@
+{
+  "type": "forge:conditional",
+  "recipes": [
+    {
+      "conditions": [
+        {
+          "type": "mffs:generator_enabled"
+        }
+      ],
+      "recipe": {
+        "type": "minecraft:crafting_shaped",
+        "pattern": [
+          "III",
+          "IMI",
+          "IFI"
+        ],
+        "key": {
+          "I": {
+            "tag": "forge:ingots/iron"
+          },
+          "F": {
+            "item": "minecraft:furnace"
+          },
+          "M": {
+            "item": "mffs:monazit_crystal"
+          }
+        },
+        "result": {
+          "item": "mffs:generator"
+        }
+      }
+    }
+  ]
+}

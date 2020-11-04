@@ -1,0 +1,19 @@
+{
+  "variants": {
+    "facing=north": {
+      "model": "mffs:block/generator"
+    },
+    "facing=south": {
+      "model": "mffs:block/generator",
+      "y": 180
+    },
+    "facing=west": {
+      "model": "mffs:block/generator",
+      "y": 270
+    },
+    "facing=east": {
+      "model": "mffs:block/generator",
+      "y": 90
+    }
+  }
+}
