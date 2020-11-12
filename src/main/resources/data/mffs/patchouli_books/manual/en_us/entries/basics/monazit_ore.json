@@ -1,0 +1,17 @@
+{
+  "name": "Monazit Ore",
+  "icon": "mffs:monazit_ore",
+  "category": "mffs:getting_started",
+  "pages": [
+    {
+      "type": "spotlight",
+      "item": "mffs:monazit_ore",
+      "text": "This is monazit ore, your main resource for this mod"
+    },
+    {
+      "type": "smelting",
+      "recipe": "mffs:monazit_crystal",
+      "text": "Once cooked, Monazit ore becomes it's crystalline form, able to hold and spread power in new and unique forms"
+    }
+  ]
+}

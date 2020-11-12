@@ -1,11 +1,12 @@
 {
-  "name": "Test Entry",
+  "name": "Generator",
   "icon": "mffs:generator",
   "category": "mffs:getting_started",
+  "flag" : "mffs:generatorEnabled",
   "pages": [
     {
       "type": "text",
-      "text": "This is a test entry, but it should show up!"
+      "text": "The generator releases some of the power gained from smelting Monazit ore, as power"
     },
     {
       "type": "crafting",

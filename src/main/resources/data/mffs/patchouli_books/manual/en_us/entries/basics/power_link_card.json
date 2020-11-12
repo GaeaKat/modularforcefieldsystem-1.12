@@ -1,0 +1,24 @@
+{
+  "name": "Power Link Card",
+  "icon": "mffs:link_card",
+  "category": "mffs:getting_started",
+  "pages": [
+    {
+      "type": "crafting",
+      "recipe": "mffs:link_card",
+      "text": "The link card lets uses an inbuilt monazit circuit to store a link amongst machines. Cards created with against the same machine, will be on the same frequency"
+    },
+    {
+      "type": "spotlight",
+      "title": "Linked Card",
+      "item": "mffs:link_card{link:{type:'link'}}",
+      "text": "Once created, the card can be used in any machine that needs access to this frequency. However there is a limited range to this access"
+    },
+    {
+      "type": "spotlight",
+      "title": "Creative Card",
+      "item": "mffs:link_card{link:{type:'creative'}}",
+      "text": "There is rumour of a mystical card that is linked to a realm of pure energy. Any machine using this card would run forever, but due to the nature of the realm, never be able to connect to another machine."
+    }
+  ]
+}

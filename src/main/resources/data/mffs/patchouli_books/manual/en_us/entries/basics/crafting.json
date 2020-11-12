@@ -1,0 +1,16 @@
+{
+  "name": "Crafting Materials",
+  "icon": "mffs:monazit_circuit",
+  "category": "mffs:getting_started",
+  "pages": [
+    {
+      "type": "text",
+      "text": "Like many machines, those used for Forcefields have a few components that must be bade specially for them."
+    },
+    {
+      "type": "crafting",
+      "recipe": "mffs:monazit_circuit",
+      "text": "A little bit of iron embedded with monazit lets you create a circuit that can handle the ethereal nature of force energy"
+    }
+  ]
+}
