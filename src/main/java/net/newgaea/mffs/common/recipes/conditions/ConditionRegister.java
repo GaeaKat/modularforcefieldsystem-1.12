@@ -1,4 +1,4 @@
-package net.newgaea.mffs.recipes.conditions;
+package net.newgaea.mffs.common.recipes.conditions;
 
 import net.minecraft.item.crafting.IRecipeSerializer;
 import net.minecraftforge.common.crafting.CraftingHelper;

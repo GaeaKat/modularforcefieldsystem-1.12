@@ -9,6 +9,7 @@ import net.minecraftforge.fml.RegistryObject;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
+import net.newgaea.mffs.common.blocks.BlockCapacitor;
 import net.newgaea.mffs.common.blocks.BlockGenerator;
 import net.newgaea.mffs.common.libs.LibBlocks;
 import net.newgaea.mffs.common.libs.LibMisc;
@@ -33,6 +34,13 @@ public class MFFSBlocks {
     );
 
     public static final RegistryObject<Block> GENERATOR = BLOCKS.register(LibBlocks.GENERATOR, () -> new BlockGenerator(
+            AbstractBlock.Properties.create(Material.IRON)
+            .hardnessAndResistance(5.0f,6.0f)
+            .sound(SoundType.METAL)
+            .harvestLevel(1)
+            .harvestTool(ToolType.PICKAXE)
+    ));
+    public static final RegistryObject<Block> CAPACITOR = BLOCKS.register(LibBlocks.CAPACITOR, () -> new BlockCapacitor(
             AbstractBlock.Properties.create(Material.IRON)
             .hardnessAndResistance(5.0f,6.0f)
             .sound(SoundType.METAL)

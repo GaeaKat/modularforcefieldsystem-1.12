@@ -1,24 +1,41 @@
 package net.newgaea.mffs.common.tiles;
 
+import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.tileentity.ITickableTileEntity;
 import net.minecraft.tileentity.TileEntityType;
+import net.minecraft.util.Direction;
+import net.minecraftforge.common.capabilities.Capability;
+import net.minecraftforge.common.util.INBTSerializable;
 import net.minecraftforge.common.util.LazyOptional;
+import net.minecraftforge.items.CapabilityItemHandler;
 import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.ItemStackHandler;
+import net.newgaea.mffs.common.init.MFFSItems;
 import net.newgaea.mffs.common.misc.ModeEnum;
 
 public abstract class TileNetwork extends TileMFFS implements ITickableTileEntity {
     private final LazyOptional<IItemHandler> linkHandler = LazyOptional.of(this::createLinkHandler);
 
     private <T> IItemHandler createLinkHandler() {
-        return new ItemStackHandler();
+        return new ItemStackHandler() {
+            @Override
+            public boolean isItemValid(int slot,  ItemStack stack) {
+                return stack.getItem()== MFFSItems.LINK_CARD.get();
+            }
+
+            @Override
+            protected void onContentsChanged(int slot) {
+                super.onContentsChanged(slot);
+                markDirty();
+            }
+        };
     }
 
     public static final String NETWORK_ID="network_id";
     public static final String NETWORK_MODE="mode";
     private int networkID;
-    private ModeEnum mode;
+    private ModeEnum mode=ModeEnum.Off;
     private boolean initialized;
 
 
@@ -35,12 +52,20 @@ public abstract class TileNetwork extends TileMFFS implements ITickableTileEntit
     public void readExtra(CompoundNBT compound) {
         networkID=compound.getInt(NETWORK_ID);
         mode=ModeEnum.valueOf(compound.getString(NETWORK_MODE));
+        if(compound.contains("link")) {
+            CompoundNBT linkInv = compound.getCompound("link");
+            linkHandler.ifPresent(h -> ((INBTSerializable<CompoundNBT>) h).deserializeNBT(linkInv));
+        }
     }
 
     @Override
     public CompoundNBT writeExtra(CompoundNBT compound) {
         compound.putInt(NETWORK_ID,networkID);
         compound.putString(NETWORK_MODE,mode.toString());
+        linkHandler.ifPresent(h -> {
+            CompoundNBT linkInv = ((INBTSerializable<CompoundNBT>) h).serializeNBT();
+            compound.put("link",linkInv);
+        });
         return compound;
     }
 

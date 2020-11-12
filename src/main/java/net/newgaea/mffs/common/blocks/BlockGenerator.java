@@ -62,7 +62,7 @@ public class BlockGenerator extends ModTileBlock {
     }
 
     @Override
-    public boolean activated() {
+    public boolean enabled() {
         return MFFSConfig.GENERATOR_ENABLED.get();
     }
 }

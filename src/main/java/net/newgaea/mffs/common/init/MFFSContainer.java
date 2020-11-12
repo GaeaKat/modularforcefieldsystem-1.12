@@ -7,6 +7,7 @@ import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.newgaea.mffs.MFFS;
+import net.newgaea.mffs.common.inventory.CapacitorContainer;
 import net.newgaea.mffs.common.inventory.GeneratorContainer;
 import net.newgaea.mffs.common.libs.LibContainer;
 
@@ -25,5 +26,11 @@ public class MFFSContainer {
             IForgeContainerType.create(
                     ((windowId, inv, data) -> new GeneratorContainer(windowId, MFFS.proxy.getClientWorld(),data.readBlockPos(),inv,MFFS.proxy.getClientPlayer()))
             ));
+
+    public static final RegistryObject<ContainerType<CapacitorContainer>> CAPACITOR=CONTAINERS.register(LibContainer.CAPACITOR, () ->
+            IForgeContainerType.create(
+                    (((windowId, inv, data) -> new CapacitorContainer(windowId,MFFS.proxy.getClientWorld(),data.readBlockPos(),inv,MFFS.proxy.getClientPlayer())))
+            )
+            );
 
 }

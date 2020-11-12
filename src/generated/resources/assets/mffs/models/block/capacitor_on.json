@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/orientable",
+  "textures": {
+    "side": "mffs:block/capacitor/side_active",
+    "front": "mffs:block/capacitor/face_active",
+    "top": "mffs:block/capacitor/side_active"
+  }
+}

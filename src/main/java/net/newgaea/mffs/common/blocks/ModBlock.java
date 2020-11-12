@@ -7,7 +7,7 @@ public class ModBlock extends Block {
         super(properties);
     }
 
-    public  boolean activated(){
+    public  boolean enabled(){
         return true;
     }
 }

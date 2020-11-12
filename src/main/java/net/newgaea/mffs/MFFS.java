@@ -1,7 +1,6 @@
 package net.newgaea.mffs;
 
 
-import net.minecraft.client.Minecraft;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.DistExecutor;
 import net.minecraftforge.fml.ModLoadingContext;
@@ -19,7 +18,7 @@ import net.newgaea.mffs.common.init.MFFSTiles;
 import net.newgaea.mffs.common.libs.LibMisc;
 import net.newgaea.mffs.common.proxy.CommonProxy;
 import net.newgaea.mffs.common.proxy.IProxy;
-import net.newgaea.mffs.world.OreGen;
+import net.newgaea.mffs.common.world.OreGen;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import vazkii.patchouli.api.PatchouliAPI;

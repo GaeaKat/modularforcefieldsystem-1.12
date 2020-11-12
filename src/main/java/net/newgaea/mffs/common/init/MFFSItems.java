@@ -21,13 +21,7 @@ public class MFFSItems {
         ITEMS.register(FMLJavaModLoadingContext.get().getModEventBus());
     }
 
-    public static final RegistryObject<Item> MONAZIT_ORE = ITEMS.register(LibBlocks.MONAZIT_ORE,() ->
-            new BlockItem(MFFSBlocks.MONAZIT_ORE.get(),getDefaultProperties())
-    );
-
-    public static final RegistryObject<Item> GENERATOR = ITEMS.register(LibBlocks.GENERATOR, () ->
-            new BlockItem(MFFSBlocks.GENERATOR.get(),getDefaultProperties())
-    );
+   // Items
 
     public static final RegistryObject<Item> MONAZIT_CRYSTAL = ITEMS.register(LibItems.MONAZIT_CRYSTAL, () ->
             new Item(getDefaultProperties().setNoRepair()));
@@ -36,6 +30,22 @@ public class MFFSItems {
             new Item(getDefaultProperties()));
     public static final RegistryObject<Item> LINK_CARD=ITEMS.register(LibItems.LINK_CARD,() ->
             new ItemLinkCard(getDefaultProperties()));
+
+
+
+    //Item Blocks
+    public static final RegistryObject<Item> MONAZIT_ORE = ITEMS.register(LibBlocks.MONAZIT_ORE,() ->
+            new BlockItem(MFFSBlocks.MONAZIT_ORE.get(),getDefaultProperties())
+    );
+
+    public static final RegistryObject<Item> GENERATOR = ITEMS.register(LibBlocks.GENERATOR, () ->
+            new BlockItem(MFFSBlocks.GENERATOR.get(),getDefaultProperties())
+    );
+
+    public static final RegistryObject<Item> CAPACITOR = ITEMS.register(LibBlocks.CAPACITOR, () ->
+            new BlockItem(MFFSBlocks.CAPACITOR.get(), getDefaultProperties())
+    );
+
     protected static Item.Properties getDefaultProperties() {
         return new Item.Properties().group(ItemGroupMFFS.GetInstance()).maxStackSize(64);
     }

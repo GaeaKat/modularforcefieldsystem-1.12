@@ -1,4 +1,4 @@
-package net.newgaea.mffs.recipes.conditions;
+package net.newgaea.mffs.common.recipes.conditions;
 
 import com.google.gson.JsonObject;
 import net.minecraft.util.ResourceLocation;

@@ -9,14 +9,12 @@ import net.minecraft.item.crafting.Ingredient;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.common.Tags;
 import net.minecraftforge.common.crafting.ConditionalRecipe;
-import net.minecraftforge.common.data.ForgeRecipeProvider;
 import net.newgaea.mffs.api.MFFSTags;
-import net.newgaea.mffs.client.gui.screens.GeneratorScreen;
 import net.newgaea.mffs.common.init.MFFSBlocks;
 import net.newgaea.mffs.common.init.MFFSItems;
 import net.newgaea.mffs.common.libs.LibBlocks;
 import net.newgaea.mffs.common.libs.LibMisc;
-import net.newgaea.mffs.recipes.conditions.GeneratorEnabled;
+import net.newgaea.mffs.common.recipes.conditions.GeneratorEnabled;
 
 import java.util.function.Consumer;
 
@@ -34,6 +32,12 @@ public class MFFSRecipes extends RecipeProvider {
     }
 
     private void craftingRecipes(Consumer<IFinishedRecipe> consumer) {
+        generateMachineRecipes(consumer);
+        generateCraftingMatsRecipes(consumer);
+
+    }
+
+    private void generateMachineRecipes(Consumer<IFinishedRecipe> consumer) {
         ShapedRecipeBuilder.shapedRecipe(MFFSBlocks.GENERATOR.get()).addCriterion("monazit_has",hasItem(MFFSItems.MONAZIT_CRYSTAL.get()))
                 .key('I', Tags.Items.INGOTS_IRON)
                 .key('F', Blocks.FURNACE)
@@ -48,6 +52,9 @@ public class MFFSRecipes extends RecipeProvider {
                                         .addCondition(GeneratorEnabled.INSTANCE)
                                         .addRecipe(iFinishedRecipe)
                                         .build(consumer,new ResourceLocation(LibMisc.MOD_ID,"monazit_generator")));
+    }
+
+    private void generateCraftingMatsRecipes(Consumer<IFinishedRecipe> consumer) {
         ShapedRecipeBuilder.shapedRecipe(MFFSItems.MONAZIT_CIRCUIT.get(),3).addCriterion("monazit_has",hasItem(MFFSTags.CRYSTAL_MONAZIT))
                 .key('I', Tags.Items.INGOTS_IRON)
                 .key('M', MFFSTags.CRYSTAL_MONAZIT)
@@ -55,6 +62,7 @@ public class MFFSRecipes extends RecipeProvider {
                 .patternLine("IMI")
                 .patternLine("   ")
                 .build(consumer);
+
         ShapedRecipeBuilder.shapedRecipe(MFFSItems.LINK_CARD.get()).addCriterion("circuit_has",hasItem(MFFSItems.MONAZIT_CIRCUIT.get()))
                 .key('P',Items.PAPER)
                 .key('C',MFFSItems.MONAZIT_CIRCUIT.get())
@@ -62,7 +70,6 @@ public class MFFSRecipes extends RecipeProvider {
                 .patternLine("PCP")
                 .patternLine("PPP")
                 .build(consumer);
-
     }
 
     private void smeltingRecipes(Consumer<IFinishedRecipe> consumer) {

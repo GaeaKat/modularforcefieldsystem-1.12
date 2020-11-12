@@ -7,6 +7,7 @@ import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.newgaea.mffs.common.libs.LibTiles;
+import net.newgaea.mffs.common.tiles.TileCapacitor;
 import net.newgaea.mffs.common.tiles.TileGenerator;
 
 import static net.newgaea.mffs.common.libs.LibMisc.MOD_ID;
@@ -23,4 +24,7 @@ public class MFFSTiles {
     public static final RegistryObject<TileEntityType<?>> GENERATOR = CONTAINERS.register(LibTiles.GENERATOR,() ->
             TileEntityType.Builder.create(TileGenerator::new,MFFSBlocks.GENERATOR.get()).build(null)
             );
+    public static final RegistryObject<TileEntityType<?>> CAPACITOR = CONTAINERS.register(LibTiles.CAPACITOR, () ->
+            TileEntityType.Builder.create(TileCapacitor::new,MFFSBlocks.CAPACITOR.get()).build(null)
+    );
 }
