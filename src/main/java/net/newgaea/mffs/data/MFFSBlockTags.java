@@ -10,14 +10,16 @@ import net.newgaea.mffs.common.libs.LibMisc;
 
 import java.nio.file.Path;
 
-public class MFFSTags extends BlockTagsProvider {
-    public MFFSTags(DataGenerator generatorIn, ExistingFileHelper existingFileHelper) {
+public class MFFSBlockTags extends BlockTagsProvider {
+    public MFFSBlockTags(DataGenerator generatorIn, ExistingFileHelper existingFileHelper) {
         super(generatorIn, LibMisc.MOD_ID, existingFileHelper);
     }
 
     @Override
     protected void registerTags() {
+
         this.getOrCreateBuilder(Tags.Blocks.ORES).add(MFFSBlocks.MONAZIT_ORE.get());
+        //this.createBuilderIfAbsent()
     }
 
     @Override
@@ -27,6 +29,6 @@ public class MFFSTags extends BlockTagsProvider {
 
     @Override
     public String getName() {
-        return "MFFSTags";
+        return "MFFSBlockTags";
     }
 }

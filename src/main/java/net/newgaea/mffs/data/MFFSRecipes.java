@@ -4,11 +4,13 @@ import net.minecraft.advancements.criterion.InventoryChangeTrigger;
 import net.minecraft.block.Blocks;
 import net.minecraft.data.*;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.Items;
 import net.minecraft.item.crafting.Ingredient;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.common.Tags;
 import net.minecraftforge.common.crafting.ConditionalRecipe;
 import net.minecraftforge.common.data.ForgeRecipeProvider;
+import net.newgaea.mffs.api.MFFSTags;
 import net.newgaea.mffs.client.gui.screens.GeneratorScreen;
 import net.newgaea.mffs.common.init.MFFSBlocks;
 import net.newgaea.mffs.common.init.MFFSItems;
@@ -46,6 +48,21 @@ public class MFFSRecipes extends RecipeProvider {
                                         .addCondition(GeneratorEnabled.INSTANCE)
                                         .addRecipe(iFinishedRecipe)
                                         .build(consumer,new ResourceLocation(LibMisc.MOD_ID,"monazit_generator")));
+        ShapedRecipeBuilder.shapedRecipe(MFFSItems.MONAZIT_CIRCUIT.get(),3).addCriterion("monazit_has",hasItem(MFFSTags.CRYSTAL_MONAZIT))
+                .key('I', Tags.Items.INGOTS_IRON)
+                .key('M', MFFSTags.CRYSTAL_MONAZIT)
+                .patternLine("   ")
+                .patternLine("IMI")
+                .patternLine("   ")
+                .build(consumer);
+        ShapedRecipeBuilder.shapedRecipe(MFFSItems.LINK_CARD.get()).addCriterion("circuit_has",hasItem(MFFSItems.MONAZIT_CIRCUIT.get()))
+                .key('P',Items.PAPER)
+                .key('C',MFFSItems.MONAZIT_CIRCUIT.get())
+                .patternLine("PPP")
+                .patternLine("PCP")
+                .patternLine("PPP")
+                .build(consumer);
+
     }
 
     private void smeltingRecipes(Consumer<IFinishedRecipe> consumer) {

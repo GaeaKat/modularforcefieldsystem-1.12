@@ -6,6 +6,7 @@ import net.minecraftforge.fml.RegistryObject;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
+import net.newgaea.mffs.common.items.ItemLinkCard;
 import net.newgaea.mffs.common.libs.LibBlocks;
 import net.newgaea.mffs.common.libs.LibItems;
 import net.newgaea.mffs.common.libs.LibMisc;
@@ -31,6 +32,10 @@ public class MFFSItems {
     public static final RegistryObject<Item> MONAZIT_CRYSTAL = ITEMS.register(LibItems.MONAZIT_CRYSTAL, () ->
             new Item(getDefaultProperties().setNoRepair()));
 
+    public static final RegistryObject<Item> MONAZIT_CIRCUIT = ITEMS.register(LibItems.MONAZIT_CIRCUIT, () ->
+            new Item(getDefaultProperties()));
+    public static final RegistryObject<Item> LINK_CARD=ITEMS.register(LibItems.LINK_CARD,() ->
+            new ItemLinkCard(getDefaultProperties()));
     protected static Item.Properties getDefaultProperties() {
         return new Item.Properties().group(ItemGroupMFFS.GetInstance()).maxStackSize(64);
     }

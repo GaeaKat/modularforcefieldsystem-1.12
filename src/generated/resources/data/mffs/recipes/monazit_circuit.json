@@ -1,0 +1,20 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "   ",
+    "IMI",
+    "   "
+  ],
+  "key": {
+    "I": {
+      "tag": "forge:ingots/iron"
+    },
+    "M": {
+      "tag": "forge:crystals/monazit"
+    }
+  },
+  "result": {
+    "item": "mffs:monazit_circuit",
+    "count": 3
+  }
+}

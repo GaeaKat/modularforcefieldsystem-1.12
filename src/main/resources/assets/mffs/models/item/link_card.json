@@ -1,0 +1,22 @@
+{
+  "overrides": [
+    {
+      "predicate": {
+        "mffs:link_status": 0
+      },
+      "model": "mffs:item/link_card_empty"
+    },
+    {
+      "predicate": {
+        "mffs:link_status": 1
+      },
+      "model": "mffs:item/link_card_linked"
+    },
+    {
+      "predicate": {
+        "mffs:link_status": 2
+      },
+      "model": "mffs:item/link_card_creative"
+    }
+  ]
+}

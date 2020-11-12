@@ -4,7 +4,6 @@ import net.minecraft.data.DataGenerator;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.GatherDataEvent;
-import net.newgaea.mffs.common.libs.LibMisc;
 
 @Mod.EventBusSubscriber(bus= Mod.EventBusSubscriber.Bus.MOD)
 public class MFFSData {
@@ -27,7 +26,9 @@ public class MFFSData {
             generator.addProvider(new MFFSLangEn_Us(generator));
         }
 
-        generator.addProvider(new MFFSTags(generator, event.getExistingFileHelper()));
+        MFFSBlockTags blockTags=new MFFSBlockTags(generator, event.getExistingFileHelper());
+        generator.addProvider(blockTags);
+        generator.addProvider(new MFFSItemTags(generator,blockTags, event.getExistingFileHelper()));
         generator.addProvider(new MFFSDrops(generator));
 
     }

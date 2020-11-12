@@ -15,5 +15,6 @@ public class MFFSItemsProvider extends ItemModelProvider {
     @Override
     protected void registerModels() {
         singleTexture(LibItems.MONAZIT_CRYSTAL,new ResourceLocation("item/handheld"),"layer0",new ResourceLocation(LibMisc.MOD_ID,"item/monazit_crystal"));
+        singleTexture(LibItems.MONAZIT_CIRCUIT,new ResourceLocation("item/handheld"),"layer0",modLoc("item/monazit_circuit"));
     }
 }

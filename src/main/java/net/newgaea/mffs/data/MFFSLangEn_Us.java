@@ -17,5 +17,7 @@ public class MFFSLangEn_Us extends LanguageProvider {
         add(MFFSBlocks.MONAZIT_ORE.get(),"Monazit Ore");
         add(MFFSItems.MONAZIT_CRYSTAL.get(),"Monazit Crystal");
         add(MFFSBlocks.GENERATOR.get(),"Generator");
+        add(MFFSItems.LINK_CARD.get(), "Link Card");
+        add(MFFSItems.MONAZIT_CIRCUIT.get(), "Monazit Circuit");
     }
 }

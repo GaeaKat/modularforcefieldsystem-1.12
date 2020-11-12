@@ -1,0 +1,6 @@
+{
+  "name": "MFFS Manual",
+  "landing_text": "Welcome to MFFS. Modular Force Fields System!",
+  "version": "${book_version}",
+  "creative_tab": "mffs"
+}

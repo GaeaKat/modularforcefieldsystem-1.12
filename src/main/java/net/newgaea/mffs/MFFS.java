@@ -22,6 +22,7 @@ import net.newgaea.mffs.common.proxy.IProxy;
 import net.newgaea.mffs.world.OreGen;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import vazkii.patchouli.api.PatchouliAPI;
 
 @Mod(LibMisc.MOD_ID)
 public class MFFS {
@@ -44,6 +45,7 @@ public class MFFS {
         MFFSContainer.init();
         MFFSTiles.init();
         MinecraftForge.EVENT_BUS.register(new OreGen());
+        PatchouliAPI.instance.setConfigFlag("mffs:generatorEnabled",MFFSConfig.GENERATOR_ENABLED.get());
     }
 
     private void setup(final FMLCommonSetupEvent event) {

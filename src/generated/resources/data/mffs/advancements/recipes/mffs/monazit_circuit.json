@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+    "recipes": [
+      "mffs:monazit_circuit"
+    ]
+  },
+  "criteria": {
+    "monazit_has": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "tag": "forge:crystals/monazit"
+          }
+        ]
+      }
+    },
+    "has_the_recipe": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": {
+        "recipe": "mffs:monazit_circuit"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "monazit_has",
+      "has_the_recipe"
+    ]
+  ]
+}
