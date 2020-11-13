@@ -2,11 +2,14 @@ package net.newgaea.mffs.common.inventory;
 
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
+import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.container.Container;
+import net.minecraft.inventory.container.ContainerType;
 import net.minecraft.inventory.container.Slot;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.AbstractFurnaceTileEntity;
 import net.minecraft.util.Direction;
+import net.minecraft.util.IIntArray;
 import net.minecraft.util.IWorldPosCallable;
 import net.minecraft.util.IntReferenceHolder;
 import net.minecraft.util.math.BlockPos;
@@ -27,84 +30,26 @@ import net.newgaea.mffs.common.tiles.TileGenerator;
 
 
 public class GeneratorContainer extends Container {
-    private TileGenerator tileEntity;
     private PlayerEntity playerEntity;
     private IItemHandler playerInventory;
+    private final IIntArray generatorData;
 
 
-    public GeneratorContainer(int windowId, World world, BlockPos pos, PlayerInventory playerInventory, PlayerEntity player) {
-        super(MFFSContainer.GENERATOR.get(), windowId);
-        tileEntity= (TileGenerator) world.getTileEntity(pos);
+    public GeneratorContainer(ContainerType<?> type, int windowId, PlayerEntity player, IItemHandler burn, IItemHandler fuel, IIntArray array) {
+        super(type, windowId);
         this.playerEntity=player;
         this.playerInventory=new InvWrapper(player.inventory);
-        tileEntity.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, Direction.UP).ifPresent(h -> addSlot(new SlotItemHandler(h, 0, 56, 17)));
-        tileEntity.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, Direction.DOWN).ifPresent(h -> addSlot(new SlotItemHandler(h, 0, 56, 53)));
+        generatorData=array;
+        addSlot(new SlotItemHandler(burn, 0, 56, 17));
+        addSlot(new SlotItemHandler(fuel, 0, 56, 53));
         layoutPlayerInventorySlots(8, 84);
+        this.trackIntArray(generatorData);
 
-        trackInt(new IntReferenceHolder() {
-            @Override
-            public int get() {
-                return getEnergy();
-            }
-
-            @Override
-            public void set(int p_221494_1_) {
-                tileEntity.getCapability(CapabilityEnergy.ENERGY).ifPresent(h->((MFFSEnergyStorage)h).setEnergy(p_221494_1_));
-            }
-        });
-
-        trackInt(new IntReferenceHolder() {
-            @Override
-            public int get() {
-                return getCookTime();
-            }
-
-            @Override
-            public void set(int p_221494_1_) {
-                tileEntity.setCookTime(p_221494_1_);
-            }
-        });
-
-        trackInt(new IntReferenceHolder() {
-            @Override
-            public int get() {
-                return getBurnTime();
-            }
-
-            @Override
-            public void set(int p_221494_1_) {
-                tileEntity.setBurnTime(p_221494_1_);
-            }
-        });
-
-        trackInt(new IntReferenceHolder() {
-            @Override
-            public int get() {
-                return getCookTimeTotal();
-            }
-
-            @Override
-            public void set(int p_221494_1_) {
-                tileEntity.setCookTimeTotal(p_221494_1_);
-            }
-        });
-
-        trackInt(new IntReferenceHolder() {
-            @Override
-            public int get() {
-                return getRecipesUsed();
-            }
-
-            @Override
-            public void set(int p_221494_1_) {
-                tileEntity.setRecipesUsed(p_221494_1_);
-            }
-        });
     }
 
     @Override
     public boolean canInteractWith(PlayerEntity playerIn) {
-        return isWithinUsableDistance(IWorldPosCallable.of(tileEntity.getWorld(), tileEntity.getPos()), playerEntity, MFFSBlocks.GENERATOR.get());
+        return true;
     }
 
     private int addSlotRange(IItemHandler handler, int index, int x, int y, int amount, int dx) {
@@ -136,11 +81,11 @@ public class GeneratorContainer extends Container {
 
     public int getEnergy()
     {
-        return tileEntity.getCapability(CapabilityEnergy.ENERGY).map(IEnergyStorage::getEnergyStored).orElse(0);
+        return generatorData.get(4);
     }
     public int getMaxEnergy()
     {
-        return tileEntity.getCapability(CapabilityEnergy.ENERGY).map(IEnergyStorage::getMaxEnergyStored).orElse(0);
+        return generatorData.get(5);
     }
 
     //case 0:
@@ -153,21 +98,21 @@ public class GeneratorContainer extends Container {
 //                 return AbstractFurnaceTileEntity.this.cookTimeTotal;  ======= getBurnTIme
     public int getBurnTime()
     {
-        return tileEntity.getBurnTime();
+        return generatorData.get(0);
     }
 
     public int getCookTime()
     {
-        return tileEntity.getCookTime();
+        return generatorData.get(2);
     }
 
     public int getCookTimeTotal()
     {
-        return tileEntity.getCookTimeTotal();
+        return generatorData.get(3);
     }
     public int getRecipesUsed()
     {
-        return tileEntity.getRecipesUsed();
+        return generatorData.get(1);
     }
 
     @OnlyIn(Dist.CLIENT)

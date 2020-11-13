@@ -12,6 +12,7 @@ import net.minecraft.tileentity.ITickableTileEntity;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.tileentity.TileEntityType;
 import net.minecraft.util.Direction;
+import net.minecraft.util.IIntArray;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.StringTextComponent;
@@ -27,8 +28,8 @@ import net.minecraftforge.items.IItemHandlerModifiable;
 import net.minecraftforge.items.ItemStackHandler;
 import net.minecraftforge.items.wrapper.CombinedInvWrapper;
 import net.newgaea.mffs.common.config.MFFSConfig;
+import net.newgaea.mffs.common.init.MFFSContainer;
 import net.newgaea.mffs.common.init.MFFSItems;
-import net.newgaea.mffs.common.init.MFFSTiles;
 import net.newgaea.mffs.common.inventory.GeneratorContainer;
 import net.newgaea.mffs.common.storage.MFFSEnergyStorage;
 
@@ -36,16 +37,74 @@ import java.util.concurrent.atomic.AtomicInteger;
 
 public class TileGenerator extends TileMFFS  implements ITickableTileEntity, INamedContainerProvider {
 
-    private LazyOptional<IItemHandler> fuelHandler = LazyOptional.of(this::createFuelHandler);
-    private LazyOptional<IItemHandler> monazitHandler = LazyOptional.of(this::createMonazitHandler);
+    private IItemHandler fuel=this.createFuelHandler();
+    private LazyOptional<IItemHandler> fuelHandler = LazyOptional.of(()->fuel);
+
+    private IItemHandler monazit=this.createMonazitHandler();
+    private LazyOptional<IItemHandler> monazitHandler = LazyOptional.of(()->monazit);
+
     private LazyOptional<IItemHandler> jointHandler = LazyOptional.of(this::createJointHandler);
-    private LazyOptional<IEnergyStorage> energy = LazyOptional.of(this::createEnergyStorage);
+    private IEnergyStorage energyStorage = this.createEnergyStorage();
+    private LazyOptional<IEnergyStorage> energy = LazyOptional.of(()->energyStorage);
 
     private int burnTime;
     private int cookTime;
     private int cookTimeTotal=200;
     private int recipesUsed;
+    protected final IIntArray generatorData = new IIntArray() {
 
+        @Override
+        public int get(int index) {
+            switch (index) {
+                case 0:
+                    return TileGenerator.this.burnTime;
+                case 1:
+                    return TileGenerator.this.recipesUsed;
+                case 2:
+                    return TileGenerator.this.cookTime;
+                case 3:
+                    return TileGenerator.this.cookTimeTotal;
+                case 4:
+                    return TileGenerator.this.energy.map(IEnergyStorage::getEnergyStored).orElse(0);
+                case 5:
+                    return TileGenerator.this.energy.map(IEnergyStorage::getMaxEnergyStored).orElse(0);
+                default:
+                    return 0;
+            }
+        }
+
+        @Override
+        public void set(int index, int value) {
+            switch (index) {
+                case 0:
+                    TileGenerator.this.burnTime=value;
+                    break;
+                case 1:
+                    TileGenerator.this.recipesUsed=value;
+                    break;
+                case 2:
+                    TileGenerator.this.cookTime=value;
+                    break;
+                case 3:
+                    TileGenerator.this.cookTimeTotal=value;
+                    break;
+                case 4:
+                    TileGenerator.this.energy.ifPresent(energy->((MFFSEnergyStorage)energy).setEnergy(value));
+                    break;
+                case 5:
+                    int tmp=TileGenerator.this.energyStorage.getEnergyStored();
+                    TileGenerator.this.energyStorage=new MFFSEnergyStorage(value,900);
+                    ((MFFSEnergyStorage)TileGenerator.this.energyStorage).setEnergy(tmp);
+                    break;
+
+            }
+        }
+
+        @Override
+        public int size() {
+            return 6;
+        }
+    };
 
     public int getBurnTime() {
         return burnTime;
@@ -81,7 +140,7 @@ public class TileGenerator extends TileMFFS  implements ITickableTileEntity, INa
 
 
     private <T> IEnergyStorage createEnergyStorage() {
-        return new MFFSEnergyStorage(10000,0);
+        return new MFFSEnergyStorage(10000,900);
     }
     private <T> IItemHandler createJointHandler() {
         return new CombinedInvWrapper((IItemHandlerModifiable)fuelHandler.cast(),(IItemHandlerModifiable)monazitHandler.cast());
@@ -301,7 +360,7 @@ public class TileGenerator extends TileMFFS  implements ITickableTileEntity, INa
 
     @Override
     public Container createMenu(int id, PlayerInventory playerInventory, PlayerEntity playerEntity) {
-        return new GeneratorContainer(id,world,pos,playerInventory,playerEntity);
+        return new GeneratorContainer(MFFSContainer.GENERATOR.get(),id,playerEntity,(IItemHandler) monazit,(IItemHandler)fuel, generatorData);
     }
 
     @Override

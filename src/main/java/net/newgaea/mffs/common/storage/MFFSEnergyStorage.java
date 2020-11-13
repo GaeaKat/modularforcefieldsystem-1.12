@@ -18,7 +18,7 @@ public class MFFSEnergyStorage extends EnergyStorage implements INBTSerializable
     public void addEnergy(int energy) {
         this.energy += energy;
         if (this.energy > getMaxEnergyStored()) {
-            this.energy = getEnergyStored();
+            this.energy = getMaxEnergyStored();
         }
     }
 

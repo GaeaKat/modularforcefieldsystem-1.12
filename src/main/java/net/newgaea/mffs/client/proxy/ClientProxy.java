@@ -13,8 +13,7 @@ public class ClientProxy implements IProxy {
     @Override
     public void init() {
 
-        ScreenManager.registerFactory(MFFSContainer.GENERATOR.get(),GeneratorScreen::new );
-        ScreenManager.registerFactory(MFFSContainer.CAPACITOR.get(), CapacitorScreen::new);
+
     }
 
     @Override

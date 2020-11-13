@@ -9,6 +9,7 @@ import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.StringTextComponent;
 import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.energy.IEnergyStorage;
+import net.newgaea.mffs.common.init.MFFSContainer;
 import net.newgaea.mffs.common.init.MFFSTiles;
 import net.newgaea.mffs.common.inventory.CapacitorContainer;
 import net.newgaea.mffs.common.inventory.GeneratorContainer;
@@ -38,6 +39,6 @@ public class TileCapacitor extends TileNetwork implements INamedContainerProvide
 
     @Override
     public Container createMenu(int id, PlayerInventory playerInventory, PlayerEntity playerEntity) {
-        return new CapacitorContainer(id,world,pos,playerInventory,playerEntity);
+        return new CapacitorContainer(MFFSContainer.CAPACITOR.get(),id,playerEntity);
     }
 }

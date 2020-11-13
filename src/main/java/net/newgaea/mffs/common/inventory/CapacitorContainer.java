@@ -17,13 +17,11 @@ import net.newgaea.mffs.common.tiles.TileGenerator;
 
 public class CapacitorContainer extends Container {
 
-    private TileCapacitor tileEntity;
     private PlayerEntity playerEntity;
     private IItemHandler playerInventory;
 
-    public CapacitorContainer(int id, World world, BlockPos pos, PlayerInventory playerInventory, PlayerEntity player) {
-        super(MFFSContainer.CAPACITOR.get(), id);
-        tileEntity= (TileCapacitor) world.getTileEntity(pos);
+    public CapacitorContainer(ContainerType<?>type,int id,  PlayerEntity player) {
+        super(type, id);
         this.playerEntity=player;
         this.playerInventory=new InvWrapper(player.inventory);
 
@@ -34,7 +32,7 @@ public class CapacitorContainer extends Container {
 
     @Override
     public boolean canInteractWith(PlayerEntity playerIn) {
-        return isWithinUsableDistance(IWorldPosCallable.of(tileEntity.getWorld(), tileEntity.getPos()), playerEntity, MFFSBlocks.CAPACITOR.get());
+        return true;
     }
 
     private int addSlotRange(IItemHandler handler, int index, int x, int y, int amount, int dx) {

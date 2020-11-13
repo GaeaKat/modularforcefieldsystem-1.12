@@ -6,6 +6,7 @@ import net.minecraft.client.gui.screen.inventory.ContainerScreen;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.ITextComponent;
+import net.newgaea.mffs.MFFS;
 import net.newgaea.mffs.client.gui.widgets.VerticalGuage;
 import net.newgaea.mffs.common.inventory.GeneratorContainer;
 import net.newgaea.mffs.common.libs.LibMisc;
@@ -28,6 +29,7 @@ public class GeneratorScreen extends ContainerScreen<GeneratorContainer> {
     @Override
     protected void init() {
         super.init();
+
         guage=new VerticalGuage(this.guiLeft+110,this.guiTop+20,14,42,1,0,17,0,14,42,FORGE_GUAGE);
         guage.setMax(this.container.getMaxEnergy()).setCurrent(this.container.getEnergy());
     }
@@ -48,9 +50,12 @@ public class GeneratorScreen extends ContainerScreen<GeneratorContainer> {
 
         int l = this.container.getCookProgressionScaled();
         this.blit(matrixStack,i + 79, j + 34, 176, 14, l + 1, 16);
-        guage.setCurrent(this.container.getEnergy());
+        guage.setMax(this.container.getMaxEnergy()).setCurrent(this.container.getEnergy());
         guage.render(matrixStack,1,1,1);
     }
 
-
+    @Override
+    public void tick() {
+        super.tick();
+    }
 }
