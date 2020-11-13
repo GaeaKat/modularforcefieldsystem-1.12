@@ -26,4 +26,15 @@ public abstract class TileMFFS extends TileEntity {
         return nbt;
     }
     public abstract CompoundNBT writeExtra(CompoundNBT compound);
+
+    @Override
+    public CompoundNBT getUpdateTag() {
+        return writeExtra(super.getUpdateTag());
+    }
+
+    @Override
+    public void handleUpdateTag(BlockState state, CompoundNBT tag) {
+        super.handleUpdateTag(state, tag);
+        //readExtra(tag);
+    }
 }

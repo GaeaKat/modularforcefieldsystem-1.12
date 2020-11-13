@@ -2,11 +2,11 @@
   "parent": "minecraft:recipes/root",
   "rewards": {
     "recipes": [
-      "mffs:monazit_crystal_blasting"
+      "mffs:monazit_crystal_from_monazit_ore_blasting"
     ]
   },
   "criteria": {
-    "monazit_ore": {
+    "has_monazit_ore": {
       "trigger": "minecraft:inventory_changed",
       "conditions": {
         "items": [
@@ -19,13 +19,13 @@
     "has_the_recipe": {
       "trigger": "minecraft:recipe_unlocked",
       "conditions": {
-        "recipe": "mffs:monazit_crystal_blasting"
+        "recipe": "mffs:monazit_crystal_from_monazit_ore_blasting"
       }
     }
   },
   "requirements": [
     [
-      "monazit_ore",
+      "has_monazit_ore",
       "has_the_recipe"
     ]
   ]

@@ -22,7 +22,7 @@
             "item": "minecraft:furnace"
           },
           "M": {
-            "item": "mffs:monazit_crystal"
+            "tag": "forge:crystals/monazit"
           }
         },
         "result": {

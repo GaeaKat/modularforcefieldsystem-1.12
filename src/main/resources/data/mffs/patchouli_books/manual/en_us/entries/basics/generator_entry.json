@@ -10,7 +10,7 @@
     },
     {
       "type": "crafting",
-      "recipe": "mffs:monazit_generator"
+      "recipe": "mffs:generator"
     }
   ]
 }

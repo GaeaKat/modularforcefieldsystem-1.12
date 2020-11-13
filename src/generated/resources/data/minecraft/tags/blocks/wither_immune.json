@@ -1,0 +1,7 @@
+{
+  "replace": false,
+  "values": [
+    "mffs:generator",
+    "mffs:capacitor"
+  ]
+}

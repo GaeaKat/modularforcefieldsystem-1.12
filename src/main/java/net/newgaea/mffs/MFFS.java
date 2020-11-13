@@ -1,6 +1,7 @@
 package net.newgaea.mffs;
 
 
+import com.tterrag.registrate.Registrate;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.DistExecutor;
 import net.minecraftforge.fml.ModLoadingContext;
@@ -11,10 +12,7 @@ import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.minecraftforge.fml.loading.FMLPaths;
 import net.newgaea.mffs.client.proxy.ClientProxy;
 import net.newgaea.mffs.common.config.MFFSConfig;
-import net.newgaea.mffs.common.init.MFFSBlocks;
-import net.newgaea.mffs.common.init.MFFSContainer;
-import net.newgaea.mffs.common.init.MFFSItems;
-import net.newgaea.mffs.common.init.MFFSTiles;
+import net.newgaea.mffs.common.init.*;
 import net.newgaea.mffs.common.libs.LibMisc;
 import net.newgaea.mffs.common.proxy.CommonProxy;
 import net.newgaea.mffs.common.proxy.IProxy;
@@ -23,7 +21,9 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import vazkii.patchouli.api.PatchouliAPI;
 
-@Mod(LibMisc.MOD_ID)
+import static net.newgaea.mffs.common.libs.LibMisc.MOD_ID;
+
+@Mod(MOD_ID)
 public class MFFS {
 
     private static final Logger LOGGER = LogManager.getLogger();
@@ -39,8 +39,8 @@ public class MFFS {
 
         MFFSConfig.loadConfig(MFFSConfig.CLIENT_CONFIG, FMLPaths.CONFIGDIR.get().resolve("mffs-client.toml"));
         MFFSConfig.loadConfig(MFFSConfig.COMMON_CONFIG, FMLPaths.CONFIGDIR.get().resolve("mffs-common.toml"));
-        MFFSBlocks.init();
         MFFSItems.init();
+        MFFSBlocks.init();
         MFFSContainer.init();
         MFFSTiles.init();
         MinecraftForge.EVENT_BUS.register(new OreGen());

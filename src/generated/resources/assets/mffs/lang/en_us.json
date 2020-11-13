@@ -1,7 +1,8 @@
 {
-  "block.mffs.capacitor": "MFFS Capacitor",
+  "block.mffs.capacitor": "Capacitor",
   "block.mffs.generator": "Generator",
   "block.mffs.monazit_ore": "Monazit Ore",
+  "item.mffs.capacity_upgrade": "Capacity Upgrade",
   "item.mffs.link_card": "Link Card",
   "item.mffs.monazit_circuit": "Monazit Circuit",
   "item.mffs.monazit_crystal": "Monazit Crystal"

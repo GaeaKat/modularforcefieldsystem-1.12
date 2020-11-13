@@ -1,50 +1,91 @@
 package net.newgaea.mffs.common.init;
 
+import com.tterrag.registrate.util.DataIngredient;
+import com.tterrag.registrate.util.entry.ItemEntry;
+import net.minecraft.data.ShapedRecipeBuilder;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
+import net.minecraft.item.Items;
+import net.minecraft.item.crafting.Ingredient;
+import net.minecraft.util.ResourceLocation;
+import net.minecraftforge.common.Tags;
 import net.minecraftforge.fml.RegistryObject;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
+import net.newgaea.mffs.MFFS;
+import net.newgaea.mffs.api.MFFSTags;
 import net.newgaea.mffs.common.items.ItemLinkCard;
 import net.newgaea.mffs.common.libs.LibBlocks;
 import net.newgaea.mffs.common.libs.LibItems;
 import net.newgaea.mffs.common.libs.LibMisc;
 import net.newgaea.mffs.common.misc.ItemGroupMFFS;
 
+import static com.tterrag.registrate.providers.RegistrateRecipeProvider.hasItem;
+import static net.newgaea.mffs.common.libs.LibMisc.MOD_ID;
+
 public class MFFSItems {
 
-    public static final DeferredRegister<Item> ITEMS = DeferredRegister.create(ForgeRegistries.ITEMS, LibMisc.MOD_ID);
 
-    public static void init()
-    {
-        ITEMS.register(FMLJavaModLoadingContext.get().getModEventBus());
-    }
+    public static void init() {}
 
    // Items
+    public static final ItemEntry<Item> MONAZIT_CRYSTAL = MFFSInit.REGISTRATE.object(LibItems.MONAZIT_CRYSTAL)
+            .item(Item::new)
+            .defaultModel()
+            .defaultLang()
+            .group(ItemGroupMFFS::GetInstance)
+            .recipe(
+                    (ctx,prov) -> {
+                        prov.smeltingAndBlasting(DataIngredient.stacks(new ItemStack(MFFSBlocks.MONAZIT_ORE.get())),ctx.get().delegate, 0.7f);
+                    }
+            )
+            .tag(MFFSTags.CRYSTAL_MONAZIT)
+            .register();
 
-    public static final RegistryObject<Item> MONAZIT_CRYSTAL = ITEMS.register(LibItems.MONAZIT_CRYSTAL, () ->
-            new Item(getDefaultProperties().setNoRepair()));
+    public static final ItemEntry<Item> MONAZIT_CIRCUIT = MFFSInit.REGISTRATE.object(LibItems.MONAZIT_CIRCUIT)
+            .item(Item::new)
+            .defaultLang()
+            .defaultModel()
+            .group(ItemGroupMFFS::GetInstance)
+            .recipe((ctx,prov) ->
+                    ShapedRecipeBuilder.shapedRecipe(MFFSItems.MONAZIT_CIRCUIT.get(),3).addCriterion("monazit_has",hasItem(MFFSTags.CRYSTAL_MONAZIT))
+                            .key('I', Tags.Items.INGOTS_IRON)
+                            .key('M', MFFSTags.CRYSTAL_MONAZIT)
+                            .patternLine("   ")
+                            .patternLine("IMI")
+                            .patternLine("   ")
+                            .build(prov))
+            .register();
+    public static final ItemEntry<ItemLinkCard> LINK_CARD=MFFSInit.REGISTRATE.object(LibItems.LINK_CARD)
+            .item(ItemLinkCard::new)
+            .model((ctx,prov)->
+                    prov.getExistingFile(new ResourceLocation(MOD_ID,"link_card")))
+            .defaultLang()
+            .group(ItemGroupMFFS::GetInstance)
+            .recipe((ctx,provider)->
+                    ShapedRecipeBuilder.shapedRecipe(MFFSItems.LINK_CARD.get()).addCriterion("circuit_has",hasItem(MFFSItems.MONAZIT_CIRCUIT.get()))
+                            .key('P', Items.PAPER)
+                            .key('C',MFFSItems.MONAZIT_CIRCUIT.get())
+                            .patternLine("PPP")
+                            .patternLine("PCP")
+                            .patternLine("PPP")
+                            .build(provider)
+                    )
+            .register();
 
-    public static final RegistryObject<Item> MONAZIT_CIRCUIT = ITEMS.register(LibItems.MONAZIT_CIRCUIT, () ->
-            new Item(getDefaultProperties()));
-    public static final RegistryObject<Item> LINK_CARD=ITEMS.register(LibItems.LINK_CARD,() ->
-            new ItemLinkCard(getDefaultProperties()));
+    public static final ItemEntry<Item> CAPACITY_UPGRADE=
+            MFFSInit.REGISTRATE.object(LibItems.CAPACITY_UPGRADE).item(Item::new)
+                    .model((ctx, registrateItemModelProvider) ->
+                            registrateItemModelProvider.withExistingParent(ctx.getName(),new ResourceLocation("item/handheld"))
+                            .texture("layer0",new ResourceLocation(MOD_ID,"item/upgrades/capacity_upgrade"))
+                    )
+                    .defaultLang()
+                    .group(ItemGroupMFFS::GetInstance)
+                    .register();
 
 
-
-    //Item Blocks
-    public static final RegistryObject<Item> MONAZIT_ORE = ITEMS.register(LibBlocks.MONAZIT_ORE,() ->
-            new BlockItem(MFFSBlocks.MONAZIT_ORE.get(),getDefaultProperties())
-    );
-
-    public static final RegistryObject<Item> GENERATOR = ITEMS.register(LibBlocks.GENERATOR, () ->
-            new BlockItem(MFFSBlocks.GENERATOR.get(),getDefaultProperties())
-    );
-
-    public static final RegistryObject<Item> CAPACITOR = ITEMS.register(LibBlocks.CAPACITOR, () ->
-            new BlockItem(MFFSBlocks.CAPACITOR.get(), getDefaultProperties())
-    );
 
     protected static Item.Properties getDefaultProperties() {
         return new Item.Properties().group(ItemGroupMFFS.GetInstance()).maxStackSize(64);

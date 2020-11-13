@@ -19,6 +19,7 @@ import net.minecraft.world.IBlockReader;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.network.NetworkHooks;
 import net.newgaea.mffs.common.config.MFFSConfig;
+import net.newgaea.mffs.common.init.MFFSTiles;
 import net.newgaea.mffs.common.tiles.TileGenerator;
 
 public class BlockGenerator extends ModTileBlock {
@@ -41,7 +42,7 @@ public class BlockGenerator extends ModTileBlock {
 
     @Override
     public TileEntity createTileEntity(BlockState state, IBlockReader world) {
-        return new TileGenerator();
+        return MFFSTiles.GENERATOR.create();
     }
     @Override
     public BlockState getStateForPlacement(BlockItemUseContext context) {

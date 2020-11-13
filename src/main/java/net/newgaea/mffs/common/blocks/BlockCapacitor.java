@@ -34,7 +34,7 @@ public class BlockCapacitor extends BlockSimpleNetwork {
 
     @Override
     public TileEntity createTileEntity(BlockState state, IBlockReader world) {
-        return new TileCapacitor();
+        return MFFSTiles.CAPACITOR.create();
     }
 
 }

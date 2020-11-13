@@ -6,7 +6,7 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "mffs:monazit_ore"
+          "name": "mffs:generator"
         }
       ],
       "conditions": [

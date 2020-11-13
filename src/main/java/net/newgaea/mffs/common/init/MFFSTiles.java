@@ -1,6 +1,8 @@
 package net.newgaea.mffs.common.init;
 
+import com.tterrag.registrate.util.entry.TileEntityEntry;
 import net.minecraft.inventory.container.ContainerType;
+import net.minecraft.tileentity.TileEntity;
 import net.minecraft.tileentity.TileEntityType;
 import net.minecraftforge.fml.RegistryObject;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
@@ -21,10 +23,7 @@ public class MFFSTiles {
         CONTAINERS.register(FMLJavaModLoadingContext.get().getModEventBus());
     }
 
-    public static final RegistryObject<TileEntityType<?>> GENERATOR = CONTAINERS.register(LibTiles.GENERATOR,() ->
-            TileEntityType.Builder.create(TileGenerator::new,MFFSBlocks.GENERATOR.get()).build(null)
-            );
-    public static final RegistryObject<TileEntityType<?>> CAPACITOR = CONTAINERS.register(LibTiles.CAPACITOR, () ->
-            TileEntityType.Builder.create(TileCapacitor::new,MFFSBlocks.CAPACITOR.get()).build(null)
-    );
+    public static final TileEntityEntry<TileGenerator> GENERATOR = TileEntityEntry.cast(MFFSBlocks.GENERATOR.getSibling(ForgeRegistries.TILE_ENTITIES));
+
+    public static final TileEntityEntry<TileCapacitor> CAPACITOR= TileEntityEntry.cast(MFFSBlocks.CAPACITOR.getSibling(ForgeRegistries.TILE_ENTITIES));
 }

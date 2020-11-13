@@ -246,8 +246,8 @@ public class TileGenerator extends TileMFFS  implements ITickableTileEntity, INa
     }
 
 
-    public TileGenerator() {
-        super(MFFSTiles.GENERATOR.get());
+    public TileGenerator(TileEntityType<? extends TileGenerator> type) {
+        super(type);
     }
 
     @Override

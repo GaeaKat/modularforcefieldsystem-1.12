@@ -18,8 +18,8 @@ public class TileCapacitor extends TileNetwork implements INamedContainerProvide
 
     private boolean master;
 
-    public TileCapacitor() {
-        super(MFFSTiles.CAPACITOR.get());
+    public TileCapacitor(TileEntityType<? extends TileCapacitor> type) {
+        super(type);
     }
 
     public boolean isMaster() {
