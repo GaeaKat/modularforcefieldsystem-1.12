@@ -5,6 +5,8 @@ import net.minecraft.item.ItemStack;
 import net.newgaea.mffs.common.init.MFFSItems;
 import net.newgaea.mffs.common.libs.LibMisc;
 
+import javax.annotation.Nonnull;
+
 public class ItemGroupMFFS extends ItemGroup {
     public static ItemGroupMFFS INSTANCE;
 
@@ -12,6 +14,7 @@ public class ItemGroupMFFS extends ItemGroup {
         super(LibMisc.MOD_ID);
     }
 
+    @Nonnull
     public static ItemGroupMFFS GetInstance() {
         if(INSTANCE==null)
             INSTANCE=new ItemGroupMFFS();

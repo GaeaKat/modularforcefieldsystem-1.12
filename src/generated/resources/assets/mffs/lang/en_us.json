@@ -5,5 +5,8 @@
   "item.mffs.capacity_upgrade": "Capacity Upgrade",
   "item.mffs.link_card": "Link Card",
   "item.mffs.monazit_circuit": "Monazit Circuit",
-  "item.mffs.monazit_crystal": "Monazit Crystal"
+  "item.mffs.monazit_crystal": "Monazit Crystal",
+  "item.mffs.range_upgrade": "Range Upgrade",
+  "item.mffs.speed_upgrade": "Speed Upgrade",
+  "misc.mffs.upgrade.valid": "Upgrades valid for %s"
 }

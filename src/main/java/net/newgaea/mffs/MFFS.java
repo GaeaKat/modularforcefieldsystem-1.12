@@ -43,6 +43,7 @@ public class MFFS {
         MFFSBlocks.init();
         MFFSContainer.init();
         MFFSTiles.init();
+        MFFSLang.init();
         MinecraftForge.EVENT_BUS.register(new OreGen());
         PatchouliAPI.instance.setConfigFlag("mffs:generatorEnabled",MFFSConfig.GENERATOR_ENABLED.get());
     }

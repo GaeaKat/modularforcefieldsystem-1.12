@@ -17,9 +17,11 @@ import net.minecraftforge.registries.ForgeRegistries;
 import net.newgaea.mffs.MFFS;
 import net.newgaea.mffs.api.MFFSTags;
 import net.newgaea.mffs.common.items.ItemLinkCard;
+import net.newgaea.mffs.common.items.ItemUpgrade;
 import net.newgaea.mffs.common.libs.LibBlocks;
 import net.newgaea.mffs.common.libs.LibItems;
 import net.newgaea.mffs.common.libs.LibMisc;
+import net.newgaea.mffs.common.misc.EnumUpgrade;
 import net.newgaea.mffs.common.misc.ItemGroupMFFS;
 
 import static com.tterrag.registrate.providers.RegistrateRecipeProvider.hasItem;
@@ -75,8 +77,8 @@ public class MFFSItems {
                     )
             .register();
 
-    public static final ItemEntry<Item> CAPACITY_UPGRADE=
-            MFFSInit.REGISTRATE.object(LibItems.CAPACITY_UPGRADE).item(Item::new)
+    public static final ItemEntry<ItemUpgrade> CAPACITY_UPGRADE=
+            MFFSInit.REGISTRATE.object(LibItems.CAPACITY_UPGRADE).item((properties -> new ItemUpgrade(properties, EnumUpgrade.Capacity)))
                     .model((ctx, registrateItemModelProvider) ->
                             registrateItemModelProvider.withExistingParent(ctx.getName(),new ResourceLocation("item/handheld"))
                             .texture("layer0",new ResourceLocation(MOD_ID,"item/upgrades/capacity_upgrade"))
@@ -85,6 +87,24 @@ public class MFFSItems {
                     .group(ItemGroupMFFS::GetInstance)
                     .register();
 
+    public static final ItemEntry<ItemUpgrade> RANGE_UPGRADE =
+            MFFSInit.REGISTRATE.object(LibItems.RANGE_UPGRADE).item((properties -> new ItemUpgrade(properties, EnumUpgrade.Range)))
+                    .model((ctx, registrateItemModelProvider) ->
+                            registrateItemModelProvider.withExistingParent(ctx.getName(),new ResourceLocation("item/handheld"))
+                                    .texture("layer0",new ResourceLocation(MOD_ID,"item/upgrades/range_upgrade"))
+                    )
+            .defaultLang()
+            .group(ItemGroupMFFS::GetInstance)
+            .register();
+
+    public static final ItemEntry<ItemUpgrade> SPEED_UPGRADE =
+            MFFSInit.REGISTRATE.object(LibItems.SPEED_UPGRADE).item((properties -> new ItemUpgrade(properties, EnumUpgrade.Speed)))
+                .model((ctx,provider) ->
+                        provider.withExistingParent(ctx.getName(),new ResourceLocation("item/handheld")).texture("layer0", provider.modLoc("item/upgrades/speed_upgrade"))
+                )
+            .defaultLang()
+            .group(ItemGroupMFFS::GetInstance)
+            .register();
 
 
     protected static Item.Properties getDefaultProperties() {
