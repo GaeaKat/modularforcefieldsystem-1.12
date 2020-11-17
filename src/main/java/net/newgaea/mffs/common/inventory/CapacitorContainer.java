@@ -4,6 +4,8 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.container.Container;
 import net.minecraft.inventory.container.ContainerType;
+import net.minecraft.inventory.container.Slot;
+import net.minecraft.item.ItemStack;
 import net.minecraft.util.IWorldPosCallable;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
@@ -20,14 +22,29 @@ public class CapacitorContainer extends Container {
     private PlayerEntity playerEntity;
     private IItemHandler playerInventory;
 
-    public CapacitorContainer(ContainerType<?>type,int id,  PlayerEntity player) {
+    public CapacitorContainer(ContainerType<?>type,int id,  PlayerEntity player,IItemHandler upgrades) {
         super(type, id);
         this.playerEntity=player;
         this.playerInventory=new InvWrapper(player.inventory);
-
-
+        addSlot(new SlotItemHandler(upgrades,0,154,47));
+        addSlot(new SlotItemHandler(upgrades,1,154,67));
 
         layoutPlayerInventorySlots(8, 125);
+    }
+
+
+
+    @Override
+    public ItemStack transferStackInSlot(PlayerEntity playerIn, int index) {
+        //TODO: ENABLE SHIFT CLICK
+        ItemStack itemstack = ItemStack.EMPTY;
+        Slot slot = this.inventorySlots.get(index);
+        if (slot != null && slot.getHasStack()) {
+            ItemStack itemstack1 = slot.getStack();
+            itemstack = itemstack1.copy();
+
+        }
+        return itemstack;
     }
 
     @Override

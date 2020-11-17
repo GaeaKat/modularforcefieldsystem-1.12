@@ -7,4 +7,17 @@ public class LibItems {
     public static final String RANGE_UPGRADE="range_upgrade";
     public static final String CAPACITY_UPGRADE="capacity_upgrade";
     public static final String SPEED_UPGRADE="speed_upgrade";
+
+    // Modules
+    public static class Modules {
+        public static final String ADV_CUBE="advanced_cube";
+        public static final String CONTAINMENT="containment";
+        public static final String CUBE="cube";
+        public static final String DEFLECTOR="deflector";
+        public static final String DIAGWALL="diagonal_wall";
+        public static final String SPHERE="sphere";
+        public static final String TUBE="tube";
+        public static final String WALL="wall";
+    }
+
 }

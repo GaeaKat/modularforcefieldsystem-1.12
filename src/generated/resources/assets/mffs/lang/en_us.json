@@ -1,12 +1,22 @@
 {
   "block.mffs.capacitor": "Capacitor",
+  "block.mffs.forcefield": "Forcefield",
   "block.mffs.generator": "Generator",
   "block.mffs.monazit_ore": "Monazit Ore",
+  "block.mffs.projector": "Projector",
+  "item.mffs.advanced_cube": "Advanced Cube",
   "item.mffs.capacity_upgrade": "Capacity Upgrade",
+  "item.mffs.containment": "Containment",
+  "item.mffs.cube": "Cube",
+  "item.mffs.deflector": "Deflector",
+  "item.mffs.diagonal_wall": "Diagonal Wall",
   "item.mffs.link_card": "Link Card",
   "item.mffs.monazit_circuit": "Monazit Circuit",
   "item.mffs.monazit_crystal": "Monazit Crystal",
   "item.mffs.range_upgrade": "Range Upgrade",
   "item.mffs.speed_upgrade": "Speed Upgrade",
+  "item.mffs.sphere": "Sphere",
+  "item.mffs.tube": "Tube",
+  "item.mffs.wall": "Wall",
   "misc.mffs.upgrade.valid": "Upgrades valid for %s"
 }

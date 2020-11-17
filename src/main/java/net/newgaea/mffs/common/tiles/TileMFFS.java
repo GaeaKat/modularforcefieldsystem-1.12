@@ -2,6 +2,8 @@ package net.newgaea.mffs.common.tiles;
 
 import net.minecraft.block.BlockState;
 import net.minecraft.nbt.CompoundNBT;
+import net.minecraft.network.NetworkManager;
+import net.minecraft.network.play.server.SUpdateTileEntityPacket;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.tileentity.TileEntityType;
 
@@ -34,7 +36,17 @@ public abstract class TileMFFS extends TileEntity {
 
     @Override
     public void handleUpdateTag(BlockState state, CompoundNBT tag) {
-        super.handleUpdateTag(state, tag);
+        readExtra(tag);
         //readExtra(tag);
+    }
+
+    @Override
+    public void onDataPacket(NetworkManager net, SUpdateTileEntityPacket pkt) {
+        handleUpdateTag(this.getBlockState(),pkt.getNbtCompound());
+    }
+
+    @Override
+    public SUpdateTileEntityPacket getUpdatePacket() {
+        return new SUpdateTileEntityPacket(pos,1,getUpdateTag());
     }
 }

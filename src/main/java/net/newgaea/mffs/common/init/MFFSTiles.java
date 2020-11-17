@@ -10,7 +10,9 @@ import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.newgaea.mffs.common.libs.LibTiles;
 import net.newgaea.mffs.common.tiles.TileCapacitor;
+import net.newgaea.mffs.common.tiles.TileForcefield;
 import net.newgaea.mffs.common.tiles.TileGenerator;
+import net.newgaea.mffs.common.tiles.TileProjector;
 
 import static net.newgaea.mffs.common.libs.LibMisc.MOD_ID;
 
@@ -25,4 +27,6 @@ public class MFFSTiles {
     public static final TileEntityEntry<TileGenerator> GENERATOR = TileEntityEntry.cast(MFFSBlocks.GENERATOR.getSibling(ForgeRegistries.TILE_ENTITIES));
 
     public static final TileEntityEntry<TileCapacitor> CAPACITOR= TileEntityEntry.cast(MFFSBlocks.CAPACITOR.getSibling(ForgeRegistries.TILE_ENTITIES));
+    public static final TileEntityEntry<TileForcefield> FORCEFIELD = TileEntityEntry.cast(MFFSBlocks.FORCEFIELD.getSibling(ForgeRegistries.TILE_ENTITIES));
+    public static final TileEntityEntry<TileProjector> PROJECTOR = TileEntityEntry.cast(MFFSBlocks.PROJECTOR.getSibling(ForgeRegistries.TILE_ENTITIES));
 }

@@ -13,10 +13,10 @@ import net.minecraft.util.Rotation;
 
 public abstract class BlockSimpleNetwork extends BlockNetwork {
     public static final DirectionProperty FACING = BlockStateProperties.HORIZONTAL_FACING;
-    public static final BooleanProperty ACTIVE = BooleanProperty.create("active");
+
     public BlockSimpleNetwork(Properties properties) {
         super(properties);
-        this.setDefaultState(this.stateContainer.getBaseState().with(FACING, Direction.NORTH).with(ACTIVE,false));
+        this.setDefaultState(this.getDefaultState().with(FACING, Direction.NORTH));
     }
 
     @Override
@@ -34,7 +34,7 @@ public abstract class BlockSimpleNetwork extends BlockNetwork {
         return state.rotate(mirrorIn.toRotation(state.get(FACING)));
     }
     protected void fillStateContainer(StateContainer.Builder<Block, BlockState> builder) {
+        super.fillStateContainer(builder);
         builder.add(FACING);
-        builder.add(ACTIVE);
     }
 }

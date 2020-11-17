@@ -1,7 +1,6 @@
 package net.newgaea.mffs;
 
 
-import com.tterrag.registrate.Registrate;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.DistExecutor;
 import net.minecraftforge.fml.ModLoadingContext;
@@ -13,7 +12,6 @@ import net.minecraftforge.fml.loading.FMLPaths;
 import net.newgaea.mffs.client.proxy.ClientProxy;
 import net.newgaea.mffs.common.config.MFFSConfig;
 import net.newgaea.mffs.common.init.*;
-import net.newgaea.mffs.common.libs.LibMisc;
 import net.newgaea.mffs.common.proxy.CommonProxy;
 import net.newgaea.mffs.common.proxy.IProxy;
 import net.newgaea.mffs.common.world.OreGen;
@@ -46,6 +44,7 @@ public class MFFS {
         MFFSLang.init();
         MinecraftForge.EVENT_BUS.register(new OreGen());
         PatchouliAPI.instance.setConfigFlag("mffs:generatorEnabled",MFFSConfig.GENERATOR_ENABLED.get());
+
     }
 
     private void setup(final FMLCommonSetupEvent event) {

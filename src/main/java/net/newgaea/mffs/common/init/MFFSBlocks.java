@@ -9,28 +9,28 @@ import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.material.MaterialColor;
 import net.minecraft.data.ShapedRecipeBuilder;
+import net.minecraft.state.properties.BlockStateProperties;
 import net.minecraft.tags.BlockTags;
+import net.minecraft.util.Direction;
 import net.minecraft.util.ResourceLocation;
+import net.minecraftforge.client.model.generators.ConfiguredModel;
 import net.minecraftforge.client.model.generators.ModelFile;
 import net.minecraftforge.common.Tags;
 import net.minecraftforge.common.ToolType;
 import net.minecraftforge.common.crafting.ConditionalRecipe;
-import net.minecraftforge.fml.RegistryObject;
-import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
-import net.minecraftforge.registries.DeferredRegister;
-import net.minecraftforge.registries.ForgeRegistries;
+import net.newgaea.mffs.api.EnumProjectorModule;
 import net.newgaea.mffs.api.MFFSTags;
-import net.newgaea.mffs.common.blocks.BlockCapacitor;
-import net.newgaea.mffs.common.blocks.BlockGenerator;
-import net.newgaea.mffs.common.blocks.BlockSimpleNetwork;
+import net.newgaea.mffs.common.blocks.*;
 import net.newgaea.mffs.common.libs.LibBlocks;
-import net.newgaea.mffs.common.libs.LibMisc;
 import net.newgaea.mffs.common.misc.ItemGroupMFFS;
 import net.newgaea.mffs.common.recipes.conditions.GeneratorEnabled;
 import net.newgaea.mffs.common.tiles.TileCapacitor;
+import net.newgaea.mffs.common.tiles.TileForcefield;
 import net.newgaea.mffs.common.tiles.TileGenerator;
+import net.newgaea.mffs.common.tiles.TileProjector;
 
 import static com.tterrag.registrate.providers.RegistrateRecipeProvider.hasItem;
+import static net.newgaea.mffs.common.libs.LibMisc.MOD_ID;
 
 public class MFFSBlocks {
 
@@ -40,6 +40,26 @@ public class MFFSBlocks {
         ModelFile on = provider.models().orientable(blockname+"_on",provider.modLoc("block/"+blockname+"/side_active"),provider.modLoc("block/"+blockname+"/face_active"),provider.modLoc("block/"+blockname+"/side_active"));
         provider.horizontalBlock(block,blockState -> blockState.get(BlockSimpleNetwork.ACTIVE) ?on:off);
 
+    }
+
+    protected static void registerProjector(Block block, String blockname, RegistrateBlockstateProvider provider) {
+
+        provider.getVariantBuilder(block)
+                .forAllStates(state -> {
+                    Direction dir = state.get(BlockStateProperties.FACING);
+                    return ConfiguredModel.builder()
+                            .modelFile(projectorModels(blockname,state.get(BlockSimpleNetwork.ACTIVE),state.get(BlockProjector.TYPE),provider))
+                            .rotationX(dir == Direction.DOWN ? 90 : !dir.getAxis().isHorizontal() ? 270 : 0)
+                            .rotationY(dir.getAxis().isVertical() ? 0 : (((int) dir.getHorizontalAngle()) + 180) % 360)
+                            .build();
+                });
+    }
+    protected static ModelFile projectorModels(String blockname, boolean active, EnumProjectorModule type, RegistrateBlockstateProvider provider)
+    {
+
+        ModelFile off=provider.models().orientable(blockname+"_"+type.getString()+"_off",provider.modLoc("block/"+blockname+"/"+type.getString()+"/side_inactive"),provider.modLoc("block/"+blockname+"/"+type.getString()+"/face_inactive"),provider.modLoc("block/"+blockname+"/"+type.getString()+"/side_inactive"));
+        ModelFile on = provider.models().orientable(blockname+"_"+type.getString()+"_on",provider.modLoc("block/"+blockname+"/"+type.getString()+"/side_active"),provider.modLoc("block/"+blockname+"/"+type.getString()+"/face_active"),provider.modLoc("block/"+blockname+"/"+type.getString()+"/side_active"));
+        return active?on:off;
     }
 
     public static final BlockEntry<Block> MONAZIT_ORE = MFFSInit.REGISTRATE.object(LibBlocks.MONAZIT_ORE)
@@ -90,7 +110,7 @@ public class MFFSBlocks {
                                                     .builder()
                                                     .addCondition(GeneratorEnabled.INSTANCE)
                                                     .addRecipe(iFinishedRecipe)
-                                                    .build(prov,new ResourceLocation(LibMisc.MOD_ID, ctx.getName()))))
+                                                    .build(prov,new ResourceLocation(MOD_ID, ctx.getName()))))
             .register();
 
     public static final BlockEntry<BlockCapacitor> CAPACITOR = MFFSInit.REGISTRATE.object(LibBlocks.CAPACITOR)
@@ -112,5 +132,34 @@ public class MFFSBlocks {
             .tag(BlockTags.WITHER_IMMUNE)
             .tileEntity(TileCapacitor::new)
             .build()
+            .register();
+
+    public static final BlockEntry<BlockForceField> FORCEFIELD = MFFSInit.REGISTRATE.object(LibBlocks.FORCEFIELD)
+            .block(BlockForceField::new)
+            .defaultLang()
+            .initialProperties(Material.LEAVES,MaterialColor.AIR)
+            .properties(properties -> properties.hardnessAndResistance(999f))
+            .properties(AbstractBlock.Properties::noDrops)
+            .blockstate((ctx,prov) -> {
+                ModelFile file=prov.models().getExistingFile(new ResourceLocation(MOD_ID,"forcefield"));
+                prov.simpleBlock(ctx.get(),file);
+            })
+            .tileEntity(TileForcefield::new).build()
+            .register();
+
+    public static final BlockEntry<BlockProjector> PROJECTOR = MFFSInit.REGISTRATE.object(LibBlocks.PROJECTOR)
+            .block(BlockProjector::new)
+            .defaultLang()
+            .defaultLoot()
+            .initialProperties(Material.IRON,MaterialColor.IRON)
+            .properties(properties -> properties.sound(SoundType.METAL))
+            .properties(properties -> properties.harvestLevel(1))
+            .properties(properties -> properties.harvestTool(ToolType.PICKAXE))
+            .blockstate((ctx,prov)-> registerProjector(ctx.get(),ctx.getName(),prov))
+            .item()
+            .model((ctx,prov) -> prov.withExistingParent(ctx.getName(),prov.modLoc("block/projector_empty_off")))
+            .group(ItemGroupMFFS::GetInstance)
+            .build()
+            .tileEntity(TileProjector::new).build()
             .register();
 }

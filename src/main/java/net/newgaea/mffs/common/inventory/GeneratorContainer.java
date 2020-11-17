@@ -22,6 +22,7 @@ import net.minecraftforge.items.CapabilityItemHandler;
 import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.SlotItemHandler;
 import net.minecraftforge.items.wrapper.InvWrapper;
+import net.newgaea.mffs.api.MFFSTags;
 import net.newgaea.mffs.common.init.MFFSBlocks;
 import net.newgaea.mffs.common.init.MFFSContainer;
 import net.newgaea.mffs.common.init.MFFSItems;
@@ -145,7 +146,7 @@ public class GeneratorContainer extends Container {
             ItemStack itemstack1 = slot.getStack();
             itemstack = itemstack1.copy();
             if (index != 1 && index != 0) {
-                if (itemstack1.getItem()== MFFSItems.MONAZIT_CRYSTAL.get()) {
+                if(MFFSTags.CRYSTAL_MONAZIT.contains(itemstack1.getItem())) {
                     if (!this.mergeItemStack(itemstack1, 0, 1, false)) {
                         return ItemStack.EMPTY;
                     }
