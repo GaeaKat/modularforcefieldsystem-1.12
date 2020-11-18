@@ -1,5 +1,6 @@
 package net.newgaea.mffs.common.items.modules;
 
+import net.minecraft.tileentity.TileEntity;
 import net.newgaea.mffs.api.EnumProjectorModule;
 
 public class ItemDeflectorModule extends ItemProjectorModule{
@@ -10,5 +11,9 @@ public class ItemDeflectorModule extends ItemProjectorModule{
     @Override
     public String getModuleType() {
         return EnumProjectorModule.Deflector.getString();
+    }
+    @Override
+    public boolean enabledFoci() {
+        return true;
     }
 }

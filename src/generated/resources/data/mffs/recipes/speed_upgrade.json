@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    " E ",
+    "EBE",
+    " E "
+  ],
+  "key": {
+    "B": {
+      "item": "mffs:monazit_circuit"
+    },
+    "E": {
+      "item": "minecraft:gold_ingot"
+    }
+  },
+  "result": {
+    "item": "mffs:speed_upgrade"
+  }
+}

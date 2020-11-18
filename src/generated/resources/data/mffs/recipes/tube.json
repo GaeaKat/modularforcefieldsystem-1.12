@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "AAA",
+    " B ",
+    "AAA"
+  ],
+  "key": {
+    "A": {
+      "item": "minecraft:iron_ingot"
+    },
+    "B": {
+      "item": "mffs:monazit_circuit"
+    }
+  },
+  "result": {
+    "item": "mffs:tube"
+  }
+}

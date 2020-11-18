@@ -68,5 +68,7 @@ public class MFFSContainer {
     public static final RegistryEntry<ContainerType<ProjectorContainer>> PROJECTOR = MFFSInit.REGISTRATE.object(LibContainer.PROJECTOR)
             .container(
                     (type,windowId,playerInv) ->
-                            new ProjectorContainer(type,windowId,playerInv.player, TileProjector.createModuleInv(null)),() -> ProjectorScreen::new).register();
+                            new ProjectorContainer(type,windowId,playerInv.player, TileProjector.createModuleInv(null),TileProjector.createFocusInv(null)),() -> ProjectorScreen::new).register();
+
 }
+

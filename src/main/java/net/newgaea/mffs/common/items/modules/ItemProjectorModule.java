@@ -2,6 +2,7 @@ package net.newgaea.mffs.common.items.modules;
 
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.Direction;
 import net.newgaea.mffs.api.IProjectorModule;
 
 public abstract class ItemProjectorModule extends Item implements IProjectorModule {
@@ -15,6 +16,7 @@ public abstract class ItemProjectorModule extends Item implements IProjectorModu
     public int getItemStackLimit(ItemStack stack) {
         return 1;
     }
+
 
 
 }

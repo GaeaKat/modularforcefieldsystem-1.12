@@ -1,0 +1,13 @@
+{
+  "replace": false,
+  "values": [
+    "mffs:advanced_cube",
+    "mffs:containment",
+    "mffs:cube",
+    "mffs:deflector",
+    "mffs:diagonal_wall",
+    "mffs:sphere",
+    "mffs:tube",
+    "mffs:wall"
+  ]
+}

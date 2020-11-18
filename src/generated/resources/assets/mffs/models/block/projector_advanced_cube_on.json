@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/orientable",
+  "textures": {
+    "side": "mffs:block/projector/advanced_cube/side_active",
+    "front": "mffs:block/projector/advanced_cube/face_active",
+    "top": "mffs:block/projector/advanced_cube/side_active"
+  }
+}

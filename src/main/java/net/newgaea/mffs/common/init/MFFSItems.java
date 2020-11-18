@@ -80,12 +80,12 @@ public class MFFSItems {
                     .group(ItemGroupMFFS::GetInstance)
                     .recipe((ctx,prov) ->ShapedRecipeBuilder.shapedRecipe(ctx.get()).addCriterion("circuit_has",hasItem(MFFSItems.MONAZIT_CIRCUIT.get()))
                             //.key('B',MFFSItems.MONAZIT_CIRCUIT.get())
-                            .key('H',Tags.Items.INGOTS_BRICK)
+                            //.key('H',Tags.Items.INGOTS_BRICK)
                             .key('E',Items.GOLD_INGOT)
-                            .key('i',Tags.Items.GEMS_DIAMOND)
-                            .patternLine("HHH")
-                            .patternLine("EiE")
-                            .patternLine("HHH").build(prov))
+                            .key('x',MFFSItems.MONAZIT_CRYSTAL.get()) // todo: replace with monazit cell
+                            .patternLine(" E ")
+                            .patternLine("ExE")
+                            .patternLine("EEE").build(prov))
                     .register();
 
     public static final ItemEntry<ItemUpgrade> RANGE_UPGRADE =
@@ -96,14 +96,13 @@ public class MFFSItems {
                     )
             .defaultLang()
             .group(ItemGroupMFFS::GetInstance)
-                    .recipe((ctx,prov) ->ShapedRecipeBuilder.shapedRecipe(ctx.get()).addCriterion("circuit_has",hasItem(MFFSItems.MONAZIT_CIRCUIT.get()))
-                            .key('A',Items.IRON_INGOT)
-                            //.key('B',MFFSItems.MONAZIT_CIRCUIT.get())
-                            .key('l',Tags.Items.GLASS )
+                    .recipe((ctx,prov) ->ShapedRecipeBuilder.shapedRecipe(ctx.get()).addCriterion("diamond_has",hasItem(Tags.Items.GEMS_DIAMOND))
+                            .key('H',Tags.Items.INGOTS_BRICK)
+                            .key('E',Items.GOLD_INGOT)
                             .key('i',Tags.Items.GEMS_DIAMOND)
-                            .patternLine("AlA")
-                            .patternLine("lil")
-                            .patternLine("AlA").build(prov))
+                            .patternLine("HHH")
+                            .patternLine("EiE")
+                            .patternLine("HHH").build(prov))
             .register();
 
     public static final ItemEntry<ItemUpgrade> SPEED_UPGRADE =
@@ -113,7 +112,7 @@ public class MFFSItems {
                 )
             .defaultLang()
             .group(ItemGroupMFFS::GetInstance)
-                    .recipe((ctx,prov) ->ShapedRecipeBuilder.shapedRecipe(ctx.get()).addCriterion("circuit_has",hasItem(MFFSItems.MONAZIT_CIRCUIT.get()))
+                    .recipe((ctx,prov) ->ShapedRecipeBuilder.shapedRecipe(ctx.get()).addCriterion("diamond_has",hasItem(Tags.Items.GEMS_DIAMOND))
                             //.key('A',Items.IRON_INGOT)
                             .key('B',MFFSItems.MONAZIT_CIRCUIT.get())
                             .key('E',Items.GOLD_INGOT)
@@ -121,6 +120,23 @@ public class MFFSItems {
                             .patternLine("EBE")
                             .patternLine(" E ").build(prov))
                     .register();
+    public static final ItemEntry<Item> FOCUS_MATRIX = MFFSInit.REGISTRATE.object(LibItems.FOCUS_MATRIX)
+            .item(Item::new)
+            .defaultLang()
+            .defaultModel()
+            .group(ItemGroupMFFS::GetInstance)
+            .recipe((ctx,prov) ->
+                    ShapedRecipeBuilder.shapedRecipe(ctx.get()).addCriterion("diamond_has",hasItem(Tags.Items.GEMS_DIAMOND))
+                            .key('A',Items.IRON_INGOT)
+                            //.key('B',MFFSItems.MONAZIT_CIRCUIT.get())
+                            .key('l',Tags.Items.GLASS )
+                            .key('i',Tags.Items.GEMS_DIAMOND)
+                            .patternLine("AlA")
+                            .patternLine("lil")
+                            .patternLine("AlA")
+                            .build(prov)
+            )
+            .register();
 
     //<editor-fold desc="Modules">
     public static final ItemEntry<ItemAdvCubeModule> ADV_CUBE_MODULE = MFFSInit.REGISTRATE.object(LibItems.Modules.ADV_CUBE)

@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "AlA",
+    "lil",
+    "AlA"
+  ],
+  "key": {
+    "A": {
+      "item": "minecraft:iron_ingot"
+    },
+    "l": {
+      "tag": "forge:glass"
+    },
+    "i": {
+      "tag": "forge:gems/diamond"
+    }
+  },
+  "result": {
+    "item": "mffs:focus_matrix"
+  }
+}

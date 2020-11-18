@@ -1,0 +1,464 @@
+{
+  "variants": {
+    "active=false,facing=down,type=empty": {
+      "model": "mffs:block/projector_empty_off",
+      "x": 90
+    },
+    "active=true,facing=down,type=empty": {
+      "model": "mffs:block/projector_empty_on",
+      "x": 90
+    },
+    "active=false,facing=up,type=empty": {
+      "model": "mffs:block/projector_empty_off",
+      "x": 270
+    },
+    "active=true,facing=up,type=empty": {
+      "model": "mffs:block/projector_empty_on",
+      "x": 270
+    },
+    "active=false,facing=north,type=empty": {
+      "model": "mffs:block/projector_empty_off"
+    },
+    "active=true,facing=north,type=empty": {
+      "model": "mffs:block/projector_empty_on"
+    },
+    "active=false,facing=south,type=empty": {
+      "model": "mffs:block/projector_empty_off",
+      "y": 180
+    },
+    "active=true,facing=south,type=empty": {
+      "model": "mffs:block/projector_empty_on",
+      "y": 180
+    },
+    "active=false,facing=west,type=empty": {
+      "model": "mffs:block/projector_empty_off",
+      "y": 270
+    },
+    "active=true,facing=west,type=empty": {
+      "model": "mffs:block/projector_empty_on",
+      "y": 270
+    },
+    "active=false,facing=east,type=empty": {
+      "model": "mffs:block/projector_empty_off",
+      "y": 90
+    },
+    "active=true,facing=east,type=empty": {
+      "model": "mffs:block/projector_empty_on",
+      "y": 90
+    },
+    "active=false,facing=down,type=advanced_cube": {
+      "model": "mffs:block/projector_advanced_cube_off",
+      "x": 90
+    },
+    "active=true,facing=down,type=advanced_cube": {
+      "model": "mffs:block/projector_advanced_cube_on",
+      "x": 90
+    },
+    "active=false,facing=up,type=advanced_cube": {
+      "model": "mffs:block/projector_advanced_cube_off",
+      "x": 270
+    },
+    "active=true,facing=up,type=advanced_cube": {
+      "model": "mffs:block/projector_advanced_cube_on",
+      "x": 270
+    },
+    "active=false,facing=north,type=advanced_cube": {
+      "model": "mffs:block/projector_advanced_cube_off"
+    },
+    "active=true,facing=north,type=advanced_cube": {
+      "model": "mffs:block/projector_advanced_cube_on"
+    },
+    "active=false,facing=south,type=advanced_cube": {
+      "model": "mffs:block/projector_advanced_cube_off",
+      "y": 180
+    },
+    "active=true,facing=south,type=advanced_cube": {
+      "model": "mffs:block/projector_advanced_cube_on",
+      "y": 180
+    },
+    "active=false,facing=west,type=advanced_cube": {
+      "model": "mffs:block/projector_advanced_cube_off",
+      "y": 270
+    },
+    "active=true,facing=west,type=advanced_cube": {
+      "model": "mffs:block/projector_advanced_cube_on",
+      "y": 270
+    },
+    "active=false,facing=east,type=advanced_cube": {
+      "model": "mffs:block/projector_advanced_cube_off",
+      "y": 90
+    },
+    "active=true,facing=east,type=advanced_cube": {
+      "model": "mffs:block/projector_advanced_cube_on",
+      "y": 90
+    },
+    "active=false,facing=down,type=containment": {
+      "model": "mffs:block/projector_containment_off",
+      "x": 90
+    },
+    "active=true,facing=down,type=containment": {
+      "model": "mffs:block/projector_containment_on",
+      "x": 90
+    },
+    "active=false,facing=up,type=containment": {
+      "model": "mffs:block/projector_containment_off",
+      "x": 270
+    },
+    "active=true,facing=up,type=containment": {
+      "model": "mffs:block/projector_containment_on",
+      "x": 270
+    },
+    "active=false,facing=north,type=containment": {
+      "model": "mffs:block/projector_containment_off"
+    },
+    "active=true,facing=north,type=containment": {
+      "model": "mffs:block/projector_containment_on"
+    },
+    "active=false,facing=south,type=containment": {
+      "model": "mffs:block/projector_containment_off",
+      "y": 180
+    },
+    "active=true,facing=south,type=containment": {
+      "model": "mffs:block/projector_containment_on",
+      "y": 180
+    },
+    "active=false,facing=west,type=containment": {
+      "model": "mffs:block/projector_containment_off",
+      "y": 270
+    },
+    "active=true,facing=west,type=containment": {
+      "model": "mffs:block/projector_containment_on",
+      "y": 270
+    },
+    "active=false,facing=east,type=containment": {
+      "model": "mffs:block/projector_containment_off",
+      "y": 90
+    },
+    "active=true,facing=east,type=containment": {
+      "model": "mffs:block/projector_containment_on",
+      "y": 90
+    },
+    "active=false,facing=down,type=cube": {
+      "model": "mffs:block/projector_cube_off",
+      "x": 90
+    },
+    "active=true,facing=down,type=cube": {
+      "model": "mffs:block/projector_cube_on",
+      "x": 90
+    },
+    "active=false,facing=up,type=cube": {
+      "model": "mffs:block/projector_cube_off",
+      "x": 270
+    },
+    "active=true,facing=up,type=cube": {
+      "model": "mffs:block/projector_cube_on",
+      "x": 270
+    },
+    "active=false,facing=north,type=cube": {
+      "model": "mffs:block/projector_cube_off"
+    },
+    "active=true,facing=north,type=cube": {
+      "model": "mffs:block/projector_cube_on"
+    },
+    "active=false,facing=south,type=cube": {
+      "model": "mffs:block/projector_cube_off",
+      "y": 180
+    },
+    "active=true,facing=south,type=cube": {
+      "model": "mffs:block/projector_cube_on",
+      "y": 180
+    },
+    "active=false,facing=west,type=cube": {
+      "model": "mffs:block/projector_cube_off",
+      "y": 270
+    },
+    "active=true,facing=west,type=cube": {
+      "model": "mffs:block/projector_cube_on",
+      "y": 270
+    },
+    "active=false,facing=east,type=cube": {
+      "model": "mffs:block/projector_cube_off",
+      "y": 90
+    },
+    "active=true,facing=east,type=cube": {
+      "model": "mffs:block/projector_cube_on",
+      "y": 90
+    },
+    "active=false,facing=down,type=deflector": {
+      "model": "mffs:block/projector_deflector_off",
+      "x": 90
+    },
+    "active=true,facing=down,type=deflector": {
+      "model": "mffs:block/projector_deflector_on",
+      "x": 90
+    },
+    "active=false,facing=up,type=deflector": {
+      "model": "mffs:block/projector_deflector_off",
+      "x": 270
+    },
+    "active=true,facing=up,type=deflector": {
+      "model": "mffs:block/projector_deflector_on",
+      "x": 270
+    },
+    "active=false,facing=north,type=deflector": {
+      "model": "mffs:block/projector_deflector_off"
+    },
+    "active=true,facing=north,type=deflector": {
+      "model": "mffs:block/projector_deflector_on"
+    },
+    "active=false,facing=south,type=deflector": {
+      "model": "mffs:block/projector_deflector_off",
+      "y": 180
+    },
+    "active=true,facing=south,type=deflector": {
+      "model": "mffs:block/projector_deflector_on",
+      "y": 180
+    },
+    "active=false,facing=west,type=deflector": {
+      "model": "mffs:block/projector_deflector_off",
+      "y": 270
+    },
+    "active=true,facing=west,type=deflector": {
+      "model": "mffs:block/projector_deflector_on",
+      "y": 270
+    },
+    "active=false,facing=east,type=deflector": {
+      "model": "mffs:block/projector_deflector_off",
+      "y": 90
+    },
+    "active=true,facing=east,type=deflector": {
+      "model": "mffs:block/projector_deflector_on",
+      "y": 90
+    },
+    "active=false,facing=down,type=diagonal_wall": {
+      "model": "mffs:block/projector_diagonal_wall_off",
+      "x": 90
+    },
+    "active=true,facing=down,type=diagonal_wall": {
+      "model": "mffs:block/projector_diagonal_wall_on",
+      "x": 90
+    },
+    "active=false,facing=up,type=diagonal_wall": {
+      "model": "mffs:block/projector_diagonal_wall_off",
+      "x": 270
+    },
+    "active=true,facing=up,type=diagonal_wall": {
+      "model": "mffs:block/projector_diagonal_wall_on",
+      "x": 270
+    },
+    "active=false,facing=north,type=diagonal_wall": {
+      "model": "mffs:block/projector_diagonal_wall_off"
+    },
+    "active=true,facing=north,type=diagonal_wall": {
+      "model": "mffs:block/projector_diagonal_wall_on"
+    },
+    "active=false,facing=south,type=diagonal_wall": {
+      "model": "mffs:block/projector_diagonal_wall_off",
+      "y": 180
+    },
+    "active=true,facing=south,type=diagonal_wall": {
+      "model": "mffs:block/projector_diagonal_wall_on",
+      "y": 180
+    },
+    "active=false,facing=west,type=diagonal_wall": {
+      "model": "mffs:block/projector_diagonal_wall_off",
+      "y": 270
+    },
+    "active=true,facing=west,type=diagonal_wall": {
+      "model": "mffs:block/projector_diagonal_wall_on",
+      "y": 270
+    },
+    "active=false,facing=east,type=diagonal_wall": {
+      "model": "mffs:block/projector_diagonal_wall_off",
+      "y": 90
+    },
+    "active=true,facing=east,type=diagonal_wall": {
+      "model": "mffs:block/projector_diagonal_wall_on",
+      "y": 90
+    },
+    "active=false,facing=down,type=sphere": {
+      "model": "mffs:block/projector_sphere_off",
+      "x": 90
+    },
+    "active=true,facing=down,type=sphere": {
+      "model": "mffs:block/projector_sphere_on",
+      "x": 90
+    },
+    "active=false,facing=up,type=sphere": {
+      "model": "mffs:block/projector_sphere_off",
+      "x": 270
+    },
+    "active=true,facing=up,type=sphere": {
+      "model": "mffs:block/projector_sphere_on",
+      "x": 270
+    },
+    "active=false,facing=north,type=sphere": {
+      "model": "mffs:block/projector_sphere_off"
+    },
+    "active=true,facing=north,type=sphere": {
+      "model": "mffs:block/projector_sphere_on"
+    },
+    "active=false,facing=south,type=sphere": {
+      "model": "mffs:block/projector_sphere_off",
+      "y": 180
+    },
+    "active=true,facing=south,type=sphere": {
+      "model": "mffs:block/projector_sphere_on",
+      "y": 180
+    },
+    "active=false,facing=west,type=sphere": {
+      "model": "mffs:block/projector_sphere_off",
+      "y": 270
+    },
+    "active=true,facing=west,type=sphere": {
+      "model": "mffs:block/projector_sphere_on",
+      "y": 270
+    },
+    "active=false,facing=east,type=sphere": {
+      "model": "mffs:block/projector_sphere_off",
+      "y": 90
+    },
+    "active=true,facing=east,type=sphere": {
+      "model": "mffs:block/projector_sphere_on",
+      "y": 90
+    },
+    "active=false,facing=down,type=tube": {
+      "model": "mffs:block/projector_tube_off",
+      "x": 90
+    },
+    "active=true,facing=down,type=tube": {
+      "model": "mffs:block/projector_tube_on",
+      "x": 90
+    },
+    "active=false,facing=up,type=tube": {
+      "model": "mffs:block/projector_tube_off",
+      "x": 270
+    },
+    "active=true,facing=up,type=tube": {
+      "model": "mffs:block/projector_tube_on",
+      "x": 270
+    },
+    "active=false,facing=north,type=tube": {
+      "model": "mffs:block/projector_tube_off"
+    },
+    "active=true,facing=north,type=tube": {
+      "model": "mffs:block/projector_tube_on"
+    },
+    "active=false,facing=south,type=tube": {
+      "model": "mffs:block/projector_tube_off",
+      "y": 180
+    },
+    "active=true,facing=south,type=tube": {
+      "model": "mffs:block/projector_tube_on",
+      "y": 180
+    },
+    "active=false,facing=west,type=tube": {
+      "model": "mffs:block/projector_tube_off",
+      "y": 270
+    },
+    "active=true,facing=west,type=tube": {
+      "model": "mffs:block/projector_tube_on",
+      "y": 270
+    },
+    "active=false,facing=east,type=tube": {
+      "model": "mffs:block/projector_tube_off",
+      "y": 90
+    },
+    "active=true,facing=east,type=tube": {
+      "model": "mffs:block/projector_tube_on",
+      "y": 90
+    },
+    "active=false,facing=down,type=wall": {
+      "model": "mffs:block/projector_wall_off",
+      "x": 90
+    },
+    "active=true,facing=down,type=wall": {
+      "model": "mffs:block/projector_wall_on",
+      "x": 90
+    },
+    "active=false,facing=up,type=wall": {
+      "model": "mffs:block/projector_wall_off",
+      "x": 270
+    },
+    "active=true,facing=up,type=wall": {
+      "model": "mffs:block/projector_wall_on",
+      "x": 270
+    },
+    "active=false,facing=north,type=wall": {
+      "model": "mffs:block/projector_wall_off"
+    },
+    "active=true,facing=north,type=wall": {
+      "model": "mffs:block/projector_wall_on"
+    },
+    "active=false,facing=south,type=wall": {
+      "model": "mffs:block/projector_wall_off",
+      "y": 180
+    },
+    "active=true,facing=south,type=wall": {
+      "model": "mffs:block/projector_wall_on",
+      "y": 180
+    },
+    "active=false,facing=west,type=wall": {
+      "model": "mffs:block/projector_wall_off",
+      "y": 270
+    },
+    "active=true,facing=west,type=wall": {
+      "model": "mffs:block/projector_wall_on",
+      "y": 270
+    },
+    "active=false,facing=east,type=wall": {
+      "model": "mffs:block/projector_wall_off",
+      "y": 90
+    },
+    "active=true,facing=east,type=wall": {
+      "model": "mffs:block/projector_wall_on",
+      "y": 90
+    },
+    "active=false,facing=down,type=custom": {
+      "model": "mffs:block/projector_custom_off",
+      "x": 90
+    },
+    "active=true,facing=down,type=custom": {
+      "model": "mffs:block/projector_custom_on",
+      "x": 90
+    },
+    "active=false,facing=up,type=custom": {
+      "model": "mffs:block/projector_custom_off",
+      "x": 270
+    },
+    "active=true,facing=up,type=custom": {
+      "model": "mffs:block/projector_custom_on",
+      "x": 270
+    },
+    "active=false,facing=north,type=custom": {
+      "model": "mffs:block/projector_custom_off"
+    },
+    "active=true,facing=north,type=custom": {
+      "model": "mffs:block/projector_custom_on"
+    },
+    "active=false,facing=south,type=custom": {
+      "model": "mffs:block/projector_custom_off",
+      "y": 180
+    },
+    "active=true,facing=south,type=custom": {
+      "model": "mffs:block/projector_custom_on",
+      "y": 180
+    },
+    "active=false,facing=west,type=custom": {
+      "model": "mffs:block/projector_custom_off",
+      "y": 270
+    },
+    "active=true,facing=west,type=custom": {
+      "model": "mffs:block/projector_custom_on",
+      "y": 270
+    },
+    "active=false,facing=east,type=custom": {
+      "model": "mffs:block/projector_custom_off",
+      "y": 90
+    },
+    "active=true,facing=east,type=custom": {
+      "model": "mffs:block/projector_custom_on",
+      "y": 90
+    }
+  }
+}

@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+    "recipes": [
+      "mffs:focus_matrix"
+    ]
+  },
+  "criteria": {
+    "diamond_has": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "tag": "forge:gems/diamond"
+          }
+        ]
+      }
+    },
+    "has_the_recipe": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": {
+        "recipe": "mffs:focus_matrix"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "diamond_has",
+      "has_the_recipe"
+    ]
+  ]
+}

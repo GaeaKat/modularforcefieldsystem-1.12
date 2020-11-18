@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "AAA",
+    "ACA",
+    "AAA"
+  ],
+  "key": {
+    "A": {
+      "item": "minecraft:iron_ingot"
+    },
+    "C": {
+      "item": "mffs:monazit_crystal"
+    }
+  },
+  "result": {
+    "item": "mffs:advanced_cube"
+  }
+}

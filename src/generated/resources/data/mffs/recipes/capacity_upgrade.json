@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    " E ",
+    "ExE",
+    "EEE"
+  ],
+  "key": {
+    "E": {
+      "item": "minecraft:gold_ingot"
+    },
+    "x": {
+      "item": "mffs:monazit_crystal"
+    }
+  },
+  "result": {
+    "item": "mffs:capacity_upgrade"
+  }
+}

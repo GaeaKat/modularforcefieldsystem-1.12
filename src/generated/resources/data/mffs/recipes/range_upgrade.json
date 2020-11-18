@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "HHH",
+    "EiE",
+    "HHH"
+  ],
+  "key": {
+    "H": {
+      "tag": "forge:ingots/brick"
+    },
+    "E": {
+      "item": "minecraft:gold_ingot"
+    },
+    "i": {
+      "tag": "forge:gems/diamond"
+    }
+  },
+  "result": {
+    "item": "mffs:range_upgrade"
+  }
+}
