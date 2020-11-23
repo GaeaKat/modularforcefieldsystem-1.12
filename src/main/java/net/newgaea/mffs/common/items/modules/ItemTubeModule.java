@@ -1,7 +1,12 @@
 package net.newgaea.mffs.common.items.modules;
 
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.Direction;
+import net.minecraft.util.math.BlockPos;
 import net.newgaea.mffs.api.EnumProjectorModule;
+import net.newgaea.mffs.api.IModularProjector;
+
+import java.util.Set;
 
 public class ItemTubeModule extends ItemProjectorModule {
     public ItemTubeModule(Properties properties) {
@@ -15,5 +20,30 @@ public class ItemTubeModule extends ItemProjectorModule {
     @Override
     public boolean enabledFoci() {
         return false;
+    }
+
+    @Override
+    public boolean enabledStrength() {
+        return true;
+    }
+
+    @Override
+    public boolean enabledDistance() {
+        return true;
+    }
+
+    @Override
+    public boolean is3D() {
+        return true;
+    }
+
+    @Override
+    public void calculateField(IModularProjector projector, Set<BlockPos> fieldPoints) {
+
+    }
+
+    @Override
+    public void calculateField(IModularProjector projector, Set<BlockPos> fieldPoints, Set<BlockPos> interior) {
+
     }
 }

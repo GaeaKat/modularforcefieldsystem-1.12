@@ -16,6 +16,7 @@ import net.newgaea.mffs.common.items.modules.*;
 import net.newgaea.mffs.common.libs.LibItems;
 import net.newgaea.mffs.common.misc.EnumUpgrade;
 import net.newgaea.mffs.common.misc.ItemGroupMFFS;
+import net.newgaea.mffs.common.misc.MFFSInventoryHelper;
 
 import static com.tterrag.registrate.providers.RegistrateRecipeProvider.hasItem;
 import static net.newgaea.mffs.common.libs.LibMisc.MOD_ID;
@@ -136,6 +137,32 @@ public class MFFSItems {
                             .patternLine("AlA")
                             .build(prov)
             )
+            .register();
+
+    public static final ItemEntry<Item> DISTANCE_MODIFIER = MFFSInit.REGISTRATE.object(LibItems.DISTANCE_MODIFIER)
+            .item(Item::new)
+            .defaultModel()
+            .defaultLang()
+            .group(ItemGroupMFFS::GetInstance)
+            .recipe((ctx,prov) ->
+                    ShapedRecipeBuilder.shapedRecipe(ctx.get()).addCriterion("focus_has",hasItem(FOCUS_MATRIX.get()))
+                            .key('v',FOCUS_MATRIX.get())
+                            .patternLine("vvv")
+                            .patternLine("   ")
+                            .patternLine("vvv"))
+            .register();
+
+    public static final ItemEntry<Item> STRENGTH_MODIFIER = MFFSInit.REGISTRATE.object(LibItems.STRENGTH_MODIFIER)
+            .item(Item::new)
+            .defaultModel()
+            .defaultLang()
+            .group(ItemGroupMFFS::GetInstance)
+            .recipe((ctx,prov) ->
+                    ShapedRecipeBuilder.shapedRecipe(ctx.get()).addCriterion("focus_has",hasItem(FOCUS_MATRIX.get()))
+                            .key('v',FOCUS_MATRIX.get())
+                            .patternLine("vvv")
+                            .patternLine("vvv")
+                            .patternLine("vvv"))
             .register();
 
     //<editor-fold desc="Modules">

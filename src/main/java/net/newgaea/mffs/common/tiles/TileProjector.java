@@ -35,6 +35,62 @@ public class TileProjector extends TileNetwork implements INamedContainerProvide
 
     private IItemHandler foci=createFocusInv(this);
     private LazyOptional<IItemHandler> fociHandler = LazyOptional.of(()->foci);
+
+    private IItemHandler distanceModifier=createDistanceInv(this);
+
+
+
+    private IItemHandler strengthModifier=createStrengthInv(this);
+
+    public static IItemHandler createStrengthInv(TileProjector projector) {
+        return new ItemStackHandler(1) {
+            @Override
+            public boolean isItemValid(int slot, ItemStack stack) {
+                return stack.getItem()== MFFSItems.STRENGTH_MODIFIER.get();
+            }
+
+            @Override
+            public ItemStack insertItem(int slot, ItemStack stack, boolean simulate) {
+                if(stack.getItem()!= MFFSItems.STRENGTH_MODIFIER.get())
+                    return stack;
+
+                return super.insertItem(slot, stack, simulate);
+            }
+
+            @Override
+            protected void onContentsChanged(int slot) {
+                super.onContentsChanged(slot);
+                if(projector!=null)
+                    projector.markDirty();
+            }
+        };
+    }
+    @org.jetbrains.annotations.NotNull
+    @org.jetbrains.annotations.Contract("_ -> new")
+    public static IItemHandler createDistanceInv(TileProjector projector) {
+        return new ItemStackHandler(1) {
+            @Override
+            public boolean isItemValid(int slot, ItemStack stack) {
+                return stack.getItem()== MFFSItems.DISTANCE_MODIFIER.get();
+            }
+
+            @Override
+            public ItemStack insertItem(int slot, ItemStack stack, boolean simulate) {
+                if(stack.getItem()!= MFFSItems.DISTANCE_MODIFIER.get())
+                    return stack;
+
+                return super.insertItem(slot, stack, simulate);
+            }
+
+            @Override
+            protected void onContentsChanged(int slot) {
+                super.onContentsChanged(slot);
+                if(projector!=null)
+                    projector.markDirty();
+            }
+        };
+    }
+
     public TileProjector(TileEntityType<?> tileEntityTypeIn) {
         super(tileEntityTypeIn);
     }
@@ -107,7 +163,7 @@ public class TileProjector extends TileNetwork implements INamedContainerProvide
 
     @Override
     public Container createMenu(int windowId, PlayerInventory playerInventory, PlayerEntity playerEntity) {
-        return new ProjectorContainer(MFFSContainer.PROJECTOR.get(), windowId,playerEntity,module,foci);
+        return new ProjectorContainer(MFFSContainer.PROJECTOR.get(), windowId,playerEntity,module,foci,distanceModifier,strengthModifier);
     }
 
     @Override
@@ -119,6 +175,12 @@ public class TileProjector extends TileNetwork implements INamedContainerProvide
         if(compound.contains("foci")) {
             ((INBTSerializable<CompoundNBT>)foci).deserializeNBT(compound.getCompound("foci"));
         }
+        if(compound.contains("distance")) {
+            ((INBTSerializable<CompoundNBT>)distanceModifier).deserializeNBT(compound.getCompound("distance"));
+        }
+        if(compound.contains("strength")) {
+            ((INBTSerializable<CompoundNBT>)strengthModifier).deserializeNBT(compound.getCompound("strength"));
+        }
     }
 
     @Override
@@ -126,6 +188,8 @@ public class TileProjector extends TileNetwork implements INamedContainerProvide
         CompoundNBT cmp=super.writeExtra(compound);
         cmp.put("module",((INBTSerializable<CompoundNBT>)module).serializeNBT());
         cmp.put("foci",((INBTSerializable<CompoundNBT>)foci).serializeNBT());
+        cmp.put("distance",((INBTSerializable<CompoundNBT>)distanceModifier).serializeNBT());
+        cmp.put("strength",((INBTSerializable<CompoundNBT>)strengthModifier).serializeNBT());
         return cmp;
 
     }

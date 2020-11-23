@@ -10,6 +10,7 @@
   "item.mffs.cube": "Cube",
   "item.mffs.deflector": "Deflector",
   "item.mffs.diagonal_wall": "Diagonal Wall",
+  "item.mffs.distance_modifier": "Distance Modifier",
   "item.mffs.focus_matrix": "Focus Matrix",
   "item.mffs.link_card": "Link Card",
   "item.mffs.monazit_circuit": "Monazit Circuit",
@@ -17,6 +18,7 @@
   "item.mffs.range_upgrade": "Range Upgrade",
   "item.mffs.speed_upgrade": "Speed Upgrade",
   "item.mffs.sphere": "Sphere",
+  "item.mffs.strength_modifier": "Strength Modifier",
   "item.mffs.tube": "Tube",
   "item.mffs.wall": "Wall",
   "misc.mffs.upgrade.valid": "Upgrades valid for %s"

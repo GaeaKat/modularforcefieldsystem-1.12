@@ -24,8 +24,10 @@ public class ProjectorContainer extends Container implements INotifiableContaine
     private IItemHandler playerInventory;
     public Slot moduleSlot;
     public Map<Direction, SlotItemHandlerToggle> fociSlots=new HashMap<>();
+    public SlotItemHandlerToggle distanceSlot;
+    public SlotItemHandlerToggle strengthSlot;
 
-    public ProjectorContainer(ContainerType<?> type, int id, PlayerEntity player,IItemHandler module,IItemHandler foci) {
+    public ProjectorContainer(ContainerType<?> type, int id, PlayerEntity player,IItemHandler module,IItemHandler foci,IItemHandler distance,IItemHandler strength) {
         super(type, id);
         this.playerEntity=player;
         this.playerInventory=new InvWrapper(player.inventory);
@@ -39,7 +41,10 @@ public class ProjectorContainer extends Container implements INotifiableContaine
         addSlot(fociSlots.get(Direction.SOUTH));
         fociSlots.put(Direction.WEST,new SlotItemHandlerToggle(foci,3,120,45));
         addSlot(fociSlots.get(Direction.WEST));
-
+        distanceSlot=new SlotitemHandlerNotify(distance,this,0,119,63);
+        addSlot(distanceSlot);
+        strengthSlot=new SlotitemHandlerNotify(strength,this,0,155,63);
+        addSlot(strengthSlot);
         layoutPlayerInventorySlots(8,104);
     }
     private int addSlotRange(IItemHandler handler, int index, int x, int y, int amount, int dx) {
@@ -103,6 +108,12 @@ public class ProjectorContainer extends Container implements INotifiableContaine
         fociSlots.forEach(((direction, slot) -> slot.setEnabled(false)));
     }
 
+    private void disableAllSlots() {
+        fociSlots.forEach(((direction, slot) -> slot.setEnabled(false)));
+        strengthSlot.setEnabled(false);
+        distanceSlot.setEnabled(false);
+    }
+
     @Override
     public void stackChanged(ItemStack stack) {
         if(stack!=ItemStack.EMPTY)
@@ -112,10 +123,12 @@ public class ProjectorContainer extends Container implements INotifiableContaine
                 enableFociSlots();
             else
                 disableFociSlots();
+            distanceSlot.setEnabled(module.enabledDistance());
+            strengthSlot.setEnabled(module.enabledStrength());
         }
         else
         {
-            disableFociSlots();
+            disableAllSlots();
         }
     }
 }

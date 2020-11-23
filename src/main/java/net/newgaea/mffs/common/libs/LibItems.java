@@ -8,6 +8,8 @@ public class LibItems {
     public static final String CAPACITY_UPGRADE="capacity_upgrade";
     public static final String SPEED_UPGRADE="speed_upgrade";
     public static final String FOCUS_MATRIX="focus_matrix";
+    public static final String DISTANCE_MODIFIER="distance_modifier";
+    public static final String STRENGTH_MODIFIER="strength_modifier";
     // Modules
     public static class Modules {
         public static final String ADV_CUBE="advanced_cube";
