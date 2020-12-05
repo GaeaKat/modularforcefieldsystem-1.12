@@ -88,15 +88,31 @@
     }
   },
   {
-    "name":"IRON_PLATE",
+    "name": "IRON_PLATE",
     "conditions": [{
       "type": "forge:mod_loaded",
       "modid": "ic2"
+    }, {
+      "type": "forge:not",
+      "value": {
+        "type": "forge:mod_loaded",
+        "modid": "ic2-classic-spmod"
+      }
     }],
-    "ingredient":
-    {
-      "item": "ic2:plate",
-      "data": 3
+    "ingredient": {
+      "type": "forge:ore_dict",
+      "ore": "plateIron"
+    }
+  },
+  {
+    "name": "IRON_PLATE",
+    "conditions": [{
+      "type": "forge:mod_loaded",
+      "modid": "ic2-classic-spmod"
+    }],
+    "ingredient": {
+      "type": "forge:ore_dict",
+      "ore": "ingotRefinedIron"
     }
   },
   {
@@ -107,8 +123,8 @@
     }],
     "ingredient":
     {
-      "item": "ic2:crafting",
-      "data": 2
+      "type": "forge:ore_dict",
+      "ore": "circuitAdvanced"
     }
   },
   {
@@ -152,33 +168,70 @@
     "conditions": [{
       "type": "forge:mod_loaded",
       "modid": "ic2"
+    }, {
+      "type": "forge:not",
+      "value": {
+        "type": "forge:mod_loaded",
+        "modid": "ic2-classic-spmod"
+      }
     }],
-    "ingredient":
-    {
-      "item": "ic2:crafting",
-      "data": 15
-    }
-  },
-  {
-    "name":"OVERCLOCKER",
-    "conditions": [{
-      "type": "forge:mod_loaded",
-      "modid": "ic2"
-    }],
-    "ingredient":
-    {
+    "ingredient": {
       "item": "ic2:upgrade",
       "data": 0
     }
   },
   {
-    "name":"COPPER_NUDE_CABLE",
+    "name": "OVERCLOCKER",
+    "conditions": [{
+      "type": "forge:mod_loaded",
+      "modid": "ic2-classic-spmod"
+    }],
+    "ingredient": {
+      "item": "ic2:ic2upgrades",
+      "data": 0
+    }
+  },
+  {
+    "name": "CARBON_PLATE",
     "conditions": [{
       "type": "forge:mod_loaded",
       "modid": "ic2"
+    }, {
+      "type": "forge:not",
+      "value": {
+        "type": "forge:mod_loaded",
+        "modid": "ic2-classic-spmod"
+      }
     }],
-    "ingredient":
-    {
+    "ingredient": {
+      "item": "ic2:crafting",
+      "data": 15
+    }
+  },
+  {
+    "name": "CARBON_PLATE",
+    "conditions": [{
+      "type": "forge:mod_loaded",
+      "modid": "ic2-classic-spmod"
+    }],
+    "ingredient": {
+      "item": "ic2:itemmisc",
+      "data": 256
+    }
+  },
+  {
+    "name": "COPPER_NUDE_CABLE",
+    "conditions": [{
+      "type": "forge:mod_loaded",
+      "modid": "ic2"
+    }, {
+      "type": "forge:not",
+      "value": {
+        "type": "forge:mod_loaded",
+        "modid": "ic2-classic-spmod"
+      }
+    }],
+    "ingredient": {
       "item": "ic2:cable",
       "data": 0,
       "nbt": {
@@ -188,19 +241,46 @@
     }
   },
   {
-    "name":"COPPER_ONE_CABLE",
+    "name": "COPPER_NUDE_CABLE",
+    "conditions": [{
+      "type": "forge:mod_loaded",
+      "modid": "ic2-classic-spmod"
+    }],
+    "ingredient": {
+      "item": "ic2:itemcable",
+      "data": 0
+    }
+  },
+  {
+    "name": "COPPER_ONE_CABLE",
     "conditions": [{
       "type": "forge:mod_loaded",
       "modid": "ic2"
+    }, {
+      "type": "forge:not",
+      "value": {
+        "type": "forge:mod_loaded",
+        "modid": "ic2-classic-spmod"
+      }
     }],
-    "ingredient":
-    {
+    "ingredient": {
       "item": "ic2:cable",
       "data": 0,
       "nbt": {
         "type": 0,
         "insulation": 1
       }
+    }
+  },
+  {
+    "name": "COPPER_ONE_CABLE",
+    "conditions": [{
+      "type": "forge:mod_loaded",
+      "modid": "ic2-classic-spmod"
+    }],
+    "ingredient": {
+      "item": "ic2:itemcable",
+      "data": 1
     }
   },
   {
