@@ -21,8 +21,6 @@ import net.minecraftforge.client.model.data.IDynamicBakedModel;
 import net.minecraftforge.client.model.data.IModelData;
 import net.minecraftforge.client.model.pipeline.BakedQuadBuilder;
 import net.newgaea.mffs.common.blocks.BlockForceField;
-import net.newgaea.mffs.common.libs.LibBlocks;
-import net.newgaea.mffs.common.libs.LibMisc;
 import net.newgaea.mffs.common.misc.EnumFieldType;
 import net.newgaea.mffs.common.tiles.TileForcefield;
 
@@ -118,15 +116,32 @@ public class ForcefieldModel implements IDynamicBakedModel {
             return Collections.emptyList();
 
         TextureAtlasSprite texture = getTexture(type);
+        TextureAtlasSprite texure2 = Minecraft.getInstance().getAtlasSpriteGetter(AtlasTexture.LOCATION_BLOCKS_TEXTURE).apply(new ResourceLocation("minecraft","block/acacia_log_top"));
         List<BakedQuad> quads = new ArrayList<>();
         double l = .0;
         double r = 1-.0;
-        quads.add(createQuad(v(l, r, l), v(l, r, r), v(r, r, r), v(r, r, l), texture));
-        quads.add(createQuad(v(l, l, l), v(r, l, l), v(r, l, r), v(l, l, r), texture));
-        quads.add(createQuad(v(r, r, r), v(r, l, r), v(r, l, l), v(r, r, l), texture));
-        quads.add(createQuad(v(l, r, l), v(l, l, l), v(l, l, r), v(l, r, r), texture));
-        quads.add(createQuad(v(r, r, l), v(r, l, l), v(l, l, l), v(l, r, l), texture));
-        quads.add(createQuad(v(l, r, r), v(l, l, r), v(r, l, r), v(r, r, r), texture));
+        if(side!=null) {
+            switch (side) {
+                case UP:
+                    quads.add(createQuad(v(l, r, l), v(l, r, r), v(r, r, r), v(r, r, l), texture));
+                    break;
+                case DOWN:
+                    quads.add(createQuad(v(l, l, l), v(r, l, l), v(r, l, r), v(l, l, r), texture));
+                    break;
+                case EAST:
+                    quads.add(createQuad(v(r, r, r), v(r, l, r), v(r, l, l), v(r, r, l), texture));
+                    break;
+                case WEST:
+                    quads.add(createQuad(v(l, r, l), v(l, l, l), v(l, l, r), v(l, r, r), texture));
+                    break;
+                case NORTH:
+                    quads.add(createQuad(v(r, r, l), v(r, l, l), v(l, l, l), v(l, r, l), texture));
+                    break;
+                case SOUTH:
+                    quads.add(createQuad(v(l, r, r), v(l, l, r), v(r, l, r), v(r, r, r), texture));
+                    break;
+            }
+        }
 
         return quads;
     }

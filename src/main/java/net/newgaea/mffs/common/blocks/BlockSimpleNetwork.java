@@ -10,6 +10,9 @@ import net.minecraft.state.properties.BlockStateProperties;
 import net.minecraft.util.Direction;
 import net.minecraft.util.Mirror;
 import net.minecraft.util.Rotation;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.IBlockReader;
+import org.jetbrains.annotations.Nullable;
 
 public abstract class BlockSimpleNetwork extends BlockNetwork {
     public static final DirectionProperty FACING = BlockStateProperties.HORIZONTAL_FACING;
@@ -37,4 +40,6 @@ public abstract class BlockSimpleNetwork extends BlockNetwork {
         super.fillStateContainer(builder);
         builder.add(FACING);
     }
+
+
 }

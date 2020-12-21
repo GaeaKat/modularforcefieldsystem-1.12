@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "vvv",
+    "vvv",
+    "vvv"
+  ],
+  "key": {
+    "v": {
+      "item": "mffs:focus_matrix"
+    }
+  },
+  "result": {
+    "item": "mffs:strength_modifier"
+  }
+}

@@ -24,8 +24,10 @@ public class MFFSConfig {
     public static ForgeConfigSpec.BooleanValue GENERATOR_ENABLED;
     public static  ForgeConfigSpec.IntValue GENERATOR_GENERATE;
 
+    public static ForgeConfigSpec.IntValue FORCEFIELD_PER_TICK;
     static {
         COMMON_BUILDER.comment("General Settings").push(CATEGORY_GENERAL);
+        setupGeneralSettings();
         COMMON_BUILDER.pop();
 
         COMMON_BUILDER.comment("Power settings").push(CATEGORY_POWER);
@@ -33,6 +35,10 @@ public class MFFSConfig {
         COMMON_BUILDER.pop();
         COMMON_CONFIG=COMMON_BUILDER.build();
         CLIENT_CONFIG=CLIENT_BUILDER.build();
+    }
+
+    private static void setupGeneralSettings() {
+        FORCEFIELD_PER_TICK = COMMON_BUILDER.comment("Blocks per tick generated").defineInRange("forcefield_per_tick",10,0,Integer.MAX_VALUE);
     }
 
     private static void setupGeneratorSettings() {

@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "vvv",
+    "   ",
+    "vvv"
+  ],
+  "key": {
+    "v": {
+      "item": "mffs:focus_matrix"
+    }
+  },
+  "result": {
+    "item": "mffs:distance_modifier"
+  }
+}

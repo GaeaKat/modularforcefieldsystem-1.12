@@ -1,6 +1,7 @@
 package net.newgaea.mffs;
 
 
+import io.reactivex.rxjava3.core.Flowable;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.DistExecutor;
 import net.minecraftforge.fml.ModLoadingContext;
@@ -44,7 +45,7 @@ public class MFFS {
         MFFSLang.init();
         MinecraftForge.EVENT_BUS.register(new OreGen());
         PatchouliAPI.instance.setConfigFlag("mffs:generatorEnabled",MFFSConfig.GENERATOR_ENABLED.get());
-
+        Flowable.just("Hello World").subscribe(LOGGER::info);
     }
 
     private void setup(final FMLCommonSetupEvent event) {

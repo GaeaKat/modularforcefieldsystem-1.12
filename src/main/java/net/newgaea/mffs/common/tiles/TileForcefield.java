@@ -32,6 +32,15 @@ public class TileForcefield extends TileMFFS{
 
     private BlockState mimicState;
 
+    public EnumFieldType getFieldType() {
+        return fieldType;
+    }
+
+    public TileForcefield setFieldType(EnumFieldType fieldType) {
+        this.fieldType = fieldType;
+        return this;
+    }
+
     private EnumFieldType fieldType=EnumFieldType.Containment;
     public TileForcefield(TileEntityType<?> tileEntityTypeIn) {
         super(tileEntityTypeIn);

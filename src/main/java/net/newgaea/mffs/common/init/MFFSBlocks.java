@@ -2,17 +2,17 @@ package net.newgaea.mffs.common.init;
 
 import com.tterrag.registrate.providers.RegistrateBlockstateProvider;
 import com.tterrag.registrate.util.entry.BlockEntry;
-import net.minecraft.block.AbstractBlock;
-import net.minecraft.block.Block;
-import net.minecraft.block.Blocks;
-import net.minecraft.block.SoundType;
+import net.minecraft.block.*;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.material.MaterialColor;
 import net.minecraft.data.ShapedRecipeBuilder;
+import net.minecraft.entity.EntityType;
 import net.minecraft.state.properties.BlockStateProperties;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.util.Direction;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.IBlockReader;
 import net.minecraftforge.client.model.generators.ConfiguredModel;
 import net.minecraftforge.client.model.generators.ModelFile;
 import net.minecraftforge.common.Tags;
@@ -140,6 +140,11 @@ public class MFFSBlocks {
             .initialProperties(Material.LEAVES,MaterialColor.AIR)
             .properties(properties -> properties.hardnessAndResistance(999f))
             .properties(AbstractBlock.Properties::noDrops)
+            .properties(AbstractBlock.Properties::notSolid)
+            .properties(properties -> properties.setAllowsSpawn(MFFSBlocks::neverAllowSpawn))
+            .properties(properties -> properties.setOpaque(MFFSBlocks::isntSolid))
+            .properties(properties -> properties.setSuffocates(MFFSBlocks::isntSolid))
+            .properties(properties -> properties.setBlocksVision(MFFSBlocks::isntSolid))
             .blockstate((ctx,prov) -> {
                 ModelFile file=prov.models().getExistingFile(new ResourceLocation(MOD_ID,"forcefield"));
                 prov.simpleBlock(ctx.get(),file);
@@ -162,4 +167,13 @@ public class MFFSBlocks {
             .build()
             .tileEntity(TileProjector::new).build()
             .register();
+
+    private static Boolean neverAllowSpawn(BlockState state, IBlockReader reader, BlockPos pos, EntityType<?> entity) {
+        return (boolean)false;
+    }
+
+    private static boolean isntSolid(BlockState state, IBlockReader reader, BlockPos pos) {
+        return false;
+    }
+
 }

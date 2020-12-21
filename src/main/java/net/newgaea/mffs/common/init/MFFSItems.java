@@ -13,6 +13,7 @@ import net.newgaea.mffs.api.MFFSTags;
 import net.newgaea.mffs.common.items.ItemLinkCard;
 import net.newgaea.mffs.common.items.ItemUpgrade;
 import net.newgaea.mffs.common.items.modules.*;
+import net.newgaea.mffs.common.items.options.ItemFieldManipulatorOption;
 import net.newgaea.mffs.common.libs.LibItems;
 import net.newgaea.mffs.common.misc.EnumUpgrade;
 import net.newgaea.mffs.common.misc.ItemGroupMFFS;
@@ -149,7 +150,7 @@ public class MFFSItems {
                             .key('v',FOCUS_MATRIX.get())
                             .patternLine("vvv")
                             .patternLine("   ")
-                            .patternLine("vvv"))
+                            .patternLine("vvv").build(prov))
             .register();
 
     public static final ItemEntry<Item> STRENGTH_MODIFIER = MFFSInit.REGISTRATE.object(LibItems.STRENGTH_MODIFIER)
@@ -162,8 +163,24 @@ public class MFFSItems {
                             .key('v',FOCUS_MATRIX.get())
                             .patternLine("vvv")
                             .patternLine("vvv")
-                            .patternLine("vvv"))
+                            .patternLine("vvv").build(prov))
             .register();
+
+    //<editor-fold desc="Options">
+    public static final ItemEntry<ItemFieldManipulatorOption> FIELD_MANIPULATOR_OPTION = MFFSInit.REGISTRATE.object(LibItems.Options.FIELD_MANIPULATOR)
+            .item(ItemFieldManipulatorOption::new)
+            .defaultLang()
+            .group(ItemGroupMFFS::GetInstance)
+            .model((ctx,prov) -> prov.withExistingParent(ctx.getName(),prov.mcLoc("item/handheld")).texture("layer0",prov.modLoc("item/options/"+ctx.getName())))
+            .recipe((ctx,prov) -> ShapedRecipeBuilder.shapedRecipe(ctx.get()).addCriterion("circuit_has",hasItem(MFFSItems.MONAZIT_CIRCUIT.get()))
+            .key('C',MONAZIT_CIRCUIT.get())
+                    .key('E',Items.GOLD_INGOT)
+                    .patternLine(" C ")
+                    .patternLine("CEC")
+                    .patternLine(" C ").build(prov)
+            )
+            .register();
+    //</editor-fold>
 
     //<editor-fold desc="Modules">
     public static final ItemEntry<ItemAdvCubeModule> ADV_CUBE_MODULE = MFFSInit.REGISTRATE.object(LibItems.Modules.ADV_CUBE)

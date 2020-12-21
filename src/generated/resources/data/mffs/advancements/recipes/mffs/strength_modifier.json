@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+    "recipes": [
+      "mffs:strength_modifier"
+    ]
+  },
+  "criteria": {
+    "focus_has": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "mffs:focus_matrix"
+          }
+        ]
+      }
+    },
+    "has_the_recipe": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": {
+        "recipe": "mffs:strength_modifier"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "focus_has",
+      "has_the_recipe"
+    ]
+  ]
+}

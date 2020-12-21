@@ -9,6 +9,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.tileentity.TileEntityType;
 import net.minecraft.util.Direction;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.StringTextComponent;
 import net.minecraftforge.common.ForgeInternalHandler;
@@ -18,17 +19,21 @@ import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.ItemStackHandler;
 import net.newgaea.mffs.MFFS;
-import net.newgaea.mffs.api.EnumProjectorModule;
-import net.newgaea.mffs.api.IProjectorModule;
-import net.newgaea.mffs.api.MFFSTags;
+import net.newgaea.mffs.api.*;
+import net.newgaea.mffs.common.blocks.BlockNetwork;
 import net.newgaea.mffs.common.blocks.BlockProjector;
+import net.newgaea.mffs.common.forcefield.FFGenerator;
 import net.newgaea.mffs.common.init.MFFSContainer;
 import net.newgaea.mffs.common.init.MFFSItems;
 import net.newgaea.mffs.common.inventory.ProjectorContainer;
 import net.newgaea.mffs.common.items.modules.ItemProjectorModule;
 import net.newgaea.mffs.common.misc.MFFSInventoryHelper;
+import org.jetbrains.annotations.Contract;
+import org.jetbrains.annotations.NotNull;
 
-public class TileProjector extends TileNetwork implements INamedContainerProvider {
+import java.util.*;
+
+public class TileProjector extends TileNetwork implements INamedContainerProvider, IModularProjector {
 
     private IItemHandler module=createModuleInv(this);
     private LazyOptional<IItemHandler> moduleHandler = LazyOptional.of(()->module);
@@ -38,9 +43,54 @@ public class TileProjector extends TileNetwork implements INamedContainerProvide
 
     private IItemHandler distanceModifier=createDistanceInv(this);
 
-
-
     private IItemHandler strengthModifier=createStrengthInv(this);
+
+    private IItemHandler options=createOptionsInv(this);
+
+
+
+    private FFGenerator generator;
+
+    @Override
+    public void tick() {
+        super.tick();
+        if(isActive()) {
+            if(!this.module.getStackInSlot(0).isEmpty() ) {
+                if(this.generator==null)
+                    createGenerator();
+                this.generator.GenerateBlocks();
+            }
+        }
+    }
+
+    private void createGenerator() {
+        Set<BlockPos> blocks=new HashSet<>();
+        Set<BlockPos> blocksInterior=new HashSet<>();
+        IProjectorModule module=(IProjectorModule)this.module.getStackInSlot(0).getItem();
+        if(module.is3D()) {
+            module.calculateField(this,blocks,blocksInterior);
+        }
+        else {
+            module.calculateField(this, blocks);
+        }
+        this.generator=new FFGenerator(this,new ArrayList<>(blocks),200);
+    }
+
+    @Override
+    public TileNetwork setActive(boolean active) {
+        TileNetwork ret = super.setActive(active);
+        if(active) {
+            if(!this.module.getStackInSlot(0).isEmpty() && this.module.getStackInSlot(0).getItem() instanceof IProjectorModule) {
+                createGenerator();
+            }
+            this.world.setBlockState(getPos(),this.getBlockState().with(BlockNetwork.ACTIVE,true),Constants.BlockFlags.BLOCK_UPDATE+Constants.BlockFlags.DEFAULT_AND_RERENDER);
+        }
+        else
+        {
+            this.world.setBlockState(getPos(),this.getBlockState().with(BlockNetwork.ACTIVE,false),Constants.BlockFlags.BLOCK_UPDATE+Constants.BlockFlags.DEFAULT_AND_RERENDER);
+        }
+        return ret;
+    }
 
     public static IItemHandler createStrengthInv(TileProjector projector) {
         return new ItemStackHandler(1) {
@@ -62,6 +112,30 @@ public class TileProjector extends TileNetwork implements INamedContainerProvide
                 super.onContentsChanged(slot);
                 if(projector!=null)
                     projector.markDirty();
+            }
+        };
+    }
+
+    public static IItemHandler createOptionsInv(TileProjector tileProjector) {
+        return new ItemStackHandler(3) {
+            @Override
+            public boolean isItemValid(int slot, @NotNull ItemStack stack) {
+                return super.isItemValid(slot, stack) && stack.getItem() instanceof IProjectorOption;
+            }
+
+            @NotNull
+            @Override
+            public ItemStack insertItem(int slot, @NotNull ItemStack stack, boolean simulate) {
+                if(!(stack.getItem() instanceof IProjectorOption))
+                    return stack;
+                return super.insertItem(slot, stack, simulate);
+            }
+
+            @Override
+            protected void onContentsChanged(int slot) {
+                super.onContentsChanged(slot);
+                if(tileProjector!=null)
+                    tileProjector.markDirty();
             }
         };
     }
@@ -142,6 +216,7 @@ public class TileProjector extends TileNetwork implements INamedContainerProvide
             }
         };
     }
+    @Contract(pure = true)
     public static Direction fociSlotToDirection(int index) {
         switch (index) {
             case 0:
@@ -156,6 +231,21 @@ public class TileProjector extends TileNetwork implements INamedContainerProvide
                 return Direction.UP;
         }
     }
+
+    @Contract(pure = true)
+    public static int DirectionToFociSlot(Direction dir) {
+        switch (dir) {
+            case NORTH:
+                return 0;
+            case EAST:
+                return 1;
+            case SOUTH:
+                return 2;
+            case WEST:
+                return 3;
+        }
+        return 0;
+    }
     @Override
     public ITextComponent getDisplayName() {
         return new StringTextComponent("Projector");
@@ -163,7 +253,7 @@ public class TileProjector extends TileNetwork implements INamedContainerProvide
 
     @Override
     public Container createMenu(int windowId, PlayerInventory playerInventory, PlayerEntity playerEntity) {
-        return new ProjectorContainer(MFFSContainer.PROJECTOR.get(), windowId,playerEntity,module,foci,distanceModifier,strengthModifier);
+        return new ProjectorContainer(MFFSContainer.PROJECTOR.get(), windowId,playerEntity,module,foci,distanceModifier,strengthModifier,options);
     }
 
     @Override
@@ -181,6 +271,10 @@ public class TileProjector extends TileNetwork implements INamedContainerProvide
         if(compound.contains("strength")) {
             ((INBTSerializable<CompoundNBT>)strengthModifier).deserializeNBT(compound.getCompound("strength"));
         }
+        if(compound.contains("options")) {
+            ((INBTSerializable<CompoundNBT>)options).deserializeNBT(compound.getCompound("options"));
+        }
+
     }
 
     @Override
@@ -190,6 +284,7 @@ public class TileProjector extends TileNetwork implements INamedContainerProvide
         cmp.put("foci",((INBTSerializable<CompoundNBT>)foci).serializeNBT());
         cmp.put("distance",((INBTSerializable<CompoundNBT>)distanceModifier).serializeNBT());
         cmp.put("strength",((INBTSerializable<CompoundNBT>)strengthModifier).serializeNBT());
+        cmp.put("options",((INBTSerializable<CompoundNBT>)options).serializeNBT());
         return cmp;
 
     }
@@ -214,15 +309,53 @@ public class TileProjector extends TileNetwork implements INamedContainerProvide
     public void checkStatus() {
         if(module.getStackInSlot(0)!=ItemStack.EMPTY) {
             IProjectorModule pModule= (IProjectorModule) module.getStackInSlot(0).getItem();
+            Set<BlockPos> blockPos=new HashSet<>();
+            pModule.calculateField(this,blockPos);
+            MFFS.getLog().info(blockPos);
             if(!pModule.enabledFoci())
             {
                 MFFSInventoryHelper.dropInventoryItems(world,getPos(),foci);
 
             }
+            if(!pModule.enabledDistance())
+                MFFSInventoryHelper.dropInventoryItems(world,getPos(),distanceModifier);
+            if(!pModule.enabledDistance())
+                MFFSInventoryHelper.dropInventoryItems(world,getPos(),distanceModifier);
+
         }
         else
             MFFSInventoryHelper.dropInventoryItems(world,getPos(),foci);
     }
 
 
+    @Override
+    public Direction getSide() {
+        return getBlockState().get(BlockProjector.FACING);
+    }
+
+    @Override
+    public int focusItems(Direction direction) {
+        return foci.getStackInSlot(DirectionToFociSlot(direction)).getCount();
+    }
+
+    @Override
+    public int strengthItems() {
+        return strengthModifier.getStackInSlot(0).getCount();
+    }
+
+    @Override
+    public int distanceItems() {
+        return distanceModifier.getStackInSlot(0).getCount();
+    }
+
+    @Override
+    public List<IProjectorOption> options() {
+        List<IProjectorOption> optionsList=new ArrayList<>();
+        for(int i=0;i<options.getSlots();i++) {
+            ItemStack stack=options.getStackInSlot(i);
+            if(!stack.isEmpty())
+                optionsList.add((IProjectorOption) stack.getItem());
+        }
+        return  optionsList;
+    }
 }

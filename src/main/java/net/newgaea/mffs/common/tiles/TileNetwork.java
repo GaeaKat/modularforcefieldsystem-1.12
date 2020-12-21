@@ -11,12 +11,23 @@ import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.items.CapabilityItemHandler;
 import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.ItemStackHandler;
+import net.newgaea.mffs.MFFS;
 import net.newgaea.mffs.common.init.MFFSItems;
 import net.newgaea.mffs.common.misc.ModeEnum;
 
 public abstract class TileNetwork extends TileMFFS implements ITickableTileEntity {
     private final LazyOptional<IItemHandler> linkHandler = LazyOptional.of(this::createLinkHandler);
 
+    public boolean isActive() {
+        return active;
+    }
+
+    public TileNetwork setActive(boolean active) {
+        this.active = active;
+        return this;
+    }
+
+    private boolean active;
     private <T> IItemHandler createLinkHandler() {
         return new ItemStackHandler() {
             @Override
@@ -56,6 +67,8 @@ public abstract class TileNetwork extends TileMFFS implements ITickableTileEntit
             CompoundNBT linkInv = compound.getCompound("link");
             linkHandler.ifPresent(h -> ((INBTSerializable<CompoundNBT>) h).deserializeNBT(linkInv));
         }
+        if(compound.contains("active"))
+            active = compound.getBoolean("active");
     }
 
     @Override
@@ -66,6 +79,7 @@ public abstract class TileNetwork extends TileMFFS implements ITickableTileEntit
             CompoundNBT linkInv = ((INBTSerializable<CompoundNBT>) h).serializeNBT();
             compound.put("link",linkInv);
         });
+        compound.putBoolean("active",active);
         return compound;
     }
 
@@ -88,6 +102,16 @@ public abstract class TileNetwork extends TileMFFS implements ITickableTileEntit
         if(!initialized) {
             initialized=true;
             initialize();
+        }
+        if(active) {
+            if (world.getRedstonePowerFromNeighbors(this.getPos()) == 0) {
+                setActive(false);
+            }
+        }
+        else {
+            if (world.getRedstonePowerFromNeighbors(this.getPos()) > 0) {
+                setActive(true);
+            }
         }
     }
 }

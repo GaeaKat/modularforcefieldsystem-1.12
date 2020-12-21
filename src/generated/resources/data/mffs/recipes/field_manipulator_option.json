@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    " C ",
+    "CEC",
+    " C "
+  ],
+  "key": {
+    "C": {
+      "item": "mffs:monazit_circuit"
+    },
+    "E": {
+      "item": "minecraft:gold_ingot"
+    }
+  },
+  "result": {
+    "item": "mffs:field_manipulator_option"
+  }
+}
