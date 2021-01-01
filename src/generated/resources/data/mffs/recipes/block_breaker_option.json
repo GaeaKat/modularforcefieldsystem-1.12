@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    " C ",
+    "CbC",
+    " C "
+  ],
+  "key": {
+    "C": {
+      "item": "mffs:monazit_circuit"
+    },
+    "b": {
+      "item": "minecraft:iron_pickaxe"
+    }
+  },
+  "result": {
+    "item": "mffs:block_breaker_option"
+  }
+}

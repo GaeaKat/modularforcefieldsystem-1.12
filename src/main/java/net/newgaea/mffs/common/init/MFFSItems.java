@@ -14,6 +14,7 @@ import net.newgaea.mffs.common.items.ItemLinkCard;
 import net.newgaea.mffs.common.items.ItemUpgrade;
 import net.newgaea.mffs.common.items.modules.*;
 import net.newgaea.mffs.common.items.options.ItemFieldManipulatorOption;
+import net.newgaea.mffs.common.items.options.ItemOption;
 import net.newgaea.mffs.common.libs.LibItems;
 import net.newgaea.mffs.common.misc.EnumUpgrade;
 import net.newgaea.mffs.common.misc.ItemGroupMFFS;
@@ -177,6 +178,19 @@ public class MFFSItems {
                     .key('E',Items.GOLD_INGOT)
                     .patternLine(" C ")
                     .patternLine("CEC")
+                    .patternLine(" C ").build(prov)
+            )
+            .register();
+    public static final ItemEntry<ItemOption> BLOCK_BREAKER_OPTION = MFFSInit.REGISTRATE.object(LibItems.Options.BLOCK_BREAKER)
+            .item(ItemOption::new)
+            .defaultLang()
+            .group(ItemGroupMFFS::GetInstance)
+            .model((ctx,prov) -> prov.withExistingParent(ctx.getName(),prov.mcLoc("item/handheld")).texture("layer0",prov.modLoc("item/options/"+ctx.getName())))
+            .recipe((ctx,prov) -> ShapedRecipeBuilder.shapedRecipe(ctx.get()).addCriterion("circuit_has",hasItem(MFFSItems.MONAZIT_CIRCUIT.get()))
+                    .key('C',MONAZIT_CIRCUIT.get())
+                    .key('b',Items.IRON_PICKAXE)
+                    .patternLine(" C ")
+                    .patternLine("CbC")
                     .patternLine(" C ").build(prov)
             )
             .register();

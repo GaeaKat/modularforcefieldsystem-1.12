@@ -4,7 +4,7 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.newgaea.mffs.api.IProjectorOption;
 
-public class ItemFieldManipulatorOption extends Item implements IProjectorOption {
+public class ItemFieldManipulatorOption extends ItemOption  {
     public ItemFieldManipulatorOption(Properties properties) {
         super(properties);
 

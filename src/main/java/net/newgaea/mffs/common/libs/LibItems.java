@@ -25,6 +25,7 @@ public class LibItems {
 
     public static class Options {
         public static final String FIELD_MANIPULATOR="field_manipulator_option";
+        public static final String BLOCK_BREAKER="block_breaker_option";
     }
 
 }

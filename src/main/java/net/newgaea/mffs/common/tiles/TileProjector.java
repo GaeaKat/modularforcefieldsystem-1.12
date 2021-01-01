@@ -358,4 +358,9 @@ public class TileProjector extends TileNetwork implements INamedContainerProvide
         }
         return  optionsList;
     }
+
+    @Override
+    public boolean takeEnergy(int energy) {
+        return true;
+    }
 }

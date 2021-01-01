@@ -27,9 +27,11 @@ public class MFFS {
 
     private static final Logger LOGGER = LogManager.getLogger();
 
-    public static IProxy proxy = DistExecutor.safeRunForDist(() -> ClientProxy::new, () -> CommonProxy::new);
+    public static IProxy proxy;
 
     public MFFS() {
+        proxy = DistExecutor.unsafeRunForDist(() -> () -> new ClientProxy(), () -> () -> new CommonProxy());
+
         ModLoadingContext.get().registerConfig(ModConfig.Type.CLIENT, MFFSConfig.CLIENT_CONFIG);
         ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, MFFSConfig.COMMON_CONFIG);
 

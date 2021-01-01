@@ -8,10 +8,12 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.math.BlockPos;
 import net.minecraftforge.common.util.Constants;
 import net.minecraftforge.common.util.INBTSerializable;
+import net.newgaea.mffs.api.IModularProjector;
 import net.newgaea.mffs.common.blocks.BlockForceField;
 import net.newgaea.mffs.common.blocks.ModBlock;
 import net.newgaea.mffs.common.config.MFFSConfig;
 import net.newgaea.mffs.common.init.MFFSBlocks;
+import net.newgaea.mffs.common.init.MFFSItems;
 import net.newgaea.mffs.common.misc.EnumFieldType;
 import net.newgaea.mffs.common.tiles.TileForcefield;
 import net.newgaea.mffs.common.tiles.TileProjector;
@@ -22,10 +24,10 @@ import java.util.Random;
 import java.util.Set;
 
 public class FFGenerator implements INBTSerializable<CompoundNBT> {
-    private TileProjector projector;
+    private IModularProjector projector;
     private List<BlockPos> forcefieldBlocks;
     private int seed;
-    public FFGenerator(TileProjector projector, List<BlockPos> forcefieldBlocks, int seed) {
+    public FFGenerator(IModularProjector projector, List<BlockPos> forcefieldBlocks, int seed) {
         this.projector = projector;
         this.forcefieldBlocks = forcefieldBlocks;
         this.seed = seed;
@@ -36,22 +38,29 @@ public class FFGenerator implements INBTSerializable<CompoundNBT> {
 
     public int GenerateBlocks() {
         int generated = 0;
-        for(int i = 0;i<forcefieldBlocks.size();i++) {
-            BlockPos curPos = forcefieldBlocks.get(i).add(projector.getPos());
-            if(projector.getWorld().getBlockState(curPos).getBlock() != MFFSBlocks.FORCEFIELD.get())
-            {
-                if(projector.getWorld().isAirBlock(curPos)) // todo check Cut plugin
+        for (BlockPos forcefieldBlock : forcefieldBlocks) {
+            BlockPos curPos = forcefieldBlock.add(projector.getPos());
+            if (projector.getWorld().getBlockState(curPos).getBlock() != MFFSBlocks.FORCEFIELD.get()) {
+                if (projector.getWorld().isAirBlock(curPos))
                 {
-                    projector.getWorld().setBlockState(curPos,MFFSBlocks.FORCEFIELD.getDefaultState());
+                    if(projector.takeEnergy(MFFSConfig.BASE_FORCEFIELD_COST.get()))
+                    {
+                    projector.getWorld().setBlockState(curPos, MFFSBlocks.FORCEFIELD.getDefaultState());
                     generated++;
-                    TileEntity ent=projector.getWorld().getTileEntity(curPos);
-                    if(ent instanceof TileForcefield) {
-                        TileForcefield tileForcefield= (TileForcefield) ent;
+                    TileEntity ent = projector.getWorld().getTileEntity(curPos);
+                    if (ent instanceof TileForcefield) {
+                        TileForcefield tileForcefield = (TileForcefield) ent;
                         tileForcefield.setFieldType(EnumFieldType.Default);
+                    }}
+                }
+                else if(projector.hasOption(MFFSItems.BLOCK_BREAKER_OPTION.get())) {
+                    if(projector.takeEnergy(MFFSConfig.BASE_FORCEFIELD_COST.get())) {
+                        projector.getWorld().removeBlock(curPos, false);
                     }
                 }
             }
-            if(generated >= MFFSConfig.FORCEFIELD_PER_TICK.get())
+
+            if (generated >= MFFSConfig.FORCEFIELD_PER_TICK.get())
                 break;
         }
         return generated;

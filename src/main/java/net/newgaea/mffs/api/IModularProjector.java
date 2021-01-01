@@ -2,6 +2,7 @@ package net.newgaea.mffs.api;
 
 import net.minecraft.util.Direction;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.World;
 
 import java.util.List;
 
@@ -15,4 +16,7 @@ public interface IModularProjector {
         return options().contains(option);
     }
     BlockPos getPos();
+
+    World getWorld();
+    boolean takeEnergy(int energy);
 }

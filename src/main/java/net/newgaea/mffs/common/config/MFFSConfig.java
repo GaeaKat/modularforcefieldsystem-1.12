@@ -8,6 +8,7 @@ import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.config.ModConfig;
 
 import java.nio.file.Path;
+import java.util.List;
 
 @Mod.EventBusSubscriber
 public class MFFSConfig {
@@ -17,6 +18,7 @@ public class MFFSConfig {
     public static final String SUBCATEGORY_GENERATOR = "generator";
     private static final ForgeConfigSpec.Builder COMMON_BUILDER = new ForgeConfigSpec.Builder();
     private static final ForgeConfigSpec.Builder CLIENT_BUILDER = new ForgeConfigSpec.Builder();
+    private static final String SUBCATEGORY_COSTS = "costs";
 
     public static ForgeConfigSpec COMMON_CONFIG;
     public static ForgeConfigSpec CLIENT_CONFIG;
@@ -25,6 +27,7 @@ public class MFFSConfig {
     public static  ForgeConfigSpec.IntValue GENERATOR_GENERATE;
 
     public static ForgeConfigSpec.IntValue FORCEFIELD_PER_TICK;
+    public static ForgeConfigSpec.IntValue BASE_FORCEFIELD_COST;
     static {
         COMMON_BUILDER.comment("General Settings").push(CATEGORY_GENERAL);
         setupGeneralSettings();
@@ -32,9 +35,16 @@ public class MFFSConfig {
 
         COMMON_BUILDER.comment("Power settings").push(CATEGORY_POWER);
         setupGeneratorSettings();
+        setupPowerCosts();
         COMMON_BUILDER.pop();
         COMMON_CONFIG=COMMON_BUILDER.build();
         CLIENT_CONFIG=CLIENT_BUILDER.build();
+    }
+
+    private static void setupPowerCosts() {
+        COMMON_BUILDER.comment("Power Costs").push(SUBCATEGORY_COSTS);
+        BASE_FORCEFIELD_COST = COMMON_BUILDER.comment("The Base cost to generate a forcefield block").defineInRange("base_cost",10,0,Integer.MAX_VALUE);
+       COMMON_BUILDER.pop();
     }
 
     private static void setupGeneralSettings() {

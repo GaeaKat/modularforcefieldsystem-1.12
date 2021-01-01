@@ -89,6 +89,8 @@ public class TileCapacitor extends TileNetwork implements INamedContainerProvide
         super.readExtra(compound);
         if(compound.contains("upgrades"))
             ((INBTSerializable<CompoundNBT>)this.upgrades).deserializeNBT(compound.getCompound("upgrades"));
+        if(compound.contains("master"))
+            this.master=compound.getBoolean("master");
     }
 
     @Override
@@ -97,6 +99,7 @@ public class TileCapacitor extends TileNetwork implements INamedContainerProvide
         CompoundNBT upgrades;
         upgrades=((INBTSerializable<CompoundNBT>)this.upgrades).serializeNBT();
         nbt.put("upgrades",upgrades);
+        nbt.putBoolean("master",this.master);
         return nbt;
 
     }
