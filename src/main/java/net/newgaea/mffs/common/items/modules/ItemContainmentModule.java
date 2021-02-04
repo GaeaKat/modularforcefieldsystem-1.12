@@ -49,10 +49,10 @@ public class ItemContainmentModule extends ItemProjectorModule{
         int tpy = 0;
         int tpz = 0;
 
-        int xMout = projector.focusItems(Direction.WEST);
-        int xPout = projector.focusItems(Direction.EAST);
-        int zMout = projector.focusItems(Direction.SOUTH);
-        int zPout = projector.focusItems(Direction.NORTH);
+        int xMout = projector.focusItems(Direction.WEST)+1;
+        int xPout = projector.focusItems(Direction.EAST)+1;
+        int zMout = projector.focusItems(Direction.SOUTH)+1;
+        int zPout = projector.focusItems(Direction.NORTH)+1;
         int distance = projector.distanceItems();
         int Strength = projector.strengthItems() + 1;
 

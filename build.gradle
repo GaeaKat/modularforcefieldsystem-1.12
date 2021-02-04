@@ -95,11 +95,23 @@ minecraft {
             }
         }
     }
+    accessTransformer = file('src/main/resources/META-INF/accesstransformer.cfg')
 }
 repositories {
     maven { url 'https://maven.blamejared.com' }
     maven { // Registrate
         url "http://maven.tterrag.com/"
+    }
+    maven { url 'https://squiddev.cc/maven/' }
+    maven {
+        // location of the maven that hosts JEI files
+        name = "Progwml6 maven"
+        url = "https://dvs1.progwml6.com/files/maven/"
+    }
+    maven {
+        // location of a maven mirror for JEI files, as a fallback
+        name = "ModMaven"
+        url = "https://modmaven.k-4u.nl"
     }
 
 }
@@ -112,12 +124,19 @@ dependencies {
     // Specify the version of Minecraft to use, If this is any group other then 'net.minecraft' it is assumed
     // that the dep is a ForgeGradle 'patcher' dependency. And it's patches will be applied.
     // The userdev artifact is a special name and will get all sorts of transformations applied to it.
-    minecraft 'net.minecraftforge:forge:1.16.4-35.0.1'
+    minecraft 'net.minecraftforge:forge:1.16.4-35.1.36'
     compileOnly fg.deobf("vazkii.patchouli:Patchouli:1.16.2-47:api")
     runtimeOnly fg.deobf("vazkii.patchouli:Patchouli:1.16.2-47")
-    def registrate = "com.tterrag.registrate:Registrate:MC1.16.2-1.0.0-beta.6"
+    def registrate = "com.tterrag.registrate:Registrate:MC1.16.2-1.0.0-beta.33"
     implementation fg.deobf(registrate)
     shade registrate
+    compile group: 'org.apache.commons', name: 'commons-lang3', version: '3.11'
+
+
+    compileOnly fg.deobf("mezz.jei:jei-${mc_version}:${jei_version}:api")
+    // at runtime, use the full JEI jar
+    runtime fg.deobf("mezz.jei:jei-${mc_version}:${jei_version}")
+    //implementation fg.deobf("org.squiddev:cc-tweaked-1.16.4:1.95.1")
     // You may put jars on which you depend on in ./libs or you may define them like so..
     // compile "some.group:artifact:version:classifier"
     // compile "some.group:artifact:version"
@@ -174,4 +193,5 @@ publishing {
 shadowJar {
     configurations = [project.configurations.shade]
     relocate 'com.tterrag.registrate', 'net.newgaea.mffs.repack.registrate'
+
 }

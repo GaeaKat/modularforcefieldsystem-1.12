@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    " e ",
+    "ebe",
+    " e "
+  ],
+  "key": {
+    "b": {
+      "item": "minecraft:lava_bucket"
+    },
+    "e": {
+      "item": "mffs:focus_matrix"
+    }
+  },
+  "result": {
+    "item": "mffs:zapper_option"
+  }
+}

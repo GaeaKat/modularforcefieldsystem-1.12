@@ -1,5 +1,6 @@
 package net.newgaea.mffs.api;
 
+import net.minecraft.item.ItemStack;
 import net.minecraft.util.Direction;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
@@ -19,4 +20,6 @@ public interface IModularProjector {
 
     World getWorld();
     boolean takeEnergy(int energy);
+    IProjectorModule getTypeModule();
+    public void setBurnedOut(boolean burnOut);
 }

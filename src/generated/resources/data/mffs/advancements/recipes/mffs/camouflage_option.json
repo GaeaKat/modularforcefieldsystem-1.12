@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+    "recipes": [
+      "mffs:camouflage_option"
+    ]
+  },
+  "criteria": {
+    "circuit_has": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "mffs:monazit_circuit"
+          }
+        ]
+      }
+    },
+    "has_the_recipe": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": {
+        "recipe": "mffs:camouflage_option"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "circuit_has",
+      "has_the_recipe"
+    ]
+  ]
+}

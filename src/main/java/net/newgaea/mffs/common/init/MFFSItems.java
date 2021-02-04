@@ -6,19 +6,20 @@ import net.minecraft.data.ShapedRecipeBuilder;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
-import net.minecraft.tags.BlockTags;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.common.Tags;
 import net.newgaea.mffs.api.MFFSTags;
-import net.newgaea.mffs.common.items.ItemLinkCard;
+import net.newgaea.mffs.common.items.ItemDebugger;
+import net.newgaea.mffs.common.items.ItemForcePowerCrystal;
+import net.newgaea.mffs.common.items.ItemMonazitCell;
+import net.newgaea.mffs.common.items.linkcards.ItemEmptyCard;
+import net.newgaea.mffs.common.items.linkcards.ItemPowerLinkCard;
 import net.newgaea.mffs.common.items.ItemUpgrade;
 import net.newgaea.mffs.common.items.modules.*;
-import net.newgaea.mffs.common.items.options.ItemFieldManipulatorOption;
-import net.newgaea.mffs.common.items.options.ItemOption;
+import net.newgaea.mffs.common.items.options.*;
 import net.newgaea.mffs.common.libs.LibItems;
 import net.newgaea.mffs.common.misc.EnumUpgrade;
 import net.newgaea.mffs.common.misc.ItemGroupMFFS;
-import net.newgaea.mffs.common.misc.MFFSInventoryHelper;
 
 import static com.tterrag.registrate.providers.RegistrateRecipeProvider.hasItem;
 import static net.newgaea.mffs.common.libs.LibMisc.MOD_ID;
@@ -48,7 +49,7 @@ public class MFFSItems {
             .defaultModel()
             .group(ItemGroupMFFS::GetInstance)
             .recipe((ctx,prov) ->
-                    ShapedRecipeBuilder.shapedRecipe(MFFSItems.MONAZIT_CIRCUIT.get(),3).addCriterion("monazit_has",hasItem(MFFSTags.CRYSTAL_MONAZIT))
+                    ShapedRecipeBuilder.shapedRecipe(ctx.get(),3).addCriterion("monazit_has",hasItem(MFFSTags.CRYSTAL_MONAZIT))
                             .key('I', Tags.Items.INGOTS_IRON)
                             .key('M', MFFSTags.CRYSTAL_MONAZIT)
                             .patternLine("   ")
@@ -56,21 +57,32 @@ public class MFFSItems {
                             .patternLine("   ")
                             .build(prov))
             .register();
-    public static final ItemEntry<ItemLinkCard> LINK_CARD=MFFSInit.REGISTRATE.object(LibItems.LINK_CARD)
-            .item(ItemLinkCard::new)
-            .model((ctx,prov)->
-                    prov.getExistingFile(new ResourceLocation(MOD_ID,"link_card")))
+
+    public static final ItemEntry<ItemEmptyCard> EMPTY_CARD=MFFSInit.REGISTRATE.object(LibItems.EMPTY_CARD)
+            .item(ItemEmptyCard::new)
+            .model((ctx, registrateItemModelProvider) ->
+                    registrateItemModelProvider.withExistingParent(ctx.getName(),new ResourceLocation("item/handheld"))
+                            .texture("layer0",new ResourceLocation(MOD_ID,"item/link_cards/"+ctx.getName())))
             .defaultLang()
             .group(ItemGroupMFFS::GetInstance)
             .recipe((ctx,provider)->
-                    ShapedRecipeBuilder.shapedRecipe(MFFSItems.LINK_CARD.get()).addCriterion("circuit_has",hasItem(MFFSItems.MONAZIT_CIRCUIT.get()))
+                    ShapedRecipeBuilder.shapedRecipe(ctx.get()).addCriterion("circuit_has",hasItem(MFFSItems.MONAZIT_CIRCUIT.get()))
                             .key('P', Items.PAPER)
                             .key('C',MFFSItems.MONAZIT_CIRCUIT.get())
                             .patternLine("PPP")
                             .patternLine("PCP")
                             .patternLine("PPP")
                             .build(provider)
-                    )
+            )
+            .register();
+    public static final ItemEntry<ItemPowerLinkCard> POWER_LINK_CARD =MFFSInit.REGISTRATE.object(LibItems.POWER_LINK_CARD)
+            .item(ItemPowerLinkCard::new)
+            .model((ctx, registrateItemModelProvider) ->
+                    registrateItemModelProvider.withExistingParent(ctx.getName(),new ResourceLocation("item/handheld"))
+                            .texture("layer0",new ResourceLocation(MOD_ID,"item/link_cards/"+ctx.getName()))
+            )
+            .defaultLang()
+            .group(ItemGroupMFFS::GetInstance)
             .register();
 
     public static final ItemEntry<ItemUpgrade> CAPACITY_UPGRADE=
@@ -167,6 +179,48 @@ public class MFFSItems {
                             .patternLine("vvv").build(prov))
             .register();
 
+    public static final ItemEntry<ItemForcePowerCrystal> FORCE_POWER_CRYSTAL=MFFSInit.REGISTRATE.object(LibItems.FORCE_POWER_CRYSTAL)
+            .item(ItemForcePowerCrystal::new)
+            .defaultLang()
+            .model((ctx,prov)->
+                    prov.getExistingFile(new ResourceLocation(MOD_ID,"force_power_crystal")))
+            .group(ItemGroupMFFS::GetInstance)
+            .initialProperties(MFFSItems::getDefaultProperties)
+            .properties(properties -> properties.maxDamage(100))
+            .recipe((ctx,prov) ->
+                    ShapedRecipeBuilder.shapedRecipe(ctx.get()).addCriterion("circuit_has",hasItem(MONAZIT_CIRCUIT.get()))
+                            .key('A',Items.IRON_INGOT)
+                            .key('x',Items.DIAMOND)
+                            .key('D',MFFSItems.MONAZIT_CIRCUIT.get())
+                            .patternLine("AAA")
+                            .patternLine("AxA")
+                            .patternLine("ADA").build(prov))
+            .register();
+
+    public static final ItemEntry<ItemMonazitCell> MONAZIT_CELL=MFFSInit.REGISTRATE.object(LibItems.MONAZIT_CELL)
+            .item(ItemMonazitCell::new)
+            .defaultModel()
+            .defaultLang()
+            .group(ItemGroupMFFS::GetInstance)
+            .initialProperties(MFFSItems::getDefaultProperties)
+            .properties(properties -> properties.maxDamage(100))
+            //uuu uiu uuu
+            .recipe((ctx,prov) ->
+                    ShapedRecipeBuilder.shapedRecipe(ctx.get()).addCriterion("circuit_has",hasItem(MONAZIT_CIRCUIT.get()))
+                            .key('u',MFFSItems.MONAZIT_CRYSTAL.get())
+                            .key('i',Items.DIAMOND)
+                            .patternLine("uuu")
+                            .patternLine("uiu")
+                            .patternLine("uuu").build(prov))
+            .register();
+
+    public static final ItemEntry<ItemDebugger> DEBUGGER = MFFSInit.REGISTRATE.object(LibItems.TOOL_DEBUGGER)
+            .item(ItemDebugger::new)
+            .defaultLang()
+            .defaultModel()
+            .group(ItemGroupMFFS::GetInstance)
+            .register();
+
     //<editor-fold desc="Options">
     public static final ItemEntry<ItemFieldManipulatorOption> FIELD_MANIPULATOR_OPTION = MFFSInit.REGISTRATE.object(LibItems.Options.FIELD_MANIPULATOR)
             .item(ItemFieldManipulatorOption::new)
@@ -192,6 +246,61 @@ public class MFFSItems {
                     .patternLine(" C ")
                     .patternLine("CbC")
                     .patternLine(" C ").build(prov)
+            )
+            .register();
+    public static final ItemEntry<ItemFieldJammerOption> FIELD_JAMMER_OPTION = MFFSInit.REGISTRATE.object(LibItems.Options.FIELD_JAMMER)
+            .item(ItemFieldJammerOption::new)
+            .defaultLang()
+            .group(ItemGroupMFFS::GetInstance)
+            .model((ctx,prov) -> prov.withExistingParent(ctx.getName(),prov.mcLoc("item/handheld")).texture("layer0",prov.modLoc("item/options/"+ctx.getName())))
+            .recipe((ctx,prov) -> ShapedRecipeBuilder.shapedRecipe(ctx.get()).addCriterion("circuit_has",hasItem(MFFSItems.MONAZIT_CIRCUIT.get()))
+                    .key('a',Items.ENDER_PEARL)
+                    .key('v',FOCUS_MATRIX.get())
+                    .patternLine(" a ")
+                    .patternLine("ava")
+                    .patternLine(" a ").build(prov)
+            )
+            .register();
+
+    public static final ItemEntry<ItemCamouflageOption> CAMOUFLAGE_OPTION = MFFSInit.REGISTRATE.object(LibItems.Options.CAMOUFLAGE)
+            .item(ItemCamouflageOption::new)
+            .defaultLang()
+            .group(ItemGroupMFFS::GetInstance)
+            .model((ctx,prov) -> prov.withExistingParent(ctx.getName(),prov.mcLoc("item/handheld")).texture("layer0",prov.modLoc("item/options/"+ctx.getName())))
+            .recipe((ctx,prov) -> ShapedRecipeBuilder.shapedRecipe(ctx.get()).addCriterion("circuit_has",hasItem(MFFSItems.MONAZIT_CIRCUIT.get()))
+                    .key('e',Items.ENDER_EYE)
+                    .key('v',FOCUS_MATRIX.get())
+                    .patternLine(" e ")
+                    .patternLine("eve")
+                    .patternLine(" e ").build(prov)
+            )
+            .register();
+
+    public static final ItemEntry<ItemOption> ZAPPER_OPTION = MFFSInit.REGISTRATE.object(LibItems.Options.ZAPPER)
+            .item(ItemOption::new)
+            .defaultLang()
+            .group(ItemGroupMFFS::GetInstance)
+            .model((ctx,prov) -> prov.withExistingParent(ctx.getName(),prov.mcLoc("item/handheld")).texture("layer0",prov.modLoc("item/options/"+ctx.getName())))
+            .recipe((ctx,prov) -> ShapedRecipeBuilder.shapedRecipe(ctx.get()).addCriterion("circuit_has",hasItem(MFFSItems.MONAZIT_CIRCUIT.get()))
+                    .key('b',Items.LAVA_BUCKET)
+                    .key('e',FOCUS_MATRIX.get())
+                    .patternLine(" e ")
+                    .patternLine("ebe")
+                    .patternLine(" e ").build(prov)
+            )
+            .register();
+
+    public static final ItemEntry<ItemFieldFusionOption> FUSION_OPTION = MFFSInit.REGISTRATE.object(LibItems.Options.FUSION)
+            .item(ItemFieldFusionOption::new)
+            .defaultLang()
+            .group(ItemGroupMFFS::GetInstance)
+            .model((ctx,prov) -> prov.withExistingParent(ctx.getName(),prov.mcLoc("item/handheld")).texture("layer0",prov.modLoc("item/options/"+ctx.getName())))
+            .recipe((ctx,prov) -> ShapedRecipeBuilder.shapedRecipe(ctx.get()).addCriterion("circuit_has",hasItem(MFFSItems.MONAZIT_CIRCUIT.get()))
+                    .key('b',FOCUS_MATRIX.get())
+                    .key('e',MONAZIT_CIRCUIT.get())
+                    .patternLine(" e ")
+                    .patternLine("ebe")
+                    .patternLine(" e ").build(prov)
             )
             .register();
     //</editor-fold>

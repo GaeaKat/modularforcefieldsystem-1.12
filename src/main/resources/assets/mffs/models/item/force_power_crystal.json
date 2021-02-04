@@ -1,0 +1,40 @@
+{
+  "overrides": [
+    {
+      "predicate": {
+        "mffs:power_level": 0
+      },
+      "model": "mffs:item/force_power_crystal_0"
+    },
+    {
+      "predicate": {
+        "mffs:power_level": 1
+      },
+      "model": "mffs:item/force_power_crystal_20"
+    },
+    {
+      "predicate": {
+        "mffs:power_level": 2
+      },
+      "model": "mffs:item/force_power_crystal_40"
+    },
+    {
+      "predicate": {
+        "mffs:power_level": 3
+      },
+      "model": "mffs:item/force_power_crystal_60"
+    },
+    {
+      "predicate": {
+        "mffs:power_level": 4
+      },
+      "model": "mffs:item/force_power_crystal_80"
+    },
+    {
+      "predicate": {
+        "mffs:power_level": 5
+      },
+      "model": "mffs:item/force_power_crystal_100"
+    }
+  ]
+}

@@ -19,15 +19,25 @@ public class MFFSConfig {
     private static final ForgeConfigSpec.Builder COMMON_BUILDER = new ForgeConfigSpec.Builder();
     private static final ForgeConfigSpec.Builder CLIENT_BUILDER = new ForgeConfigSpec.Builder();
     private static final String SUBCATEGORY_COSTS = "costs";
+    private static final String SUBCATEGORY_EXTRACTOR = "extractor";
 
     public static ForgeConfigSpec COMMON_CONFIG;
     public static ForgeConfigSpec CLIENT_CONFIG;
 
+    public static ForgeConfigSpec.BooleanValue ADVENTURE_MODE;
     public static ForgeConfigSpec.BooleanValue GENERATOR_ENABLED;
+
+    public static ForgeConfigSpec.BooleanValue CHUNKLOADING_ENABLED;
     public static  ForgeConfigSpec.IntValue GENERATOR_GENERATE;
 
     public static ForgeConfigSpec.IntValue FORCEFIELD_PER_TICK;
     public static ForgeConfigSpec.IntValue BASE_FORCEFIELD_COST;
+    public static ForgeConfigSpec.IntValue FIELD_CREATE_MODIFIER;
+    public static ForgeConfigSpec.IntValue ZAPPER_MODIFIER;
+
+    public static ForgeConfigSpec.IntValue MONAZIT_CELL_WORK_CYCLE;
+    public static ForgeConfigSpec.IntValue MONAZIT_WORK_CYCLE;
+    public static ForgeConfigSpec.IntValue FE_PER_WORKCYCLE;
     static {
         COMMON_BUILDER.comment("General Settings").push(CATEGORY_GENERAL);
         setupGeneralSettings();
@@ -36,19 +46,32 @@ public class MFFSConfig {
         COMMON_BUILDER.comment("Power settings").push(CATEGORY_POWER);
         setupGeneratorSettings();
         setupPowerCosts();
+        setupExtractorCosts();
         COMMON_BUILDER.pop();
         COMMON_CONFIG=COMMON_BUILDER.build();
         CLIENT_CONFIG=CLIENT_BUILDER.build();
     }
 
+    private static void setupExtractorCosts() {
+        COMMON_BUILDER.comment("Extractor Settings").push(SUBCATEGORY_EXTRACTOR);
+        MONAZIT_CELL_WORK_CYCLE = COMMON_BUILDER.comment("Work Cycle of a Monazit Cell inside an Extractor").defineInRange("monazit_cell_work_cycle",230,0, Integer.MAX_VALUE);
+        MONAZIT_WORK_CYCLE = COMMON_BUILDER.comment("Work Cycle of a Monazit Crystal inside an Extractor").defineInRange("monazit_work_cycle",250,0, Integer.MAX_VALUE);
+        FE_PER_WORKCYCLE = COMMON_BUILDER.comment("How much FE generated per work cycle").defineInRange("fe_per_cycle",12000,0,Integer.MAX_VALUE);
+        COMMON_BUILDER.pop();
+    }
+
     private static void setupPowerCosts() {
         COMMON_BUILDER.comment("Power Costs").push(SUBCATEGORY_COSTS);
-        BASE_FORCEFIELD_COST = COMMON_BUILDER.comment("The Base cost to generate a forcefield block").defineInRange("base_cost",10,0,Integer.MAX_VALUE);
+        BASE_FORCEFIELD_COST = COMMON_BUILDER.comment("The Base cost to generate a forcefield block").defineInRange("base_cost",1,0,Integer.MAX_VALUE);
+        FIELD_CREATE_MODIFIER = COMMON_BUILDER.comment("The modifier for the initial creation of a block").defineInRange("field_create_modifier",10,0,Integer.MAX_VALUE);
+        ZAPPER_MODIFIER = COMMON_BUILDER.comment("The modifier for each block to do damage").defineInRange("zapper_modifier",2,0,Integer.MAX_VALUE);
        COMMON_BUILDER.pop();
     }
 
     private static void setupGeneralSettings() {
-        FORCEFIELD_PER_TICK = COMMON_BUILDER.comment("Blocks per tick generated").defineInRange("forcefield_per_tick",10,0,Integer.MAX_VALUE);
+        FORCEFIELD_PER_TICK = COMMON_BUILDER.comment("Blocks per tick generated").defineInRange("forcefield_per_tick",5000,0,Integer.MAX_VALUE);
+        CHUNKLOADING_ENABLED = COMMON_BUILDER.comment("If Enabled, Every MFFS machine chunkloads").define("enable_chunkloading",true);
+        ADVENTURE_MODE = COMMON_BUILDER.comment("When set to AdventureMap Mode, the  Extractor needs no Monazit, and  the ForceField has no click damage").define("adventure_mode",false);
     }
 
     private static void setupGeneratorSettings() {

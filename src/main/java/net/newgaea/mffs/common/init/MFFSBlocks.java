@@ -22,12 +22,10 @@ import net.newgaea.mffs.api.EnumProjectorModule;
 import net.newgaea.mffs.api.MFFSTags;
 import net.newgaea.mffs.common.blocks.*;
 import net.newgaea.mffs.common.libs.LibBlocks;
+import net.newgaea.mffs.common.libs.LibMachines;
 import net.newgaea.mffs.common.misc.ItemGroupMFFS;
 import net.newgaea.mffs.common.recipes.conditions.GeneratorEnabled;
-import net.newgaea.mffs.common.tiles.TileCapacitor;
-import net.newgaea.mffs.common.tiles.TileForcefield;
-import net.newgaea.mffs.common.tiles.TileGenerator;
-import net.newgaea.mffs.common.tiles.TileProjector;
+import net.newgaea.mffs.common.tiles.*;
 
 import static com.tterrag.registrate.providers.RegistrateRecipeProvider.hasItem;
 import static net.newgaea.mffs.common.libs.LibMisc.MOD_ID;
@@ -133,6 +131,26 @@ public class MFFSBlocks {
             .tileEntity(TileCapacitor::new)
             .build()
             .register();
+    public static final BlockEntry<BlockExtractor> EXTRACTOR = MFFSInit.REGISTRATE.object(LibBlocks.EXTRACTOR)
+            .block(BlockExtractor::new)
+            .defaultLang()
+            .defaultLoot()
+            .initialProperties(Material.IRON,MaterialColor.IRON)
+            .properties(properties -> properties.hardnessAndResistance(5.0f,6.0f))
+            .properties(properties -> properties.sound(SoundType.METAL))
+            .properties(properties -> properties.harvestLevel(1))
+            .properties(properties -> properties.harvestTool(ToolType.PICKAXE))
+            .blockstate((ctx,prov) -> {
+                registerSimpleActivatableMachine(ctx.get(), ctx.getName(), prov);
+            })
+            .item()
+            .model((ctx,prov) ->prov.withExistingParent(ctx.getName(),prov.modLoc("block/extractor_off")))
+            .group(ItemGroupMFFS::GetInstance)
+            .build()
+            .tag(BlockTags.WITHER_IMMUNE)
+            .tileEntity(TileExtractor::new)
+            .build()
+            .register();
 
     public static final BlockEntry<BlockForceField> FORCEFIELD = MFFSInit.REGISTRATE.object(LibBlocks.FORCEFIELD)
             .block(BlockForceField::new)
@@ -176,4 +194,8 @@ public class MFFSBlocks {
         return false;
     }
 
+    static {
+        LibMachines.getMachines().put(LibMachines.Projector,BlockProjector.class);
+        LibMachines.getMachines().put(LibMachines.Capacitor,BlockCapacitor.class);
+    }
 }

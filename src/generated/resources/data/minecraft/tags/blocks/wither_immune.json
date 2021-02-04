@@ -2,6 +2,7 @@
   "replace": false,
   "values": [
     "mffs:generator",
-    "mffs:capacitor"
+    "mffs:capacitor",
+    "mffs:extractor"
   ]
 }

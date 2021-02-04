@@ -51,19 +51,19 @@ public class ItemAdvCubeModule extends ItemProjectorModule{
         int tpy = 0;
         int tpz = 0;
 
-        int xMout = projector.focusItems(Direction.WEST);
-        int xPout = projector.focusItems(Direction.EAST);
-        int zMout = projector.focusItems(Direction.SOUTH);
-        int zPout = projector.focusItems(Direction.NORTH);
+        int xMout = projector.focusItems(Direction.WEST)+2;
+        int xPout = projector.focusItems(Direction.EAST)+2;
+        int zMout = projector.focusItems(Direction.SOUTH)+2;
+        int zPout = projector.focusItems(Direction.NORTH)+2;
         int distance = projector.distanceItems();
         int Strength = projector.strengthItems() + 2;
 
         for (int y1 = 0; y1 <= Strength; y1++) {
-            for (int x1 = 0 - xMout; x1 < xPout + 1; x1++) {
-                for (int z1 = 0 - zPout; z1 < zMout + 1; z1++) {
+            for (int x1 = -xMout; x1 < xPout + 1; x1++) {
+                for (int z1 = -zPout; z1 < zMout + 1; z1++) {
                     if (projector.getSide() == Direction.UP) {
 
-                        tpy = y1 - y1 - y1 + 1;
+                        tpy = -y1 + 1;
                         tpx = x1;
                         tpz = z1;
                     }
@@ -77,33 +77,33 @@ public class ItemAdvCubeModule extends ItemProjectorModule{
 
                     if (projector.getSide() == Direction.NORTH) {
 
-                        tpz = y1 - y1 - y1 + 1;
-                        tpy = z1 - z1 - z1;
-                        tpx = x1 - x1 - x1;
+                        tpz = -y1 + 1;
+                        tpy = -z1;
+                        tpx = -x1;
                     }
 
                     if (projector.getSide() == Direction.SOUTH) {
 
                         tpz = y1 - 1;
-                        tpy = z1 - z1 - z1;
+                        tpy = -z1;
                         tpx = x1;
                     }
 
                     if (projector.getSide() == Direction.WEST) {
 
-                        tpx = y1 - y1 - y1 + 1;
-                        tpy = z1 - z1 - z1;
+                        tpx = -y1 + 1;
+                        tpy = -z1;
                         tpz = x1;
                     }
                     if (projector.getSide() == Direction.EAST) {
 
                         tpx = y1 - 1;
-                        tpy = z1 - z1 - z1;
-                        tpz = x1 - x1 - x1;
+                        tpy = -z1;
+                        tpz = -x1;
                     }
 
-                    if (y1 == 0 || y1 == Strength || x1 == 0 - xMout
-                            || x1 == xPout || z1 == 0 - zPout || z1 == zMout) {
+                    if (y1 == 0 || y1 == Strength || x1 == -xMout
+                            || x1 == xPout || z1 == -zPout || z1 == zMout) {
                         if (projector.hasOption(MFFSItems.FIELD_MANIPULATOR_OPTION.get())) {
                             switch (projector.getSide()) {
                                 case UP:

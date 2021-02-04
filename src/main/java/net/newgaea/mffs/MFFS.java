@@ -12,7 +12,10 @@ import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.minecraftforge.fml.loading.FMLPaths;
 import net.newgaea.mffs.client.proxy.ClientProxy;
 import net.newgaea.mffs.common.config.MFFSConfig;
+import net.newgaea.mffs.common.forcefield.ForceFieldBlockInfo;
 import net.newgaea.mffs.common.init.*;
+import net.newgaea.mffs.common.misc.EnumFieldType;
+import net.newgaea.mffs.common.network.NetworkHandler;
 import net.newgaea.mffs.common.proxy.CommonProxy;
 import net.newgaea.mffs.common.proxy.IProxy;
 import net.newgaea.mffs.common.world.OreGen;
@@ -29,6 +32,7 @@ public class MFFS {
 
     public static IProxy proxy;
 
+    public static NetworkHandler networkHandler;
     public MFFS() {
         proxy = DistExecutor.unsafeRunForDist(() -> () -> new ClientProxy(), () -> () -> new CommonProxy());
 
@@ -47,7 +51,7 @@ public class MFFS {
         MFFSLang.init();
         MinecraftForge.EVENT_BUS.register(new OreGen());
         PatchouliAPI.instance.setConfigFlag("mffs:generatorEnabled",MFFSConfig.GENERATOR_ENABLED.get());
-        Flowable.just("Hello World").subscribe(LOGGER::info);
+        networkHandler=new NetworkHandler();
     }
 
     private void setup(final FMLCommonSetupEvent event) {

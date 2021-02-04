@@ -4,6 +4,8 @@ import net.minecraft.block.BlockState;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.inventory.container.INamedContainerProvider;
+import net.minecraft.item.ItemStack;
+import net.minecraft.loot.LootContext;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ActionResultType;
 import net.minecraft.util.math.BlockPos;
@@ -13,6 +15,8 @@ import net.minecraftforge.fml.network.NetworkHooks;
 import net.newgaea.mffs.common.init.MFFSTiles;
 import net.newgaea.mffs.common.tiles.TileCapacitor;
 import net.newgaea.mffs.common.tiles.TileGenerator;
+
+import java.util.List;
 
 public class BlockCapacitor extends BlockSimpleNetwork {
     public BlockCapacitor(Properties properties) {
@@ -31,6 +35,10 @@ public class BlockCapacitor extends BlockSimpleNetwork {
         return ActionResultType.SUCCESS;
     }
 
+    @Override
+    public List<ItemStack> getDrops(BlockState state, LootContext.Builder builder) {
+        return super.getDrops(state, builder);
+    }
 
     @Override
     public TileEntity createTileEntity(BlockState state, IBlockReader world) {

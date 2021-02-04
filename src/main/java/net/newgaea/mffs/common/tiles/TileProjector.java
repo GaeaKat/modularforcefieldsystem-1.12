@@ -2,7 +2,6 @@ package net.newgaea.mffs.common.tiles;
 
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
-import net.minecraft.inventory.InventoryHelper;
 import net.minecraft.inventory.container.Container;
 import net.minecraft.inventory.container.INamedContainerProvider;
 import net.minecraft.item.ItemStack;
@@ -12,7 +11,6 @@ import net.minecraft.util.Direction;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.StringTextComponent;
-import net.minecraftforge.common.ForgeInternalHandler;
 import net.minecraftforge.common.util.Constants;
 import net.minecraftforge.common.util.INBTSerializable;
 import net.minecraftforge.common.util.LazyOptional;
@@ -22,18 +20,21 @@ import net.newgaea.mffs.MFFS;
 import net.newgaea.mffs.api.*;
 import net.newgaea.mffs.common.blocks.BlockNetwork;
 import net.newgaea.mffs.common.blocks.BlockProjector;
+import net.newgaea.mffs.common.data.Grid;
 import net.newgaea.mffs.common.forcefield.FFGenerator;
 import net.newgaea.mffs.common.init.MFFSContainer;
 import net.newgaea.mffs.common.init.MFFSItems;
 import net.newgaea.mffs.common.inventory.ProjectorContainer;
 import net.newgaea.mffs.common.items.modules.ItemProjectorModule;
+import net.newgaea.mffs.common.misc.EnumFieldType;
 import net.newgaea.mffs.common.misc.MFFSInventoryHelper;
+import net.newgaea.mffs.common.misc.ModeEnum;
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.*;
 
-public class TileProjector extends TileNetwork implements INamedContainerProvider, IModularProjector {
+public class TileProjector extends TileFENetwork implements INamedContainerProvider, IModularProjector {
 
     private IItemHandler module=createModuleInv(this);
     private LazyOptional<IItemHandler> moduleHandler = LazyOptional.of(()->module);
@@ -49,40 +50,110 @@ public class TileProjector extends TileNetwork implements INamedContainerProvide
 
 
 
-    private FFGenerator generator;
+    private FFGenerator generator=new FFGenerator(this);
+    private boolean burnout;
+    private int accessType;
+    private int capacity;
+    private int switchDelay=0;
+    private int linkPower;
+    public int getLinkPower() {
+        return linkPower;
+    }
+
+    public void setLinkPower(int linkPower) {
+        this.linkPower = linkPower;
+    }
+
+    public int getCapacity() { return capacity;}
+    public void setCapacity(int capacity) { this.capacity=capacity;}
+
+    public int getAccessType() {
+        return accessType;
+    }
+    public void setAccessType(int accessType) { this.accessType=accessType;}
+
+    public boolean isBurnout() { return burnout;}
+
+    @Override
+    public void setBurnedOut(boolean burnedOut) {
+        this.burnout=burnedOut;
+        markDirty();
+    }
 
     @Override
     public void tick() {
-        super.tick();
-        if(isActive()) {
-            if(!this.module.getStackInSlot(0).isEmpty() ) {
-                if(this.generator==null)
-                    createGenerator();
-                this.generator.GenerateBlocks();
+        if(world.isRemote==false) {
+            if(!initialized) {
+                checkSlots();
+                if(this.isActive())
+                {
+                    generator.calculateField(true);
+                }
             }
+            if(hasPowerSource()){
+                setLinkPower(getAvailablePower());
+                if(isPowerSourceItem() && this.getAccessType()!=0)
+                    setAccessType(0);
+            }
+            else
+                setLinkPower(0);
+            if(getMode() == ModeEnum.Redstone) {
+                if(!getSwitchValue() && isRedstoneSignal())
+                    toggleSwitchValue();
+                if(getSwitchValue() && !isRedstoneSignal())
+                    toggleSwitchValue();
+            }
+            if((getSwitchValue() && (switchDelay>=40)) && hasValidTypeMod()
+            && hasPowerSource()
+            && this.getLinkPower() > neededForcePower(5)) {
+                if(isActive()!=true) {
+                    setActive(true);
+                    switchDelay=0;
+                    try {
+                        if(generator.calculateField(true))
+                            generator.GenerateBlocks(true);
+                    } catch(ArrayIndexOutOfBoundsException ex) {
+
+                    }
+
+                }
+            }
+            if((!getSwitchValue() && switchDelay >=40) || !hasValidTypeMod()
+                || !hasPowerSource() || burnout || this.getLinkPower() <= neededForcePower(1)) {
+                if(isActive()!=false) {
+                    setActive(false);
+                    switchDelay=0;
+                    generator.destroyField();
+                }
+            }
+
+            if(this.getTicker() == 20) {
+                if(isActive()) {
+                    generator.GenerateBlocks(false);
+                    // todo: Handle Mob defence and player defence options
+                }
+                this.setTicker((short) 0);
+
+            }
+            this.setTicker((short) (this.getTicker()+1));
         }
+        switchDelay++;
+        super.tick();
     }
 
-    private void createGenerator() {
-        Set<BlockPos> blocks=new HashSet<>();
-        Set<BlockPos> blocksInterior=new HashSet<>();
-        IProjectorModule module=(IProjectorModule)this.module.getStackInSlot(0).getItem();
-        if(module.is3D()) {
-            module.calculateField(this,blocks,blocksInterior);
-        }
-        else {
-            module.calculateField(this, blocks);
-        }
-        this.generator=new FFGenerator(this,new ArrayList<>(blocks),200);
+    private boolean hasValidTypeMod() {
+        return getTypeModule()!=null;
     }
+
+    private int neededForcePower(int factor) {
+        return generator.neededForcePower(factor);
+    }
+
 
     @Override
     public TileNetwork setActive(boolean active) {
         TileNetwork ret = super.setActive(active);
         if(active) {
-            if(!this.module.getStackInSlot(0).isEmpty() && this.module.getStackInSlot(0).getItem() instanceof IProjectorModule) {
-                createGenerator();
-            }
             this.world.setBlockState(getPos(),this.getBlockState().with(BlockNetwork.ACTIVE,true),Constants.BlockFlags.BLOCK_UPDATE+Constants.BlockFlags.DEFAULT_AND_RERENDER);
         }
         else
@@ -90,6 +161,11 @@ public class TileProjector extends TileNetwork implements INamedContainerProvide
             this.world.setBlockState(getPos(),this.getBlockState().with(BlockNetwork.ACTIVE,false),Constants.BlockFlags.BLOCK_UPDATE+Constants.BlockFlags.DEFAULT_AND_RERENDER);
         }
         return ret;
+    }
+
+    @Override
+    public TileAdvSecurityStation getLinkedSecurityStation() {
+        return null;
     }
 
     public static IItemHandler createStrengthInv(TileProjector projector) {
@@ -274,6 +350,8 @@ public class TileProjector extends TileNetwork implements INamedContainerProvide
         if(compound.contains("options")) {
             ((INBTSerializable<CompoundNBT>)options).deserializeNBT(compound.getCompound("options"));
         }
+        this.accessType=compound.getInt("accessType");
+        this.burnout=compound.getBoolean("burnout");
 
     }
 
@@ -285,9 +363,29 @@ public class TileProjector extends TileNetwork implements INamedContainerProvide
         cmp.put("distance",((INBTSerializable<CompoundNBT>)distanceModifier).serializeNBT());
         cmp.put("strength",((INBTSerializable<CompoundNBT>)strengthModifier).serializeNBT());
         cmp.put("options",((INBTSerializable<CompoundNBT>)options).serializeNBT());
+        cmp.putInt("accessType",accessType);
+        cmp.putBoolean("burnout",burnout);
         return cmp;
 
     }
+
+    @Override
+    public void dropPlugins() {
+        for(int i=0;i<foci.getSlots();i++) {
+            dropPlugins(i,foci);
+        }
+        for(int i=0;i<options.getSlots();i++) {
+            dropPlugins(i,options);
+        }
+        dropPlugins(0,module);
+        dropPlugins(0,distanceModifier);
+        dropPlugins(0,strengthModifier);
+        dropPlugins(0,link);
+
+    }
+
+
+
 
     @Override
     public void markDirty() {
@@ -303,15 +401,13 @@ public class TileProjector extends TileNetwork implements INamedContainerProvide
 
             this.getWorld().setBlockState(pos,this.getBlockState().with(BlockProjector.TYPE,EnumProjectorModule.getModuleFromString(newModule)), Constants.BlockFlags.BLOCK_UPDATE+Constants.BlockFlags.UPDATE_NEIGHBORS);
         }
-        checkStatus();
+        checkSlots();
     }
 
-    public void checkStatus() {
-        if(module.getStackInSlot(0)!=ItemStack.EMPTY) {
+    public void checkSlots() {
+
+        if(hasValidTypeMod()) {
             IProjectorModule pModule= (IProjectorModule) module.getStackInSlot(0).getItem();
-            Set<BlockPos> blockPos=new HashSet<>();
-            pModule.calculateField(this,blockPos);
-            MFFS.getLog().info(blockPos);
             if(!pModule.enabledFoci())
             {
                 MFFSInventoryHelper.dropInventoryItems(world,getPos(),foci);
@@ -325,6 +421,31 @@ public class TileProjector extends TileNetwork implements INamedContainerProvide
         }
         else
             MFFSInventoryHelper.dropInventoryItems(world,getPos(),foci);
+        if(hasOption(MFFSItems.CAMOUFLAGE_OPTION.get())) {
+            generator.setFieldType(EnumFieldType.Default);
+        }
+
+        if(hasOption(MFFSItems.ZAPPER_OPTION.get())) {
+            generator.setFieldType(EnumFieldType.Zapper);
+        }
+
+        if(hasOption(MFFSItems.FUSION_OPTION.get())) {
+            if(!Grid.getWorldGrid(world).getFusions().containsKey(getDeviceID()))
+                Grid.getWorldGrid(world).getFusions().put(getDeviceID(),this);
+        }
+        else {
+            if(Grid.getWorldGrid(world).getFusions().containsKey(getDeviceID()))
+                Grid.getWorldGrid(world).getFusions().remove(getDeviceID(),this);
+        }
+        if(hasOption(MFFSItems.FIELD_JAMMER_OPTION.get())) {
+            if(!Grid.getWorldGrid(world).getJammers().containsKey(getDeviceID()))
+                Grid.getWorldGrid(world).getJammers().put(getDeviceID(),this);
+        }
+        else {
+            if(Grid.getWorldGrid(world).getJammers().containsKey(getDeviceID()))
+                Grid.getWorldGrid(world).getJammers().remove(getDeviceID(),this);
+        }
+
     }
 
 
@@ -362,5 +483,42 @@ public class TileProjector extends TileNetwork implements INamedContainerProvide
     @Override
     public boolean takeEnergy(int energy) {
         return true;
+    }
+
+    @Override
+    public IProjectorModule getTypeModule() {
+        if(module.getStackInSlot(0).isEmpty())
+            return null;
+        return (IProjectorModule) module.getStackInSlot(0).getItem();
+    }
+
+    public List<BlockPos> getInteriorPoints() {
+        return generator.getInteriorPoints();
+    }
+
+    public void burnout() {
+        this.setBurnedOut(true);
+        this.dropPlugins();
+    }
+
+    public void calculateField(boolean b) {
+        generator.calculateField(b);
+    }
+
+    @Override
+    public void remove() {
+        Grid.getWorldGrid(world).getProjectors().remove(getDeviceID());
+        generator.destroyField();
+        super.remove();
+    }
+    @Override
+    public List<ModeEnum> getAllowedModes() {
+        ModeEnum[] enums=new ModeEnum[]{
+                ModeEnum.Off,
+                ModeEnum.Redstone,
+                ModeEnum.Switch,
+                ModeEnum.Computer
+        };
+        return Arrays.asList(enums);
     }
 }

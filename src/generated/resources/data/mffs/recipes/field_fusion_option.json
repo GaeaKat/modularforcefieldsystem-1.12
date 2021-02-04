@@ -1,19 +1,19 @@
 {
   "type": "minecraft:crafting_shaped",
   "pattern": [
-    "PPP",
-    "PCP",
-    "PPP"
+    " e ",
+    "ebe",
+    " e "
   ],
   "key": {
-    "P": {
-      "item": "minecraft:paper"
+    "b": {
+      "item": "mffs:focus_matrix"
     },
-    "C": {
+    "e": {
       "item": "mffs:monazit_circuit"
     }
   },
   "result": {
-    "item": "mffs:link_card"
+    "item": "mffs:field_fusion_option"
   }
 }

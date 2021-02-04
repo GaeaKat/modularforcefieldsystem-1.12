@@ -13,9 +13,11 @@ import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.newgaea.mffs.MFFS;
 import net.newgaea.mffs.client.gui.screens.CapacitorScreen;
+import net.newgaea.mffs.client.gui.screens.ExtractorScreen;
 import net.newgaea.mffs.client.gui.screens.GeneratorScreen;
 import net.newgaea.mffs.client.gui.screens.ProjectorScreen;
 import net.newgaea.mffs.common.inventory.CapacitorContainer;
+import net.newgaea.mffs.common.inventory.ExtractorContainer;
 import net.newgaea.mffs.common.inventory.GeneratorContainer;
 import net.newgaea.mffs.common.inventory.ProjectorContainer;
 import net.newgaea.mffs.common.libs.LibContainer;
@@ -62,9 +64,9 @@ public class MFFSContainer {
 
 
     public static final RegistryEntry<ContainerType<CapacitorContainer>> CAPACITOR = MFFSInit.REGISTRATE.object(LibContainer.CAPACITOR)
-            .container(
-                    (type,windowId,playerInv) ->
-                            new CapacitorContainer(type,windowId,playerInv.player, TileCapacitor.createUpgrades(null)), ()->CapacitorScreen::new).register();
+            .container(CapacitorContainer::new, () -> CapacitorScreen::new).register();
+    public static final RegistryEntry<ContainerType<ExtractorContainer>> EXTRACTOR = MFFSInit.REGISTRATE.object(LibContainer.EXTRACTOR)
+            .container(ExtractorContainer::new,() -> ExtractorScreen::new).register();
     public static final RegistryEntry<ContainerType<ProjectorContainer>> PROJECTOR = MFFSInit.REGISTRATE.object(LibContainer.PROJECTOR)
             .container(
                     (type,windowId,playerInv) ->

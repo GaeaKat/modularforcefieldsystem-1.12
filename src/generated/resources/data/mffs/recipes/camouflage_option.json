@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    " e ",
+    "eve",
+    " e "
+  ],
+  "key": {
+    "e": {
+      "item": "minecraft:ender_eye"
+    },
+    "v": {
+      "item": "mffs:focus_matrix"
+    }
+  },
+  "result": {
+    "item": "mffs:camouflage_option"
+  }
+}
