@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "uuu",
+    "uiu",
+    "uuu"
+  ],
+  "key": {
+    "u": {
+      "item": "mffs:monazit_crystal"
+    },
+    "i": {
+      "item": "minecraft:diamond"
+    }
+  },
+  "result": {
+    "item": "mffs:monazit_cell"
+  }
+}

@@ -391,7 +391,7 @@ public class TileExtractor extends TileFENetwork implements INamedContainerProvi
 
     @Override
     public void tick() {
-        if (world.isRemote == false) {
+        if (!world.isRemote) {
             if (!initialized) {
                 checkSlots(true);
             }

@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    " a ",
+    "ava",
+    " a "
+  ],
+  "key": {
+    "a": {
+      "item": "minecraft:ender_pearl"
+    },
+    "v": {
+      "item": "mffs:focus_matrix"
+    }
+  },
+  "result": {
+    "item": "mffs:field_jammer_option"
+  }
+}

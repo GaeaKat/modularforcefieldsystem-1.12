@@ -329,7 +329,7 @@ public class TileProjector extends TileFENetwork implements INamedContainerProvi
 
     @Override
     public Container createMenu(int windowId, PlayerInventory playerInventory, PlayerEntity playerEntity) {
-        return new ProjectorContainer(MFFSContainer.PROJECTOR.get(), windowId,playerEntity,module,foci,distanceModifier,strengthModifier,options);
+        return new ProjectorContainer(windowId,playerEntity,this);
     }
 
     @Override
@@ -520,5 +520,25 @@ public class TileProjector extends TileFENetwork implements INamedContainerProvi
                 ModeEnum.Computer
         };
         return Arrays.asList(enums);
+    }
+
+    public IItemHandler getModule() {
+        return module;
+    }
+
+    public IItemHandler getFoci() {
+        return foci;
+    }
+
+    public IItemHandler getDistanceModifiers() {
+        return distanceModifier;
+    }
+
+    public IItemHandler getStrengthModifiers() {
+        return strengthModifier;
+    }
+
+    public IItemHandler getOptions() {
+        return options;
     }
 }

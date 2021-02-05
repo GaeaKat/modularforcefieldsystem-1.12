@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "AAA",
+    "AxA",
+    "ADA"
+  ],
+  "key": {
+    "A": {
+      "item": "minecraft:iron_ingot"
+    },
+    "x": {
+      "item": "minecraft:diamond"
+    },
+    "D": {
+      "item": "mffs:monazit_circuit"
+    }
+  },
+  "result": {
+    "item": "mffs:force_power_crystal"
+  }
+}

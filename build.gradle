@@ -103,6 +103,7 @@ repositories {
         url "http://maven.tterrag.com/"
     }
     maven { url 'https://squiddev.cc/maven/' }
+    maven { url "https://maven.tehnut.info" }
     maven {
         // location of the maven that hosts JEI files
         name = "Progwml6 maven"
@@ -127,6 +128,9 @@ dependencies {
     minecraft 'net.minecraftforge:forge:1.16.4-35.1.36'
     compileOnly fg.deobf("vazkii.patchouli:Patchouli:1.16.2-47:api")
     runtimeOnly fg.deobf("vazkii.patchouli:Patchouli:1.16.2-47")
+    compileOnly fg.deobf("mcp.mobius.waila:Hwyla:1.10.11-B78_1.16.2:api")
+    // At runtime, use the full Hwyla jar
+    runtimeOnly fg.deobf("mcp.mobius.waila:Hwyla:1.10.11-B78_1.16.2")
     def registrate = "com.tterrag.registrate:Registrate:MC1.16.2-1.0.0-beta.33"
     implementation fg.deobf(registrate)
     shade registrate

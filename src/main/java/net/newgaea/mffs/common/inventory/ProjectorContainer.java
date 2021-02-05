@@ -1,8 +1,7 @@
 package net.newgaea.mffs.common.inventory;
 
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.inventory.IInventory;
-import net.minecraft.inventory.container.Container;
+import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.container.ContainerType;
 import net.minecraft.inventory.container.Slot;
 import net.minecraft.item.ItemStack;
@@ -12,15 +11,20 @@ import net.minecraftforge.items.SlotItemHandler;
 import net.minecraftforge.items.wrapper.InvWrapper;
 import net.newgaea.mffs.api.INotifiableContainer;
 import net.newgaea.mffs.api.IProjectorModule;
+import net.newgaea.mffs.common.init.MFFSContainer;
 import net.newgaea.mffs.common.inventory.slots.SlotItemHandlerToggle;
 import net.newgaea.mffs.common.inventory.slots.SlotitemHandlerNotify;
+import net.newgaea.mffs.common.tiles.TileFENetwork;
+import net.newgaea.mffs.common.tiles.TileProjector;
+import net.newgaea.mffs.transport.network.property.PropertyManager;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class ProjectorContainer extends Container implements INotifiableContainer {
+public class ProjectorContainer extends NetworkContainer implements INotifiableContainer {
     private PlayerEntity playerEntity;
     private IItemHandler playerInventory;
     public Slot moduleSlot;
@@ -30,10 +34,18 @@ public class ProjectorContainer extends Container implements INotifiableContaine
     public SlotItemHandlerToggle distanceSlot;
     public SlotItemHandlerToggle strengthSlot;
 
-    public ProjectorContainer(ContainerType<?> type, int id, PlayerEntity player, IItemHandler module, IItemHandler foci, IItemHandler distance, IItemHandler strength,IItemHandler options) {
-        super(type, id);
-        this.playerEntity = player;
-        this.playerInventory = new InvWrapper(player.inventory);
+    public ProjectorContainer(@Nullable ContainerType<?> type, int id, PlayerInventory playerInventory) {
+        super(type, id, playerInventory);
+        addSlots(TileProjector.createModuleInv(null),TileProjector.createFocusInv(null),TileProjector.createDistanceInv(null),TileProjector.createStrengthInv(null),TileProjector.createOptionsInv(null),TileFENetwork.createLinkHandler(null),playerInventory);
+    }
+
+    public ProjectorContainer(int id, PlayerEntity player, TileProjector networkMachine) {
+        super(MFFSContainer.PROJECTOR.get(), id, player, networkMachine);
+
+        addSlots(networkMachine.getModule(),networkMachine.getFoci(),networkMachine.getDistanceModifiers(), networkMachine .getStrengthModifiers(),networkMachine.getOptions(),networkMachine.getLink(), player.inventory);
+    }
+
+    private void addSlots(IItemHandler module, IItemHandler foci, IItemHandler distance, IItemHandler strength,IItemHandler options,IItemHandler link,PlayerInventory inventory) {
         moduleSlot = new SlotitemHandlerNotify(module, this, 0, 11, 38);
         addSlot(moduleSlot);
         fociSlots.put(Direction.NORTH, new SlotItemHandlerToggle(foci, 0, 137, 28));
@@ -53,34 +65,11 @@ public class ProjectorContainer extends Container implements INotifiableContaine
             optionSlots.add(i,new SlotItemHandlerToggle(options,i,120+i*18,82));
             addSlot(optionSlots.get(i));
         }
-        layoutPlayerInventorySlots(8, 104);
+        layoutPlayerInventorySlots(8, 104,new InvWrapper(inventory));
     }
 
-    private int addSlotRange(IItemHandler handler, int index, int x, int y, int amount, int dx) {
-        for (int i = 0; i < amount; i++) {
-            addSlot(new SlotItemHandler(handler, index, x, y));
-            x += dx;
-            index++;
-        }
-        return index;
-    }
 
-    private int addSlotBox(IItemHandler handler, int index, int x, int y, int horAmount, int dx, int verAmount, int dy) {
-        for (int j = 0; j < verAmount; j++) {
-            index = addSlotRange(handler, index, x, y, horAmount, dx);
-            y += dy;
-        }
-        return index;
-    }
 
-    private void layoutPlayerInventorySlots(int leftCol, int topRow) {
-        // Player inventory
-        addSlotBox(playerInventory, 9, leftCol, topRow, 9, 18, 3, 18);
-
-        // Hotbar
-        topRow += 58;
-        addSlotRange(playerInventory, 0, leftCol, topRow, 9, 18);
-    }
 
     @Override
     public boolean canInteractWith(PlayerEntity playerIn) {
@@ -138,5 +127,10 @@ public class ProjectorContainer extends Container implements INotifiableContaine
             }
 
         }
+    }
+
+    @Override
+    public PropertyManager getPropertyManager() {
+        return propertyManager;
     }
 }

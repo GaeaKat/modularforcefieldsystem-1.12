@@ -2,50 +2,76 @@ package net.newgaea.mffs.common.inventory;
 
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
-import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.container.Container;
 import net.minecraft.inventory.container.ContainerType;
+import net.minecraft.inventory.container.IContainerListener;
 import net.minecraft.inventory.container.Slot;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.AbstractFurnaceTileEntity;
-import net.minecraft.util.Direction;
 import net.minecraft.util.IIntArray;
-import net.minecraft.util.IWorldPosCallable;
-import net.minecraft.util.IntReferenceHolder;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.World;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
-import net.minecraftforge.energy.CapabilityEnergy;
-import net.minecraftforge.energy.IEnergyStorage;
-import net.minecraftforge.items.CapabilityItemHandler;
 import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.SlotItemHandler;
 import net.minecraftforge.items.wrapper.InvWrapper;
 import net.newgaea.mffs.api.MFFSTags;
-import net.newgaea.mffs.common.init.MFFSBlocks;
 import net.newgaea.mffs.common.init.MFFSContainer;
-import net.newgaea.mffs.common.init.MFFSItems;
-import net.newgaea.mffs.common.storage.MFFSEnergyStorage;
 import net.newgaea.mffs.common.tiles.TileGenerator;
+import net.newgaea.mffs.transport.network.property.IPropertyManaged;
+import net.newgaea.mffs.transport.network.property.Property;
+import net.newgaea.mffs.transport.network.property.PropertyManager;
+import net.newgaea.mffs.transport.network.property.PropertyTypes;
+import org.jetbrains.annotations.Nullable;
+
+import java.util.Collections;
 
 
-public class GeneratorContainer extends Container {
+public class GeneratorContainer extends Container implements IPropertyManaged {
+    protected final PropertyManager propertyManager;
     private PlayerEntity playerEntity;
     private IItemHandler playerInventory;
-    private final IIntArray generatorData;
+    private final Property<Integer> generatorEnergy;
+    private final Property<Integer> generatorMaxEnergy;
+    private final Property<Integer> burnTime;
+    private final Property<Integer> cookTime;
+    private final Property<Integer> cookTimeTotal;
+    private final Property<Integer> recipesUsed;
 
 
-    public GeneratorContainer(ContainerType<?> type, int windowId, PlayerEntity player, IItemHandler burn, IItemHandler fuel, IIntArray array) {
-        super(type, windowId);
+    public GeneratorContainer(@Nullable ContainerType<?> type, int id, PlayerInventory playerInventory) {
+        super(type, id);
+        this.propertyManager = new PropertyManager((short) windowId);
+        generatorEnergy = this.getPropertyManager().addTrackedProperty(PropertyTypes.INTEGER.create());
+        generatorMaxEnergy = this.getPropertyManager().addTrackedProperty(PropertyTypes.INTEGER.create());
+        burnTime = this.getPropertyManager().addTrackedProperty(PropertyTypes.INTEGER.create());
+        cookTime = this.getPropertyManager().addTrackedProperty(PropertyTypes.INTEGER.create());
+        cookTimeTotal = this.getPropertyManager().addTrackedProperty(PropertyTypes.INTEGER.create());
+        recipesUsed = this.getPropertyManager().addTrackedProperty(PropertyTypes.INTEGER.create());
+
+        addSlots(TileGenerator.createMonazitHandler(null),TileGenerator.createFuelHandler(null),playerInventory);
+
+
+    }
+    public GeneratorContainer(int windowId, PlayerEntity player, TileGenerator tileGenerator) {
+        super(MFFSContainer.GENERATOR.get(), windowId);
+        this.propertyManager = new PropertyManager((short) windowId);
+        generatorEnergy = this.getPropertyManager().addTrackedProperty(PropertyTypes.INTEGER.create(tileGenerator::getEnergy));
+        generatorMaxEnergy = this.getPropertyManager().addTrackedProperty(PropertyTypes.INTEGER.create(tileGenerator::getTotalEnergy));
+        burnTime = this.getPropertyManager().addTrackedProperty(PropertyTypes.INTEGER.create(tileGenerator::getBurnTime));
+        cookTime = this.getPropertyManager().addTrackedProperty(PropertyTypes.INTEGER.create(tileGenerator::getCookTime));
+        cookTimeTotal = this.getPropertyManager().addTrackedProperty(PropertyTypes.INTEGER.create(tileGenerator::getCookTimeTotal));
+        recipesUsed = this.getPropertyManager().addTrackedProperty(PropertyTypes.INTEGER.create(tileGenerator::getRecipesUsed));
         this.playerEntity=player;
         this.playerInventory=new InvWrapper(player.inventory);
-        generatorData=array;
-        addSlot(new SlotItemHandler(burn, 0, 56, 17));
-        addSlot(new SlotItemHandler(fuel, 0, 56, 53));
-        layoutPlayerInventorySlots(8, 84);
-        this.trackIntArray(generatorData);
 
+        addSlots(tileGenerator.getMonazit(),tileGenerator.getFuelItem(),player.inventory);
+
+    }
+
+    private void addSlots(IItemHandler monazit, IItemHandler fuelItem, PlayerInventory inventory) {
+        addSlot(new SlotItemHandler(monazit, 0, 56, 17));
+        addSlot(new SlotItemHandler(fuelItem, 0, 56, 53));
+        layoutPlayerInventorySlots(8, 84,new InvWrapper(inventory));
     }
 
     @Override
@@ -70,50 +96,55 @@ public class GeneratorContainer extends Container {
         return index;
     }
 
-    private void layoutPlayerInventorySlots(int leftCol, int topRow) {
+    protected void layoutPlayerInventorySlots(int leftCol, int topRow, IItemHandler inventory) {
         // Player inventory
-        addSlotBox(playerInventory, 9, leftCol, topRow, 9, 18, 3, 18);
+        addSlotBox(inventory, 9, leftCol, topRow, 9, 18, 3, 18);
 
         // Hotbar
         topRow += 58;
-        addSlotRange(playerInventory, 0, leftCol, topRow, 9, 18);
+        addSlotRange(inventory, 0, leftCol, topRow, 9, 18);
     }
 
+    @Override
+    public void detectAndSendChanges() {
+        super.detectAndSendChanges();
+        this.propertyManager.sendChanges(this.listeners, false);
+
+    }
+
+    @Override
+    public void addListener(IContainerListener listener) {
+        super.addListener(listener);
+        this.propertyManager.sendChanges(Collections.singletonList(listener), true);
+    }
 
     public int getEnergy()
     {
-        return generatorData.get(4);
+
+        return generatorEnergy.getOrElse(0);
     }
     public int getMaxEnergy()
     {
-        return generatorData.get(5);
+        return generatorMaxEnergy.getOrElse(0);
     }
 
-    //case 0:
-//        return AbstractFurnaceTileEntity.this.burnTime; === getBurnTime()
-//         case 1:
-//                 return AbstractFurnaceTileEntity.this.recipesUsed; == 200;
-//         case 2:
-//                 return AbstractFurnaceTileEntity.this.cookTime; ======= getCounter()
-//         case 3:
-//                 return AbstractFurnaceTileEntity.this.cookTimeTotal;  ======= getBurnTIme
     public int getBurnTime()
     {
-        return generatorData.get(0);
+        return burnTime.getOrElse(0);
     }
 
     public int getCookTime()
     {
-        return generatorData.get(2);
+        return cookTime.getOrElse(0);
     }
 
     public int getCookTimeTotal()
     {
-        return generatorData.get(3);
+        return cookTimeTotal.getOrElse(0);
     }
     public int getRecipesUsed()
     {
-        return generatorData.get(1);
+        return recipesUsed.getOrElse(0);
     }
 
     @OnlyIn(Dist.CLIENT)
@@ -183,5 +214,10 @@ public class GeneratorContainer extends Container {
 
     protected boolean isFuel(ItemStack p_217058_1_) {
         return AbstractFurnaceTileEntity.isFuel(p_217058_1_);
+    }
+
+    @Override
+    public PropertyManager getPropertyManager() {
+        return propertyManager;
     }
 }

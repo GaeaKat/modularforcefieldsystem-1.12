@@ -37,10 +37,10 @@ import java.util.concurrent.atomic.AtomicInteger;
 
 public class TileGenerator extends TileMFFS  implements ITickableTileEntity, INamedContainerProvider {
 
-    private IItemHandler fuel=this.createFuelHandler();
+    private IItemHandler fuel=this.createFuelHandler(this);
     private LazyOptional<IItemHandler> fuelHandler = LazyOptional.of(()->fuel);
 
-    private IItemHandler monazit=this.createMonazitHandler();
+    private IItemHandler monazit=this.createMonazitHandler(this);
     private LazyOptional<IItemHandler> monazitHandler = LazyOptional.of(()->monazit);
 
     private LazyOptional<IItemHandler> jointHandler = LazyOptional.of(this::createJointHandler);
@@ -51,60 +51,7 @@ public class TileGenerator extends TileMFFS  implements ITickableTileEntity, INa
     private int cookTime;
     private int cookTimeTotal=200;
     private int recipesUsed;
-    protected final IIntArray generatorData = new IIntArray() {
 
-        @Override
-        public int get(int index) {
-            switch (index) {
-                case 0:
-                    return TileGenerator.this.burnTime;
-                case 1:
-                    return TileGenerator.this.recipesUsed;
-                case 2:
-                    return TileGenerator.this.cookTime;
-                case 3:
-                    return TileGenerator.this.cookTimeTotal;
-                case 4:
-                    return TileGenerator.this.energy.map(IEnergyStorage::getEnergyStored).orElse(0);
-                case 5:
-                    return TileGenerator.this.energy.map(IEnergyStorage::getMaxEnergyStored).orElse(0);
-                default:
-                    return 0;
-            }
-        }
-
-        @Override
-        public void set(int index, int value) {
-            switch (index) {
-                case 0:
-                    TileGenerator.this.burnTime=value;
-                    break;
-                case 1:
-                    TileGenerator.this.recipesUsed=value;
-                    break;
-                case 2:
-                    TileGenerator.this.cookTime=value;
-                    break;
-                case 3:
-                    TileGenerator.this.cookTimeTotal=value;
-                    break;
-                case 4:
-                    TileGenerator.this.energy.ifPresent(energy->((MFFSEnergyStorage)energy).setEnergy(value));
-                    break;
-                case 5:
-                    int tmp=TileGenerator.this.energyStorage.getEnergyStored();
-                    TileGenerator.this.energyStorage=new MFFSEnergyStorage(value,900);
-                    ((MFFSEnergyStorage)TileGenerator.this.energyStorage).setEnergy(tmp);
-                    break;
-
-            }
-        }
-
-        @Override
-        public int size() {
-            return 6;
-        }
-    };
 
     public int getBurnTime() {
         return burnTime;
@@ -146,7 +93,7 @@ public class TileGenerator extends TileMFFS  implements ITickableTileEntity, INa
         return new CombinedInvWrapper((IItemHandlerModifiable)fuelHandler.cast(),(IItemHandlerModifiable)monazitHandler.cast());
     }
 
-    private <T> IItemHandler createMonazitHandler() {
+    public static IItemHandler createMonazitHandler(TileGenerator item) {
         return new ItemStackHandler(1){
             @Override
             public boolean isItemValid(int slot, ItemStack stack) {
@@ -164,12 +111,13 @@ public class TileGenerator extends TileMFFS  implements ITickableTileEntity, INa
             @Override
             protected void onContentsChanged(int slot) {
                 super.onContentsChanged(slot);
-                markDirty();
+                if(item!=null)
+                    item.markDirty();
             }
         };
     }
 
-    protected <T> IItemHandler createFuelHandler() {
+    public static IItemHandler createFuelHandler(TileGenerator item) {
         return new ItemStackHandler(1){
             @Override
             public boolean isItemValid(int slot, ItemStack stack) {
@@ -187,7 +135,8 @@ public class TileGenerator extends TileMFFS  implements ITickableTileEntity, INa
             @Override
             protected void onContentsChanged(int slot) {
                 super.onContentsChanged(slot);
-                markDirty();
+                if(item!=null)
+                    item.markDirty();
             }
         };
     }
@@ -360,7 +309,7 @@ public class TileGenerator extends TileMFFS  implements ITickableTileEntity, INa
 
     @Override
     public Container createMenu(int id, PlayerInventory playerInventory, PlayerEntity playerEntity) {
-        return new GeneratorContainer(MFFSContainer.GENERATOR.get(),id,playerEntity,(IItemHandler) monazit,(IItemHandler)fuel, generatorData);
+        return new GeneratorContainer(id,playerEntity,this);
     }
 
     @Override
@@ -381,5 +330,21 @@ public class TileGenerator extends TileMFFS  implements ITickableTileEntity, INa
             return energy.cast();
 
         return super.getCapability(cap, side);
+    }
+
+    public int getEnergy() {
+        return energyStorage.getEnergyStored();
+    }
+
+    public int getTotalEnergy() {
+        return energyStorage.getMaxEnergyStored();
+    }
+
+    public IItemHandler getMonazit() {
+        return this.monazit;
+    }
+
+    public IItemHandler getFuelItem() {
+        return this.fuel;
     }
 }
