@@ -14,8 +14,8 @@ public class ItemContainmentModule extends ItemProjectorModule{
     }
 
     @Override
-    public String getModuleType() {
-        return EnumProjectorModule.Containment.getString();
+    public EnumProjectorModule getModuleType() {
+        return EnumProjectorModule.Containment;
     }
 
     @Override

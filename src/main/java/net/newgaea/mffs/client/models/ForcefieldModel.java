@@ -147,7 +147,10 @@ public class ForcefieldModel implements IDynamicBakedModel {
     }
 
     private TextureAtlasSprite getTexture(EnumFieldType fieldType) {
-        return Minecraft.getInstance().getAtlasSpriteGetter(AtlasTexture.LOCATION_BLOCKS_TEXTURE).apply(fieldType.getTexture());
+        if(fieldType!=null)
+            return Minecraft.getInstance().getAtlasSpriteGetter(AtlasTexture.LOCATION_BLOCKS_TEXTURE).apply(fieldType.getTexture());
+        else
+            return Minecraft.getInstance().getAtlasSpriteGetter(AtlasTexture.LOCATION_BLOCKS_TEXTURE).apply(EnumFieldType.Default.getTexture());
     }
     @Override
     public boolean isAmbientOcclusion() {

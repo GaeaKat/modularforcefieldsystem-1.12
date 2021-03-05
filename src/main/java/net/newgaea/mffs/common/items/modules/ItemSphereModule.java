@@ -14,8 +14,8 @@ public class ItemSphereModule extends ItemProjectorModule{
     }
 
     @Override
-    public String getModuleType() {
-        return EnumProjectorModule.Sphere.getString();
+    public EnumProjectorModule getModuleType() {
+        return EnumProjectorModule.Sphere;
     }
     @Override
     public boolean enabledFoci() {

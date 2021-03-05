@@ -167,6 +167,11 @@ public class MFFSBlocks {
                 ModelFile file=prov.models().getExistingFile(new ResourceLocation(MOD_ID,"forcefield"));
                 prov.simpleBlock(ctx.get(),file);
             })
+            .item()
+            .model((ctx,prov) ->prov.withExistingParent(ctx.getName(),prov.modLoc("block/forcefield")))
+            .group(ItemGroupMFFS::GetInstance)
+            .build()
+            .defaultLang()
             .tileEntity(TileForcefield::new).build()
             .register();
 

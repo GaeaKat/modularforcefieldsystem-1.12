@@ -7,9 +7,12 @@ import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.container.Slot;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.ITextComponent;
+import net.newgaea.mffs.MFFS;
+import net.newgaea.mffs.client.gui.buttons.ButtonSwitch;
 import net.newgaea.mffs.common.inventory.ProjectorContainer;
 import net.newgaea.mffs.common.inventory.slots.SlotItemHandlerToggle;
 import net.newgaea.mffs.common.libs.LibMisc;
+import net.newgaea.mffs.common.network.messages.ToggleSwitchModeMessage;
 
 public class ProjectorScreen extends ContainerScreen<ProjectorContainer> {
 
@@ -18,6 +21,12 @@ public class ProjectorScreen extends ContainerScreen<ProjectorContainer> {
         super(screenContainer, inv, titleIn);
         this.xSize=176;
         this.ySize=186;
+    }
+
+    @Override
+    protected void init() {
+        super.init();
+        addButton(new ButtonSwitch(this, (width / 2) + 60, (height / 2) - 88, button -> MFFS.networkHandler.sendToggleSwitchMode(new ToggleSwitchModeMessage(container.getPos()))));
     }
 
     @Override
@@ -34,6 +43,14 @@ public class ProjectorScreen extends ContainerScreen<ProjectorContainer> {
                 }
             }
         }
+        int i1 = (79 * this.getContainer().getCapacity() / 100);
+        this.blit(matrixStack,relX+8,relY+91,176,0,i1+1,70);
+    }
+    @Override
+    public void render(MatrixStack matrixStack,int mouseX, int mouseY, float partialTicks) {
+        this.renderBackground(matrixStack);
+        super.render(matrixStack,mouseX, mouseY, partialTicks);
+        this.renderHoveredTooltip(matrixStack,mouseX,mouseY);
     }
 
     @Override

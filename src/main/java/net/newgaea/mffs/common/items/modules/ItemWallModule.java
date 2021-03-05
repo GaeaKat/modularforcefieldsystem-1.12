@@ -15,8 +15,8 @@ public class ItemWallModule extends ItemProjectorModule {
 
 
     @Override
-    public String getModuleType() {
-        return EnumProjectorModule.Wall.getString();
+    public EnumProjectorModule getModuleType() {
+        return EnumProjectorModule.Wall;
     }
     @Override
     public boolean enabledFoci() {

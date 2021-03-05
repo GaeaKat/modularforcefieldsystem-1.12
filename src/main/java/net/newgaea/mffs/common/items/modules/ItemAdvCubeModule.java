@@ -16,8 +16,8 @@ public class ItemAdvCubeModule extends ItemProjectorModule{
     }
 
     @Override
-    public String getModuleType() {
-        return EnumProjectorModule.Advanced_Cube.getString();
+    public EnumProjectorModule getModuleType() {
+        return EnumProjectorModule.Advanced_Cube;
     }
 
     @Override

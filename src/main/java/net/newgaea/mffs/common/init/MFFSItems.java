@@ -12,6 +12,7 @@ import net.newgaea.mffs.api.MFFSTags;
 import net.newgaea.mffs.common.items.ItemDebugger;
 import net.newgaea.mffs.common.items.ItemForcePowerCrystal;
 import net.newgaea.mffs.common.items.ItemMonazitCell;
+import net.newgaea.mffs.common.items.linkcards.ItemCreativePowerCard;
 import net.newgaea.mffs.common.items.linkcards.ItemEmptyCard;
 import net.newgaea.mffs.common.items.linkcards.ItemPowerLinkCard;
 import net.newgaea.mffs.common.items.ItemUpgrade;
@@ -77,6 +78,16 @@ public class MFFSItems {
             .register();
     public static final ItemEntry<ItemPowerLinkCard> POWER_LINK_CARD =MFFSInit.REGISTRATE.object(LibItems.POWER_LINK_CARD)
             .item(ItemPowerLinkCard::new)
+            .model((ctx, registrateItemModelProvider) ->
+                    registrateItemModelProvider.withExistingParent(ctx.getName(),new ResourceLocation("item/handheld"))
+                            .texture("layer0",new ResourceLocation(MOD_ID,"item/link_cards/"+ctx.getName()))
+            )
+            .defaultLang()
+            .group(ItemGroupMFFS::GetInstance)
+            .register();
+
+    public static final ItemEntry<ItemCreativePowerCard> CREATIVE_POWER_CARD = MFFSInit.REGISTRATE.object(LibItems.CREATIVE_POWER_CARD)
+            .item(ItemCreativePowerCard::new)
             .model((ctx, registrateItemModelProvider) ->
                     registrateItemModelProvider.withExistingParent(ctx.getName(),new ResourceLocation("item/handheld"))
                             .texture("layer0",new ResourceLocation(MOD_ID,"item/link_cards/"+ctx.getName()))

@@ -15,8 +15,8 @@ public class ItemTubeModule extends ItemProjectorModule {
     }
 
     @Override
-    public String getModuleType() {
-        return EnumProjectorModule.Tube.getString();
+    public EnumProjectorModule getModuleType() {
+        return EnumProjectorModule.Tube;
     }
     @Override
     public boolean enabledFoci() {

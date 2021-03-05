@@ -15,8 +15,8 @@ public class ItemDeflectorModule extends ItemProjectorModule{
     }
 
     @Override
-    public String getModuleType() {
-        return EnumProjectorModule.Deflector.getString();
+    public EnumProjectorModule getModuleType() {
+        return EnumProjectorModule.Deflector;
     }
     @Override
     public boolean enabledFoci() {

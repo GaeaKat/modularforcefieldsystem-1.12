@@ -6,7 +6,7 @@ import net.minecraft.util.math.BlockPos;
 import java.util.Set;
 
 public interface IProjectorModule {
-    String getModuleType();
+    EnumProjectorModule getModuleType();
     boolean enabledFoci();
     boolean enabledStrength();
     boolean enabledDistance();

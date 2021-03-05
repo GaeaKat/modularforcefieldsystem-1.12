@@ -14,8 +14,8 @@ public class ItemDiagWallModule extends ItemProjectorModule {
     }
 
     @Override
-    public String getModuleType() {
-        return EnumProjectorModule.Diagonal_Wall.getString();
+    public EnumProjectorModule getModuleType() {
+        return EnumProjectorModule.Diagonal_Wall;
     }
 
     @Override

@@ -7,6 +7,7 @@ import net.minecraftforge.fml.DistExecutor;
 import net.minecraftforge.fml.ModLoadingContext;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.config.ModConfig;
+import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.minecraftforge.fml.loading.FMLPaths;
@@ -41,6 +42,8 @@ public class MFFS {
 
         // Register the setup method for modloading
         FMLJavaModLoadingContext.get().getModEventBus().addListener(this::setup);
+        FMLJavaModLoadingContext.get().getModEventBus().addListener(this::client);
+        proxy.register();
 
         MFFSConfig.loadConfig(MFFSConfig.CLIENT_CONFIG, FMLPaths.CONFIGDIR.get().resolve("mffs-client.toml"));
         MFFSConfig.loadConfig(MFFSConfig.COMMON_CONFIG, FMLPaths.CONFIGDIR.get().resolve("mffs-common.toml"));
@@ -53,7 +56,9 @@ public class MFFS {
         PatchouliAPI.instance.setConfigFlag("mffs:generatorEnabled",MFFSConfig.GENERATOR_ENABLED.get());
         networkHandler=new NetworkHandler();
     }
+    private void client(final FMLClientSetupEvent event) {
 
+    }
     private void setup(final FMLCommonSetupEvent event) {
         proxy.init();
     }

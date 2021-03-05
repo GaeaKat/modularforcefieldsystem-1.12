@@ -22,7 +22,7 @@ public class WorldMap {
             return ForceFieldStackMap.get(pos.hashCode());
         }
         public ForceFieldBlockStack getForceFieldBlockStack(Integer hash) {
-            return ForceFieldStackMap.get(hash);
+             return ForceFieldStackMap.get(hash);
         }
 
         public ForceFieldBlockStack getForceFieldBlockStack(BlockPos pos) {

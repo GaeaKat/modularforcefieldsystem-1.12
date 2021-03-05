@@ -11,6 +11,11 @@ public class CommonProxy implements IProxy {
     }
 
     @Override
+    public void register() {
+
+    }
+
+    @Override
     public World getClientWorld() {
         throw new IllegalStateException("Client side code running on server");
     }

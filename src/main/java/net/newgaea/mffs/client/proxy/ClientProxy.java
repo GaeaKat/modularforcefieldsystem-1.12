@@ -24,10 +24,13 @@ import static net.newgaea.mffs.common.libs.LibMisc.MOD_ID;
 public class ClientProxy implements IProxy {
 
 
+    public void register() {
+        FMLJavaModLoadingContext.get().getModEventBus().addListener(this::registerModels);
+    }
     @Override
     public void init() {
 
-        FMLJavaModLoadingContext.get().getModEventBus().addListener(this::registerModels);
+
         RenderTypeLookup.setRenderLayer(MFFSBlocks.FORCEFIELD.get(),(renderType -> true));
     }
     @SubscribeEvent

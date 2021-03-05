@@ -14,8 +14,8 @@ public class ItemCubeModule extends ItemProjectorModule {
     }
 
     @Override
-    public String getModuleType() {
-        return EnumProjectorModule.Cube.getString();
+    public EnumProjectorModule getModuleType() {
+        return EnumProjectorModule.Cube;
     }
     @Override
     public boolean enabledFoci() {

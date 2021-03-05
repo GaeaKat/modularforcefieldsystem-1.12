@@ -8,6 +8,7 @@ import org.jetbrains.annotations.NotNull;
 
 public interface IProxy {
     void init();
+    void register();
     World getClientWorld();
     PlayerEntity getClientPlayer();
 

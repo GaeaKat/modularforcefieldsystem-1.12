@@ -18,9 +18,17 @@ import net.minecraft.world.IBlockReader;
 import net.minecraft.world.World;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
+import net.minecraftforge.common.util.Constants;
 import net.newgaea.mffs.MFFS;
+import net.newgaea.mffs.common.config.MFFSConfig;
+import net.newgaea.mffs.common.data.Grid;
+import net.newgaea.mffs.common.forcefield.ForceFieldBlockStack;
+import net.newgaea.mffs.common.forcefield.WorldMap;
+import net.newgaea.mffs.common.init.MFFSBlocks;
 import net.newgaea.mffs.common.init.MFFSTiles;
+import net.newgaea.mffs.common.misc.EnumFieldType;
 import net.newgaea.mffs.common.tiles.TileForcefield;
+import net.newgaea.mffs.common.tiles.TileProjector;
 
 public class BlockForceField extends ModTileBlock{
     public BlockForceField(Properties properties) {
@@ -75,6 +83,32 @@ public class BlockForceField extends ModTileBlock{
     }
 
 
+    @Override
+    public void onReplaced(BlockState state, World worldIn, BlockPos pos, BlockState newState, boolean isMoving) {
+        //super.onReplaced(state, worldIn, pos, newState, isMoving);
+        if (!state.isIn(newState.getBlock())) {
+            ForceFieldBlockStack ffWorldMap = WorldMap.getForceFieldWorld(worldIn).getForceFieldBlockStack(pos.hashCode());
+            if(ffWorldMap!=null) {
+                if(!ffWorldMap.isEmpty()) {
+                    TileProjector projector = Grid.getWorldGrid(worldIn).getProjectors().get(ffWorldMap.getProjectorID());
+                    if(projector!=null) {
+                        if(!projector.isActive()) {
+                            ffWorldMap.removeByProjector(ffWorldMap.getProjectorID());
+                        } else {
+                            worldIn.setBlockState(pos, MFFSBlocks.FORCEFIELD.getDefaultState(), Constants.BlockFlags.DEFAULT_AND_RERENDER);
+                            worldIn.markBlockRangeForRenderUpdate(pos,state,worldIn.getBlockState(pos));
+                            ffWorldMap.setSync(true);
+                            if(ffWorldMap.getType()== EnumFieldType.Default) {
+                                projector.consumePower(MFFSConfig.FORCEFIELD_PER_TICK.get() * MFFSConfig.FIELD_CREATE_MODIFIER.get(),false);
+                            } else {
+                                projector.consumePower(MFFSConfig.FORCEFIELD_PER_TICK.get() * MFFSConfig.FIELD_CREATE_MODIFIER.get() * MFFSConfig.ZAPPER_MODIFIER.get(),false);
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
 
     @Override
     public boolean isTransparent(BlockState state) {

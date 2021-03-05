@@ -4,6 +4,7 @@ public class LibItems {
     public static final String MONAZIT_CRYSTAL ="monazit_crystal";
     public static final String EMPTY_CARD="empty_card";
     public static final String POWER_LINK_CARD ="power_link_card";
+    public static final String CREATIVE_POWER_CARD = "creative_card";
     public static final String MONAZIT_CIRCUIT = "monazit_circuit";
     public static final String RANGE_UPGRADE="range_upgrade";
     public static final String CAPACITY_UPGRADE="capacity_upgrade";

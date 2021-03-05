@@ -35,7 +35,7 @@ public  abstract class TileFENetwork extends TileNetwork {
         return new ItemStackHandler() {
             @Override
             public boolean isItemValid(int slot,  ItemStack stack) {
-                return stack.getItem()== MFFSItems.POWER_LINK_CARD.get();
+                return stack.getItem() instanceof IPowerLinkItem;
             }
 
             @Override

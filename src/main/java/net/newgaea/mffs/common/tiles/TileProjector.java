@@ -1,5 +1,6 @@
 package net.newgaea.mffs.common.tiles;
 
+import net.minecraft.block.Blocks;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.container.Container;
@@ -9,6 +10,7 @@ import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.tileentity.TileEntityType;
 import net.minecraft.util.Direction;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.ChunkPos;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.StringTextComponent;
 import net.minecraftforge.common.util.Constants;
@@ -20,12 +22,16 @@ import net.newgaea.mffs.MFFS;
 import net.newgaea.mffs.api.*;
 import net.newgaea.mffs.common.blocks.BlockNetwork;
 import net.newgaea.mffs.common.blocks.BlockProjector;
+import net.newgaea.mffs.common.config.MFFSConfig;
 import net.newgaea.mffs.common.data.Grid;
-import net.newgaea.mffs.common.forcefield.FFGenerator;
-import net.newgaea.mffs.common.init.MFFSContainer;
+import net.newgaea.mffs.common.forcefield.ForceFieldBlockStack;
+import net.newgaea.mffs.common.forcefield.WorldMap;
+import net.newgaea.mffs.common.init.MFFSBlocks;
 import net.newgaea.mffs.common.init.MFFSItems;
 import net.newgaea.mffs.common.inventory.ProjectorContainer;
 import net.newgaea.mffs.common.items.modules.ItemProjectorModule;
+import net.newgaea.mffs.common.items.options.ItemFieldFusionOption;
+import net.newgaea.mffs.common.items.options.ItemFieldJammerOption;
 import net.newgaea.mffs.common.misc.EnumFieldType;
 import net.newgaea.mffs.common.misc.MFFSInventoryHelper;
 import net.newgaea.mffs.common.misc.ModeEnum;
@@ -49,13 +55,25 @@ public class TileProjector extends TileFENetwork implements INamedContainerProvi
     private IItemHandler options=createOptionsInv(this);
 
 
+    private EnumFieldType field_type;
 
-    private FFGenerator generator=new FFGenerator(this);
+    public EnumFieldType getField_type() {
+        return field_type;
+    }
+
+    public TileProjector setField_type(EnumFieldType field_type) {
+        this.field_type = field_type;
+        return this;
+    }
+
     private boolean burnout;
     private int accessType;
     private int capacity;
     private int switchDelay=0;
     private int linkPower;
+    protected Stack<Integer> field_queue = new Stack<Integer>();
+    protected Set<BlockPos> field_interior = new HashSet<BlockPos>();
+    protected Set<BlockPos> field_def = new HashSet<BlockPos>();
     public int getLinkPower() {
         return linkPower;
     }
@@ -82,12 +100,12 @@ public class TileProjector extends TileFENetwork implements INamedContainerProvi
 
     @Override
     public void tick() {
-        if(world.isRemote==false) {
+        if(!world.isRemote) {
             if(!initialized) {
                 checkSlots();
                 if(this.isActive())
                 {
-                    generator.calculateField(true);
+                    calculateField(true);
                 }
             }
             if(hasPowerSource()){
@@ -110,8 +128,8 @@ public class TileProjector extends TileFENetwork implements INamedContainerProvi
                     setActive(true);
                     switchDelay=0;
                     try {
-                        if(generator.calculateField(true))
-                            generator.GenerateBlocks(true);
+                        if(calculateField(true))
+                            generateBlocks(true);
                     } catch(ArrayIndexOutOfBoundsException ex) {
 
                     }
@@ -123,13 +141,13 @@ public class TileProjector extends TileFENetwork implements INamedContainerProvi
                 if(isActive()!=false) {
                     setActive(false);
                     switchDelay=0;
-                    generator.destroyField();
+                    destroyField();
                 }
             }
 
             if(this.getTicker() == 20) {
                 if(isActive()) {
-                    generator.GenerateBlocks(false);
+                    generateBlocks(false);
                     // todo: Handle Mob defence and player defence options
                 }
                 this.setTicker((short) 0);
@@ -140,13 +158,128 @@ public class TileProjector extends TileFENetwork implements INamedContainerProvi
         switchDelay++;
         super.tick();
     }
+    private int blockcounter;
+    private void generateBlocks(boolean init) {
+        int cost = 0;
+        if(init) {
+            cost = MFFSConfig.BASE_FORCEFIELD_COST.get() * MFFSConfig.FIELD_CREATE_MODIFIER.get();
+        } else {
+            cost = MFFSConfig.BASE_FORCEFIELD_COST.get();
+        }
+        if(getField_type()==EnumFieldType.Zapper) {
+            cost *=MFFSConfig.ZAPPER_MODIFIER.get();
+        }
+        consumePower(cost * field_def.size(),false);
+        blockcounter=0;
 
+        for(BlockPos pnt:field_def) {
+            if(blockcounter >= MFFSConfig.FORCEFIELD_PER_TICK.get()) {
+                break;
+            }
+            ForceFieldBlockStack ffb = WorldMap.getForceFieldWorld(world).getForceFieldBlockStack(pnt.hashCode());
+            if(ffb!=null) {
+                if(ffb.isSync())
+                    continue;
+                BlockPos png=ffb.getPos();
+                if(world.getChunkProvider().isChunkLoaded(new ChunkPos(png))) {
+                    if(!ffb.isEmpty()) {
+                        if(ffb.getProjectorID() == getDeviceID()) {
+                            if(hasOption(MFFSItems.BLOCK_BREAKER_OPTION.get())) {
+                                // todo: make items drop or into inv
+                                world.setBlockState(png, Blocks.AIR.getDefaultState(),Constants.BlockFlags.DEFAULT_AND_RERENDER);
+                            }
+                            if(world.getBlockState(png).getMaterial().isLiquid()
+                            || world.isAirBlock(png)
+                            || world.getBlockState(png).getBlock() == MFFSBlocks.FORCEFIELD.get()) {
+                                if(world.getBlockState(png).getBlock() != MFFSBlocks.FORCEFIELD.get()) {
+                                    world.setBlockState(png,MFFSBlocks.FORCEFIELD.getDefaultState(),Constants.BlockFlags.DEFAULT_AND_RERENDER);
+                                    if(world.getTileEntity(png) instanceof TileForcefield) {
+                                        TileForcefield force= (TileForcefield) world.getTileEntity(png);
+                                        force.setFieldType(getField_type());
+
+                                    }
+                                    else {
+                                        MFFS.getLog().info("ERRORING!");
+                                    }
+                                    blockcounter++;
+                                }
+                                ffb.setSync(true);
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    public void destroyField() {
+        while(!field_queue.isEmpty()) {
+            ForceFieldBlockStack ffWorldMap = WorldMap.getForceFieldWorld(world).getForceFieldBlockStack(field_queue.pop());
+
+            if(!ffWorldMap.isEmpty()) {
+                if(ffWorldMap.getProjectorID() == getDeviceID()) {
+                    ffWorldMap.removeByProjector(getDeviceID());
+                    if(ffWorldMap.isSync()) {
+                        BlockPos png = ffWorldMap.getPos();
+                        world.removeTileEntity(png);
+                        world.setBlockState(png,Blocks.AIR.getDefaultState(),Constants.BlockFlags.DEFAULT_AND_RERENDER);
+                    }
+                    ffWorldMap.setSync(false);
+                }
+            }
+        }
+        Map<Integer, TileProjector> FieldFusion = Grid.getWorldGrid(
+                world).getFusions();
+        for (TileProjector tileentity : FieldFusion.values()) {
+
+            if (tileentity.getPowerSourceID() == this.getPowerSourceID()) {
+                if (tileentity.isActive()) {
+                    tileentity.calculateField(false);
+                }
+            }
+        }
+
+    }
     private boolean hasValidTypeMod() {
         return getTypeModule()!=null;
     }
 
     private int neededForcePower(int factor) {
-        return generator.neededForcePower(factor);
+
+        if(!field_def.isEmpty())
+            return field_def.size() * MFFSConfig.BASE_FORCEFIELD_COST.get();
+        int forcepower =0 ;
+        int blocks = 0;
+        int tmplength=1;
+        if(this.strengthItems()!=0)
+            tmplength = this.strengthItems();
+
+        switch(this.getTypeModule().getModuleType()) {
+
+            case Empty:
+                break;
+            case Advanced_Cube:
+                break;
+            case Containment:
+                break;
+            case Cube:
+                break;
+            case Deflector:
+                break;
+            case Diagonal_Wall:
+                break;
+            case Sphere:
+                break;
+            case Tube:
+                break;
+            case Wall:
+                break;
+            case Custom:
+                break;
+            default:
+                throw new IllegalStateException("Unexpected value: " + this.getTypeModule().getModuleType());
+        }
+        return 0;
     }
 
 
@@ -243,6 +376,9 @@ public class TileProjector extends TileFENetwork implements INamedContainerProvi
 
     public TileProjector(TileEntityType<?> tileEntityTypeIn) {
         super(tileEntityTypeIn);
+        linkPower = 0;
+        field_type=EnumFieldType.Default;
+
     }
 
 
@@ -390,16 +526,16 @@ public class TileProjector extends TileFENetwork implements INamedContainerProvi
     @Override
     public void markDirty() {
         super.markDirty();
-        String newModule;
+        EnumProjectorModule newModule;
         if(module.getStackInSlot(0).isEmpty()) {
-               newModule=EnumProjectorModule.Empty.getString();
+               newModule=EnumProjectorModule.Empty;
         }
         else
             newModule=((ItemProjectorModule)module.getStackInSlot(0).getItem()).getModuleType();
 
-        if(this.getBlockState().get(BlockProjector.TYPE).getString()!=newModule) {
+        if(this.getBlockState().get(BlockProjector.TYPE)!=newModule) {
 
-            this.getWorld().setBlockState(pos,this.getBlockState().with(BlockProjector.TYPE,EnumProjectorModule.getModuleFromString(newModule)), Constants.BlockFlags.BLOCK_UPDATE+Constants.BlockFlags.UPDATE_NEIGHBORS);
+            this.getWorld().setBlockState(pos,this.getBlockState().with(BlockProjector.TYPE,newModule), Constants.BlockFlags.BLOCK_UPDATE+Constants.BlockFlags.UPDATE_NEIGHBORS);
         }
         checkSlots();
     }
@@ -422,12 +558,13 @@ public class TileProjector extends TileFENetwork implements INamedContainerProvi
         else
             MFFSInventoryHelper.dropInventoryItems(world,getPos(),foci);
         if(hasOption(MFFSItems.CAMOUFLAGE_OPTION.get())) {
-            generator.setFieldType(EnumFieldType.Default);
+            setField_type(EnumFieldType.Default);
         }
-
-        if(hasOption(MFFSItems.ZAPPER_OPTION.get())) {
-            generator.setFieldType(EnumFieldType.Zapper);
+        else if(hasOption(MFFSItems.ZAPPER_OPTION.get())) {
+            setField_type(EnumFieldType.Zapper);
         }
+        else
+            setField_type(EnumFieldType.Default);
 
         if(hasOption(MFFSItems.FUSION_OPTION.get())) {
             if(!Grid.getWorldGrid(world).getFusions().containsKey(getDeviceID()))
@@ -493,7 +630,7 @@ public class TileProjector extends TileFENetwork implements INamedContainerProvi
     }
 
     public List<BlockPos> getInteriorPoints() {
-        return generator.getInteriorPoints();
+        return new ArrayList<BlockPos>(field_interior);
     }
 
     public void burnout() {
@@ -501,14 +638,65 @@ public class TileProjector extends TileFENetwork implements INamedContainerProvi
         this.dropPlugins();
     }
 
-    public void calculateField(boolean b) {
-        generator.calculateField(b);
+    public boolean calculateField(boolean addToMap) {
+        long time = System.currentTimeMillis();
+        field_def.clear();
+        field_interior.clear();
+        if(hasValidTypeMod()) {
+            Set<BlockPos> tField=new HashSet<>();
+            Set<BlockPos> tFieldInt=new HashSet<>();
+            if(getTypeModule().is3D()) {
+                getTypeModule().calculateField(this,tField,tFieldInt);
+            }
+            else {
+                getTypeModule().calculateField(this,tField);
+            }
+            for(BlockPos pnt:tField) {
+                if(pnt.getY()+this.pos.getY() < world.getChunk(pnt).getHeight()) {
+                    BlockPos tp= this.pos.add(pnt);
+                    if(defineForceField(tp,addToMap)) {
+                        field_def.add(tp);
+                    }
+                    else {
+                        return false;
+                    }
+
+                }
+            }
+            return true;
+        }
+        return false;
+    }
+
+    public boolean defineForceField(BlockPos png, boolean addToMap) {
+        for(IProjectorOption opt:options()) {
+            if(opt instanceof ItemFieldJammerOption) {
+                if( ((ItemFieldJammerOption)opt).CheckJammerInfluence(png,world,this) )
+                    return false;
+            }
+            if(opt instanceof ItemFieldFusionOption) {
+                if (((ItemFieldFusionOption)opt).checkFieldFusionInfluence(png,world,this))
+                    return true;
+            }
+        }
+        ForceFieldBlockStack ffWorldMap = WorldMap.getForceFieldWorld(world).getOrCreateForceFieldStack(png,world);
+        if(!ffWorldMap.isEmpty()) {
+            if(ffWorldMap.getProjectorID()!=getDeviceID()) {
+                ffWorldMap.removeByProjector(getDeviceID());
+                ffWorldMap.add(getPowerSourceID(),getDeviceID(),getField_type());
+            }
+        } else {
+            ffWorldMap.add(getPowerSourceID(),getDeviceID(),getField_type());
+            ffWorldMap.setSync(false);
+        }
+        field_queue.push(png.hashCode());
+        return true;
     }
 
     @Override
     public void remove() {
         Grid.getWorldGrid(world).getProjectors().remove(getDeviceID());
-        generator.destroyField();
+        destroyField();
         super.remove();
     }
     @Override

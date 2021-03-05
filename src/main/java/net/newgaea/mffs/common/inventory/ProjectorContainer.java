@@ -16,7 +16,9 @@ import net.newgaea.mffs.common.inventory.slots.SlotItemHandlerToggle;
 import net.newgaea.mffs.common.inventory.slots.SlotitemHandlerNotify;
 import net.newgaea.mffs.common.tiles.TileFENetwork;
 import net.newgaea.mffs.common.tiles.TileProjector;
+import net.newgaea.mffs.transport.network.property.Property;
 import net.newgaea.mffs.transport.network.property.PropertyManager;
+import net.newgaea.mffs.transport.network.property.PropertyTypes;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.ArrayList;
@@ -34,14 +36,16 @@ public class ProjectorContainer extends NetworkContainer implements INotifiableC
     public SlotItemHandlerToggle distanceSlot;
     public SlotItemHandlerToggle strengthSlot;
 
+    private final  Property<Integer> capacity;
     public ProjectorContainer(@Nullable ContainerType<?> type, int id, PlayerInventory playerInventory) {
         super(type, id, playerInventory);
+        this.capacity = this.getPropertyManager().addTrackedProperty(PropertyTypes.INTEGER.create());
         addSlots(TileProjector.createModuleInv(null),TileProjector.createFocusInv(null),TileProjector.createDistanceInv(null),TileProjector.createStrengthInv(null),TileProjector.createOptionsInv(null),TileFENetwork.createLinkHandler(null),playerInventory);
     }
 
     public ProjectorContainer(int id, PlayerEntity player, TileProjector networkMachine) {
         super(MFFSContainer.PROJECTOR.get(), id, player, networkMachine);
-
+        this.capacity = this.getPropertyManager().addTrackedProperty(PropertyTypes.INTEGER.create(networkMachine::getCapacity));
         addSlots(networkMachine.getModule(),networkMachine.getFoci(),networkMachine.getDistanceModifiers(), networkMachine .getStrengthModifiers(),networkMachine.getOptions(),networkMachine.getLink(), player.inventory);
     }
 
@@ -65,6 +69,7 @@ public class ProjectorContainer extends NetworkContainer implements INotifiableC
             optionSlots.add(i,new SlotItemHandlerToggle(options,i,120+i*18,82));
             addSlot(optionSlots.get(i));
         }
+        addSlot(new SlotItemHandler(link,0,11,61));
         layoutPlayerInventorySlots(8, 104,new InvWrapper(inventory));
     }
 
@@ -132,5 +137,9 @@ public class ProjectorContainer extends NetworkContainer implements INotifiableC
     @Override
     public PropertyManager getPropertyManager() {
         return propertyManager;
+    }
+
+    public int getCapacity() {
+        return capacity.getOrElse(0);
     }
 }

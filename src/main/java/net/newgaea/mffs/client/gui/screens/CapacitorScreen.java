@@ -58,5 +58,7 @@ public class CapacitorScreen extends ContainerScreen<CapacitorContainer> {
         int relX = (this.width - this.xSize) / 2;
         int relY = (this.height - this.ySize) / 2;
         this.blit(matrixStack,relX, relY, 0, 0, this.xSize, this.ySize);
+        int i1 = (79 * this.getContainer().getPercentageStorageCapacity() / 100);
+        this.blit(matrixStack,relX+8,relY+112,176,0,i1+1,79);
     }
 }
