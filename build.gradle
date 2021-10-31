@@ -35,7 +35,7 @@ boolean dev = System.getenv("RELEASE") == null || System.getenv("RELEASE").equal
 minecraft {
     version = "1.12.2-14.23.5.2807"
     runDir = "run"
-    
+
 }
 repositories {
     mavenCentral()
@@ -114,10 +114,10 @@ processResources
 
     from(sourceSets.main.resources.srcDirs) {
         include 'mcmod.info'
-                
+
         expand 'version':project.version, 'mcversion':project.minecraft.version
     }
-        
+
     from(sourceSets.main.resources.srcDirs) {
         exclude 'mcmod.info'
     }
