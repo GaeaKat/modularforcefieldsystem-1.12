@@ -1,0 +1,9 @@
+{
+  "type": "minecraft:blasting",
+  "ingredient": {
+    "tag": "forge:ores/monazit"
+  },
+  "result": "modularforcefieldsystem:monazit_crystal",
+  "experience": 0.7,
+  "cookingtime": 100
+}

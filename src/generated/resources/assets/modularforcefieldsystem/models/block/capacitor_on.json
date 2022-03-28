@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/orientable",
+  "textures": {
+    "side": "modularforcefieldsystem:block/capacitor/side_active",
+    "front": "modularforcefieldsystem:block/capacitor/face_active",
+    "top": "modularforcefieldsystem:block/capacitor/side_active"
+  }
+}

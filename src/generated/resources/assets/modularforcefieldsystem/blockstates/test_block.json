@@ -1,0 +1,7 @@
+{
+  "variants": {
+    "": {
+      "model": "modularforcefieldsystem:block/test_block"
+    }
+  }
+}

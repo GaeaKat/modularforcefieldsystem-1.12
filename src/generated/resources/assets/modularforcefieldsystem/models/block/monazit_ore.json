@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/cube_all",
+  "textures": {
+    "all": "modularforcefieldsystem:block/monazit_ore"
+  }
+}

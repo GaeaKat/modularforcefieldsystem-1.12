@@ -1,124 +1,221 @@
 buildscript {
     repositories {
-        jcenter()
-        maven { url = "http://files.minecraftforge.net/maven" }
+        // These repositories are only for Gradle plugins, put any other repositories in the repository block further below
+        maven { url = 'https://maven.minecraftforge.net' }
+        mavenCentral()
     }
     dependencies {
-        classpath 'net.minecraftforge.gradle:ForgeGradle:2.3-SNAPSHOT'
+        classpath group: 'net.minecraftforge.gradle', name: 'ForgeGradle', version: '5.1.+', changing: true
     }
 }
-apply plugin: 'net.minecraftforge.gradle.forge'
-
-sourceCompatibility = targetCompatibility = '1.8' // Need this here so eclipse task generates correctly.
-compileJava {
-    sourceCompatibility = targetCompatibility = '1.8'
+// Only edit below this line, the above code adds and enables the necessary things for Forge to be setup.
+plugins {
+    id 'eclipse'
+    id 'maven-publish'
 }
-ext.buildnumber = 0
-if (System.getenv('BUILD_NUMBER') != null)
-    project.buildnumber = System.getenv('BUILD_NUMBER')
-else {
-    try {
-        ext.buildnumber += "_" + "git rev-parse --abbrev-ref HEAD".execute().text.trim();
-        ext.buildnumber += "_" + "git rev-parse --short HEAD".execute().text.trim();
-    } catch (all) {}
-    logger.lifecycle "No build number detected, setting to ${ext.buildnumber}"
-}
-
-group = "com.nekokittygames.mffs"
-archivesBaseName = "MFFS"
-version = "1.12.2-4.0.1.${buildnumber}"
-
-boolean dev = System.getenv("RELEASE") == null || System.getenv("RELEASE").equalsIgnoreCase("false")
+apply plugin: 'net.minecraftforge.gradle'
 
 
+version = '1.0'
+group = 'dev.katcodes' // http://maven.apache.org/guides/mini/guide-naming-conventions.html
+archivesBaseName = 'modularforcefieldsystem'
 
+// Mojang ships Java 17 to end users in 1.18+, so your mod should target Java 17.
+java.toolchain.languageVersion = JavaLanguageVersion.of(17)
+
+println "Java: ${System.getProperty 'java.version'}, JVM: ${System.getProperty 'java.vm.version'} (${System.getProperty 'java.vendor'}), Arch: ${System.getProperty 'os.arch'}"
 minecraft {
-    version = "1.12.2-14.23.5.2807"
-    runDir = "run"
-    
+    // The mappings can be changed at any time and must be in the following format.
+    // Channel:   Version:
+    // official   MCVersion             Official field/method names from Mojang mapping files
+    // parchment  YYYY.MM.DD-MCVersion  Open community-sourced parameter names and javadocs layered on top of official
+    //
+    // You must be aware of the Mojang license when using the 'official' or 'parchment' mappings.
+    // See more information here: https://github.com/MinecraftForge/MCPConfig/blob/master/Mojang.md
+    //
+    // Parchment is an unofficial project maintained by ParchmentMC, separate from MinecraftForge
+    // Additional setup is needed to use their mappings: https://github.com/ParchmentMC/Parchment/wiki/Getting-Started
+    //
+    // Use non-default mappings at your own risk. They may not always work.
+    // Simply re-run your setup task after changing the mappings to update your workspace.
+    mappings channel: 'official', version: '1.18.2'
+
+    // accessTransformer = file('src/main/resources/META-INF/accesstransformer.cfg') // Currently, this location cannot be changed from the default.
+
+    // Default run configurations.
+    // These can be tweaked, removed, or duplicated as needed.
+    runs {
+        client {
+            workingDirectory project.file('run')
+
+            // Recommended logging data for a userdev environment
+            // The markers can be added/remove as needed separated by commas.
+            // "SCAN": For mods scan.
+            // "REGISTRIES": For firing of registry events.
+            // "REGISTRYDUMP": For getting the contents of all registries.
+            property 'forge.logging.markers', 'REGISTRIES'
+
+            // Recommended logging level for the console
+            // You can set various levels here.
+            // Please read: https://stackoverflow.com/questions/2031163/when-to-use-the-different-log-levels
+            property 'forge.logging.console.level', 'debug'
+
+            // Comma-separated list of namespaces to load gametests from. Empty = all namespaces.
+            property 'forge.enabledGameTestNamespaces', 'modularforcefieldsystem'
+
+            mods {
+                modularforcefieldsystem {
+                    source sourceSets.main
+                }
+            }
+        }
+
+        server {
+            workingDirectory project.file('run')
+
+            property 'forge.logging.markers', 'REGISTRIES'
+
+            property 'forge.logging.console.level', 'debug'
+
+            // Comma-separated list of namespaces to load gametests from. Empty = all namespaces.
+            property 'forge.enabledGameTestNamespaces', 'modularforcefieldsystem'
+
+            mods {
+                modularforcefieldsystem {
+                    source sourceSets.main
+                }
+            }
+        }
+
+        // This run config launches GameTestServer and runs all registered gametests, then exits.
+        // By default, the server will crash when no gametests are provided.
+        // The gametest system is also enabled by default for other run configs under the /test command.
+        gameTestServer {
+            workingDirectory project.file('run')
+
+            // Recommended logging data for a userdev environment
+            // The markers can be added/remove as needed separated by commas.
+            // "SCAN": For mods scan.
+            // "REGISTRIES": For firing of registry events.
+            // "REGISTRYDUMP": For getting the contents of all registries.
+            property 'forge.logging.markers', 'REGISTRIES'
+
+            // Recommended logging level for the console
+            // You can set various levels here.
+            // Please read: https://stackoverflow.com/questions/2031163/when-to-use-the-different-log-levels
+            property 'forge.logging.console.level', 'debug'
+
+            // Comma-separated list of namespaces to load gametests from. Empty = all namespaces.
+            property 'forge.enabledGameTestNamespaces', 'modularforcefieldsystem'
+
+            mods {
+                modularforcefieldsystem {
+                    source sourceSets.main
+                }
+            }
+        }
+
+        data {
+            workingDirectory project.file('run')
+
+            property 'forge.logging.markers', 'REGISTRIES'
+
+            property 'forge.logging.console.level', 'debug'
+
+            // Specify the modid for data generation, where to output the resulting resource, and where to look for existing resources.
+            args '--mod', 'modularforcefieldsystem', '--all', '--output', file('src/generated/resources/'), '--existing', file('src/main/resources/')
+
+            mods {
+                modularforcefieldsystem {
+                    source sourceSets.main
+                }
+            }
+        }
+    }
 }
+
+// Include resources generated by data generators.
+sourceSets.main.resources { srcDir 'src/generated/resources' }
+
 repositories {
-    mavenCentral()
-    mavenLocal()
+    // Put repositories for dependencies here
+    // ForgeGradle automatically adds the Forge maven and Maven Central for you
+
+    // If you have mod jar dependencies in ./libs, you can declare them as a repository like so:
+    // flatDir {
+    //     dir 'libs'
+    // }
     maven { // TOP
         name 'tterrag maven'
-        url "http://maven.tterrag.com/"
+        url "https://maven.tterrag.com/"
     }
-    maven { // TOP
-        name 'tterrag maven2'
-        url "http://maven2.tterrag.com/"
+    maven { url 'https://jitpack.io' }
+    maven {
+        name "Modmaven"
+        url "https://modmaven.dev/"
     }
     maven {
-        name 'forge'
-        url 'http://files.minecraftforge.net/maven'
+        url "https://cursemaven.com"
     }
     maven {
-    	name "IC2"
-    	url = "http://maven.ic2.player.to"
+        url "https://dvs1.progwml6.com/files/maven"
     }
-    maven {
-        name "BuildCraft"
-        url = "https://mod-buildcraft.com/maven"
-    }
-    maven {
-         name "Tehnut Maven FS"
-         url "http://tehnut.info/maven"
-    }
-    maven {
-        name = "CoFH/Covers Maven"
-        url = "http://maven.covers1624.net"
-    }
-    maven {
-        name = "JEI Maven."
-        url = "http://dvs1.progwml6.com/files/maven"
-    }
-    maven {
-      	name = "Tesla"
-        url 'http://maven.mcmoddev.com'
-    }
-    maven {
-        name = "CurseForge"
-        url = "https://minecraft.curseforge.com/api/maven/"
-    }
-}
+    maven { url = "https://pkgs.dev.azure.com/djtheredstoner/DevAuth/_packaging/public/maven/v1" }
 
+}
 
 dependencies {
-    deobfCompile "hwyla:Hwyla:1.8.26:B41_1.12.2"
+    // Specify the version of Minecraft to use. If this is any group other than 'net.minecraft', it is assumed
+    // that the dep is a ForgeGradle 'patcher' dependency, and its patches will be applied.
+    // The userdev artifact is a special name and will get all sorts of transformations applied to it.
+    minecraft 'net.minecraftforge:forge:1.18.2-40.0.31'
 
-    compile "net.darkhax.tesla:Tesla-1.12.2:1.0.63"
-    deobfCompile "info.amerifrance.guideapi:Guide-API:1.12-2.1.8-63"
-    deobfCompile "jei:jei_1.12.2:4.13.1.225"
+    // Real mod deobf dependency examples - these get remapped to your current mappings
+    implementation fg.deobf("mezz.jei:jei-1.18.2:9.5.4.170") // Adds JEI API as a compile dependency
+    implementation fg.deobf("com.tterrag.registrate:Registrate:MC1.18.2-${registrate_version}") // Adds registrate as a dependency
+    implementation("me.djtheredstoner:DevAuth-forge-latest:1.0.0")
+    // Examples using mod jars from ./libs
+    // implementation fg.deobf("blank:coolmod-${mc_version}:${coolmod_version}")
 
-    deobfCompile "industrial-craft:industrialcraft-2:2.8.108:ex112"
-
-    deobfCompile "redstone-flux:RedstoneFlux-1.12:2.1.0.6:universal"
-    deobfCompile "codechicken-lib-1-8:CodeChickenLib-1.12.2:3.2.2.353:universal"
-    deobfCompile "cofhcore:CoFHCore-1.12.2:4.6.1.22:universal"
-    deobfCompile "cofh-world:CoFHWorld-1.12.2:1.3.0.6:universal"
-    deobfCompile "thermal-foundation:ThermalFoundation-1.12.2:2.6.1.22:universal"
-    deobfCompile "thermalexpansion:ThermalExpansion-1.12.2:5.5.2.39:universal"
-    deobfCompile "thermal-dynamics:ThermalDynamics-1.12.2:2.5.3.16:universal"
-    deobfCompile "info.loenwind.autoconfig:AutoConfig:1.12.2-1.0.1"
-    deobfCompile "info.loenwind.autosave:AutoSave:1.12.2-1.0.9"
-    deobfCompile "endercore:EnderCore:1.12.2:0.5.44"
-    deobfCompile "ender-io:EnderIO:1.12.2:5.0.39"
-
-    deobfCompile "buildcraft:buildcraft:7.99.19"
+    // For more info...
+    // http://www.gradle.org/docs/current/userguide/artifact_dependencies_tutorial.html
+    // http://www.gradle.org/docs/current/userguide/dependency_management.html
 }
 
-processResources
-{
-    inputs.property "version", project.version
-    inputs.property "mcversion", project.minecraft.version
+// Example for how to get properties into the manifest for reading at runtime.
+jar {
+    manifest {
+        attributes([
+                "Specification-Title"     : "modularforcefieldsystem",
+                "Specification-Vendor"    : "katcodes",
+                "Specification-Version"   : "1", // We are version 1 of ourselves
+                "Implementation-Title"    : project.name,
+                "Implementation-Version"  : project.jar.archiveVersion,
+                "Implementation-Vendor"   : "katcodes",
+                "Implementation-Timestamp": new Date().format("yyyy-MM-dd'T'HH:mm:ssZ")
+        ])
+    }
+}
 
-    from(sourceSets.main.resources.srcDirs) {
-        include 'mcmod.info'
-                
-        expand 'version':project.version, 'mcversion':project.minecraft.version
+// Example configuration to allow publishing using the maven-publish plugin
+// This is the preferred method to reobfuscate your jar file
+jar.finalizedBy('reobfJar')
+// However if you are in a multi-project build, dev time needs unobfed jar files, so you can delay the obfuscation until publishing by doing
+// publish.dependsOn('reobfJar')
+
+publishing {
+    publications {
+        mavenJava(MavenPublication) {
+            artifact jar
+        }
     }
-        
-    from(sourceSets.main.resources.srcDirs) {
-        exclude 'mcmod.info'
+    repositories {
+        maven {
+            url "file://${project.projectDir}/mcmodsrepo"
+        }
     }
+}
+
+tasks.withType(JavaCompile).configureEach {
+    options.encoding = 'UTF-8' // Use the UTF-8 charset for Java compilation
 }
