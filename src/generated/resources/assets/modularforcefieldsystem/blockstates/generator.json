@@ -1,0 +1,19 @@
+{
+  "variants": {
+    "facing=north": {
+      "model": "modularforcefieldsystem:block/generator"
+    },
+    "facing=south": {
+      "model": "modularforcefieldsystem:block/generator",
+      "y": 180
+    },
+    "facing=west": {
+      "model": "modularforcefieldsystem:block/generator",
+      "y": 270
+    },
+    "facing=east": {
+      "model": "modularforcefieldsystem:block/generator",
+      "y": 90
+    }
+  }
+}

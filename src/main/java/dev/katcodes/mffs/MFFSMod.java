@@ -2,6 +2,7 @@ package dev.katcodes.mffs;
 
 import com.mojang.logging.LogUtils;
 import dev.katcodes.mffs.api.MFFSTags;
+import dev.katcodes.mffs.common.init.MFFSAdvancements;
 import dev.katcodes.mffs.common.init.MFFSBlocks;
 import dev.katcodes.mffs.common.init.MFFSItems;
 import dev.katcodes.mffs.common.world.OreGeneration;
@@ -44,6 +45,7 @@ public class MFFSMod
         MFFSBlocks.init();
         MFFSItems.init();
         MFFSTags.init();
+        MFFSAdvancements.init();
 
     }
 

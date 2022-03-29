@@ -62,7 +62,8 @@ minecraft {
 
             // Comma-separated list of namespaces to load gametests from. Empty = all namespaces.
             property 'forge.enabledGameTestNamespaces', 'modularforcefieldsystem'
-
+            property 'mixin.env.remapRefMap', 'true'
+            property 'mixin.env.refMapRemappingFile', "${projectDir}/build/createSrgToMcp/output.srg"
             mods {
                 modularforcefieldsystem {
                     source sourceSets.main
@@ -160,6 +161,7 @@ repositories {
     maven {
         url "https://dvs1.progwml6.com/files/maven"
     }
+    maven { url 'https://maven.blamejared.com' }
     maven { url = "https://pkgs.dev.azure.com/djtheredstoner/DevAuth/_packaging/public/maven/v1" }
 
 }
@@ -176,7 +178,8 @@ dependencies {
     implementation("me.djtheredstoner:DevAuth-forge-latest:1.0.0")
     // Examples using mod jars from ./libs
     // implementation fg.deobf("blank:coolmod-${mc_version}:${coolmod_version}")
-
+    compileOnly fg.deobf("vazkii.patchouli:Patchouli:1.18.2-67-SNAPSHOT:api")
+    runtimeOnly fg.deobf("vazkii.patchouli:Patchouli:1.18.2-67-SNAPSHOT")
     // For more info...
     // http://www.gradle.org/docs/current/userguide/artifact_dependencies_tutorial.html
     // http://www.gradle.org/docs/current/userguide/dependency_management.html

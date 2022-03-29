@@ -1,21 +1,30 @@
 package dev.katcodes.mffs.common.init;
 
 import com.tterrag.registrate.providers.RegistrateBlockstateProvider;
+import com.tterrag.registrate.providers.RegistrateRecipeProvider;
 import com.tterrag.registrate.util.entry.RegistryEntry;
+import dev.katcodes.mffs.MFFSMod;
 import dev.katcodes.mffs.api.MFFSTags;
 import dev.katcodes.mffs.common.blockentities.CapacitorBlockEntity;
 import dev.katcodes.mffs.common.blocks.CapacitorBlock;
+import dev.katcodes.mffs.common.blocks.GeneratorBlock;
 import dev.katcodes.mffs.common.blocks.SimpleNetworkBlock;
 import dev.katcodes.mffs.common.blocks.TestBlock;
 import dev.katcodes.mffs.common.libs.LibBlocks;
+import dev.katcodes.mffs.common.recipes.condition.GeneratorEnabled;
 import dev.katcodes.mffs.common.register.RegisterCommon;
 import net.minecraft.client.renderer.RenderType;
+import net.minecraft.data.recipes.ShapedRecipeBuilder;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.tags.BlockTags;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.material.Material;
 import net.minecraft.world.level.material.MaterialColor;
 import net.minecraftforge.client.model.generators.ModelFile;
 import net.minecraftforge.common.Tags;
+import net.minecraftforge.common.crafting.ConditionalRecipe;
 import org.jetbrains.annotations.Contract;
 
 public class MFFSBlocks {
@@ -80,6 +89,32 @@ public class MFFSBlocks {
             .blockEntity(CapacitorBlockEntity::new).build()
             .register();
 
+    public static final RegistryEntry<GeneratorBlock> GENERATOR = RegisterCommon.REGISTRATE.object(LibBlocks.GENERATOR)
+            .block(GeneratorBlock::new)
+            .defaultLang()
+            .defaultLoot()
+            .initialProperties(Material.STONE,MaterialColor.COLOR_LIGHT_GRAY)
+            .blockstate( (ctx,prov) -> prov.horizontalBlock(ctx.get(),prov.models().orientable(ctx.getName(),prov.mcLoc("block/furnace_side"),prov.mcLoc("block/furnace_front"),prov.mcLoc("block/furnace_top"))))
+            .item()
+            .model((ctx,prov) -> prov.withExistingParent(ctx.getName(),prov.modLoc("block/generator")))
+            .build()
+            .tag(BlockTags.WITHER_IMMUNE)
+            .recipe((ctx,prov) -> {
+                ShapedRecipeBuilder.shaped(MFFSBlocks.GENERATOR.get()).unlockedBy("monazit_has", RegistrateRecipeProvider.has(MFFSTags.Items.MONAZIT_GEM))
+                        .define('I', Tags.Items.INGOTS_IRON)
+                        .define('F', Blocks.FURNACE)
+                        .define('M',MFFSTags.Items.MONAZIT_GEM)
+                        .pattern("III")
+                        .pattern("IMI")
+                        .pattern("IFI")
+                        .save(iFinished -> {
+                            ConditionalRecipe.builder()
+                                    .addCondition(GeneratorEnabled.INSTANCE)
+                                    .addRecipe(iFinished)
+                                    .build(prov,new ResourceLocation(MFFSMod.MODID,ctx.getName()));
+                        });
+            })
+            .register();
     public static void init() {
         // This function is just to initialize the contents
     }
