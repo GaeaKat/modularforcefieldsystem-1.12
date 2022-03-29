@@ -1,0 +1,18 @@
+{
+  "rewards": {
+    "loot": [
+      "modularforcefieldsystem:grant_book_on_first_join"
+    ]
+  },
+  "criteria": {
+    "tick": {
+      "trigger": "minecraft:tick",
+      "conditions": {}
+    }
+  },
+  "requirements": [
+    [
+      "tick"
+    ]
+  ]
+}
