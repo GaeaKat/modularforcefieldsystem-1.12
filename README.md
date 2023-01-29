@@ -1,9 +1,19 @@
 # Modular Forcefield System (MFFS)
 
+![Maintenance](https://img.shields.io/badge/Maintained%3F-no-red.svg)
+
 ![Compatible with Minecraft 1.12](https://img.shields.io/badge/minecraft-1.12-green) ![Over 3,850,000 Downloads on CurseForge!](https://img.shields.io/badge/downloads-3,851,506-blue)
 > Modular Forcefield System, often just referred to as MFFS, is a Mod for Minecraft Java 1.12 and before that adds a modular system for generating Force fields within game, at the cost of Redstone Flux (from Thermal Expansion). Beyond simply force fields, this mod also adds a wealth of base security, including the Area Defense station that is capable of fending off NPCs, mobs and other players - and stripping them of prohibited items!
 
 ![Screenshot of MFFS Capacitor](https://media.forgecdn.net/attachments/7/127/2013-08-10_11.48.55.png)
+
+## 1.12 No Longer Maintained
+
+![Maintenance](https://img.shields.io/badge/Maintained%3F-no-red.svg)![Last Commit](https://badgen.net/github/last-commit/KatrinaAS/modularforcefieldsystem-1.12/1.12/) ![Forks](https://badgen.net/github/forks/KatrinaAS/modularforcefieldsystem-1.12)
+
+Modular Forcefield System is no longer Maintained for 1.12.x and prior. The latest version of MFFS can be found on GitHub at [KatCodesMods/mffs](https://github.com/KatCodesMods/mffs), this is for 1.19.x and newer.
+
+### [Follow development on the New MFFS](https://github.com/KatCodesMods/mffs)
 
 ## Installation
 ### Source installation information for modders
